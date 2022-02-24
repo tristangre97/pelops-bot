@@ -33,8 +33,7 @@ client.on("ready", () => {
     botOwners: ['222781123875307521'],
     debug: true,
     typeScript: false,
-    mongoUri:
-      "mongodb+srv://pelops:DjNxl9s3dd3TdTym@cluster0.irwbm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+    mongoUri: config.mongoUri,
   })
   .setDefaultPrefix("?")
   .setColor('#448AFF')
