@@ -83,13 +83,13 @@ exports.getUnitEmbed = async function (unit, level) {
   attackSpeed = unit['ATK SPD'];
   transferTime = unit['TELEPORT TIME'];
   var transferTimeDecrease;
-
+  var hitsPerAttack = unit['HITS PER ATTACK'];
   var unitStats = []
 
   if (unit['DMG INCREASE']) dmgBoost = Math.abs(unit['DMG INCREASE'].replaceAll('%', ''))
 
   
-
+ 
   if (unitRarity == "4") {
     maxLevel = 30;
   } else {
@@ -197,6 +197,9 @@ exports.getUnitEmbed = async function (unit, level) {
     }
 
   }
+  if(hitsPerAttack > 1) {
+    msg.push(`This unit hits ${hitsPerAttack} times per attack`)
+  }
   if(msg.length > 0) {
     msg = `\`${msg.join('\n')}\``
   }
@@ -225,8 +228,15 @@ exports.getUnitEmbed = async function (unit, level) {
       unitStats.push(`**Attack** \`${unitAttack.toLocaleString()}\` | **DPS** \`${dps.toLocaleString()}\``)
       unitStats.push(`**Buffed** \`${unitAttackBoosted.toLocaleString()}\` | **DPS** \`${dpsBoosted.toLocaleString()}\``)
     } else {
+
       unitStats.push(`**Attack** \`${unitAttack.toLocaleString()}\` | **DPS** \`${dps.toLocaleString()}\``)
+      
     }
+
+    if(hitsPerAttack > 1) {
+      unitStats.push(`**Damage per Attack** \`${(unitAttack * hitsPerAttack).toLocaleString()}\` | **DPS** \`${((unitAttack * hitsPerAttack)/attackSpeed).toLocaleString()}\``)
+    }
+
   }
 
 
