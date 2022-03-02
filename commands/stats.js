@@ -38,7 +38,7 @@ module.exports = {
 
       const unitEmbed = new MessageEmbed();
       unitEmbed.setTitle(`Base Stats for ${unit['Unit Name']}`)
-      unitEmbed.setThumbnail(`https://res.cloudinary.com/tristangregory/image/upload/e_sharpen,h_300,w_300,c_fit,c_pad,b_rgb:ffb33c/v1645247010/gbl/${unit['Unit Name'].replaceAll(" ","_")}.webp`)
+      unitEmbed.setThumbnail(`https://res.cloudinary.com/tristangregory/image/upload/e_sharpen,h_300,w_300,c_fit,c_pad,b_rgb:ffb33c/v1646168069/gbl/${unit['Unit Name'].replaceAll(" ","_")}.webp`)
       unitEmbed.setColor('#ffb33c');
 
       Object.keys(unit).forEach(key => {

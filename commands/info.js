@@ -37,7 +37,7 @@ module.exports = {
         `)
             .addField('__Developer__', `Tristangre97#2936`)
             .addField('__Links__', `[Donate](https://paypal.me/TristanGregory?country.x=US&locale.x=en_US) | [Invite](https://dsc.gg/pelops)`)
-            .setThumbnail('https://res.cloudinary.com/tristangregory/image/upload/v1645067870/gbl/pelops/pelops_reading.png')
+            .setThumbnail('https://res.cloudinary.com/tristangregory/image/upload/v1646168069/gbl/pelops/pelops_reading.png')
         return embed
     },
 }

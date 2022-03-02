@@ -1,4 +1,3 @@
-const gblData = require('../data/unitData.json')
 const search = require('../utility/search.js');
 const unitEmbedGen = require('../utility/getUnitData.js');
 
@@ -51,10 +50,10 @@ module.exports = {
         .setTitle('Unit not found')
         .setDescription(`Unit \`${unit_name}\` not found`)
         .setFooter(`Check your spelling and try again.`)
-        .setThumbnail('https://res.cloudinary.com/tristangregory/image/upload/v1645247010/gbl/pelops/pelops_error.png')
+        .setThumbnail('https://res.cloudinary.com/tristangregory/image/upload/v1646168069/gbl/pelops/pelops_error.png')
       reply = await interaction.editReply({
         embeds: [unitEmbed],
-        components: [row]
+          
       });
     }
     unit = searchResults[0].item;
