@@ -1,9 +1,3 @@
-// const gblData = require('../data/unitData.json')
-
-
-
-// const logData = require('../data/mapLogsjson.json')
-// const logUnitData = require('../data/test.json')
 const fs = require('fs');
 const cache = require('./cache.js')
 const Fuse = require("fuse.js");
@@ -13,15 +7,14 @@ const Fuse = require("fuse.js");
 
 exports.unitSearch = function (unit_name) {
     const gblData = JSON.parse(cache.get('unitData'));
-    const logData = JSON.parse(cache.get('mapLogsjson'));
-    if(cache.get(`search_${unit_name}`)) {
+
+    if (cache.get(`search_${unit_name}`)) {
         return cache.get(`search_${unit_name}`);
     }
 
     const options = {
         includeScore: true,
-        keys: [
-            {
+        keys: [{
                 name: 'Unit Name',
                 weight: 0.7
             },
@@ -45,6 +38,7 @@ exports.unitSearch = function (unit_name) {
 };
 
 exports.unitSearchExact = function (unit_name) {
+    const gblData = JSON.parse(cache.get('unitData'));
     const options = {
         includeScore: true,
         keys: ['Unit Name'],
@@ -64,14 +58,13 @@ exports.unitSearchExact = function (unit_name) {
 
 
 exports.logSearch = function (log_text) {
+    const logData = JSON.parse(cache.get('mapLogs'));
     const options = {
         includeScore: true,
-        keys: [
-            {
-                name: 'Log',
-                weight: 1
-            }
-        ],
+        keys: [{
+            name: 'Log',
+            weight: 1
+        }],
         findAllMatches: true,
         threshold: 0.4,
     };
@@ -88,14 +81,13 @@ exports.logSearch = function (log_text) {
 
 
 exports.logUnitSearch = function (unit) {
+    const logData = JSON.parse(cache.get('mapLogs'));
     const options = {
         includeScore: true,
-        keys: [
-            {
-                name: 'Units',
-                weight: 1
-            }
-        ],
+        keys: [{
+            name: 'Units',
+            weight: 1
+        }],
         findAllMatches: true,
         threshold: 0.1,
     };

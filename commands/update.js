@@ -8,7 +8,7 @@ const fetch = require("node-fetch");
 
 const cache = require('../utility/cache.js');
 const db = require('../utility/database.js');
-
+var downloadErrors = []
 module.exports = {
     category: 'Tools',
     description: 'Updates ', // Required for slash commands
@@ -22,6 +22,7 @@ module.exports = {
         channel,
         client
     }) => {
+        downloadErrors = []
         await interaction.deferReply();
         var updateStatus = await cache.get("pelops_update_status");
         console.log(updateStatus);
@@ -80,6 +81,7 @@ module.exports = {
         const finishedEmbed = new MessageEmbed()
             .setColor('#ffb33c')
             .setTitle('Finished!')
+            .setDescription(`${downloadErrors}`)
             .setImage('https://res.cloudinary.com/tristangregory/image/upload/v1646259627/gbl/pelops/pelops_idk.jpg')
 
         await interaction.editReply({
@@ -87,24 +89,12 @@ module.exports = {
 
         });
 
-    },
+    }
+    
+    
 }
 
 
-
-
-
-
-var dataList = [{
-        name: "unitData",
-        url: "https://sheetsu.com/apis/v1.0su/bfb7ac95068b",
-    },
-    {
-        name: "mapLogsjson",
-        url: "https://sheetsu.com/apis/v1.0su/9acebc3f7c89",
-    }
-];
-//var t = require('./json/XboxOfficial.json')
 
 async function serverDownloader(name, url) {
     try {
@@ -117,7 +107,7 @@ async function serverDownloader(name, url) {
         const data = await response.json();
         if (!response.status == 200) return;
         fs.writeFile(`/home/tristan/Downloads/pelops/data/${name}.json`, JSON.stringify(data), function (err) {
-            if (err) return console.log(err);
+            if (err) return downloadErrors.push(`\`${name}\` failed to download, keeping current version.\n\`${error}\``)
             downloadFinish = performance.now();
             cache.set(name, JSON.stringify(data), 0);
 
@@ -125,6 +115,20 @@ async function serverDownloader(name, url) {
             controller.abort();
         });
     } catch (error) {
-        console.log(error);
+        downloadErrors.push(`\`${name}\` failed to download, keeping current version.\n\`${error}\``)
+        // console.log(error);
     }
 }
+
+
+var dataList = [{
+        name: "unitData",
+        url: "https://sheetsu.com/apis/v1.0su/bfb7ac95068b",
+    },
+    {
+        name: "mapLogs",
+        url: "https://sheetsu.com/apis/v1.0bu/9acebc3f7c89",
+    }
+];
+//var t = require('./json/XboxOfficial.json')
+

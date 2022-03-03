@@ -47,7 +47,7 @@ client.on("ready", () => {
 
     ])
   cache.set('unitData', fs.readFileSync('/home/tristan/Downloads/pelops/data/unitData.json', 'utf8'), 0);
-  cache.set('mapLogsjson', fs.readFileSync('/home/tristan/Downloads/pelops/data/mapLogsjson.json', 'utf8'), 0);
+  cache.set('mapLogs', fs.readFileSync('/home/tristan/Downloads/pelops/data/mapLogs.json', 'utf8'), 0);
   cache.set("pelops_update_status", "finished", 0);
 });
 
