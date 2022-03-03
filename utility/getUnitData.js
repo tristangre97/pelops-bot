@@ -73,17 +73,17 @@ exports.getUnitEmbed = async function (unit, level) {
 
   i = 1;
   bl = i;
-  unitHealth = unit.HP;
-  unitAttack = unit.ATK;
-  unitRarity = unit.RARITY;
-  unitDigDmg = unit['DIGGING DMG']
-  rushDmg = unit['RUSH DMG']
-  dmgBoost = unit['DMG INCREASE']
-  recoveryRate = unit['RECOVERY RATE']
-  attackSpeed = unit['ATK SPD'];
-  transferTime = unit['TELEPORT TIME'];
+  unitHealth = Number(unit.HP);
+  unitAttack = Number(unit.ATK);
+  unitRarity = Number(unit.RARITY);
+  unitDigDmg = Number(unit['DIGGING DMG']);
+  rushDmg = Number(unit['RUSH DMG']);
+  dmgBoost = Number(unit['DMG INCREASE'])
+  recoveryRate = Number(unit['RECOVERY RATE'])
+  attackSpeed = Number(unit['ATK SPD']);
+  transferTime = Number(unit['TELEPORT TIME']);
   var transferTimeDecrease;
-  var hitsPerAttack = unit['HITS PER ATTACK'];
+  var hitsPerAttack = Number(unit['HITS PER ATTACK']);
   var unitStats = []
 
   if (unit['DMG INCREASE']) dmgBoost = Math.abs(unit['DMG INCREASE'].replaceAll('%', ''))
@@ -104,8 +104,8 @@ exports.getUnitEmbed = async function (unit, level) {
   var spawnedUnitAttack
   var spawnedUnitHP
   if (unit.BUILDING === "TRUE") {
-    spawnedUnitHP = unit['BUILDING UNIT HP']
-    spawnedUnitAttack = unit['BUILDING UNIT ATK']
+    spawnedUnitHP = Number(unit['BUILDING UNIT HP'])
+    spawnedUnitAttack = Number(unit['BUILDING UNIT ATK'])
   }
   if (unitRarity == 1) {
     costChart = oneStarCost;
@@ -201,13 +201,13 @@ exports.getUnitEmbed = async function (unit, level) {
     msg.push(`This unit hits ${hitsPerAttack} times per attack`)
   }
   if(msg.length > 0) {
-    msg = `\`${msg.join('\n')}\``
+    msg = `\`\`\`${msg.join('\n')}\`\`\``
   }
   const unitEmbed = new MessageEmbed();
   unitEmbed.setTitle(`Unit Calculator`);
   unitEmbed.setColor('#ffb33c');
   unitEmbed.setDescription(`**Unit**  \`${unit['Unit Name']}\`\n**Level**  \`${i - 1}\`\n${msg}`);
-  unitEmbed.setThumbnail(`https://res.cloudinary.com/tristangregory/image/upload/e_sharpen,h_300,w_300,c_fit,c_pad,b_rgb:ffb33c/v1644991341/gbl/${unit['Unit Name'].replaceAll(" ", "_")}.webp`)
+  unitEmbed.setThumbnail(`https://res.cloudinary.com/tristangregory/image/upload/e_sharpen,h_300,w_300,c_fit,c_pad,b_rgb:ffb33c/v1646168069/gbl/${unit['Unit Name'].replaceAll(" ", "_").replaceAll("-", "_")}.webp`)
 
 
 
