@@ -19,6 +19,11 @@ exports.getCacheStats = function () {
 };
 
 
+exports.flush = function (cacheName) {
+  return botCache.flushAll();
+};
+
+
 
 
 botCache.on( "set", function( key, value ){
