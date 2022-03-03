@@ -11,10 +11,13 @@
 const DiscordJS = require("discord.js");
 const WOKCommands = require("wokcommands");
 const path = require("path");
-const { Intents } = DiscordJS;
+const {
+  Intents
+} = DiscordJS;
 const mongoose = require("mongoose");
 const config = require("./auth.json");
-
+const cache = require('./utility/cache.js');
+const fs = require("fs");
 const client = new DiscordJS.Client({
   intents: [
     Intents.FLAGS.GUILDS,
@@ -25,25 +28,27 @@ const client = new DiscordJS.Client({
 
 
 client.on("ready", () => {
-  //cache.setCache("p", p, 60);
+  
   new WOKCommands(client, {
-    commandsDir: path.join(__dirname, "commands"),
-    featuresDir: path.join(__dirname, 'features'),
-    testServers: ['682387138763161630'],
-    botOwners: ['222781123875307521'],
-    debug: true,
-    typeScript: false,
-    mongoUri: config.mongoUri,
-  })
-  .setDefaultPrefix("?")
-  .setColor('#448AFF')
-  .setCategorySettings([
-    {
+      commandsDir: path.join(__dirname, "commands"),
+      featuresDir: path.join(__dirname, 'features'),
+      testServers: ['682387138763161630'],
+      botOwners: ['222781123875307521', '216368047110225920', '521823544724684851'],
+      debug: true,
+      typeScript: false,
+      mongoUri: config.mongoUri,
+    })
+    .setDefaultPrefix("?")
+    .setColor('#448AFF')
+    .setCategorySettings([{
         name: 'Tools',
         emoji: '🔧',
-    },
-    
-  ])
+      },
+
+    ])
+  cache.set('unitData', fs.readFileSync('/home/tristan/Downloads/pelops/data/unitData.json', 'utf8'), 0);
+  cache.set('mapLogsjson', fs.readFileSync('/home/tristan/Downloads/pelops/data/mapLogsjson.json', 'utf8'), 0);
+  cache.set("pelops_update_status", "finished", 0);
 });
 
 client.login(config.token);
