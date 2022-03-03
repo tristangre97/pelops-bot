@@ -1,12 +1,19 @@
-const gblData = require('../data/unitData.json')
-const logData = require('../data/mapLogsjson.json')
+// const gblData = require('../data/unitData.json')
+
+
+
+// const logData = require('../data/mapLogsjson.json')
+// const logUnitData = require('../data/test.json')
+const fs = require('fs');
 const cache = require('./cache.js')
 const Fuse = require("fuse.js");
 
 
 
-exports.unitSearch = function (unit_name) {
 
+exports.unitSearch = function (unit_name) {
+    const gblData = JSON.parse(cache.get('unitData'));
+    const logData = JSON.parse(cache.get('mapLogsjson'));
     if(cache.get(`search_${unit_name}`)) {
         return cache.get(`search_${unit_name}`);
     }
@@ -70,6 +77,30 @@ exports.logSearch = function (log_text) {
     };
     const fuse = new Fuse(logData, options);
     const result = fuse.search(log_text);
+
+    // console.log(result)
+    results = result;
+
+
+    return results;
+
+};
+
+
+exports.logUnitSearch = function (unit) {
+    const options = {
+        includeScore: true,
+        keys: [
+            {
+                name: 'Units',
+                weight: 1
+            }
+        ],
+        findAllMatches: true,
+        threshold: 0.1,
+    };
+    const fuse = new Fuse(logData, options);
+    const result = fuse.search(unit);
 
     // console.log(result)
     results = result;
