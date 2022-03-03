@@ -2,6 +2,7 @@ const search = require('../utility/search.js');
 const unitEmbedGen = require('../utility/getUnitData.js');
 
 const db = require('../utility/database.js');
+const cache = require('../utility/cache.js');
 
 const {
   MessageEmbed,
@@ -37,13 +38,17 @@ module.exports = {
     client,
     args
   }) => {
+    var updateStatus = await cache.get("pelops_update_status");
+    console.log(updateStatus);
+    if(updateStatus != "finished") return 'Please wait for the update to finish.';
     startTime = performance.now();
     await interaction.deferReply();
+
     var [unit_name, unit_level] = args;
     var selectedUnit = unit_name;
     var level = Math.abs(unit_level);
     searchResults = await search.unitSearch(selectedUnit);
-
+    
     if (!searchResults[0]) {
       const embed = new MessageEmbed()
         .setColor('#ff6a56')
@@ -58,7 +63,7 @@ module.exports = {
     }
     unit = searchResults[0].item;
     db.add(`pelops_uses_uit_${unit['Unit Name']}`)
-    unitRarity = unit.RARITY;
+    unitRarity = Number(unit.RARITY);
     if (unitRarity == "4") {
       maxLevel = 30;
     } else {
