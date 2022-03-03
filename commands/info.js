@@ -22,7 +22,7 @@ module.exports = {
     }) => {
         const cacheStats = cache.getCacheStats();
         const embed = new MessageEmbed()
-            .setColor('#ff6a56')
+            .setColor('#ffb33c')
             .setTitle('Bot Info')
             .addField('__Cache__', `
 **Size** \`${cacheStats.size.toLocaleString()}\` bytes
