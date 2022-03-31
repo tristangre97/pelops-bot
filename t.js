@@ -1,4 +1,3 @@
-const fs =  require('fs');
+const db = require('./utility/database');
 
-var text = fs.readFileSync('/home/tristan/Downloads/pelops/data/unitData.json','utf8')
-console.log (text)
+console.log(db.get(`pelops_uses`))
