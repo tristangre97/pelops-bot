@@ -10,22 +10,22 @@ const cache = require('../utility/cache.js');
 const db = require('../utility/database.js');
 var msg = []
 var downloadInfo = []
-
-const prettyMilliseconds = require('pretty-ms');
-
 module.exports = {
-    name: 'update',
     category: 'Tools',
-    description: 'Updates the data I use',
-    slash: "both",
-    testOnly: false,
+    description: 'Updates ', // Required for slash commands
 
-
-    run: async ({ message, interaction, channel, client, args, guild }) => {
-        var allowed = ['222781123875307521', '216368047110225920', '521823544724684851']
-        if (!allowed.includes(interaction.user.id)) return interaction.editReply("You are not allowed to use this command.")
+    slash: true, // Create both a slash and legacy command
+    testOnly: false, // Only register a slash command for the testing guilds
+    ownerOnly: true,
+    callback: async ({
+        message,
+        interaction,
+        channel,
+        client
+    }) => {
         msg = []
         downloadInfo = []
+        await interaction.deferReply();
         var updateStatus = await cache.get("pelops_update_status");
         console.log(`${interaction.user.username} is updating pelops`);
         if (updateStatus != "finished") {
@@ -99,8 +99,12 @@ module.exports = {
             embeds: [finishedEmbed],
 
         });
+
     }
+
+
 }
+
 
 
 async function serverDownloader(name, url) {

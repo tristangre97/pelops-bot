@@ -8,7 +8,8 @@ const {
 } = require('discord.js');
 
 exports.getUnitEmbed = async function (unit, level) {
-  db.add(`pelops_uses`)
+  // console.log(unit, level);
+  db.add(`stats.uses`)
   startTime = performance.now();
   level++;
   // console.log(unit['Unit Name'])
@@ -59,6 +60,23 @@ exports.getUnitEmbed = async function (unit, level) {
     },
   };
 
+  const leaderUpgradePercent = {
+    3: {
+      "1-10": "13",
+      "10-20": "10",
+      "20-30": "12",
+      "30-40": "0.5",
+    },
+
+    4: {
+      "1-10": "2",
+      "10-20": "3",
+      "20-30": "2",
+    },
+  }
+
+
+
   var kidsUpgradePercent = {
     "1-5": "2",
     "5-10": "2",
@@ -73,8 +91,11 @@ exports.getUnitEmbed = async function (unit, level) {
 
   i = 1;
   bl = i;
+  // console.log(unit)
   unitHealth = Number(unit.HP);
   unitAttack = Number(unit.ATK);
+  unitLeaderHealth = Number(unit['LEADER HP']);
+  unitLeaderAttack = Number(unit['LEADER ATK']);
   unitRarity = Number(unit.RARITY);
   unitDigDmg = Number(unit['DIGGING DMG']);
   rushDmg = Number(unit['RUSH DMG']);
@@ -88,8 +109,8 @@ exports.getUnitEmbed = async function (unit, level) {
 
   if (unit['DMG INCREASE']) dmgBoost = Math.abs(unit['DMG INCREASE'].replaceAll('%', ''))
 
-  
- 
+
+
   if (unitRarity == "4") {
     maxLevel = 30;
   } else {
@@ -123,7 +144,7 @@ exports.getUnitEmbed = async function (unit, level) {
   while (i < level) {
     if (inRange(bl, 0, 1)) {
       transferTimeDecrease = 0.16
-    } 
+    }
     if (inRange(bl, 2, 4)) {
       transferTimeDecrease = 0.15
     }
@@ -136,35 +157,37 @@ exports.getUnitEmbed = async function (unit, level) {
 
     if (inRange(bl, 0, 4)) {
       var percent = upgradePercent[unitRarity]["1-5"];
+      var leaderPercent = leaderUpgradePercent?.[unitRarity]?.["1-10"] || 0
     }
 
     if (inRange(bl, 5, 9)) {
-
       var percent = upgradePercent[unitRarity]["5-10"];
+      var leaderPercent = leaderUpgradePercent?.[unitRarity]?.["1-10"] || 0
     }
     if (inRange(bl, 10, 14)) {
-
       var percent = upgradePercent[unitRarity]["10-15"];
+      var leaderPercent = leaderUpgradePercent?.[unitRarity]?.["10-20"] || 0
     }
 
     if (inRange(bl, 15, 19)) {
-
       var percent = upgradePercent[unitRarity]["15-20"];
+      var leaderPercent = leaderUpgradePercent?.[unitRarity]?.["10-20"] || 0
     }
     if (inRange(bl, 20, 24)) {
-
       var percent = upgradePercent[unitRarity]["20-25"];
+      var leaderPercent = leaderUpgradePercent?.[unitRarity]?.["20-30"] || 0
     }
     if (inRange(bl, 25, 29)) {
-
       var percent = upgradePercent[unitRarity]["25-30"];
+      var leaderPercent = leaderUpgradePercent?.[unitRarity]?.["20-30"] || 0
     }
     if (inRange(bl, 30, 40)) {
-
       var percent = upgradePercent[unitRarity]["31-40"];
+      var leaderPercent = leaderUpgradePercent?.[unitRarity]?.["30-40"] || 0
     }
 
     var factor = percent / 100;
+    var leaderFactor = leaderPercent / 100;
     bl++;
     i++;
     if (bl > level - 1) {
@@ -173,6 +196,9 @@ exports.getUnitEmbed = async function (unit, level) {
       addedHP = Math.ceil(unitHealth * factor);
       addedAttack = Math.ceil(unitAttack * factor);
 
+      addedLeaderHP = Math.ceil(unitLeaderHealth * leaderFactor);
+      addedLeaderAttack = Math.ceil(unitLeaderAttack * leaderFactor);
+
       addedSpawnedUnitAttack = Math.ceil(spawnedUnitAttack * factor);
       addedSpawnedUnitHP = Math.ceil(spawnedUnitHP * factor);
 
@@ -180,11 +206,11 @@ exports.getUnitEmbed = async function (unit, level) {
       addedrecoveryRate = Math.ceil(recoveryRate * factor);
 
 
-
-
-
       unitHealth = unitHealth + addedHP;
       unitAttack = unitAttack + addedAttack;
+
+      unitLeaderHealth = unitLeaderHealth + addedLeaderHP;
+      unitLeaderAttack = unitLeaderAttack + addedLeaderAttack;
 
       spawnedUnitAttack = spawnedUnitAttack + addedSpawnedUnitAttack;
       spawnedUnitHP = spawnedUnitHP + addedSpawnedUnitHP;
@@ -197,17 +223,17 @@ exports.getUnitEmbed = async function (unit, level) {
     }
 
   }
-  if(hitsPerAttack > 1) {
+  if (hitsPerAttack > 1) {
     msg.push(`This unit hits ${hitsPerAttack} times per attack`)
   }
-  if(msg.length > 0) {
+  if (msg.length > 0) {
     msg = `\`\`\`${msg.join('\n')}\`\`\``
   }
   const unitEmbed = new MessageEmbed();
   unitEmbed.setTitle(`Unit Calculator`);
   unitEmbed.setColor('#ffb33c');
   unitEmbed.setDescription(`**Unit**  \`${unit['Unit Name']}\`\n**Level**  \`${i - 1}\`\n${msg}`);
-  unitEmbed.setThumbnail(`https://res.cloudinary.com/tristangregory/image/upload/e_sharpen,h_300,w_300,c_fit,c_pad,b_rgb:ffb33c/v1646168069/gbl/${unit['Unit Name'].replaceAll(" ", "_").replaceAll("-", "_")}.webp`)
+  unitEmbed.setThumbnail(`https://res.cloudinary.com/tristangregory/image/upload/e_sharpen,h_300,w_300,c_fit,c_pad,b_rgb:ffb33c/v1644991354/gbl/${unit['Unit Name'].replaceAll(" ", "_").replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "")}.webp`)
 
 
 
@@ -230,10 +256,10 @@ exports.getUnitEmbed = async function (unit, level) {
     } else {
 
       unitStats.push(`**Attack** \`${unitAttack.toLocaleString()}\` | **DPS** \`${dps.toLocaleString()}\``)
-      
+
     }
 
-    if(hitsPerAttack > 1) {
+    if (hitsPerAttack > 1) {
       unitStats.push(`**Damage per Attack** \`${(unitAttack * hitsPerAttack).toLocaleString()}\` | **DPS** \`${((unitAttack * hitsPerAttack)/attackSpeed).toLocaleString()}\``)
     }
 
@@ -267,7 +293,7 @@ exports.getUnitEmbed = async function (unit, level) {
 
   }
 
-  if(transferTime > 0) {
+  if (transferTime > 0) {
     // unitStats.push(`**Transfer Time** \`${transferTime.toLocaleString()}\``)
   }
 
@@ -276,7 +302,13 @@ exports.getUnitEmbed = async function (unit, level) {
   }
 
   if (unit.LEADER === 'TRUE') {
-    unitEmbed.addField(`__Leader Stats__`, `Leader upgrade stats are incomplete <:pelops_searching:943975736069455982>`);
+    unitEmbed.addField(`__Leader Stats__`, `
+__**UNFINISHED**__
+Exact stat upgrade percents are currently unknown, please share in the <#875214614416224266> channel if you know!
+\`(Please include player level)\`
+**HP** \`${unitLeaderHealth.toLocaleString()}\`
+**Attack** \`${unitLeaderAttack.toLocaleString()}\`
+`);
   }
 
   if (unit.BUILDING === "TRUE") {
@@ -293,7 +325,7 @@ exports.getUnitEmbed = async function (unit, level) {
   upgradeData = []
 
 
- 
+
 
   if (level - 2 == 0) {
     nextLevel = costChart[level - 1] || `Data not found for level ${level}`

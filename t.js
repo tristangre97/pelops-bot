@@ -1,3 +1,3 @@
 const db = require('./utility/database');
-
-console.log(db.get(`pelops_uses`))
+// db.set(`stats.uses`, 4605)
+console.log(db.get(`stats.uses`));

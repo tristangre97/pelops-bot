@@ -1,6 +1,6 @@
-const unitEmbedGen = require('../utility/getUnitData.js');
-const search = require('../utility/search.js');
-const cache = require('../utility/cache.js');
+const unitEmbedGen = require('../../utility/getUnitData.js');
+const search = require('../../utility/search.js');
+const cache = require('../../utility/cache.js');
 
 const {
   MessageEmbed,
@@ -10,8 +10,9 @@ const {
 
 module.exports = (client, instance) => {
   client.on('interactionCreate', async button => {
-    if (button.type != 'MESSAGE_COMPONENT') return;
 
+    if (button.type != 'MESSAGE_COMPONENT') return;
+    if (button.isSelectMenu()) return
 
 
 

@@ -1,5 +1,5 @@
-const cache = require('../utility/cache.js');
-const db = require('../utility/database.js');
+const cache = require('../../utility/cache.js');
+const db = require('../../utility/database.js');
 const {
     MessageEmbed,
     MessageActionRow,
@@ -10,13 +10,17 @@ const prettyMilliseconds = require('pretty-ms');
 module.exports = {
     name: 'info',
     category: 'Tools',
-    description: 'Get basic bot info',
-    slash: "both",
-    argsDescription: "The command category | the command name",
-    testOnly: false,
+    description: 'Get basic bot info', // Required for slash commands
 
+    slash: 'both', // Create both a slash and legacy command
+    testOnly: false, // Only register a slash command for the testing guilds
 
-    run: async ({ message, interaction, channel, client, args, guild }) => {
+    run: async ({
+        message,
+        interaction,
+        channel,
+        client
+    }) => {
         const cacheStats = cache.getCacheStats();
         var botUses = db.get(`stats.uses`)
         const embed = new MessageEmbed()
@@ -31,13 +35,12 @@ module.exports = {
 **Members** \`${client.guilds.cache.reduce((a, b) => a + b.memberCount, 0)}\`
 **Uses** \`${botUses}\`
 **Uptime** \`${prettyMilliseconds(client.uptime)}\`
-**Version** \`${require('../package.json').version}\`
+**Version** \`${require('../../package.json').version}\`
         `)
             .addField('__Developer__', `Tristangre97#2936`)
             .addField('__Links__', `[Donate](https://paypal.me/TristanGregory?country.x=US&locale.x=en_US) | [Invite](https://dsc.gg/pelops)`)
             .setThumbnail('https://res.cloudinary.com/tristangregory/image/upload/v1644991354/gbl/pelops/pelops_reading.png')
-        await interaction.editReply({
-            embeds: [embed]
-        });
-    }
+        return embed
+    },
 }
+
