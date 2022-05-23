@@ -93,7 +93,7 @@ module.exports = {
         finishedEmbed.setColor('#ffb33c')
         finishedEmbed.setTitle('Finished Update!')
         finishedEmbed.setDescription(`${msg.join("\n")}\n\n${downloadInfo.join("\n")}`)
-        finishedEmbed.setImage('https://res.cloudinary.com/tristangregory/image/upload/v1646259627/gbl/pelops/pelops_idk.jpg')
+        finishedEmbed.setImage('https://res.cloudinary.com/tristangregory/image/upload/v1648922161/gbl/pelops/pelops_idk.jpg')
 
         await interaction.editReply({
             embeds: [finishedEmbed],
