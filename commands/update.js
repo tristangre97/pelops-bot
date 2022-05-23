@@ -74,7 +74,7 @@ module.exports = {
                 finished = true;
                 console.log("Finished");
                 cache.set("pelops_update_status", "finished", 0);
-
+                
 
             } else {
                 dataList.push(dataList.shift());
@@ -86,14 +86,14 @@ module.exports = {
         } //While loop end
 
        
-            msg.unshift(`**__${downloadInfo.length}__** files updated.`)
-        
+        msg.unshift(`**__${downloadInfo.length}__** files updated.`)
+        updateUnitNameList()
 
         const finishedEmbed = new MessageEmbed();
         finishedEmbed.setColor('#ffb33c')
         finishedEmbed.setTitle('Finished Update!')
         finishedEmbed.setDescription(`${msg.join("\n")}\n\n${downloadInfo.join("\n")}`)
-        finishedEmbed.setImage('https://res.cloudinary.com/tristangregory/image/upload/v1646259627/gbl/pelops/pelops_idk.jpg')
+        finishedEmbed.setImage('https://res.cloudinary.com/tristangregory/image/upload/v1648922161/gbl/pelops/pelops_idk.jpg')
 
         await interaction.editReply({
             embeds: [finishedEmbed],
@@ -145,3 +145,17 @@ var dataList = [{
         url: "https://sheetsu.com/apis/v1.0bu/9acebc3f7c89",
     }
 ];
+
+// ../data/unitData.json
+function updateUnitNameList() {
+    unitNames = []
+    unitData = JSON.parse(cache.get("unitData"));
+    unitData.forEach(unit => {
+        var data = {
+            name: unit['Unit Name'],
+            aliases: unit['ALIASES'],
+        }
+        unitNames.push(data)
+    })
+    cache.set("unitNames", unitNames, 0);
+}
