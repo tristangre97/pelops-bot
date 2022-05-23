@@ -1,15 +1,7 @@
 const cache = require('../utility/cache')
 const Fuse = require('fuse.js')
 const unitData = require('../data/unitData.json')
-var unitNames = []
 
-unitData.forEach(unit => {
-    var data = {
-        name: unit['Unit Name'],
-        aliases: unit['ALIASES'],
-    }
-    unitNames.push(data)
-})
 
 
 module.exports = {
@@ -17,10 +9,10 @@ module.exports = {
     async execute(interaction) {
         if (!interaction.isAutocomplete()) return;
         start = performance.now();
-        
-        if (interaction.commandName === 'unit' || interaction.commandName === 'stats') {
+        var unitNames = cache.get("unitNames")
+        if (interaction.commandName === 'unit' || interaction.commandName === 'stats' || interaction.commandName === 'compare') {
             const focusedValue = interaction.options.getFocused();
-
+            // console.log(unitNames)
             const fuse = new Fuse(unitNames, {
                 shouldSort: true,
                 keys: ['name', 'aliases'],
