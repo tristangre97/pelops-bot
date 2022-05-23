@@ -33,11 +33,12 @@ module.exports = {
 **Uptime** \`${prettyMilliseconds(client.uptime)}\`
 **Version** \`${require('../package.json').version}\`
         `)
-            .addField('__Developer__', `Tristangre97#2936`)
-            .addField('__Links__', `[Donate](https://paypal.me/TristanGregory?country.x=US&locale.x=en_US) | [Invite](https://dsc.gg/pelops)`)
-            .setThumbnail('https://res.cloudinary.com/tristangregory/image/upload/v1644991354/gbl/pelops/pelops_reading.png')
+            .addField('__Developer__', `<@222781123875307521>`)
+            .setThumbnail('https://res.cloudinary.com/tristangregory/image/upload/v1651506970/gbl/pelops/pelops_reading.png')
         await interaction.editReply({
             embeds: [embed]
         });
     }
 }
+
+// .addField('__Links__', `[Donate](https://paypal.me/TristanGregory?country.x=US&locale.x=en_US) | [Invite](https://dsc.gg/pelops)`)
