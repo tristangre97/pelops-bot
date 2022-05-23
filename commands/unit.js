@@ -40,7 +40,6 @@ module.exports = {
         guild
     }) => {
 
-        console.log('starting command');
         var {
             unit_name,
             unit_level
@@ -64,7 +63,7 @@ module.exports = {
                 .setTitle('Unit not found')
                 .setDescription(`Unit \`${unit_name}\` not found`)
                 .setFooter(`Check your spelling and try again.`)
-                .setThumbnail('https://res.cloudinary.com/tristangregory/image/upload/v1644991354/gbl/pelops/pelops_error.png')
+                .setThumbnail('https://res.cloudinary.com/tristangregory/image/upload/v1651506970/gbl/pelops/pelops_error.png')
                 return interaction.editReply({
                 embeds: [embed],
 
@@ -129,7 +128,7 @@ module.exports = {
         embed = await unitEmbedGen.getUnitEmbed(unit, level)
 
         reply = await interaction.editReply({
-            embeds: [embed],
+            embeds: [embed.embed],
             components: embedComponents,
         })
 
