@@ -4,15 +4,19 @@ const db = require('./database.js');
 const {
   MessageEmbed,
   MessageActionRow,
-  MessageButton
+  MessageButton,
+  Interaction
 } = require('discord.js');
 
 exports.getUnitEmbed = async function (unit, level) {
-  // console.log(unit, level);
+
+
   db.add(`stats.uses`)
+  var unitData = []
   startTime = performance.now();
   level++;
   // console.log(unit['Unit Name'])
+  const unitLevelUpData = []
   if (cache.get(`${unit['Unit Name']}_${level}`)) {
     endTime = performance.now();
     console.log(`${unit['Unit Name']} took ${endTime - startTime}ms`);
@@ -62,10 +66,10 @@ exports.getUnitEmbed = async function (unit, level) {
 
   const leaderUpgradePercent = {
     3: {
-      "1-10": "13",
-      "10-20": "10",
-      "20-30": "12",
-      "30-40": "0.5",
+      "1-10": "16",
+      "10-20": "5",
+      "20-30": "16",
+      "30-40": "2",
     },
 
     4: {
@@ -88,21 +92,29 @@ exports.getUnitEmbed = async function (unit, level) {
 
   }
 
+  var burnUpgradePercent = {
+    "2" : 50,
+    "3" : 33.33,
+    "4" : 50,
+  }
 
   i = 1;
   bl = i;
-  // console.log(unit)
   unitHealth = Number(unit.HP);
   unitAttack = Number(unit.ATK);
   unitLeaderHealth = Number(unit['LEADER HP']);
   unitLeaderAttack = Number(unit['LEADER ATK']);
   unitRarity = Number(unit.RARITY);
+  unitCost = Number(unit.COST);
   unitDigDmg = Number(unit['DIGGING DMG']);
   rushDmg = Number(unit['RUSH DMG']);
   dmgBoost = Number(unit['DMG INCREASE'])
   recoveryRate = Number(unit['RECOVERY RATE'])
   attackSpeed = Number(unit['ATK SPD']);
   transferTime = Number(unit['TELEPORT TIME']);
+
+
+  unitNotice = unit['NOTICE'];
   var transferTimeDecrease;
   var hitsPerAttack = Number(unit['HITS PER ATTACK']);
   var unitStats = []
@@ -130,15 +142,19 @@ exports.getUnitEmbed = async function (unit, level) {
   }
   if (unitRarity == 1) {
     costChart = oneStarCost;
+    pieceChart = oneStarPieces;
   }
   if (unitRarity == 2) {
     costChart = twoStarCost;
+    pieceChart = twoStarPieces;
   }
   if (unitRarity == 3) {
     costChart = threeStarCost;
+    pieceChart = threeStarPieces;
   }
   if (unitRarity == 4) {
     costChart = fourStarCost;
+    pieceChart = fourStarPieces;
   }
 
   while (i < level) {
@@ -209,6 +225,24 @@ exports.getUnitEmbed = async function (unit, level) {
       unitHealth = unitHealth + addedHP;
       unitAttack = unitAttack + addedAttack;
 
+      if (attackSpeed == 0) attackSpeed = 1
+      var attacksPerSecond = Math.abs(1 / attackSpeed);
+      var dps = parseInt(attacksPerSecond * unitAttack)
+
+      unitLevelData = {
+        "Name": unit['Unit Name'],
+        "Level": bl,
+        "Rarity": unitRarity,
+        "Cost": unitCost,
+        "HP": unitHealth,
+        "ATK": unitAttack,
+        "DPS": dps,
+      }
+
+      unitData.push(unitLevelData)
+      
+      unitLevelUpData.push(`HP - ${unitHealth} Atk - ${unitAttack}`);
+
       unitLeaderHealth = unitLeaderHealth + addedLeaderHP;
       unitLeaderAttack = unitLeaderAttack + addedLeaderAttack;
 
@@ -233,7 +267,7 @@ exports.getUnitEmbed = async function (unit, level) {
   unitEmbed.setTitle(`Unit Calculator`);
   unitEmbed.setColor('#ffb33c');
   unitEmbed.setDescription(`**Unit**  \`${unit['Unit Name']}\`\n**Level**  \`${i - 1}\`\n${msg}`);
-  unitEmbed.setThumbnail(`https://res.cloudinary.com/tristangregory/image/upload/e_sharpen,h_300,w_300,c_fit,c_pad,b_rgb:ffb33c/v1644991354/gbl/${unit['Unit Name'].replaceAll(" ", "_").replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "")}.webp`)
+  unitEmbed.setThumbnail(`https://res.cloudinary.com/tristangregory/image/upload/e_sharpen,h_300,w_300,c_fit,c_pad,b_rgb:ffb33c/v1651506970/gbl/${unit['Unit Name'].replaceAll(" ", "_").replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "")}.webp`)
 
 
 
@@ -242,10 +276,6 @@ exports.getUnitEmbed = async function (unit, level) {
   }
 
   if (unitAttack > 0) {
-
-    if (attackSpeed == 0) attackSpeed = 1
-    var attacksPerSecond = Math.abs(1 / attackSpeed);
-    var dps = parseInt(attacksPerSecond * unitAttack)
 
     if (dmgBoost > 0) {
       unitAttackBoosted = Math.ceil(unitAttack + (unitAttack * dmgBoost / 100))
@@ -297,11 +327,26 @@ exports.getUnitEmbed = async function (unit, level) {
     // unitStats.push(`**Transfer Time** \`${transferTime.toLocaleString()}\``)
   }
 
+  if (unit['Unit Name'] === "Burning Godzilla") {
+    expireDmgOne = Number(unitAttack);
+    expireDmgTwo = Math.floor(expireDmgOne+(expireDmgOne*(burnUpgradePercent['2']/100)));
+    expireDmgThree = Math.ceil(expireDmgTwo+(expireDmgTwo*(burnUpgradePercent['3']/100)));
+    expireDmgFour = Math.ceil(expireDmgThree+(expireDmgThree*(burnUpgradePercent['4']/100)));
+
+
+    unitStats.push(`**Expire Damage 1** \`${expireDmgOne}\``)
+    unitStats.push(`**Expire Damage 2** \`${expireDmgTwo}\``)
+    unitStats.push(`**Expire Damage 3** \`${expireDmgThree}\``)
+    unitStats.push(`**Expire Damage 4** \`${expireDmgFour}\``)
+  }
+
   if (unitStats.length > 0) {
     unitEmbed.addField(`__Unit Stats__`, `${unitStats.join('\n')}`);
   }
 
-  if (unit.LEADER === 'TRUE') {
+  LeaderStatsData = 'unfinished'
+
+  if (unit.LEADER === 'TRUE' && LeaderStatsData == 'finished') {
     unitEmbed.addField(`__Leader Stats__`, `
 __**UNFINISHED**__
 Exact stat upgrade percents are currently unknown, please share in the <#875214614416224266> channel if you know!
@@ -323,36 +368,65 @@ Exact stat upgrade percents are currently unknown, please share in the <#8752146
   if (level - 1 > maxLevel) level = maxLevel
   // console.log(level)
   upgradeData = []
-
+  requiredPieceData = []
 
 
 
   if (level - 2 == 0) {
     nextLevel = costChart[level - 1] || `Data not found for level ${level}`
-    upgradeData.push(`**Next Level** \`${nextLevel.toLocaleString()}\` <:coins:943379224163672074>`)
+    upgradeData.push(`**Next Level** \`${nextLevel.toLocaleString()}\` <:coins:943379224163672074> \`(${getTotalCost(level - 1, costChart)} Total)\``)
+
+    nextLevelPieceCost = pieceChart[level - 1] || `Data not found for level ${level}`
+    requiredPieceData.push(`**Next Level** \`${nextLevelPieceCost.toLocaleString()}\` \`(${getTotalCost(level - 1, pieceChart)} Total)\``)
+
   }
 
   if (level - 1 === maxLevel) {
     prevLevel = costChart[level - 2] || `Data not found for level ${level - 2}`
-    upgradeData.push(`**Previous Level** \`${prevLevel.toLocaleString()}\` <:coins:943379224163672074>`)
+    upgradeData.push(`**Previous Level** \`${prevLevel.toLocaleString()}\` <:coins:943379224163672074> \`(${getTotalCost(level - 2, costChart)} Total)\``)
+
+    prevLevelPieceCost = pieceChart[level - 2] || `Data not found for level ${level - 2}`
+    requiredPieceData.push(`**Previous Level** \`${prevLevelPieceCost.toLocaleString()}\` \`(${getTotalCost(level - 1, pieceChart)} Total)\``)
   }
 
   if (level - 1 != maxLevel && level - 2 !== 0) {
     prevLevel = costChart[level - 2] || `Data not found for level ${level - 2}`
     nextLevel = costChart[level - 1] || `Data not found for level ${level}`
-    upgradeData.push(`**Previous Level** \`${prevLevel.toLocaleString()}\` <:coins:943379224163672074>`)
-    upgradeData.push(`**Next Level** \`${nextLevel.toLocaleString()}\` <:coins:943379224163672074>`)
+    upgradeData.push(`**Previous Level** \`${prevLevel.toLocaleString()}\` <:coins:943379224163672074> \`(${getTotalCost(level - 2, costChart)} Total)\``)
+    upgradeData.push(`**Next Level** \`${nextLevel.toLocaleString()}\` <:coins:943379224163672074> \`(${getTotalCost(level - 1, costChart)} Total)\``)
+
+    prevLevelPieceCost = pieceChart[level - 2] || `Data not found for level ${level - 2}`
+    nextLevelPieceCost = pieceChart[level - 1] || `Data not found for level ${level}`
+    requiredPieceData.push(`**Previous Level** \`${prevLevelPieceCost.toLocaleString()}\` \`(${getTotalCost(level - 2, pieceChart)} Total)\``)
+    requiredPieceData.push(`**Next Level** \`${nextLevelPieceCost.toLocaleString()}\` \`(${getTotalCost(level - 1, pieceChart)} Total)\``)
   }
 
   if (upgradeData.length > 0) {
     unitEmbed.addField(`__Upgrade Cost__`, `${upgradeData.join('\n')}`);
   }
+  if (requiredPieceData.length > 0) {
+    unitEmbed.addField(`__Required Pieces__`, `${requiredPieceData.join('\n')}`);
+  }
 
+  if(unitNotice.length > 0) {
+    unitEmbed.addField(`__Notice__`, `\`\`\`${unitNotice}\`\`\``);
+  }
 
-  cache.set(`${unit['Unit Name']}_${level}`, unitEmbed, 0);
+  var returnData = {
+    embed: unitEmbed,
+    unitData: unitData,
+  }
+
+  cache.set(`${unit['Unit Name']}_${level}`, returnData, 0);
   endTime = performance.now();
   console.log(`${unit['Unit Name']} took ${endTime - startTime}ms`);
-  return unitEmbed;
+
+
+
+
+// console.log()
+
+  return returnData;
 };
 
 
@@ -363,9 +437,24 @@ function inRange(x, min, max) {
 }
 
 
-
-
 const oneStarCost = [0, 20, 80, 120, 200, 300, 400, 500, 600, 800, 1000, 1500, 2000, 2500, 3000, 4000, 5000, 6000, 7000, 12000, 13500, 15000, 16500, 18000, 19500, 21000, 22500, 24000, 27000, 30000, 33000, 33000, 36000, 36000, 39000, 39000, 42000, 42000, 45000, 45000]
-const twoStarCost = [0, 50, 200, 300, 400, 500, 750, 1000, 1250, 1500, 1750, 2000, 2250, 2500, 3000, 3500, 4000, 4500, 5000, 6000, 11900, 13600, 15300, 17000, 19125, 21250, 23375, 25500, 29750, 34000, 35700, 37400]
+const twoStarCost = [0, 50, 200, 300, 400, 500, 750, 1000, 1250, 1500, 1750, 2000, 2250, 2500, 3000, 3500, 4000, 4500, 5000, 6000, 11900, 13600, 15300, 17000, 19125, 21250, 23375, 25500, 29750, 34000, 35700, 37400, 39100, 40800, 42500, 44200, 45900, 47600, 49300, 51000]
 const threeStarCost = [0, 200, 600, 800, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 2400, 2800, 3200, 3600, 4000, 4400, 4800, 5200, 5600, 10500, 14000, 15750, 17500, 19250, 21000, 22750, 24500, 29750, 35000, 40000, 40000, 40000, 40000, 40000, 40000, 40000, 40000, 40000, 40000]
 const fourStarCost = [0, 2500, 2500, 2500, 2500, 5000, 5000, 5000, 5000, 5000, 9000, 9000, 9000, 9000, 9000, 9000, 9000, 9000, 9000, 9000, 20000, 20000, 20000, 20000, 20000, 25000, 25000, 25000, 25000, 25000]
+
+
+const oneStarPieces = [0, 2, 4, 6, 10, 15, 20, 25, 30, 40, 50, 75, 100, 125, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 900, 1000, 1100, 1100, 1200, 1200, 1300, 1300, 1400, 1400, 1500, 1500]
+const twoStarPieces = [0, 2, 4, 6, 8, 10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 120, 140, 160, 180, 200, 225, 250, 275, 300, 350, 400, 420, 440, 460, 480, 500, 520, 540, 560, 580, 600]
+const threeStarPieces = [0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 40, 45, 50, 55, 60, 65, 70, 85, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
+const fourStarPieces = [0, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5]
+
+function getTotalCost(level, array) {
+  totalArray = array.slice(0, level + 1)
+  total = totalArray.reduce((a, b) => a + b, 0)
+  return total.toLocaleString()
+}
+
+
+// const twoStarCost = [0, 50, 200, 300, 400, 500, 750, 1000, 1250, 1500, 1750, 2000, 2250, 2500, 3000, 3500, 4000, 4500, 5000, 6000, 11900, 13600, 15300, 17000, 19125, 21250, 23375, 25500, 29750, 34000, 35700, 37400]
+// const threeStarCost = [0, 200, 600, 800, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 2400, 2800, 3200, 3600, 4000, 4400, 4800, 5200, 5600, 10500, 14000, 15750, 17500, 19250, 21000, 22750, 24500, 29750, 35000, 40000, 40000, 40000, 40000, 40000, 40000, 40000, 40000, 40000, 40000]
+// const fourStarCost = [0, 2500, 2500, 2500, 2500, 5000, 5000, 5000, 5000, 5000, 9000, 9000, 9000, 9000, 9000, 9000, 9000, 9000, 9000, 9000, 20000, 20000, 20000, 20000, 20000, 25000, 25000, 25000, 25000, 25000]
