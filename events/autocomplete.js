@@ -10,7 +10,7 @@ module.exports = {
         if (!interaction.isAutocomplete()) return;
         start = performance.now();
         var unitNames = cache.get("unitNames")
-        if (interaction.commandName === 'unit' || interaction.commandName === 'stats' || interaction.commandName === 'compare') {
+        if (interaction.commandName === 'unit' || interaction.commandName === 'stats' || interaction.commandName === 'compare' || interaction.commandName === 'tier_list') {
             const focusedValue = interaction.options.getFocused();
             // console.log(unitNames)
             const fuse = new Fuse(unitNames, {
