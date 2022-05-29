@@ -21,7 +21,14 @@ module.exports = {
     testOnly: false,
 
 
-    run: async ({ message, interaction, channel, client, args, guild }) => {
+    run: async ({
+        message,
+        interaction,
+        channel,
+        client,
+        args,
+        guild
+    }) => {
         var allowed = ['222781123875307521', '216368047110225920', '521823544724684851']
         if (!allowed.includes(interaction.user.id)) return interaction.editReply("You are not allowed to use this command.")
         msg = []
@@ -68,13 +75,13 @@ module.exports = {
             var saveEnd = performance.now();;
 
             downloadInfo.push(`\`${name}\` took ${humanizeDuration(saveEnd - saveStart,  { maxDecimalPoints: 2 })}`)
-            console.log(i)
+            // console.log(i)
             if (i + 1 == dataList.length) {
                 ready = false;
                 finished = true;
                 console.log("Finished");
                 cache.set("pelops_update_status", "finished", 0);
-                
+
 
             } else {
                 dataList.push(dataList.shift());
@@ -85,10 +92,10 @@ module.exports = {
 
         } //While loop end
 
-       
+
         msg.unshift(`**__${downloadInfo.length}__** files updated.`)
         updateUnitNameList()
-
+        updateTierList()
         const finishedEmbed = new MessageEmbed();
         finishedEmbed.setColor('#ffb33c')
         finishedEmbed.setTitle('Finished Update!')
@@ -147,15 +154,68 @@ var dataList = [{
 ];
 
 // ../data/unitData.json
-function updateUnitNameList() {
-    unitNames = []
-    unitData = JSON.parse(cache.get("unitData"));
-    unitData.forEach(unit => {
-        var data = {
-            name: unit['Unit Name'],
-            aliases: unit['ALIASES'],
+async function updateUnitNameList() {
+    try {
+        unitNames = []
+        unitData = JSON.parse(cache.get("unitData"));
+        unitData.forEach(unit => {
+            var data = {
+                name: unit['Unit Name'],
+                aliases: unit['ALIASES'],
+            }
+            unitNames.push(data)
+        })
+        cache.set("unitNames", unitNames, 0);
+        return msg.push(`\`unitNames\` updated.`)
+    } catch (error) {
+        console.log(error)
+        return msg.push(`\`unitNames\` failed to update.`)
+    }
+}
+
+sTier = []
+aTier = []
+bTier = []
+cTier = []
+dTier = []
+async function updateTierList() {
+    try {
+
+        unitData = JSON.parse(fs.readFileSync(`/home/tristan/Downloads/pelops/data/unitData.json`, 'utf8'));
+        unitData.forEach(unit => {
+            unitTier = unit['TIER']
+            console.log(unitTier)
+            if (unitTier == "S") {
+                console.log("S tier")
+                sTier.push(unit['Unit Name'])
+            }
+            if (unitTier == "A") {
+                aTier.push(unit['Unit Name'])
+            }
+            if (unitTier == "B") {
+                bTier.push(unit['Unit Name'])
+            }
+            if (unitTier == "C") {
+                cTier.push(unit['Unit Name'])
+            }
+            if (unitTier == "D") {
+                dTier.push(unit['Unit Name'])
+            }
+        })
+        // console.log('Done')
+        tierList = {
+            "S": sTier,
+            "A": aTier,
+            "B": bTier,
+            "C": cTier,
+            "D": dTier,
+
         }
-        unitNames.push(data)
-    })
-    cache.set("unitNames", unitNames, 0);
+        // console.log(tierList)
+        cache.set("tierList", tierList, 0);
+        return msg.push(`\`tierList\` updated.`)
+    } catch (error) {
+        console.log(error)
+        return msg.push(`\`tierList\` failed to update.`)
+    }
 }
