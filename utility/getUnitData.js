@@ -97,6 +97,16 @@ exports.getUnitEmbed = async function (unit, level) {
     "3" : 33.33,
     "4" : 50,
   }
+  //  +20/10/15/2/0.5%
+
+  var psychicChorusUpgradePercent = {
+    "1-5": "10",
+    "5-10": "20",
+    "10-15": "15",
+    "15-20": "2",
+    "25-30": "0.5",
+    "31-40": "0.5",
+  }
 
   i = 1;
   bl = i;
@@ -109,7 +119,7 @@ exports.getUnitEmbed = async function (unit, level) {
   unitDigDmg = Number(unit['DIGGING DMG']);
   rushDmg = Number(unit['RUSH DMG']);
   dmgBoost = Number(unit['DMG INCREASE'])
-  recoveryRate = Number(unit['RECOVERY RATE'])
+  recoveryAmount = Number(unit['RECOVERY AMOUNT'])
   attackSpeed = Number(unit['ATK SPD']);
   transferTime = Number(unit['TELEPORT TIME']);
 
@@ -156,8 +166,9 @@ exports.getUnitEmbed = async function (unit, level) {
     costChart = fourStarCost;
     pieceChart = fourStarPieces;
   }
-
+  
   while (i < level) {
+    // console.log(`Getting data for ${unit['Unit Name']} ${i}`)
     if (inRange(bl, 0, 1)) {
       transferTimeDecrease = 0.16
     }
@@ -173,41 +184,49 @@ exports.getUnitEmbed = async function (unit, level) {
 
     if (inRange(bl, 0, 4)) {
       var percent = upgradePercent[unitRarity]["1-5"];
-      var leaderPercent = leaderUpgradePercent?.[unitRarity]?.["1-10"] || 0
+      var leaderPercent = leaderUpgradePercent?.[unitRarity]?.["1-10"] || 0;
+      var recoveryPercent = psychicChorusUpgradePercent?.["1-5"] || 0;
     }
 
     if (inRange(bl, 5, 9)) {
       var percent = upgradePercent[unitRarity]["5-10"];
       var leaderPercent = leaderUpgradePercent?.[unitRarity]?.["1-10"] || 0
+      var recoveryPercent = psychicChorusUpgradePercent?.["5-10"] || 0;
     }
     if (inRange(bl, 10, 14)) {
       var percent = upgradePercent[unitRarity]["10-15"];
       var leaderPercent = leaderUpgradePercent?.[unitRarity]?.["10-20"] || 0
+      var recoveryPercent = psychicChorusUpgradePercent?.["10-15"] || 0;
     }
 
     if (inRange(bl, 15, 19)) {
       var percent = upgradePercent[unitRarity]["15-20"];
       var leaderPercent = leaderUpgradePercent?.[unitRarity]?.["10-20"] || 0
+      var recoveryPercent = psychicChorusUpgradePercent?.["15-20"] || 0;
     }
     if (inRange(bl, 20, 24)) {
       var percent = upgradePercent[unitRarity]["20-25"];
       var leaderPercent = leaderUpgradePercent?.[unitRarity]?.["20-30"] || 0
+      var recoveryPercent = psychicChorusUpgradePercent?.["20-25"] || 0;
     }
     if (inRange(bl, 25, 29)) {
       var percent = upgradePercent[unitRarity]["25-30"];
       var leaderPercent = leaderUpgradePercent?.[unitRarity]?.["20-30"] || 0
+      var recoveryPercent = psychicChorusUpgradePercent?.["25-30"] || 0;
     }
     if (inRange(bl, 30, 40)) {
       var percent = upgradePercent[unitRarity]["31-40"];
       var leaderPercent = leaderUpgradePercent?.[unitRarity]?.["30-40"] || 0
+      var recoveryPercent = psychicChorusUpgradePercent?.["31-40"] || 0;
     }
 
     var factor = percent / 100;
     var leaderFactor = leaderPercent / 100;
+    var recoveryFactor = recoveryPercent / 100;
     bl++;
     i++;
     if (bl > level - 1) {
-
+      console.log(`${unit['Unit Name']} is finished`)
     } else {
       addedHP = Math.ceil(unitHealth * factor);
       addedAttack = Math.ceil(unitAttack * factor);
@@ -219,29 +238,13 @@ exports.getUnitEmbed = async function (unit, level) {
       addedSpawnedUnitHP = Math.ceil(spawnedUnitHP * factor);
 
       addedDigDmg = Math.ceil(unitDigDmg * factor);
-      addedrecoveryRate = Math.ceil(recoveryRate * factor);
 
+      addedRecoveryAmount = Math.ceil(recoveryAmount * recoveryFactor);
 
       unitHealth = unitHealth + addedHP;
       unitAttack = unitAttack + addedAttack;
 
-      if (attackSpeed == 0) attackSpeed = 1
-      var attacksPerSecond = Math.abs(1 / attackSpeed);
-      var dps = parseInt(attacksPerSecond * unitAttack)
-
-      unitLevelData = {
-        "Name": unit['Unit Name'],
-        "Level": bl,
-        "Rarity": unitRarity,
-        "Cost": unitCost,
-        "HP": unitHealth,
-        "ATK": unitAttack,
-        "DPS": dps,
-      }
-
-      unitData.push(unitLevelData)
       
-      unitLevelUpData.push(`HP - ${unitHealth} Atk - ${unitAttack}`);
 
       unitLeaderHealth = unitLeaderHealth + addedLeaderHP;
       unitLeaderAttack = unitLeaderAttack + addedLeaderAttack;
@@ -250,12 +253,37 @@ exports.getUnitEmbed = async function (unit, level) {
       spawnedUnitHP = spawnedUnitHP + addedSpawnedUnitHP;
 
       unitDigDmg = unitDigDmg + addedDigDmg;
-      recoveryRate = recoveryRate + addedrecoveryRate;
 
       transferTime = transferTime - transferTimeDecrease;
 
-    }
+      recoveryAmount = recoveryAmount + addedRecoveryAmount;
 
+    }
+    if (attackSpeed == 0) attackSpeed = 1
+      var attacksPerSecond = Math.abs(1 / attackSpeed);
+      var dps = parseInt(attacksPerSecond * unitAttack)
+
+      if (hitsPerAttack > 1) {
+        dps = parseInt((unitAttack * hitsPerAttack)/attackSpeed)
+      }
+
+      unitAttackBoosted = Math.ceil(unitAttack + (unitAttack * dmgBoost / 100))
+      var dpsBoosted = parseInt(attacksPerSecond * unitAttackBoosted)
+      unitLevelData = {
+        "Name": unit['Unit Name'],
+        "Level": bl,
+        "Rarity": unitRarity,
+        "Cost": unitCost,
+        "HP": unitHealth,
+        "ATK": unitAttack,
+        "HitsPerAttack": hitsPerAttack,
+        "DMGBoost": dmgBoost,
+        "ATKBoosted": unitAttackBoosted,
+        "DPS": dps,
+        "DPSBoosted": dpsBoosted,
+      }
+    
+      unitData.push(unitLevelData)
   }
   if (hitsPerAttack > 1) {
     msg.push(`This unit hits ${hitsPerAttack} times per attack`)
@@ -276,6 +304,13 @@ exports.getUnitEmbed = async function (unit, level) {
   }
 
   if (unitAttack > 0) {
+    if (attackSpeed == 0) attackSpeed = 1
+    var attacksPerSecond = Math.abs(1 / attackSpeed);
+    
+    var dps = parseInt(attacksPerSecond * unitAttack)
+
+
+
 
     if (dmgBoost > 0) {
       unitAttackBoosted = Math.ceil(unitAttack + (unitAttack * dmgBoost / 100))
@@ -290,6 +325,7 @@ exports.getUnitEmbed = async function (unit, level) {
     }
 
     if (hitsPerAttack > 1) {
+      dps = parseInt((unitAttack * hitsPerAttack)/attackSpeed)
       unitStats.push(`**Damage per Attack** \`${(unitAttack * hitsPerAttack).toLocaleString()}\` | **DPS** \`${((unitAttack * hitsPerAttack)/attackSpeed).toLocaleString()}\``)
     }
 
@@ -315,16 +351,15 @@ exports.getUnitEmbed = async function (unit, level) {
     rushDmg = Math.ceil(unitAttack * rushMultipler)
     unitStats.push(`**Rush Damage** \`${rushDmg.toLocaleString()}\``)
   }
-
-  if (recoveryRate > 0) {
+  if (recoveryAmount > 0) {
     if (!unit['Unit Name'] === "Psychic Chorus") return
     unitStats.push(`**Recovery Rate** Exact recovery rate per level is currently unknown, please share in the <#875214614416224266> channel if you know!`)
-    // unitStats.push(`**Recovery Rate** \`${recoveryRate.toLocaleString()}\``)
+    // unitStats.push(`**Recovery Rate** \`${recoveryAmount.toLocaleString()}\``)
 
   }
 
   if (transferTime > 0) {
-    // unitStats.push(`**Transfer Time** \`${transferTime.toLocaleString()}\``)
+    unitStats.push(`**Transfer Time** \`${transferTime.toLocaleString()}\``)
   }
 
   if (unit['Unit Name'] === "Burning Godzilla") {
@@ -424,7 +459,7 @@ Exact stat upgrade percents are currently unknown, please share in the <#8752146
 
 
 
-// console.log()
+// console.log(returnData)
 
   return returnData;
 };
