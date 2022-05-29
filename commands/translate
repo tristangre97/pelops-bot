@@ -1,0 +1,42 @@
+const cache = require('../utility/cache.js');
+const db = require('../utility/database.js');
+const {
+    MessageEmbed,
+    MessageActionRow,
+    MessageButton
+} = require('discord.js');
+
+module.exports = {
+    name: 'translate',
+    category: 'Tools',
+    description: 'Translate an image',
+    slash: "both",
+    argsDescription: "The command category | the command name",
+    testOnly: false,
+    options: [{
+        name: 'image',
+        type: 11,
+        description: 'Insert a image.',
+        required: true
+    },
+   
+],
+
+    run: async ({ message, interaction, channel, client, args, guild }) => {
+        var botUses = db.get(`stats.uses`)
+        // console.log(message)
+        // await worker.load();
+        // await worker.loadLanguage('eng');
+        // await worker.initialize('eng');
+        // const { data: { text } } = await worker.recognize('https://tesseract.projectnaptha.com/img/eng_bw.png');
+        // console.log(text);
+        // await worker.terminate();
+
+        interaction.editReply({
+            content: 'k'
+        })
+
+    }
+}
+
+// .addField('__Links__', `[Donate](https://paypal.me/TristanGregory?country.x=US&locale.x=en_US) | [Invite](https://dsc.gg/pelops)`)
