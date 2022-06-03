@@ -63,7 +63,7 @@ module.exports = {
                 .setTitle('Unit not found')
                 .setDescription(`Unit \`${unit_name}\` not found`)
                 .setFooter(`Check your spelling and try again.`)
-                .setThumbnail('https://res.cloudinary.com/tristangregory/image/upload/v1651506970/gbl/pelops/pelops_error.png')
+                .setThumbnail('https://res.cloudinary.com/tristangregory/image/upload/v1654043653/gbl/pelops/pelops_error.png')
                 return interaction.editReply({
                 embeds: [embed],
 
@@ -90,7 +90,9 @@ module.exports = {
 
 
         previousEvolution = unit['Unit Name']
-        evolvedUnit = unit['EVOLUTION']
+        evolutions = unit['EVOLUTION'].split(", ")
+        if(evolutions[0] == '0') evolutions = []
+        // console.log(evolutions)
         unitsName = unit['Unit Name'].replaceAll(" ", "_")
         originalUser = interaction.user.id
 
@@ -113,16 +115,17 @@ module.exports = {
             .setDisabled(level == maxLevel)
         )
         
-
-        if (unit['EVOLUTION'] != 0) {
+        evolutions.forEach(evo => {
             actionBtns.addComponents(
                 new MessageButton()
-                .setCustomId(`evolveBtn ${evolvedUnit.replaceAll(" ","_")} ${level} ${originalUser}`)
-                .setLabel(`${evolvedUnit}`)
+                .setCustomId(`evolveBtn ${evo.replaceAll(" ","_")} ${level} ${originalUser}`)
+                .setLabel(`${evo}`)
                 .setStyle('SECONDARY'),
             );
-            // embedComponents.push(evolveBtn);
-        }
+
+        })
+
+
         embedComponents.push(actionBtns);
 
         embed = await unitEmbedGen.getUnitEmbed(unit, level)
