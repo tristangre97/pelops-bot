@@ -68,17 +68,19 @@ module.exports = {
     // console.log(unit, level)
     unitEmbed = await unitEmbedGen.getUnitEmbed(unit, level)
 
+    evolutions = unit['EVOLUTION'].split(", ")
+    if(evolutions[0] == '0') evolutions = []
 
-    if (unit['EVOLUTION'] != 0) {
-      previousEvolution = unit['EVOLUTION']
+    console.log(evolutions)
+    evolutions.forEach(evo => {
       row.addComponents(
-        new MessageButton()
-        .setCustomId(`evolveBtn ${previousEvolution.replaceAll(" ", "_")} ${level} ${originalUser}`)
-        .setLabel(`${previousEvolution}`)
-        .setStyle('SECONDARY'),
-      )
-    }
+          new MessageButton()
+          .setCustomId(`evolveBtn ${evo.replaceAll(" ","_")} ${level} ${originalUser}`)
+          .setLabel(`${evo}`)
+          .setStyle('SECONDARY'),
+      );
 
+  })
    
 
 
