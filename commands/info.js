@@ -34,7 +34,7 @@ module.exports = {
 **Version** \`${require('../package.json').version}\`
         `)
             .addField('__Developer__', `<@222781123875307521>`)
-            .setThumbnail('https://res.cloudinary.com/tristangregory/image/upload/v1651506970/gbl/pelops/pelops_reading.png')
+            .setThumbnail('https://res.cloudinary.com/tristangregory/image/upload/v1654043653/gbl/pelops/pelops_reading.png')
         await interaction.editReply({
             embeds: [embed]
         });
