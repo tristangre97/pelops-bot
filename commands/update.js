@@ -151,7 +151,7 @@ var dataList = [{
         url: "https://sheetsu.com/apis/v1.0bu/9acebc3f7c89",
     },
     {
-        name: "seasonListData",
+        name: "seasonList",
         fullName: "Season List Data",
         url: "https://sheetsu.com/apis/v1.0bu/b5f4fd1de48b",
     }

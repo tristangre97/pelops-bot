@@ -38,7 +38,7 @@ module.exports = {
 
     run: async ({ message, interaction, channel, client, args, guild }) => {
         var [season] = args;
-        const seasonData = JSON.parse(cache.get('seasonListData'))[season];
+        const seasonData = JSON.parse(cache.get('seasonList'))[season];
 
 
         embed = new MessageEmbed()
