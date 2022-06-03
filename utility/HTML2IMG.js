@@ -28,7 +28,7 @@ exports.make = async function (compareData) {
     unitTwoData = compareData[1];
 
     // console.log(unitOneData);
-    // unitEmbed.setThumbnail(`https://res.cloudinary.com/tristangregory/image/upload/v1651506970/gbl/${unitOneData.Name.replaceAll(" ", "_").replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "")}.webp`)
+    // unitEmbed.setThumbnail(`https://res.cloudinary.com/tristangregory/image/upload/v1654043653/gbl/${unitOneData.Name.replaceAll(" ", "_").replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "")}.webp`)
 
     var HTML = `
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -44,7 +44,7 @@ exports.make = async function (compareData) {
 
       <div class="unit-data">
         <div class="unit-img-cont">
-          <img id="unitOneName" src="https://res.cloudinary.com/tristangregory/image/upload/v1651506970/gbl/${unitOneData.Name.replaceAll(" ", "_").replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "")}.webp">
+          <img id="unitOneName" src="https://res.cloudinary.com/tristangregory/image/upload/v1654043653/gbl/${unitOneData.Name.replaceAll(" ", "_").replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "")}.webp">
         </div>
         <p class="unitName" id="unitOneName">${unitOneData.Name}</p>
         <p class="unitRarity" id="unitOneRarity"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></p>
@@ -53,7 +53,7 @@ exports.make = async function (compareData) {
 
       <div class="unit-data">
         <div class="unit-img-cont">
-          <img id="unitOneName" src="https://res.cloudinary.com/tristangregory/image/upload/v1651506970/gbl/${unitTwoData.Name.replaceAll(" ", "_").replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "")}.webp">
+          <img id="unitOneName" src="https://res.cloudinary.com/tristangregory/image/upload/v1654043653/gbl/${unitTwoData.Name.replaceAll(" ", "_").replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "")}.webp">
         </div>
         <p class="unitName" id="unitOneName">${unitTwoData.Name}</p>
         <p class="unitRarity" id="unitOneRarity"><i class="fa-solid fa-star"></i></p>
