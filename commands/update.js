@@ -72,7 +72,7 @@ module.exports = {
             var name = dataList[0].name;
             var url = dataList[0].url;
             await serverDownloader(name, url)
-            var saveEnd = performance.now();;
+            var saveEnd = performance.now();
 
             downloadInfo.push(`\`${name}\` took ${humanizeDuration(saveEnd - saveStart,  { maxDecimalPoints: 2 })}`)
             // console.log(i)
@@ -80,7 +80,7 @@ module.exports = {
                 ready = false;
                 finished = true;
                 console.log("Finished");
-                cache.set("pelops_update_status", "finished", 0);
+                await cache.set("pelops_update_status", "finished", 0);
 
 
             } else {
@@ -95,7 +95,6 @@ module.exports = {
 
         msg.unshift(`**__${downloadInfo.length}__** files updated.`)
         updateUnitNameList()
-        updateTierList()
         const finishedEmbed = new MessageEmbed();
         finishedEmbed.setColor('#ffb33c')
         finishedEmbed.setTitle('Finished Update!')
@@ -150,6 +149,11 @@ var dataList = [{
         name: "mapLogs",
         fullName: "Map Logs",
         url: "https://sheetsu.com/apis/v1.0bu/9acebc3f7c89",
+    },
+    {
+        name: "seasonListData",
+        fullName: "Season List Data",
+        url: "https://sheetsu.com/apis/v1.0bu/b5f4fd1de48b",
     }
 ];
 
@@ -173,49 +177,15 @@ async function updateUnitNameList() {
     }
 }
 
-sTier = []
-aTier = []
-bTier = []
-cTier = []
-dTier = []
-async function updateTierList() {
-    try {
 
-        unitData = JSON.parse(fs.readFileSync(`/home/tristan/Downloads/pelops/data/unitData.json`, 'utf8'));
-        unitData.forEach(unit => {
-            unitTier = unit['TIER']
-            console.log(unitTier)
-            if (unitTier == "S") {
-                console.log("S tier")
-                sTier.push(unit['Unit Name'])
-            }
-            if (unitTier == "A") {
-                aTier.push(unit['Unit Name'])
-            }
-            if (unitTier == "B") {
-                bTier.push(unit['Unit Name'])
-            }
-            if (unitTier == "C") {
-                cTier.push(unit['Unit Name'])
-            }
-            if (unitTier == "D") {
-                dTier.push(unit['Unit Name'])
-            }
-        })
-        // console.log('Done')
-        tierList = {
-            "S": sTier,
-            "A": aTier,
-            "B": bTier,
-            "C": cTier,
-            "D": dTier,
 
-        }
-        // console.log(tierList)
-        cache.set("tierList", tierList, 0);
-        return msg.push(`\`tierList\` updated.`)
-    } catch (error) {
-        console.log(error)
-        return msg.push(`\`tierList\` failed to update.`)
-    }
-}
+
+
+
+
+
+
+
+
+
+
