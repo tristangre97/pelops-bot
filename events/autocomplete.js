@@ -1,4 +1,6 @@
 const cache = require('../utility/cache')
+const db = require('../utility/database')
+
 const Fuse = require('fuse.js')
 const unitData = require('../data/unitData.json')
 
@@ -13,29 +15,49 @@ module.exports = {
         const seasonData = cache.get('seasonList')
 
         if (interaction.commandName === 'unit' || interaction.commandName === 'stats' || interaction.commandName === 'compare' || interaction.commandName === 'tier_list') {
-            const focusedValue = interaction.options.getFocused();
-            // console.log(unitNames)
-            const fuse = new Fuse(unitNames, {
-                shouldSort: true,
-                keys: ['name', 'aliases'],
-                threshold: 0.3,
-            })
-            // results = fuse.search(focusedValue);
-            if (!cache.get(`autocomplete.items.${focusedValue}`)) {
-                results = fuse.search(focusedValue);
-                cache.set(`autocomplete.items.${focusedValue}`, results);
-                // console.log(`[Not Cached]Autocomplete for ${focusedValue} took ${performance.now() - start}ms`);
-            } else {
-                results = cache.get(`autocomplete.items.${focusedValue}`);
-                // console.log(`[Cached]Autocomplete for ${focusedValue} took ${performance.now() - start}ms`);
-            }
-            // console.log(results)
-            if (!results) return
+            var focusedValue = interaction.options.getFocused();
+            if (!focusedValue) {
+                var unitUsage = cache.get('unitUsage') ||db.get('unitStats')
+                if(!cache.get('unitUsage')) cache.set('unitUsage',unitUsage, 3600)
 
+
+                var rankedUnits = Object.fromEntries(
+                    Object.entries(unitUsage).sort(([, a], [, b]) => a + b)
+                );
+
+                var unitUsageRank = []
+
+                for (var unit in rankedUnits) {
+                    var data = {
+                        name: unit,
+                        aliases: ''
+                    }
+                    unitUsageRank.push(data)
+                }
+                results = unitUsageRank
+            } else {
+                const fuse = new Fuse(unitNames, {
+                    shouldSort: true,
+                    keys: ['name', 'aliases'],
+                    threshold: 0.3,
+                })
+                // results = fuse.search(focusedValue);
+                if (!cache.get(`autocomplete.items.${focusedValue}`)) {
+                    results = fuse.search(focusedValue);
+                    cache.set(`autocomplete.items.${focusedValue}`, results);
+                    // console.log(`[Not Cached]Autocomplete for ${focusedValue} took ${performance.now() - start}ms`);
+                } else {
+                    results = cache.get(`autocomplete.items.${focusedValue}`);
+                    // console.log(`[Cached]Autocomplete for ${focusedValue} took ${performance.now() - start}ms`);
+                }
+                // console.log(results)
+            }
+
+            if (!results) return
 
             var itemOptions = []
             results.forEach(element => {
-                itemOptions.push(element.item)
+                itemOptions.push(element.item || element)
             })
 
 
