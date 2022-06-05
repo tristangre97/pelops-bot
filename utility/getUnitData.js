@@ -12,6 +12,7 @@ exports.getUnitEmbed = async function (unit, level) {
 
 
   db.add(`stats.uses`)
+  db.add(`unitStats.${unit['Unit Name']}`)
   var unitData = []
   startTime = performance.now();
   level++;
@@ -23,6 +24,8 @@ exports.getUnitEmbed = async function (unit, level) {
     return await cache.get(`${unit['Unit Name']}_${level}`);
   }
   var msg = []
+  var levelMsg = ''
+  var attackMsg = ''
 
   const upgradePercent = {
     1: {
@@ -139,10 +142,11 @@ exports.getUnitEmbed = async function (unit, level) {
     maxLevel = 40;
   }
 
-  // if (level - 1 >= maxLevel) {
-  //   level = maxLevel + 1;
-  //   msg.push(`${maxLevel} is max level for ${unitRarity} star units`)
-  // }
+  if (level - 1 >= maxLevel) {
+    level = maxLevel + 1;
+    // msg.push(`${maxLevel} is max level for ${unitRarity} star units`)
+    levelMsg = `**MAX LEVEL**`
+  }
 
   var spawnedUnitAttack
   var spawnedUnitHP
@@ -286,7 +290,7 @@ exports.getUnitEmbed = async function (unit, level) {
       unitData.push(unitLevelData)
   }
   if (hitsPerAttack > 1) {
-    msg.push(`This unit hits ${hitsPerAttack} times per attack`)
+    attackMsg = `\`This unit hits ${hitsPerAttack} times per attack\``
   }
   if (msg.length > 0) {
     msg = `\`\`\`${msg.join('\n')}\`\`\``
@@ -294,7 +298,7 @@ exports.getUnitEmbed = async function (unit, level) {
   const unitEmbed = new MessageEmbed();
   unitEmbed.setTitle(`Unit Calculator`);
   unitEmbed.setColor('#ffb33c');
-  unitEmbed.setDescription(`**Unit**  ${unit['EMOJI']} \`${unit['Unit Name']}\`\n**Level**  \`${i - 1}\`\n${msg}`);
+  unitEmbed.setDescription(`**Unit**  ${unit['EMOJI']} \`${unit['Unit Name']}\`\n**Level**  \`${i - 1}\` ${levelMsg}\n${msg}`);
   unitEmbed.setThumbnail(`https://res.cloudinary.com/tristangregory/image/upload/e_sharpen,h_300,w_300,c_fit,c_pad,b_rgb:ffb33c/v1654043653/gbl/${unit['Unit Name'].replaceAll(" ", "_").replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "")}.webp`)
 
 
@@ -326,14 +330,15 @@ exports.getUnitEmbed = async function (unit, level) {
 
     if (hitsPerAttack > 1) {
       dps = parseInt((unitAttack * hitsPerAttack)/attackSpeed)
-      unitStats.push(`**Damage per Attack** \`${(unitAttack * hitsPerAttack).toLocaleString()}\` | **DPS** \`${((unitAttack * hitsPerAttack)/attackSpeed).toLocaleString()}\``)
+      unitStats.push(`<:pelops_alert:983097178513895544> ${attackMsg}\n**Damage per Attack** \`${(unitAttack * hitsPerAttack).toLocaleString()}\` | **DPS** \`${((unitAttack * hitsPerAttack)/attackSpeed).toLocaleString()}\``)
     }
 
   }
 
 
   if (unit['Unit Name'] === "Godzilla 21") {
-    unitStats.push(`**Attack at __3.1__ Seconds** \`${(unitAttack).toLocaleString()}\` | **DPS** \`${parseInt(Math.abs(1 / attackSpeed) * unitAttack).toLocaleString()}\`
+    unitStats.push(`<:pelops_alert:983097178513895544> \`Godzilla 21's attack is boosted every 3.1 seconds\`
+**Attack at __3.1__ Seconds** \`${(unitAttack).toLocaleString()}\` | **DPS** \`${parseInt(Math.abs(1 / attackSpeed) * unitAttack).toLocaleString()}\`
 **Attack at __6.2__ Seconds** \`${Math.ceil(unitAttack * 4).toLocaleString()}\` | **DPS** \`${parseInt(Math.abs(1 / 6.2) * Math.ceil(unitAttack * 4)).toLocaleString()}\`
 **Attack at __9.3__ Seconds** \`${Math.ceil(unitAttack * 13).toLocaleString()}\` | **DPS** \`${parseInt(Math.abs(1 / 9.3) * Math.ceil(unitAttack * 13)).toLocaleString()}\`
 **Attack at __12.4__ Seconds** \`${Math.ceil(unitAttack * 40).toLocaleString()}\` | **DPS** \`${parseInt(Math.abs(1 / 12.4) * Math.ceil(unitAttack * 40)).toLocaleString()}\`        
