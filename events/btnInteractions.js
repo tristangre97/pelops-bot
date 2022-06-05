@@ -55,6 +55,7 @@ module.exports = {
       .setCustomId(`levelDownBtn ${unitsName} ${level - 1} ${originalUser}`)
       .setLabel(`Level ${level - 1}`)
       .setStyle('PRIMARY')
+      .setEmoji(`<:caretdownsolid:982871764575076383>`)
       .setDisabled(level == 1)
     )
     row.addComponents(
@@ -62,6 +63,7 @@ module.exports = {
       .setCustomId(`levelUpBtn ${unitsName} ${parseInt(level) + 1} ${originalUser}`)
       .setLabel(`Level ${parseInt(level) + 1}`)
       .setStyle('PRIMARY')
+      .setEmoji(`<:caretupsolid:982871763899789312>`)
       .setDisabled(level == maxLevel)
     )
 
@@ -75,12 +77,12 @@ module.exports = {
     for(const evo of evolutions) {
       evoSearch = await search.unitSearch(evo);
       evoUnit = evoSearch[0].item;
-      actionBtns.addComponents(
+      row.addComponents(
           new MessageButton()
           .setCustomId(`evolveBtn ${evo.replaceAll(" ","_")} ${level} ${originalUser}`)
           .setLabel(`${evo}`)
           .setEmoji(`${evoUnit['EMOJI']}`)
-          .setStyle('SECONDARY'),
+          .setStyle('SUCCESS'),
       );
 
   }
