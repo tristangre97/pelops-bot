@@ -71,16 +71,19 @@ module.exports = {
     evolutions = unit['EVOLUTION'].split(", ")
     if(evolutions[0] == '0') evolutions = []
 
-    console.log(evolutions)
-    evolutions.forEach(evo => {
-      row.addComponents(
+    // console.log(evolutions)
+    for(const evo of evolutions) {
+      evoSearch = await search.unitSearch(evo);
+      evoUnit = evoSearch[0].item;
+      actionBtns.addComponents(
           new MessageButton()
           .setCustomId(`evolveBtn ${evo.replaceAll(" ","_")} ${level} ${originalUser}`)
           .setLabel(`${evo}`)
+          .setEmoji(`${evoUnit['EMOJI']}`)
           .setStyle('SECONDARY'),
       );
 
-  })
+  }
    
 
 
