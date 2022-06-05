@@ -5,12 +5,13 @@ const {
     MessageActionRow,
     MessageButton
 } = require('discord.js');
-const prettyMilliseconds = require('pretty-ms');
+const search = require('../utility/search.js');
+
 var seasonOptions = []
 
 i = 0;
 
-while(i < 14) {
+while (i < 14) {
     var data = {
         name: `${i}`,
         description: `${i}`,
@@ -32,11 +33,17 @@ module.exports = {
         required: true,
         type: 3,
         choices: seasonOptions
-    },
-],
+    }, ],
 
 
-    run: async ({ message, interaction, channel, client, args, guild }) => {
+    run: async ({
+        message,
+        interaction,
+        channel,
+        client,
+        args,
+        guild
+    }) => {
         var [season] = args;
         const seasonData = JSON.parse(cache.get('seasonList'))[season];
 
@@ -49,11 +56,24 @@ module.exports = {
         Object.entries(seasonData).forEach(entry => {
             const [key, value] = entry;
             // console.log(key, value);
-            if(value === "N/A" || value === null || value === '' || key === 'Number') {
+            if (value === "N/A" || value === null || value === '' || key === 'Number') {
                 return
             }
-            embed.addField(`__${key}__`, `${value}`)
-          });
+            if (key === 'New Units') {
+                var finalArray = []
+                unitArray = value.split(', ')
+                unitArray.forEach(unit => {
+                    var unitData = search.unitSearch(unit)
+                    finalArray.push(`${unitData[0].item['EMOJI']} ${unitData[0].item['Unit Name']}`)
+                })
+                embed.setDescription(`__**${key}**__\n${finalArray.join('\n')}`)
+
+            } else {
+                embed.addField(`__${key}__`, `${value}`)
+            }
+
+
+        });
 
         return interaction.editReply({
             embeds: [embed]
@@ -61,4 +81,3 @@ module.exports = {
 
     }
 }
-
