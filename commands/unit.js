@@ -75,7 +75,6 @@ module.exports = {
 
 
         unit = searchResults[0].item;
-        db.add(`unit.${unit['Unit Name']}.uses`)
         db.add(`stats.uses`)
         unitRarity = Number(unit.RARITY);
         if (unitRarity == "4") {
