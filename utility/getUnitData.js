@@ -139,10 +139,10 @@ exports.getUnitEmbed = async function (unit, level) {
     maxLevel = 40;
   }
 
-  if (level - 1 >= maxLevel) {
-    level = maxLevel + 1;
-    msg.push(`${maxLevel} is max level for ${unitRarity} star units`)
-  }
+  // if (level - 1 >= maxLevel) {
+  //   level = maxLevel + 1;
+  //   msg.push(`${maxLevel} is max level for ${unitRarity} star units`)
+  // }
 
   var spawnedUnitAttack
   var spawnedUnitHP
@@ -294,7 +294,7 @@ exports.getUnitEmbed = async function (unit, level) {
   const unitEmbed = new MessageEmbed();
   unitEmbed.setTitle(`Unit Calculator`);
   unitEmbed.setColor('#ffb33c');
-  unitEmbed.setDescription(`**Unit**  \`${unit['Unit Name']}\`\n**Level**  \`${i - 1}\`\n${msg}`);
+  unitEmbed.setDescription(`**Unit**  ${unit['EMOJI']} \`${unit['Unit Name']}\`\n**Level**  \`${i - 1}\`\n${msg}`);
   unitEmbed.setThumbnail(`https://res.cloudinary.com/tristangregory/image/upload/e_sharpen,h_300,w_300,c_fit,c_pad,b_rgb:ffb33c/v1654043653/gbl/${unit['Unit Name'].replaceAll(" ", "_").replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "")}.webp`)
 
 
