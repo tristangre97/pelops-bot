@@ -59,9 +59,12 @@ module.exports = {
             if (unit[key] == 0 || unit[key] == 'FALSE' )  {
 
             } else {
-                unitStatsData.push(`**${toTitleCase(key)}:** \`${unit[key]}\``)
-                // unitEmbed.addField(`__${key}__`, `${unit[key]}`);
-
+                if(key == 'EMOJI') {
+                    unitStatsData.push(`**${toTitleCase(key)}:** ${unit[key]}`)
+                } else {
+                    unitStatsData.push(`**${toTitleCase(key)}:** \`${unit[key]}\``)
+                }
+               
             }
 
         });
