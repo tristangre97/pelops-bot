@@ -115,15 +115,20 @@ module.exports = {
             .setDisabled(level == maxLevel)
         )
         
-        evolutions.forEach(evo => {
+
+        for(const evo of evolutions) {
+            evoSearch = await search.unitSearch(evo);
+            evoUnit = evoSearch[0].item;
             actionBtns.addComponents(
                 new MessageButton()
                 .setCustomId(`evolveBtn ${evo.replaceAll(" ","_")} ${level} ${originalUser}`)
                 .setLabel(`${evo}`)
+                .setEmoji(`${evoUnit['EMOJI']}`)
                 .setStyle('SECONDARY'),
             );
 
-        })
+        }
+
 
 
         embedComponents.push(actionBtns);
