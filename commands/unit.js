@@ -76,6 +76,7 @@ module.exports = {
 
         unit = searchResults[0].item;
         db.add(`unit.${unit['Unit Name']}.uses`)
+        db.add(`stats.uses`)
         unitRarity = Number(unit.RARITY);
         if (unitRarity == "4") {
             maxLevel = 30;
@@ -105,6 +106,7 @@ module.exports = {
             .setCustomId(`levelDownBtn ${unitsName} ${level - 1} ${originalUser}`)
             .setLabel(`Level ${level - 1}`)
             .setStyle('PRIMARY')
+            .setEmoji(`<:caretdownsolid:982871764575076383>`)
             .setDisabled(level == 1)
         )
         actionBtns.addComponents(
@@ -112,6 +114,7 @@ module.exports = {
             .setCustomId(`levelUpBtn ${unitsName} ${parseInt(level) + 1} ${originalUser}`)
             .setLabel(`Level ${parseInt(level) + 1}`)
             .setStyle('PRIMARY')
+            .setEmoji(`<:caretupsolid:982871763899789312>`)
             .setDisabled(level == maxLevel)
         )
         
@@ -124,7 +127,7 @@ module.exports = {
                 .setCustomId(`evolveBtn ${evo.replaceAll(" ","_")} ${level} ${originalUser}`)
                 .setLabel(`${evo}`)
                 .setEmoji(`${evoUnit['EMOJI']}`)
-                .setStyle('SECONDARY'),
+                .setStyle('SUCCESS'),
             );
 
         }
