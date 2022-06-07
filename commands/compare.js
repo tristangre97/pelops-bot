@@ -205,7 +205,7 @@ module.exports = {
         *{font-family:"Poppins",sans-serif;box-sizing:border-box}.unit-compare-card{background:#ffb94c;color:#462b00;width:700px;height:auto;border-radius:25px;display:flex;position:relative;padding-top:15px;padding-bottom:15px}.unit-card{width:100%;text-align:center}.unit-card-header{width:100%;height:auto;display:flex}.unit-data{width:50%}.unit-img-cont{max-width:300px;max-height:180px;margin:auto;display:flex;justify-content:center;align-items:center}.unit-img-cont img{padding-top:15px;max-width:300px;max-height:180px;filter:drop-shadow(0 2px 3px rgba(0,0,0,.2))}.unitName{font-size:34px;letter-spacing:.25px;margin-top:0px;margin-bottom:8px;color:#462b00}.unitRarity{display:none}.unitLevel{font-size:20px;font-weight:500;letter-spacing:.15px;margin-top:25px;margin-bottom:5px}.unit-stat-card{display:flex;flex-wrap:wrap}.stat-card-section{display:flex;flex-wrap:wrap;width:100%}.stat-card-section:nth-child(odd){background:rgba(70,43,0,.12)}.full{width:100%}.half{width:50%}.stat-title{font-size:20px;font-weight:700;letter-spacing:.15px;color:#643f00;text-transform:uppercase;margin-top:8px}.stat-total{font-size:34px;font-weight:400;letter-spacing:.25px;color:#003735;margin-top:8px;margin-bottom:25px}.credit-text{position:absolute;bottom:-10px;right:50%;transform:translatex(50%);display:none}.credit-img{position:absolute;height:75px;display:block;bottom:5px;right:5px;filter:drop-shadow(0 2px 2px rgba(102,248,243,1))}.small-text{font-size:20px;font-weight:400;letter-spacing:.15px}.flex-wrap{display:flex;flex-wrap:wrap}
         </style>
         <div class="unit-compare-card">
-        <img class="credit-img" src="https://res.cloudinary.com/tristangregory/image/upload/v1653341451/gbl/pelops/Pelops_II.webp">
+        <img class="credit-img" src="https://res.cloudinary.com/tristangregory/image/upload/v1644991351/gbl/pelops/Pelops_II.webp">
     
       <div class="unit-card">
     
@@ -263,7 +263,7 @@ ${cardSections.join('')}
             // } else {
             //     var img = await imgGen.make(allData)
             // }
-            var img = await imgGen.makeTest(finalHTML)
+            var img = await imgGen.makeTest(finalHTML, '.unit-compare-card')
             // cache.set(`compare_${unitOneData.Name}_${unitOneData.Level}_${unitTwoData.Name}_${unitTwoData.Level}`, img)
         }
 

@@ -45,7 +45,7 @@ module.exports = {
         guild
     }) => {
         var [season] = args;
-        const seasonData = JSON.parse(cache.get('seasonList'))[season];
+        const seasonData = JSON.parse(cache.get('seasonData'))[season];
 
 
         embed = new MessageEmbed()
@@ -64,7 +64,7 @@ module.exports = {
                 unitArray = value.split(', ')
                 unitArray.forEach(unit => {
                     var unitData = search.unitSearch(unit)
-                    finalArray.push(`${unitData[0].item['EMOJI']} ${unitData[0].item['Unit Name']}`)
+                    finalArray.push(`${unitData[0].item['EMOJI']}  **${unitData[0].item['Unit Name']}**`)
                 })
                 embed.setDescription(`__**${key}**__\n${finalArray.join('\n')}`)
 
