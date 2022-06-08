@@ -230,7 +230,7 @@ exports.getUnitEmbed = async function (unit, level) {
     bl++;
     i++;
     if (bl > level - 1) {
-      console.log(`${unit['Unit Name']} is finished`)
+      // console.log(`${unit['Unit Name']} is finished`)
     } else {
       addedHP = Math.ceil(unitHealth * factor);
       addedAttack = Math.ceil(unitAttack * factor);
