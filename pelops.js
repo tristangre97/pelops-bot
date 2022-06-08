@@ -75,11 +75,27 @@ client.on('ready', () => {
       }
     }
 
+    var updateStatus = await cache.get("pelops_update_status");
+        if (updateStatus != "finished") {
+          var updateStart = cache.get("pelops_update_start")
+          const embed = new MessageEmbed()
+                .setColor('#ffb33c')
+                .setTitle('Currently updating')
+                .setDescription(`I am currently updating all of my data. Please try again in a few seconds.
+Started update ${Date.now() - updateStart}ms ago
+                `)
+                .setImage('https://res.cloudinary.com/tristangregory/image/upload/v1646260264/gbl/pelops/pelops_wait.png')
+          return command_data.message.editReply({
+            embeds:[embed]
+          });
+        }
 
     try {
+      start = performance.now();
       await command.run(command_data);
+      end = performance.now();
       var date = new Date(Date.now());
-      console.log(`${command_data.user.username} used ${command.name} in ${command_data.guild.name} (${date.toLocaleString()})`);
+      console.log(`${command_data.user.username} used ${command.name} in ${command_data.guild.name} (${date.toLocaleString()}) - Took ${end - start}ms`);
 
     } catch (e) {
       console.error(e);
