@@ -34,7 +34,6 @@ module.exports = {
         msg = []
         downloadInfo = []
         var updateStatus = await cache.get("pelops_update_status");
-        console.log(`${interaction.user.username} is updating pelops`);
         if (updateStatus != "finished") {
             const embed = new MessageEmbed()
                 .setColor('#ffb33c')
@@ -49,8 +48,10 @@ module.exports = {
         }
 
 
-        cache.set("pelops_update_status", "running", 0);
+        
         cache.flush()
+        cache.set("pelops_update_status", "running", 25);
+        cache.set("pelops_update_start", Date.now(), 60);
         const embed = new MessageEmbed()
             .setColor('#ffb33c')
             .setTitle('Updating...')
