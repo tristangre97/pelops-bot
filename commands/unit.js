@@ -44,17 +44,17 @@ module.exports = {
             unit_name,
             unit_level
         } = args;
-
-        var updateStatus = await cache.get("pelops_update_status");
+        
+        
 
         var [unit_name, unit_level] = args;
 
         var embedComponents = [];
-        if (updateStatus != "finished") return 'Please wait for the update to finish.';
+        
         startTime = performance.now();
 
         var selectedUnit = unit_name;
-        var level = Math.abs(unit_level);
+        var level = Math.abs(unit_level.replace(/\D/g, ''));
         searchResults = await search.unitSearch(selectedUnit);
 
         if (searchResults.length == 0) {
