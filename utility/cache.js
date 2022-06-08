@@ -27,12 +27,12 @@ exports.flush = function (cacheName) {
 
 
 botCache.on( "set", function( key, value ){
-  console.log(`Set ${key} - Cache is now ${botCache.getStats().vsize} bytes`);
+  // console.log(`Set ${key} - Cache is now ${botCache.getStats().vsize} bytes`);
 });
 
 botCache.on( "expired", function( key, value ){
-  console.log(`${key} expired - Cache is now ${botCache.getStats().vsize} bytes`);
+  // console.log(`${key} expired - Cache is now ${botCache.getStats().vsize} bytes`);
 });
 botCache.on( "deleted", function( key, value ){
-  console.log(`${key} deleted - Cache is now ${botCache.getStats().vsize} bytes`);
+  // console.log(`${key} deleted - Cache is now ${botCache.getStats().vsize} bytes`);
 });
