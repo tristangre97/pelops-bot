@@ -137,9 +137,32 @@ module.exports = {
 
         embed = await unitEmbedGen.getUnitEmbed(unit, level)
 
-        reply = await interaction.editReply({
+        await interaction.editReply({
             embeds: [embed.embed],
             components: embedComponents,
+        }).then(async msg => {
+              const SECONDS_TO_REPLY = 15 
+            const MESSAGES_TO_COLLECT = 99
+            const filter = (m) => m.author.id == interaction.user.id
+            const collector = interaction.channel.createMessageCollector({ filter, time: SECONDS_TO_REPLY * 1000, max: MESSAGES_TO_COLLECT })
+
+            collector.on('collect', async collected => {
+
+                message = collected.content.split(" ")
+                
+                if (message[0].toLowerCase() == 'level' || message[0].toLowerCase() == 'l') {
+                    level = Number(message[1])
+                    if(isNaN(level)) return 
+                    embed = await unitEmbedGen.getUnitEmbed(unit, level)
+                    await interaction.followUp({
+                        embeds: [embed.embed]
+                    });
+
+                }
+
+            })
+
+            
         })
 
     }
