@@ -12,13 +12,13 @@ module.exports = {
         if (!interaction.isAutocomplete()) return;
         start = performance.now();
         var unitNames = cache.get("unitNames")
-        const seasonData = cache.get('seasonList')
+        const seasonData = cache.get('seasonData')
 
-        if (interaction.commandName === 'unit' || interaction.commandName === 'stats' || interaction.commandName === 'compare' || interaction.commandName === 'tier_list') {
+        if (interaction.commandName === 'unit' || interaction.commandName === 'stats' || interaction.commandName === 'get_image' || interaction.commandName === 'compare' || interaction.commandName === 'tier_list') {
             var focusedValue = interaction.options.getFocused();
             if (!focusedValue) {
-                var unitUsage = cache.get('unitUsage') ||db.get('unitStats')
-                if(!cache.get('unitUsage')) cache.set('unitUsage',unitUsage, 3600)
+                var unitUsage = cache.get('unitUsage') || db.get('unitStats')
+                if (!cache.get('unitUsage')) cache.set('unitUsage', unitUsage, 3600)
 
 
                 var rankedUnits = Object.fromEntries(
@@ -38,8 +38,17 @@ module.exports = {
             } else {
                 const fuse = new Fuse(unitNames, {
                     shouldSort: true,
-                    keys: ['name', 'aliases'],
-                    threshold: 0.3,
+                    keys: [{
+                        name: 'name',
+                        weight: 0.7
+                    },
+                    {
+                        name: 'aliases',
+                        weight: 0.8
+                    }
+                    ],
+                    findAllMatches: true,
+                    threshold: 0.5,
                 })
                 // results = fuse.search(focusedValue);
                 if (!cache.get(`autocomplete.items.${focusedValue}`)) {
