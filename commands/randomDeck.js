@@ -31,20 +31,20 @@ module.exports = {
         var interactionID = crypto.randomBytes(16).toString("hex");
 
         const waitEmbed = new MessageEmbed()
-        .setColor('#ffb33c')
-        .setTitle('Generating Deck...')
-        .setDescription(`I am generating a random deck for you. This may take a second.`)
-        .setImage('https://res.cloudinary.com/tristangregory/image/upload/v1646259339/gbl/pelops/pelops_load.jpg')
+            .setColor('#ffb33c')
+            .setTitle('Generating Deck...')
+            .setDescription(`I am generating a random deck for you. This may take a second.`)
+            .setImage('https://res.cloudinary.com/tristangregory/image/upload/v1646259339/gbl/pelops/pelops_load.jpg')
 
-    reply = await interaction.editReply({
-        embeds: [waitEmbed],
-    });
+        reply = await interaction.editReply({
+            embeds: [waitEmbed],
+        });
 
         var leaderUnits = []
         var units = []
 
         var randomDeck = []
-        
+
 
         for (unit of unitData) {
             if (unit.LEADER === 'TRUE') {
@@ -97,7 +97,7 @@ module.exports = {
             unitName = unitData[0].item['Unit Name'];
             randomDeckFinal.push(`${unitData[0].item['EMOJI']}  **${unitData[0].item['Unit Name']}**`)
             cache.set(`randomDeckFinal_${interactionID}`, randomDeckFinal)
-            if(deckHTML.length < 1){
+            if (deckHTML.length < 1) {
                 deckHTML.push(`
                 <div class="unit-card leader-card">
                 <div class="leader-tag">LEADER</div>
@@ -107,13 +107,13 @@ module.exports = {
               </div>
                 `)
             } else {
-                
-                if(unitName === 'Minilla') {
+
+                if (unitName === 'Minilla') {
                     var random = Math.floor(Math.random() * 100) + 1;
-                    if(random <= 50) {
+                    if (random <= 50) {
                         unitName = 'sir_minillee'
                     }
-                  }
+                }
                 deckHTML.push(`
                 <div class="unit-card">
                 <div class="unit-img-cont">
@@ -147,12 +147,12 @@ module.exports = {
 
         const embed = new MessageEmbed()
         embed.setColor('#ffb33c')
-            embed.setTitle('Random Deck')
-            embed.setDescription(`${cache.get(`randomDeckFinal_${interactionID}`).join('\n')}`)
-            embed.setImage('attachment://yeet.png')
+        embed.setTitle('Random Deck')
+        embed.setDescription(`${cache.get(`randomDeckFinal_${interactionID}`).join('\n')}`)
+        embed.setImage('attachment://yeet.png')
 
-        if(interaction.user.id ==='222781123875307521') {
-            embed.setFooter({ text:`Deck ID - ${interactionID}` })
+        if (interaction.user.id === '222781123875307521') {
+            embed.setFooter({ text: `Deck ID - ${interactionID}` })
         }
 
 
@@ -160,8 +160,34 @@ module.exports = {
             embeds: [embed],
             files: [{
                 attachment: img,
-                name:'yeet.png'
-              }]
-        });
+                name: 'yeet.png'
+            }]
+        }).then(async msg => {
+            msg.react('👍')
+            msg.react('👎')
+
+
+            const SECONDS_TO_REPLY = 15 // replace 60 with how long to wait for message(in seconds).
+            const MESSAGES_TO_COLLECT = 5
+            const filter = (m) => m.author.id == interaction.user.id
+            const collector = interaction.channel.createMessageCollector({ filter, time: SECONDS_TO_REPLY * 1000, max: MESSAGES_TO_COLLECT })
+            collector.on('collect', async collected => {
+                collected.content = collected.content.toLowerCase()
+                if (collected.content.includes('deck sucks') || collected.content.includes('is bad') || collected.content.includes('is terrible')|| collected.content.includes('are terrible') || collected.content.includes('terrible') || collected.content.includes('ass')) {
+                    await interaction.followUp({
+                        content: `<@${interaction.user.id}> skill issue.`,
+                        files: [{
+                            attachment: 'https://res.cloudinary.com/tristangregory/image/upload/v1655007370/gbl/pelops/pelops_em.png',
+                            name: 'yeet.png'
+                        }]
+                    });
+
+                }
+
+            })
+
+            
+        })
+
     }
 }
