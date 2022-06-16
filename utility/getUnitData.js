@@ -125,6 +125,7 @@ exports.getUnitEmbed = async function (unit, level) {
   recoveryAmount = Number(unit['RECOVERY AMOUNT'])
   attackSpeed = Number(unit['ATK SPD']);
   transferTime = Number(unit['TELEPORT TIME']);
+  attackSpeedAir = Number(unit['ATK SPD AIR']);
 
 
   unitNotice = unit['NOTICE'];
@@ -298,7 +299,7 @@ exports.getUnitEmbed = async function (unit, level) {
   const unitEmbed = new MessageEmbed();
   unitEmbed.setTitle(`Unit Calculator`);
   unitEmbed.setColor('#ffb33c');
-  unitEmbed.setDescription(`**Unit**  ${unit['EMOJI']} \`${unit['Unit Name']}\`\n**Level**  \`${i - 1}\` ${levelMsg}\n${msg}`);
+  unitEmbed.setDescription(`**Unit** \`${unit['Unit Name']}\`\n**Level**  \`${i - 1}\` ${levelMsg}\n${msg}`);
   unitEmbed.setThumbnail(`https://res.cloudinary.com/tristangregory/image/upload/e_sharpen,h_300,w_300,c_fit,c_pad,b_rgb:ffb33c/v1654043653/gbl/${unit['Unit Name'].replaceAll(" ", "_").replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "")}`)
 
 
@@ -326,6 +327,12 @@ exports.getUnitEmbed = async function (unit, level) {
 
       unitStats.push(`**Attack** \`${unitAttack.toLocaleString()}\` | **DPS** \`${dps.toLocaleString()}\``)
 
+    }
+
+    if(attackSpeedAir > 0) {
+      var attacksPerSecondAir = Math.abs(1 / attackSpeedAir);
+      var dpsAir = parseInt(attacksPerSecondAir * unitAttack)
+      unitStats.push(`**Air Attack** \`${unitAttack.toLocaleString()}\` | **DPS** \`${dpsAir.toLocaleString()}\``)
     }
 
     if (hitsPerAttack > 1) {
@@ -437,8 +444,8 @@ Exact stat upgrade percents are currently unknown, please share in the <#8752146
 
     prevLevelPieceCost = pieceChart[level - 2] || `Data not found for level ${level - 2}`
     nextLevelPieceCost = pieceChart[level - 1] || `Data not found for level ${level}`
-    requiredPieceData.push(`**Previous Level** \`${prevLevelPieceCost.toLocaleString()}\` \`(${getTotalCost(level - 2, pieceChart)} Total)\``)
-    requiredPieceData.push(`**Next Level** \`${nextLevelPieceCost.toLocaleString()}\` \`(${getTotalCost(level - 1, pieceChart)} Total)\``)
+    requiredPieceData.push(`**Previous Level** \`${prevLevelPieceCost.toLocaleString()}\` ${unit['EMOJI']} \`(${getTotalCost(level - 2, pieceChart)} Total)\``)
+    requiredPieceData.push(`**Next Level** \`${nextLevelPieceCost.toLocaleString()}\` ${unit['EMOJI']} \`(${getTotalCost(level - 1, pieceChart)} Total)\``)
   }
 
   if (upgradeData.length > 0) {
