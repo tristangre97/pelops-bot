@@ -49,14 +49,14 @@ module.exports = {
 
 
         embed = new MessageEmbed()
-        embed.setTitle(`Season ${season} Details`)
+        embed.setTitle(`Season \`${seasonData['Name']}\` Details`)
         embed.setColor('#ffb33c');
 
 
         Object.entries(seasonData).forEach(entry => {
             const [key, value] = entry;
             // console.log(key, value);
-            if (value === "N/A" || value === null || value === '' || key === 'Number') {
+            if (value === "N/A" || value === null || value === '' || key === 'Number' || key === 'Name') {
                 return
             }
             if (key === 'New Units') {
@@ -68,6 +68,9 @@ module.exports = {
                 })
                 embed.setDescription(`__**${key}**__\n${finalArray.join('\n')}`)
 
+            } else if(key === 'All Star Battle Leader') {
+                var unitData = search.unitSearch(value)
+                embed.addField(`__${key}__`, `${unitData[0].item['EMOJI']}  **${unitData[0].item['Unit Name']}**`)
             } else {
                 embed.addField(`__${key}__`, `${value}`)
             }
