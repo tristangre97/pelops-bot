@@ -155,10 +155,15 @@ var dataList = [{
         name: "seasonData",
         fullName: "Season List Data",
         url: "https://sheetsu.com/apis/v1.0bu/b5f4fd1de48b",
+    },
+    {
+        name: "leaderData",
+        fullName: "Unit Leader Data",
+        url: "https://sheetsu.com/apis/v1.0su/9c52e24e16f7",
     }
 ];
 
-// ../data/unitData.json
+
 async function updateUnitNameList() {
     try {
         unitNames = []

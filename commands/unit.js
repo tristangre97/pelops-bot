@@ -1,4 +1,3 @@
-const cache = require('../utility/cache.js');
 const db = require('../utility/database.js');
 const {
     MessageEmbed,
@@ -135,7 +134,7 @@ module.exports = {
 
         embedComponents.push(actionBtns);
 
-        embed = await unitEmbedGen.getUnitEmbed(unit, level)
+        embed = await unitEmbedGen.getUnitEmbed(unit, unit_level)
 
         await interaction.editReply({
             embeds: [embed.embed],

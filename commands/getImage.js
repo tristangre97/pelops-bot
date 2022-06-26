@@ -68,19 +68,33 @@ module.exports = {
         db.add(`stats.uses`)
         const embed = new MessageEmbed()
         embed.setColor('#ffb33c')
-        embed.setDescription(`\`\`\`${unitImage}\`\`\``)
+        embed.setDescription(`\`\`\`${unitImage}.png\`\`\``)
         embed.setTitle(`${unit['Unit Name']}`)
         embed.setImage(`attachment://${fileName}`)
 
-        // actionBtns = new MessageActionRow();
+        linkBtn = new MessageActionRow();
 
-        // actionBtns.addComponents(
-        //     new MessageButton()
-        //     .setLabel(`Download`)
-        //     .setStyle('LINK')
-        //     .setURL(`https://arkbuddy.app/download?file=`)
-        // )
+        linkBtn.addComponents(
+            new MessageButton()
+            .setLabel(`Download PNG`)
+            .setStyle('LINK')
+            .setURL(`${unitImage}.png`)
+        )
+        linkBtn.addComponents(
+            new MessageButton()
+            .setLabel(`Download WebP`)
+            .setStyle('LINK')
+            .setURL(`${unitImage}.webp`)
+        )
 
+        if(unit['Unit Name'] == "Minilla") {
+            linkBtn.addComponents(
+                new MessageButton()
+                .setLabel(`???`)
+                .setStyle('LINK')
+                .setURL(`https://res.cloudinary.com/tristangregory/image/upload/v1649651359/gbl/sir_minillee.webp`)
+            )
+        }
 
 
         await interaction.editReply({
@@ -89,7 +103,7 @@ module.exports = {
                 attachment: unitImage,
                 name: `${fileName}`
             }],
-            // components: [linkBtn]
+            components: [linkBtn]
         })
 
     }

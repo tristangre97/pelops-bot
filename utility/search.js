@@ -92,10 +92,29 @@ exports.logUnitSearch = function (unit) {
         threshold: 0.1,
     };
     const fuse = new Fuse(logData, options);
-    const result = fuse.search(unit);
+    const results = fuse.search(unit);
 
-    // console.log(result)
-    results = result;
+
+
+    return results;
+
+};
+
+
+
+exports.leaderSearch = function (unit) {
+    const leaderData = JSON.parse(cache.get('leaderData'));
+    const options = {
+        includeScore: true,
+        keys: [{
+            name: 'UNIT',
+            weight: 1
+        }],
+        findAllMatches: true,
+        threshold: 0.3,
+    };
+    const fuse = new Fuse(leaderData, options);
+    const results = fuse.search(unit)[0].item;
 
 
     return results;

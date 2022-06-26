@@ -58,6 +58,8 @@ client.on('ready', () => {
   cache.set('unitData', fs.readFileSync('/home/tristan/Downloads/pelops/data/unitData.json', 'utf8'), 0);
   cache.set('mapLogs', fs.readFileSync('/home/tristan/Downloads/pelops/data/mapLogs.json', 'utf8'), 0);
   cache.set('seasonData', fs.readFileSync('/home/tristan/Downloads/pelops/data/seasonData.json', 'utf8'), 0);
+  cache.set('leaderData', fs.readFileSync('/home/tristan/Downloads/pelops/data/leaderData.json', 'utf8'), 0);
+
   cache.set("pelops_update_status", "finished", 0);
   updateUnitNameList()
   console.log("bot is up!");

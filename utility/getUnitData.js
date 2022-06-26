@@ -96,9 +96,9 @@ exports.getUnitEmbed = async function (unit, level) {
   }
 
   var burnUpgradePercent = {
-    "2" : 50,
-    "3" : 33.33,
-    "4" : 50,
+    "2": 50,
+    "3": 33.33,
+    "4": 50,
   }
   //  +20/10/15/2/0.5%
 
@@ -171,7 +171,7 @@ exports.getUnitEmbed = async function (unit, level) {
     costChart = fourStarCost;
     pieceChart = fourStarPieces;
   }
-  
+
   while (i < level) {
     // console.log(`Getting data for ${unit['Unit Name']} ${i}`)
     if (inRange(bl, 0, 1)) {
@@ -249,7 +249,7 @@ exports.getUnitEmbed = async function (unit, level) {
       unitHealth = unitHealth + addedHP;
       unitAttack = unitAttack + addedAttack;
 
-      
+
 
       unitLeaderHealth = unitLeaderHealth + addedLeaderHP;
       unitLeaderAttack = unitLeaderAttack + addedLeaderAttack;
@@ -265,30 +265,30 @@ exports.getUnitEmbed = async function (unit, level) {
 
     }
     if (attackSpeed == 0) attackSpeed = 1
-      var attacksPerSecond = Math.abs(1 / attackSpeed);
-      var dps = parseInt(attacksPerSecond * unitAttack)
+    var attacksPerSecond = Math.abs(1 / attackSpeed);
+    var dps = parseInt(attacksPerSecond * unitAttack)
 
-      if (hitsPerAttack > 1) {
-        dps = parseInt((unitAttack * hitsPerAttack)/attackSpeed)
-      }
+    if (hitsPerAttack > 1) {
+      dps = parseInt((unitAttack * hitsPerAttack) / attackSpeed)
+    }
 
-      unitAttackBoosted = Math.ceil(unitAttack + (unitAttack * dmgBoost / 100))
-      var dpsBoosted = parseInt(attacksPerSecond * unitAttackBoosted)
-      unitLevelData = {
-        "Name": unit['Unit Name'],
-        "Level": bl,
-        "Rarity": unitRarity,
-        "Cost": unitCost,
-        "HP": unitHealth,
-        "ATK": unitAttack,
-        "HitsPerAttack": hitsPerAttack,
-        "DMGBoost": dmgBoost,
-        "ATKBoosted": unitAttackBoosted,
-        "DPS": dps,
-        "DPSBoosted": dpsBoosted,
-      }
-    
-      unitData.push(unitLevelData)
+    unitAttackBoosted = Math.ceil(unitAttack + (unitAttack * dmgBoost / 100))
+    var dpsBoosted = parseInt(attacksPerSecond * unitAttackBoosted)
+    unitLevelData = {
+      "Name": unit['Unit Name'],
+      "Level": bl,
+      "Rarity": unitRarity,
+      "Cost": unitCost,
+      "HP": unitHealth,
+      "ATK": unitAttack,
+      "HitsPerAttack": hitsPerAttack,
+      "DMGBoost": dmgBoost,
+      "ATKBoosted": unitAttackBoosted,
+      "DPS": dps,
+      "DPSBoosted": dpsBoosted,
+    }
+
+    unitData.push(unitLevelData)
   }
   if (hitsPerAttack > 1) {
     attackMsg = `\`This unit hits ${hitsPerAttack} times per attack\``
@@ -311,33 +311,56 @@ exports.getUnitEmbed = async function (unit, level) {
   if (unitAttack > 0) {
     if (attackSpeed == 0) attackSpeed = 1
     var attacksPerSecond = Math.abs(1 / attackSpeed);
-    
+
     var dps = parseInt(attacksPerSecond * unitAttack)
 
-
-
-
-    if (dmgBoost > 0) {
-      unitAttackBoosted = Math.ceil(unitAttack + (unitAttack * dmgBoost / 100))
-      var dpsBoosted = parseInt(attacksPerSecond * unitAttackBoosted)
-
-      unitStats.push(`**Attack** \`${unitAttack.toLocaleString()}\` | **DPS** \`${dps.toLocaleString()}\``)
-      unitStats.push(`**Buffed** \`${unitAttackBoosted.toLocaleString()}\` | **DPS** \`${dpsBoosted.toLocaleString()}\``)
-    } else {
-
-      unitStats.push(`**Attack** \`${unitAttack.toLocaleString()}\` | **DPS** \`${dps.toLocaleString()}\``)
-
+    const buffs = {
+      "In Water": {
+        'boost': 80,
+        'emoji': '💧'
+      },
+      "Battra": {
+        'boost': 30,
+        'emoji': '<:Battra_Larva:982860056334831647>/<:Battra_Imago:982860055449858098>'
+      },
+      "Jet Jaguar 73": {
+        'boost': 30,
+        'emoji': '<:Jet_Jaguar_73:982860088714883162>'
+      },
+      "SG Crystals": {
+        'boost': 25,
+        'emoji': '?'
+      },
     }
 
-    if(attackSpeedAir > 0) {
+    unitStats.push(`**Attack** \`${unitAttack.toLocaleString()}\` | **DPS** \`${dps.toLocaleString()}\``)
+
+    Object.keys(buffs).forEach(key => {
+      if(key == 'In Water' && !unit['Unit Name'].includes('Biollante')) return
+      unitAttackBoosted = Math.ceil(unitAttack + (unitAttack * buffs[key].boost / 100))
+      var dpsBoosted = parseInt(attacksPerSecond * unitAttackBoosted)
+
+      unitStats.push(`**╰${buffs[key].emoji} ${key} Boost** \`${unitAttackBoosted.toLocaleString()}\` | **DPS** \`${dpsBoosted.toLocaleString()}\``)
+    })
+
+
+
+    // unitAttackBoosted = Math.ceil(unitAttack + (unitAttack * dmgBoost / 100))
+    // var dpsBoosted = parseInt(attacksPerSecond * unitAttackBoosted)
+
+    // unitStats.push(`**Attack** \`${unitAttack.toLocaleString()}\` | **DPS** \`${dps.toLocaleString()}\``)
+    // unitStats.push(`**Buffed** \`${unitAttackBoosted.toLocaleString()}\` | **DPS** \`${dpsBoosted.toLocaleString()}\``)
+
+
+    if (attackSpeedAir > 0) {
       var attacksPerSecondAir = Math.abs(1 / attackSpeedAir);
       var dpsAir = parseInt(attacksPerSecondAir * unitAttack)
       unitStats.push(`**Air Attack** \`${unitAttack.toLocaleString()}\` | **DPS** \`${dpsAir.toLocaleString()}\``)
     }
 
     if (hitsPerAttack > 1) {
-      dps = parseInt((unitAttack * hitsPerAttack)/attackSpeed)
-      unitStats.push(`<:pelops_alert:983097178513895544> ${attackMsg}\n**Damage per Attack** \`${(unitAttack * hitsPerAttack).toLocaleString()}\` | **DPS** \`${((unitAttack * hitsPerAttack)/attackSpeed).toLocaleString()}\``)
+      dps = parseInt((unitAttack * hitsPerAttack) / attackSpeed)
+      unitStats.push(`<:pelops_alert:983097178513895544> ${attackMsg}\n**Damage per Attack** \`${(unitAttack * hitsPerAttack).toLocaleString()}\` | **DPS** \`${((unitAttack * hitsPerAttack) / attackSpeed).toLocaleString()}\``)
     }
 
   }
@@ -376,9 +399,9 @@ exports.getUnitEmbed = async function (unit, level) {
 
   if (unit['Unit Name'] === "Burning Godzilla") {
     expireDmgOne = Number(unitAttack);
-    expireDmgTwo = Math.floor(expireDmgOne+(expireDmgOne*(burnUpgradePercent['2']/100)));
-    expireDmgThree = Math.ceil(expireDmgTwo+(expireDmgTwo*(burnUpgradePercent['3']/100)));
-    expireDmgFour = Math.ceil(expireDmgThree+(expireDmgThree*(burnUpgradePercent['4']/100)));
+    expireDmgTwo = Math.floor(expireDmgOne + (expireDmgOne * (burnUpgradePercent['2'] / 100)));
+    expireDmgThree = Math.ceil(expireDmgTwo + (expireDmgTwo * (burnUpgradePercent['3'] / 100)));
+    expireDmgFour = Math.ceil(expireDmgThree + (expireDmgThree * (burnUpgradePercent['4'] / 100)));
 
 
     unitStats.push(`**Expire Damage 1** \`${expireDmgOne}\``)
@@ -394,13 +417,7 @@ exports.getUnitEmbed = async function (unit, level) {
   LeaderStatsData = 'unfinished'
 
   if (unit.LEADER === 'TRUE' && LeaderStatsData == 'finished') {
-    unitEmbed.addField(`__Leader Stats__`, `
-__**UNFINISHED**__
-Exact stat upgrade percents are currently unknown, please share in the <#875214614416224266> channel if you know!
-\`(Please include player level)\`
-**HP** \`${unitLeaderHealth.toLocaleString()}\`
-**Attack** \`${unitLeaderAttack.toLocaleString()}\`
-`);
+
   }
 
   if (unit.BUILDING === "TRUE") {
@@ -455,7 +472,7 @@ Exact stat upgrade percents are currently unknown, please share in the <#8752146
     unitEmbed.addField(`__Required Pieces__`, `${requiredPieceData.join('\n')}`);
   }
 
-  if(unitNotice.length > 0) {
+  if (unitNotice.length > 0) {
     unitEmbed.addField(`__Notice__`, `\`\`\`${unitNotice}\`\`\``);
   }
 
@@ -471,7 +488,7 @@ Exact stat upgrade percents are currently unknown, please share in the <#8752146
 
 
 
-// console.log(returnData)
+  // console.log(returnData)
 
   return returnData;
 };
@@ -505,3 +522,11 @@ function getTotalCost(level, array) {
 // const twoStarCost = [0, 50, 200, 300, 400, 500, 750, 1000, 1250, 1500, 1750, 2000, 2250, 2500, 3000, 3500, 4000, 4500, 5000, 6000, 11900, 13600, 15300, 17000, 19125, 21250, 23375, 25500, 29750, 34000, 35700, 37400]
 // const threeStarCost = [0, 200, 600, 800, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 2400, 2800, 3200, 3600, 4000, 4400, 4800, 5200, 5600, 10500, 14000, 15750, 17500, 19250, 21000, 22750, 24500, 29750, 35000, 40000, 40000, 40000, 40000, 40000, 40000, 40000, 40000, 40000, 40000]
 // const fourStarCost = [0, 2500, 2500, 2500, 2500, 5000, 5000, 5000, 5000, 5000, 9000, 9000, 9000, 9000, 9000, 9000, 9000, 9000, 9000, 9000, 20000, 20000, 20000, 20000, 20000, 25000, 25000, 25000, 25000, 25000]
+
+
+
+function toTitleCase(str) {
+  return str.replace(/\w\S*/g, function (txt) {
+    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+  });
+}
