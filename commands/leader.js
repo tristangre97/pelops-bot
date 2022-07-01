@@ -18,7 +18,7 @@ module.exports = {
         description: 'The name of the unit.',
         required: true,
         type: 3,
-        autocomplete: false,
+        autocomplete: true,
     }
     ],
 
@@ -57,6 +57,7 @@ module.exports = {
             });
             
         }
+        db.add(`unitLeaderStats.${leaderData['UNIT']}`)
 
 
         entries = []
