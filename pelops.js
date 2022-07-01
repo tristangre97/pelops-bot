@@ -61,8 +61,7 @@ client.on('ready', () => {
   cache.set('leaderData', fs.readFileSync('/home/tristan/Downloads/pelops/data/leaderData.json', 'utf8'), 0);
 
   cache.set("pelops_update_status", "finished", 0);
-  updateUnitNameList()
-  console.log("bot is up!");
+  console.log("Pelops is ready!");
 
 
 
@@ -131,18 +130,4 @@ Started update ${Date.now() - updateStart}ms ago
 
 client.login(config.token);
 
-
-function updateUnitNameList() {
-  unitNames = []
-  unitData = JSON.parse(fs.readFileSync(`/home/tristan/Downloads/pelops/data/unitData.json`, 'utf8'));
-  unitData.forEach(unit => {
-      var data = {
-          name: unit['Unit Name'],
-          aliases: unit['ALIASES'],
-      }
-      unitNames.push(data)
-  })
-  // console.log(unitNames)
-  cache.set("unitNames", unitNames, 0);
-}
 
