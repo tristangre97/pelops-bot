@@ -48,14 +48,13 @@ module.exports = {
         }
 
 
-        
+
         cache.flush()
         cache.set("pelops_update_status", "running", 25);
         cache.set("pelops_update_start", Date.now(), 60);
         const embed = new MessageEmbed()
             .setColor('#ffb33c')
-            .setTitle('Updating...')
-            .setDescription(`I am updating **__${dataList.length}__** files.`)
+            .setTitle(`Updating ${dataList.length} files...`)
             .setImage('https://res.cloudinary.com/tristangregory/image/upload/v1646259339/gbl/pelops/pelops_load.jpg')
 
         reply = await interaction.editReply({
@@ -65,18 +64,38 @@ module.exports = {
         finished = false;
         i = 0;
 
-        console.log(`Datalist - ${dataList.length}`)
+
+        const finishedEmbed = new MessageEmbed();
+        finishedEmbed.setColor('#ffb33c')
+
+        updateStart = performance.now();
 
         while (dataList.length > i && ready == true && finished == false) {
             var saveStart = performance.now();
             ready = false;
             var name = dataList[0].name;
             var url = dataList[0].url;
-            await serverDownloader(name, url)
+            saveStatus = await serverDownloader(name, url)
             var saveEnd = performance.now();
 
-            downloadInfo.push(`\`${name}\` took ${humanizeDuration(saveEnd - saveStart,  { maxDecimalPoints: 2 })}`)
-            // console.log(i)
+
+            if (saveStatus == 'Success') {
+            downloadInfo.push(`Updated \`${name}\` (${humanizeDuration(saveEnd - saveStart, { maxDecimalPoints: 2 })})`)
+            } else {
+                downloadInfo.push(`Failed to update \`${name}\` (${humanizeDuration(saveEnd - saveStart, { maxDecimalPoints: 2 })})`)
+            }
+
+            finishedEmbed.setTitle(`Updating ${dataList.length} files...`)
+            finishedEmbed.setDescription(`${msg.join("\n")}\n\n${downloadInfo.join("\n")}`)
+            finishedEmbed.setImage('https://res.cloudinary.com/tristangregory/image/upload/v1646259339/gbl/pelops/pelops_load.jpg')
+
+            await interaction.editReply({
+                embeds: [finishedEmbed],
+
+            });
+
+
+
             if (i + 1 == dataList.length) {
                 ready = false;
                 finished = true;
@@ -91,13 +110,11 @@ module.exports = {
 
             }
 
-        } //While loop end
-
+        } 
+        var updateEnd = performance.now();
 
         msg.unshift(`**__${downloadInfo.length}__** files updated.`)
-        updateUnitNameList()
-        const finishedEmbed = new MessageEmbed();
-        finishedEmbed.setColor('#ffb33c')
+
         finishedEmbed.setTitle('Finished Update!')
         finishedEmbed.setDescription(`${msg.join("\n")}\n\n${downloadInfo.join("\n")}`)
         finishedEmbed.setImage('https://res.cloudinary.com/tristangregory/image/upload/v1648922161/gbl/pelops/pelops_idk.jpg')
@@ -133,55 +150,40 @@ async function serverDownloader(name, url) {
             // downloadInfo.push(`\`${name}\` downloaded in ${downloadFinish - downloadStart}ms`)
             controller.abort();
         });
+        return 'Success';
     } catch (error) {
         cache.set(`${name}`, fs.readFileSync(`/home/tristan/Downloads/pelops/data/${name}.json`, 'utf8'), 0);
-        return msg.push(`\`${name}\` failed to download, keeping current version.\n\`\`\`${error}\`\`\``)
+         msg.push(`\`${name}\` failed to download, keeping current version.\n\`\`\`${error}\`\`\``)
+        return 'Failed';
         // console.log(error);
     }
 }
 
 
 var dataList = [{
-        name: "unitData",
-        fullName: "Unit Data",
-        url: "https://sheetsu.com/apis/v1.0su/bfb7ac95068b",
-    },
-    {
-        name: "mapLogs",
-        fullName: "Map Logs",
-        url: "https://sheetsu.com/apis/v1.0bu/9acebc3f7c89",
-    },
-    {
-        name: "seasonData",
-        fullName: "Season List Data",
-        url: "https://sheetsu.com/apis/v1.0bu/b5f4fd1de48b",
-    },
-    {
-        name: "leaderData",
-        fullName: "Unit Leader Data",
-        url: "https://sheetsu.com/apis/v1.0su/9c52e24e16f7",
-    }
+    name: "unitData",
+    fullName: "Unit Data",
+    url: "https://sheetsu.com/apis/v1.0su/bfb7ac95068b",
+},
+{
+    name: "mapLogs",
+    fullName: "Map Logs",
+    url: "https://sheetsu.com/apis/v1.0bu/9acebc3f7c89",
+},
+{
+    name: "seasonData",
+    fullName: "Season List Data",
+    url: "https://sheetsu.com/apis/v1.0bu/b5f4fd1de48b",
+},
+{
+    name: "leaderData",
+    fullName: "Unit Leader Data",
+    url: "https://sheetsu.com/apis/v1.0su/9c52e24e16f7",
+}
 ];
 
 
-async function updateUnitNameList() {
-    try {
-        unitNames = []
-        unitData = JSON.parse(cache.get("unitData"));
-        unitData.forEach(unit => {
-            var data = {
-                name: unit['Unit Name'],
-                aliases: unit['ALIASES'],
-            }
-            unitNames.push(data)
-        })
-        cache.set("unitNames", unitNames, 0);
-        return msg.push(`\`unitNames\` updated.`)
-    } catch (error) {
-        console.log(error)
-        return msg.push(`\`unitNames\` failed to update.`)
-    }
-}
+
 
 
 
