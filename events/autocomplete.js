@@ -11,79 +11,125 @@ module.exports = {
     async execute(interaction) {
         if (!interaction.isAutocomplete()) return;
         start = performance.now();
-        const unitNames = cache.get("unitNames")
-        const leaderNames = cache.get("leaderNames")
+
 
         if (interaction.commandName === 'unit' || interaction.commandName === 'stats' || interaction.commandName === 'get_image' || interaction.commandName === 'compare' || interaction.commandName === 'tier_list') {
-            var focusedValue = interaction.options.getFocused();
-            if (!focusedValue) {
-                var unitUsage = cache.get('unitUsage') || db.get('unitStats')
-                if (!cache.get('unitUsage')) cache.set('unitUsage', unitUsage, 3600)
+            searchData = unitData;
+            cacheName = 'unitNames';
+            searchKeys = [{
+                name: 'Unit Name',
+                weight: 0.6
+            },
+            {
+                name: 'ALIASES',
+                weight: 0.5
+            }]
+
+            var unitUsage = cache.get('unitUsage') || db.get('unitStats')
+            if (!cache.get('unitUsage')) cache.set('unitUsage', unitUsage, 5)
+
+            var rankedUnits = Object.entries(unitUsage).sort((a,b) => b[1]-a[1])
 
 
-                var rankedUnits = Object.fromEntries(
-                    Object.entries(unitUsage).sort(([, a], [, b]) => a + b)
-                );
+            var unitUsageRank = []
 
-                var unitUsageRank = []
 
-                for (var unit in rankedUnits) {
-                    var data = {
-                        name: unit,
-                        aliases: ''
-                    }
-                    unitUsageRank.push(data)
+            for (var unit in rankedUnits) {
+                var data = {
+                    name: rankedUnits[unit][0],
+                    aliases: ''
                 }
-                results = unitUsageRank
+                unitUsageRank.push(data)
+            }
+            unitRanking = unitUsageRank
+
+        }
+
+        if (interaction.commandName === 'leader_ability') {
+            searchData = leaderData;
+            cacheName = 'leaderNames';
+
+            searchKeys = [{
+                name: 'UNIT',
+                weight: 0.6
+            },
+            {
+                name: 'ABILITY NAME',
+                weight: 0.5
+            }]
+
+            var unitUsage = cache.get('unitLeaderStats') || db.get('unitLeaderStats')
+            if (!cache.get('unitLeaderStats')) cache.set('unitLeaderStats', unitUsage, 3600)
+
+
+            var rankedUnits = Object.entries(unitUsage).sort((a,b) => b[1]-a[1])
+
+            var unitUsageRank = []
+
+            for (var unit in rankedUnits) {
+                var data = {
+                    name: rankedUnits[unit][0],
+                    aliases: ''
+                }
+                unitUsageRank.push(data)
+            }
+            unitRanking = unitUsageRank
+
+
+        }
+
+
+        var focusedValue = interaction.options.getFocused();
+        var itemOptions = []
+
+        if (focusedValue) {
+
+            const fuse = new Fuse(searchData, {
+                shouldSort: true,
+                keys: searchKeys,
+                findAllMatches: true,
+                threshold: 0.5,
+            })
+
+            if (!cache.get(`autocomplete.${cacheName}.${focusedValue}`)) {
+                results = fuse.search(focusedValue);
+                cache.set(`autocomplete.${cacheName}.${focusedValue}`, results);
             } else {
-                const fuse = new Fuse(unitNames, {
-                    shouldSort: true,
-                    keys: [{
-                        name: 'name',
-                        weight: 0.7
-                    },
-                    {
-                        name: 'aliases',
-                        weight: 0.8
-                    }
-                    ],
-                    findAllMatches: true,
-                    threshold: 0.5,
-                })
-                // results = fuse.search(focusedValue);
-                if (!cache.get(`autocomplete.items.${focusedValue}`)) {
-                    results = fuse.search(focusedValue);
-                    cache.set(`autocomplete.items.${focusedValue}`, results);
-                    // console.log(`[Not Cached]Autocomplete for ${focusedValue} took ${performance.now() - start}ms`);
-                } else {
-                    results = cache.get(`autocomplete.items.${focusedValue}`);
-                    // console.log(`[Cached]Autocomplete for ${focusedValue} took ${performance.now() - start}ms`);
-                }
-                // console.log(results)
+                results = cache.get(`autocomplete.${cacheName}.${focusedValue}`);
             }
 
             if (!results) return
 
-            var itemOptions = []
             results.forEach(element => {
-                itemOptions.push(element.item || element)
+                itemOptions.push(element?.item['Unit Name'] || element?.item['UNIT'])
             })
 
 
-            const choices = itemOptions.slice(0, 25)
-            // console.log(`${focusedValue}\n${choices.join(', ')}`);
+        } else {
 
-            // const filtered = choices.filter(choice => choice.startsWith(toTitleCase(focusedValue)));
-
-            end = performance.now();
-            // console.log(`Search took ${end - start} milliseconds.`);
-            const response = await interaction.respond(
-                choices.map(choice => ({
-                    name: choice.name,
-                    value: choice.name,
-                })),
-            );
+            results = unitRanking
+            results.forEach(element => {
+                itemOptions.push(element.name)
+            })
+            
         }
+
+
+
+
+
+
+        const choices = itemOptions.slice(0, 25)
+
+
+        end = performance.now();
+        const response = await interaction.respond(
+            choices.map(choice => ({
+                name: choice,
+                value: choice,
+            })),
+        );
+
 
     },
 };
@@ -94,3 +140,6 @@ function toTitleCase(str) {
         return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
     });
 }
+
+
+
