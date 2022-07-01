@@ -9,6 +9,11 @@ const {
 } = require('discord.js');
 const search = require('../utility/search.js');
 const imgGen = require('../utility/HTML2IMG.js');
+
+var unavailiableUnits = ['Kong', 'Godzilla 21']
+
+
+
 module.exports = {
     name: 'random_deck',
     category: 'Tools',
@@ -16,7 +21,17 @@ module.exports = {
     slash: "both",
     argsDescription: "The command category | the command name",
     testOnly: false,
-
+    options: [{
+        name: 'disable_unavailable_units', // Must be lower case
+        description: 'Prevent unavailable units from appearing in the deck',
+        required: false,
+        type: 3,
+        choices: [{
+            name: 'True',
+            value: 'True',
+        }
+        ]
+    },],
 
     run: async ({
         message,
@@ -26,6 +41,8 @@ module.exports = {
         args,
         guild
     }) => {
+        var [disable_unavailable_units] = args;
+        if(!disable_unavailable_units) disable_unavailable_units = false;
         db.add(`stats.uses`)
         var unitData = JSON.parse(cache.get('unitData'));
         var interactionID = crypto.randomBytes(16).toString("hex");
@@ -56,7 +73,11 @@ module.exports = {
         }
 
         function getRandomLeader() {
-            return leaderUnits[Math.floor(Math.random() * leaderUnits.length)]
+            unit = leaderUnits[Math.floor(Math.random() * leaderUnits.length)]
+            if (unavailiableCheck(unit['Unit Name'])) {
+                getRandomLeader()
+            }
+            return unit
         }
 
         function getRandomUnit() {
@@ -67,12 +88,13 @@ module.exports = {
 
             var maxDeckSize = 8;
             var leader = getRandomLeader();
+
             randomDeck.push(leader['Unit Name'])
 
             while (randomDeck.length < maxDeckSize) {
                 var unit = getRandomUnit()
                 if (randomDeck.indexOf(unit['Unit Name']) === -1) {
-                    if (unit['ISFINALEVOLUTION'] === 'FALSE') {
+                    if (unit['ISFINALEVOLUTION'] === 'FALSE' || unavailiableCheck(unit['Unit Name'])) {
                         continue
                     } else {
                         randomDeck.push(unit['Unit Name'])
@@ -148,24 +170,23 @@ module.exports = {
         const embed = new MessageEmbed()
         embed.setColor('#ffb33c')
         embed.setTitle('Random Deck')
-        embed.setDescription(`${cache.get(`randomDeckFinal_${interactionID}`).join('\n')}`)
-        embed.setImage('attachment://yeet.png')
+        embed.setDescription(`${cache.get(`randomDeckFinal_${interactionID}`).join(', ')}`)
+        embed.setImage(`attachment://${interactionID}.png`)
 
         if (interaction.user.id === '222781123875307521') {
             embed.setFooter({ text: `Deck ID - ${interactionID}` })
         }
 
 
-        await interaction.editReply({
+        var reply = await interaction.editReply({
             embeds: [embed],
             files: [{
                 attachment: img,
-                name: 'yeet.png'
+                name: `${interactionID}.png`
             }]
         }).then(async msg => {
-            msg.react('👍')
-            msg.react('👎')
-
+            // msg.react('👍')
+            // msg.react('👎')
 
             const SECONDS_TO_REPLY = 15 // replace 60 with how long to wait for message(in seconds).
             const MESSAGES_TO_COLLECT = 5
@@ -173,7 +194,7 @@ module.exports = {
             const collector = interaction.channel.createMessageCollector({ filter, time: SECONDS_TO_REPLY * 1000, max: MESSAGES_TO_COLLECT })
             collector.on('collect', async collected => {
                 collected.content = collected.content.toLowerCase()
-                if (collected.content.includes('deck sucks') || collected.content.includes('is bad') || collected.content.includes('is terrible')|| collected.content.includes('are terrible') || collected.content.includes('terrible') || collected.content.includes('ass')) {
+                if (collected.content.includes('deck sucks') || collected.content.includes('is bad') || collected.content.includes('is terrible') || collected.content.includes('are terrible') || collected.content.includes('terrible') || collected.content.includes('ass')) {
                     await interaction.followUp({
                         content: `<@${interaction.user.id}> skill issue.`,
                         files: [{
@@ -186,8 +207,21 @@ module.exports = {
 
             })
 
-            
+
         })
+
+
+        function unavailiableCheck(unit) {
+            if (!disable_unavailable_units) return false
+            if (unavailiableUnits.includes(unit)) {
+                return true
+            } else {
+                return false
+            }
+        }
 
     }
 }
+
+
+
