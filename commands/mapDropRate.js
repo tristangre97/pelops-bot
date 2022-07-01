@@ -20,7 +20,7 @@ module.exports = {
         const embed = new MessageEmbed()
         .setColor('#ffb33c')
         .setTitle('Map Drop Rates')
-       .setDescription(`5% Legendary exp
+       .setDescription(`5% Legendary
 17% Mysterious
 23% Rare
 18% Monster
@@ -32,4 +32,3 @@ module.exports = {
     }
 }
 
-// .addField('__Links__', `[Donate](https://paypal.me/TristanGregory?country.x=US&locale.x=en_US) | [Invite](https://dsc.gg/pelops)`)
