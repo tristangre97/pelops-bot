@@ -317,7 +317,8 @@ exports.getUnitEmbed = async function (unit, level) {
     const buffs = {
       "In Water": {
         'boost': 80,
-        'emoji': '💧'
+        'emoji': '💧',
+        'units': ['Biollante Flower Beast', 'Biollante Plant Beast']
       },
       "Battra": {
         'boost': 30,
@@ -333,15 +334,20 @@ exports.getUnitEmbed = async function (unit, level) {
       },
     }
 
+
     unitStats.push(`**Attack** \`${unitAttack.toLocaleString()}\` | **DPS** \`${dps.toLocaleString()}\``)
 
-    Object.keys(buffs).forEach(key => {
-      if(key == 'In Water' && !unit['Unit Name'].includes('Biollante')) return
-      unitAttackBoosted = Math.ceil(unitAttack + (unitAttack * buffs[key].boost / 100))
-      var dpsBoosted = parseInt(attacksPerSecond * unitAttackBoosted)
 
-      unitStats.push(`**╰${buffs[key].emoji} ${key} Boost** \`${unitAttackBoosted.toLocaleString()}\` | **DPS** \`${dpsBoosted.toLocaleString()}\``)
-    })
+
+    // Object.keys(buffs).forEach(key => {
+    //   if(buffs[key].units && !buffs[key].units.includes(unit['Unit Name'])) return
+
+    //   unitAttackBoosted = Math.ceil(unitAttack + (unitAttack * buffs[key].boost / 100))
+    //   var dpsBoosted = parseInt(attacksPerSecond * unitAttackBoosted)
+
+    //   unitStats.push(`\xa0\xa0**╰${buffs[key].emoji} ${key} Boost** \`${unitAttackBoosted.toLocaleString()}\` | **DPS** \`${dpsBoosted.toLocaleString()}\``)
+
+    // })
 
 
 
@@ -414,10 +420,9 @@ exports.getUnitEmbed = async function (unit, level) {
     unitEmbed.addField(`__Unit Stats__`, `${unitStats.join('\n')}`);
   }
 
-  LeaderStatsData = 'unfinished'
 
-  if (unit.LEADER === 'TRUE' && LeaderStatsData == 'finished') {
-
+  if (unit.LEADER === 'TRUE') {
+    unitEmbed.setFooter({ text: `To see leader ability use /leader_ability` })
   }
 
   if (unit.BUILDING === "TRUE") {
