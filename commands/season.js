@@ -1,4 +1,5 @@
 const cache = require('../utility/cache.js');
+const seasonData = JSON.parse(cache.get('seasonData'));
 const db = require('../utility/database.js');
 const {
     MessageEmbed,
@@ -9,17 +10,30 @@ const search = require('../utility/search.js');
 
 var seasonOptions = []
 
-i = 0;
 
-while (i < 14) {
+for(season in seasonData) {
+
     var data = {
-        name: `${i}`,
-        description: `${i}`,
-        value: `${i}`,
+        name: seasonData[season].Name,
+        description: seasonData[season].Number,
+        value: seasonData[season].Number,
     }
     seasonOptions.push(data)
-    i++
+
 }
+
+
+// i = 0;
+
+// while (i < 14) {
+//     var data = {
+//         name: `${i}`,
+//         description: `${i}`,
+//         value: `${i}`,
+//     }
+//     seasonOptions.push(data)
+//     i++
+// }
 module.exports = {
     name: 'season',
     category: 'Tools',
@@ -33,7 +47,7 @@ module.exports = {
         required: true,
         type: 3,
         choices: seasonOptions
-    }, ],
+    },],
 
 
     run: async ({
@@ -45,11 +59,11 @@ module.exports = {
         guild
     }) => {
         var [season] = args;
+
         const seasonData = JSON.parse(cache.get('seasonData'))[season];
 
-
         embed = new MessageEmbed()
-        embed.setTitle(`Season \`${seasonData['Name']}\` Details`)
+        embed.setTitle(`Season ${seasonData['Number']} - \`${seasonData['Name']}\``)
         embed.setColor('#ffb33c');
 
 
@@ -68,7 +82,7 @@ module.exports = {
                 })
                 embed.setDescription(`__**${key}**__\n${finalArray.join('\n')}`)
 
-            } else if(key === 'All Star Battle Leader') {
+            } else if (key === 'All Star Battle Leader') {
                 var unitData = search.unitSearch(value)
                 embed.addField(`__${key}__`, `${unitData[0].item['EMOJI']}  **${unitData[0].item['Unit Name']}**`)
             } else {
