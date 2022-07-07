@@ -26,7 +26,7 @@ module.exports = {
             description: 'The level of the unit.',
             required: true,
             type: 10,
-        },
+        }
     ],
 
 
@@ -39,15 +39,11 @@ module.exports = {
         guild
     }) => {
 
-        var {
-            unit_name,
-            unit_level
-        } = args;
+
         
         
 
         var [unit_name, unit_level] = args;
-
         var embedComponents = [];
         
         startTime = performance.now();
@@ -98,7 +94,6 @@ module.exports = {
 
 
         actionBtns = new MessageActionRow();
-
         actionBtns.addComponents(
             new MessageButton()
             .setCustomId(`levelDownBtn ${unitsName} ${level - 1} ${originalUser}`)
@@ -134,7 +129,9 @@ module.exports = {
 
         embedComponents.push(actionBtns);
 
-        embed = await unitEmbedGen.getUnitEmbed(unit, unit_level)
+        
+
+        embed = await unitEmbedGen.getUnitEmbed(unit, unit_level, interaction.user.id);
 
         await interaction.editReply({
             embeds: [embed.embed],

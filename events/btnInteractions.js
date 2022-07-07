@@ -24,7 +24,6 @@ module.exports = {
     var originalUser = data[3] || '222781123875307521';
 
 
-
     // if (originalUser != interaction.user.id) {
     //   const errorEmbed = new MessageEmbed()
     //     .setColor('#ff0000')
@@ -68,7 +67,7 @@ module.exports = {
     )
 
     // console.log(unit, level)
-    unitEmbed = await unitEmbedGen.getUnitEmbed(unit, level)
+    unitEmbed = await unitEmbedGen.getUnitEmbed(unit, level, originalUser);
 
     evolutions = unit['EVOLUTION'].split(", ")
     if(evolutions[0] == '0') evolutions = []

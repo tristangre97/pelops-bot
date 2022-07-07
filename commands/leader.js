@@ -58,19 +58,22 @@ module.exports = {
             
         }
         db.add(`unitLeaderStats.${leaderData['UNIT']}`)
-
+        const unitEmbed = new MessageEmbed();
+        unitEmbed.setTitle(`Leader Ability`);
+        unitEmbed.setColor('#ffb33c');
 
         entries = []
         Object.keys(leaderData).forEach(key => {
-            if (leaderData[key] != '' && key != 'UNIT') {
+            if (leaderData[key] != '' && key != 'UNIT' && key != 'GIF') {
                 entries.push(`**${toTitleCase(key)}** \`${leaderData[key]}\``)
+            }
+            if (key == 'GIF' && leaderData[key] != '') {
+                unitEmbed.setImage(leaderData[key])
             }
 
         })
 
-        const unitEmbed = new MessageEmbed();
-        unitEmbed.setTitle(`Leader Ability`);
-        unitEmbed.setColor('#ffb33c');
+       
         unitEmbed.setDescription(`**Unit** \`${leaderData['UNIT']}\``);
         unitEmbed.setThumbnail(`https://res.cloudinary.com/tristangregory/image/upload/e_sharpen,h_300,w_300,c_fit,c_pad,b_rgb:ffb33c/v1654043653/gbl/${leaderData['UNIT'].replaceAll(" ", "_").replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "")}`)
 

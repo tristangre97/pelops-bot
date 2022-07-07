@@ -1,0 +1,169 @@
+[
+    {
+        "Rank": 2,
+        "Rewards": {},
+        "Upgrades": {
+            "Type": "Battle Abilities",
+            "Stat": "Attack",
+            "Value": 0.3
+        }
+    },
+    {
+        "Rank": 3,
+        "Rewards": {},
+        "Upgrades": {
+            "Type": "Battle Abilities",
+            "Stat": "HP",
+            "Value": 0.3
+        }
+    },
+    {
+        "Rank": 4,
+        "Rewards": {},
+        "Upgrades": {
+            "Type": "Studio Abilities",
+            "Stat": "Showdown Star Points",
+            "Value": 5
+        }
+    },
+    {
+        "Rank": 5,
+        "Rewards": {
+            "Type": "G-Stones",
+            "Value": 50
+        },
+        "Upgrades": {}
+    },
+    {
+        "Rank": 6,
+        "Rewards": {},
+        "Upgrades": {
+            "Type": "Battle Abilities",
+            "Stat": "Attack",
+            "Value": 0.3
+        }
+    },
+    {
+        "Rank": 7,
+        "Rewards": {},
+        "Upgrades": {
+            "Type": "Studio Abilities",
+            "Stat": "Showdown Prep Rush Order",
+            "Value": 5
+        }
+    },
+    {
+        "Rank": 8,
+        "Rewards": {},
+        "Upgrades": {
+            "Type": "Battle Abilities",
+            "Stat": "Movement",
+            "Value": 0.3
+        }
+    },
+    {
+        "Rank": 9,
+        "Rewards": {},
+        "Upgrades": {
+            "Type": "Battle Abilities",
+            "Stat": "HP",
+            "Value": 0.3
+        }
+    },
+    {
+        "Rank": 10,
+        "Rewards": {
+            "Type": "Title",
+            "Value": "Star: <UNIT>"
+        },
+        "Upgrades": {}
+    },
+    {
+        "Rank": 11,
+        "Rewards": {},
+        "Upgrades": {
+            "Type": "Battle Abilities",
+            "Stat": "HP",
+            "Value": 0.3
+        }
+    },
+    {
+        "Rank": 12,
+        "Rewards": {},
+        "Upgrades": {
+            "Type": "Battle Abilities",
+            "Stat": "Movement",
+            "Value": 0.3
+        }
+    },
+    {
+        "Rank": 13,
+        "Rewards": {},
+        "Upgrades": {
+            "Type": "Studio Abilities",
+            "Stat": "Showdown Revenue",
+            "Value": 5
+        }
+    },
+    {
+        "Rank": 14,
+        "Rewards": {},
+        "Upgrades": {
+            "Type": "Battle Abilities",
+            "Stat": "Attack",
+            "Value": 0.3
+        }
+    },
+    {
+        "Rank": 15,
+        "Rewards": {
+            "Type": "G-Stones",
+            "Value": 100
+        },
+        "Upgrades": {}
+    },
+    {
+        "Rank": 16,
+        "Rewards": {},
+        "Upgrades": {
+            "Type": "Battle Abilities",
+            "Stat": "HP",
+            "Value": 0.3
+        }
+    },
+    {
+        "Rank": 17,
+        "Rewards": {},
+        "Upgrades": {
+            "Type": "Studio Abilities",
+            "Stat": "Showdown Prep Rush Order",
+            "Value": 5
+        }
+    },
+    {
+        "Rank": 18,
+        "Rewards": {},
+        "Upgrades": {
+            "Type": "Battle Abilities",
+            "Stat": "Movement",
+            "Value": 0.3
+        }
+    },
+    {
+        "Rank": 19,
+        "Rewards": {},
+        "Upgrades": {
+            "Type": "Studio Abilities",
+            "Stat": "Showdown Star Points",
+            "Value": 5
+        }
+    },
+    {
+        "Rank": 20,
+        "Rewards": {
+            "Type": "G-Stones",
+            "Value": 100
+        },
+        "Upgrades": {}
+    }
+]

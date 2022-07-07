@@ -1,4 +1,4 @@
-const search = require('./search.js');
+const MathJS = require('mathjs')
 const cache = require('./cache.js');
 const db = require('./database.js');
 const {
@@ -8,15 +8,12 @@ const {
   Interaction
 } = require('discord.js');
 
-exports.getUnitEmbed = async function (unit, level) {
-
-
+exports.getUnitEmbed = async function (unit, level, user) {
   db.add(`stats.uses`)
   db.add(`unitStats.${unit['Unit Name']}`)
   var unitData = []
   startTime = performance.now();
   level++;
-  // console.log(unit['Unit Name'])
   const unitLevelUpData = []
   if (cache.get(`${unit['Unit Name']}_${level}`)) {
     endTime = performance.now();
@@ -69,10 +66,10 @@ exports.getUnitEmbed = async function (unit, level) {
 
   const leaderUpgradePercent = {
     3: {
-      "1-10": "16",
-      "10-20": "5",
-      "20-30": "16",
-      "30-40": "2",
+      "1-5": "16",
+      "5-10": "5",
+      "10-15": "9",
+      "15-20": "2",
     },
 
     4: {
@@ -100,7 +97,6 @@ exports.getUnitEmbed = async function (unit, level) {
     "3": 33.33,
     "4": 50,
   }
-  //  +20/10/15/2/0.5%
 
   var psychicChorusUpgradePercent = {
     "1-5": "10",
@@ -132,20 +128,26 @@ exports.getUnitEmbed = async function (unit, level) {
   var transferTimeDecrease;
   var hitsPerAttack = Number(unit['HITS PER ATTACK']);
   var unitStats = []
+  var leaderStats = []
 
   if (unit['DMG INCREASE']) dmgBoost = Math.abs(unit['DMG INCREASE'].replaceAll('%', ''))
 
 
 
+  // if (unitRarity == "4") {
+  //   maxLevel = 30;
+  // } else {
+  //   maxLevel = 40;
+  // }
+
   if (unitRarity == "4") {
-    maxLevel = 30;
+    maxLevel = 99999999999999999999999999;
   } else {
-    maxLevel = 40;
+    maxLevel = 99999999999999999999999999;
   }
 
   if (level - 1 >= maxLevel) {
     level = maxLevel + 1;
-    // msg.push(`${maxLevel} is max level for ${unitRarity} star units`)
     levelMsg = `**MAX LEVEL**`
   }
 
@@ -173,7 +175,8 @@ exports.getUnitEmbed = async function (unit, level) {
   }
 
   while (i < level) {
-    // console.log(`Getting data for ${unit['Unit Name']} ${i}`)
+    levelCalcStart = performance.now();
+
     if (inRange(bl, 0, 1)) {
       transferTimeDecrease = 0.16
     }
@@ -189,39 +192,39 @@ exports.getUnitEmbed = async function (unit, level) {
 
     if (inRange(bl, 0, 4)) {
       var percent = upgradePercent[unitRarity]["1-5"];
-      var leaderPercent = leaderUpgradePercent?.[unitRarity]?.["1-10"] || 0;
+      var leaderPercent = leaderUpgradePercent?.[unitRarity]?.["1-5"] || 0;
       var recoveryPercent = psychicChorusUpgradePercent?.["1-5"] || 0;
     }
 
     if (inRange(bl, 5, 9)) {
       var percent = upgradePercent[unitRarity]["5-10"];
-      var leaderPercent = leaderUpgradePercent?.[unitRarity]?.["1-10"] || 0
+      var leaderPercent = leaderUpgradePercent?.[unitRarity]?.["5-10"] || 0
       var recoveryPercent = psychicChorusUpgradePercent?.["5-10"] || 0;
     }
     if (inRange(bl, 10, 14)) {
       var percent = upgradePercent[unitRarity]["10-15"];
-      var leaderPercent = leaderUpgradePercent?.[unitRarity]?.["10-20"] || 0
+      var leaderPercent = leaderUpgradePercent?.[unitRarity]?.["10-15"] || 0
       var recoveryPercent = psychicChorusUpgradePercent?.["10-15"] || 0;
     }
 
     if (inRange(bl, 15, 19)) {
       var percent = upgradePercent[unitRarity]["15-20"];
-      var leaderPercent = leaderUpgradePercent?.[unitRarity]?.["10-20"] || 0
+      var leaderPercent = leaderUpgradePercent?.[unitRarity]?.["15-20"] || 0
       var recoveryPercent = psychicChorusUpgradePercent?.["15-20"] || 0;
     }
     if (inRange(bl, 20, 24)) {
       var percent = upgradePercent[unitRarity]["20-25"];
-      var leaderPercent = leaderUpgradePercent?.[unitRarity]?.["20-30"] || 0
+      var leaderPercent = leaderUpgradePercent?.[unitRarity]?.["20-25"] || 0
       var recoveryPercent = psychicChorusUpgradePercent?.["20-25"] || 0;
     }
     if (inRange(bl, 25, 29)) {
       var percent = upgradePercent[unitRarity]["25-30"];
-      var leaderPercent = leaderUpgradePercent?.[unitRarity]?.["20-30"] || 0
+      var leaderPercent = leaderUpgradePercent?.[unitRarity]?.["25-30"] || 0
       var recoveryPercent = psychicChorusUpgradePercent?.["25-30"] || 0;
     }
     if (inRange(bl, 30, 40)) {
       var percent = upgradePercent[unitRarity]["31-40"];
-      var leaderPercent = leaderUpgradePercent?.[unitRarity]?.["30-40"] || 0
+      var leaderPercent = leaderUpgradePercent?.[unitRarity]?.["31-40"] || 0
       var recoveryPercent = psychicChorusUpgradePercent?.["31-40"] || 0;
     }
 
@@ -263,6 +266,8 @@ exports.getUnitEmbed = async function (unit, level) {
 
       recoveryAmount = recoveryAmount + addedRecoveryAmount;
 
+
+
     }
     if (attackSpeed == 0) attackSpeed = 1
     var attacksPerSecond = Math.abs(1 / attackSpeed);
@@ -289,6 +294,11 @@ exports.getUnitEmbed = async function (unit, level) {
     }
 
     unitData.push(unitLevelData)
+    // console.log(`Getting data for ${unit['Unit Name']} ${i}`)
+    levelCalcEnd = performance.now();
+    levelCalcTime = levelCalcEnd - levelCalcStart;
+    console.log(`Level ${i} took ${levelCalcTime}ms`)
+
   }
   if (hitsPerAttack > 1) {
     attackMsg = `\`This unit hits ${hitsPerAttack} times per attack\``
@@ -337,25 +347,23 @@ exports.getUnitEmbed = async function (unit, level) {
 
     unitStats.push(`**Attack** \`${unitAttack.toLocaleString()}\` | **DPS** \`${dps.toLocaleString()}\``)
 
+    //   Object.keys(buffs).forEach(key => {
+    //     if (buffs[key].units && !buffs[key].units.includes(unit['Unit Name'])) return
+
+    //     unitAttackBoosted = Math.ceil(unitAttack + (unitAttack * buffs[key].boost / 100))
+    //     var dpsBoosted = parseInt(attacksPerSecond * unitAttackBoosted)
+
+    //     unitStats.push(`\xa0\xa0**╰${buffs[key].emoji} ${key} Boost** \`${unitAttackBoosted.toLocaleString()}\` | **DPS** \`${dpsBoosted.toLocaleString()}\``)
+
+    //   })
 
 
-    // Object.keys(buffs).forEach(key => {
-    //   if(buffs[key].units && !buffs[key].units.includes(unit['Unit Name'])) return
 
-    //   unitAttackBoosted = Math.ceil(unitAttack + (unitAttack * buffs[key].boost / 100))
+    //   unitAttackBoosted = Math.ceil(unitAttack + (unitAttack * dmgBoost / 100))
     //   var dpsBoosted = parseInt(attacksPerSecond * unitAttackBoosted)
 
-    //   unitStats.push(`\xa0\xa0**╰${buffs[key].emoji} ${key} Boost** \`${unitAttackBoosted.toLocaleString()}\` | **DPS** \`${dpsBoosted.toLocaleString()}\``)
-
-    // })
 
 
-
-    // unitAttackBoosted = Math.ceil(unitAttack + (unitAttack * dmgBoost / 100))
-    // var dpsBoosted = parseInt(attacksPerSecond * unitAttackBoosted)
-
-    // unitStats.push(`**Attack** \`${unitAttack.toLocaleString()}\` | **DPS** \`${dps.toLocaleString()}\``)
-    // unitStats.push(`**Buffed** \`${unitAttackBoosted.toLocaleString()}\` | **DPS** \`${dpsBoosted.toLocaleString()}\``)
 
 
     if (attackSpeedAir > 0) {
@@ -420,8 +428,12 @@ exports.getUnitEmbed = async function (unit, level) {
     unitEmbed.addField(`__Unit Stats__`, `${unitStats.join('\n')}`);
   }
 
-
+  // && user === '222781123875307521'
   if (unit.LEADER === 'TRUE') {
+    //     unitEmbed.addField(`__Leader Stats__`, `
+    // **HP** \`${unitLeaderHealth.toLocaleString()}\`
+    // **Attack** \`${unitLeaderAttack.toLocaleString()}\`
+    //     `);
     unitEmbed.setFooter({ text: `To see leader ability use /leader_ability` })
   }
 
@@ -493,7 +505,6 @@ exports.getUnitEmbed = async function (unit, level) {
 
 
 
-  // console.log(returnData)
 
   return returnData;
 };
@@ -521,17 +532,4 @@ function getTotalCost(level, array) {
   totalArray = array.slice(0, level + 1)
   total = totalArray.reduce((a, b) => a + b, 0)
   return total.toLocaleString()
-}
-
-
-// const twoStarCost = [0, 50, 200, 300, 400, 500, 750, 1000, 1250, 1500, 1750, 2000, 2250, 2500, 3000, 3500, 4000, 4500, 5000, 6000, 11900, 13600, 15300, 17000, 19125, 21250, 23375, 25500, 29750, 34000, 35700, 37400]
-// const threeStarCost = [0, 200, 600, 800, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 2400, 2800, 3200, 3600, 4000, 4400, 4800, 5200, 5600, 10500, 14000, 15750, 17500, 19250, 21000, 22750, 24500, 29750, 35000, 40000, 40000, 40000, 40000, 40000, 40000, 40000, 40000, 40000, 40000]
-// const fourStarCost = [0, 2500, 2500, 2500, 2500, 5000, 5000, 5000, 5000, 5000, 9000, 9000, 9000, 9000, 9000, 9000, 9000, 9000, 9000, 9000, 20000, 20000, 20000, 20000, 20000, 25000, 25000, 25000, 25000, 25000]
-
-
-
-function toTitleCase(str) {
-  return str.replace(/\w\S*/g, function (txt) {
-    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-  });
 }

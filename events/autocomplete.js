@@ -5,6 +5,23 @@ const Fuse = require('fuse.js')
 const unitData = require('../data/unitData.json')
 const leaderData = require('../data/leaderData.json')
 
+var unitSearch = []
+var leaderSearch = []
+
+for(item of unitData) {
+    unitSearch.push({
+        name: item['Unit Name'],
+        value: item['Unit Name'],
+        aliases: item['ALIASES'].split(', '),
+    })
+}
+for(item of leaderData) {
+    leaderSearch.push({
+        name: `${item['UNIT']} (${item['ABILITY NAME']})`,
+        value: item['UNIT'],
+        aliases: item['ABILITY NAME'],
+    })
+}
 
 module.exports = {
     name: 'interactionCreate',
@@ -14,16 +31,8 @@ module.exports = {
 
 
         if (interaction.commandName === 'unit' || interaction.commandName === 'stats' || interaction.commandName === 'get_image' || interaction.commandName === 'compare' || interaction.commandName === 'tier_list') {
-            searchData = unitData;
+            searchData = unitSearch;
             cacheName = 'unitNames';
-            searchKeys = [{
-                name: 'Unit Name',
-                weight: 0.6
-            },
-            {
-                name: 'ALIASES',
-                weight: 0.5
-            }]
 
             var unitUsage = cache.get('unitUsage') || db.get('unitStats')
             if (!cache.get('unitUsage')) cache.set('unitUsage', unitUsage, 5)
@@ -46,17 +55,8 @@ module.exports = {
         }
 
         if (interaction.commandName === 'leader_ability') {
-            searchData = leaderData;
+            searchData = leaderSearch;
             cacheName = 'leaderNames';
-
-            searchKeys = [{
-                name: 'UNIT',
-                weight: 0.6
-            },
-            {
-                name: 'ABILITY NAME',
-                weight: 0.5
-            }]
 
             var unitUsage = cache.get('unitLeaderStats') || db.get('unitLeaderStats')
             if (!cache.get('unitLeaderStats')) cache.set('unitLeaderStats', unitUsage, 3600)
@@ -86,7 +86,7 @@ module.exports = {
 
             const fuse = new Fuse(searchData, {
                 shouldSort: true,
-                keys: searchKeys,
+                keys: ['name', 'aliases'],
                 findAllMatches: true,
                 threshold: 0.5,
             })
@@ -101,7 +101,10 @@ module.exports = {
             if (!results) return
 
             results.forEach(element => {
-                itemOptions.push(element?.item['Unit Name'] || element?.item['UNIT'])
+                itemOptions.push({
+                    name: element.item.name,
+                    value: element.item.value,
+                })
             })
 
 
@@ -109,11 +112,13 @@ module.exports = {
 
             results = unitRanking
             results.forEach(element => {
-                itemOptions.push(element.name)
+                itemOptions.push({
+                    name: element.name,
+                    value: element.name,
+                })
             })
             
         }
-
 
 
 
@@ -125,8 +130,8 @@ module.exports = {
         end = performance.now();
         const response = await interaction.respond(
             choices.map(choice => ({
-                name: choice,
-                value: choice,
+                name: choice.name,
+                value: choice.value,
             })),
         );
 
