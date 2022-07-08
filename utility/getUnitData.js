@@ -1,4 +1,3 @@
-const MathJS = require('mathjs')
 const cache = require('./cache.js');
 const db = require('./database.js');
 const {
@@ -134,16 +133,10 @@ exports.getUnitEmbed = async function (unit, level, user) {
 
 
 
-  // if (unitRarity == "4") {
-  //   maxLevel = 30;
-  // } else {
-  //   maxLevel = 40;
-  // }
-
   if (unitRarity == "4") {
-    maxLevel = 99999999999999999999999999;
+    maxLevel = 30;
   } else {
-    maxLevel = 99999999999999999999999999;
+    maxLevel = 40;
   }
 
   if (level - 1 >= maxLevel) {
@@ -175,20 +168,20 @@ exports.getUnitEmbed = async function (unit, level, user) {
   }
 
   while (i < level) {
-    levelCalcStart = performance.now();
+    // levelCalcStart = performance.now();
 
-    if (inRange(bl, 0, 1)) {
-      transferTimeDecrease = 0.16
-    }
-    if (inRange(bl, 2, 4)) {
-      transferTimeDecrease = 0.15
-    }
-    if (inRange(bl, 5, 9)) {
-      transferTimeDecrease = 0.14
-    }
-    if (inRange(bl, 10, 14)) {
-      transferTimeDecrease = 0.13
-    }
+    // if (inRange(bl, 0, 1)) {
+    //   transferTimeDecrease = 0.16
+    // }
+    // if (inRange(bl, 2, 4)) {
+    //   transferTimeDecrease = 0.15
+    // }
+    // if (inRange(bl, 5, 9)) {
+    //   transferTimeDecrease = 0.14
+    // }
+    // if (inRange(bl, 10, 14)) {
+    //   transferTimeDecrease = 0.13
+    // }
 
     if (inRange(bl, 0, 4)) {
       var percent = upgradePercent[unitRarity]["1-5"];
@@ -227,6 +220,7 @@ exports.getUnitEmbed = async function (unit, level, user) {
       var leaderPercent = leaderUpgradePercent?.[unitRarity]?.["31-40"] || 0
       var recoveryPercent = psychicChorusUpgradePercent?.["31-40"] || 0;
     }
+
 
     var factor = percent / 100;
     var leaderFactor = leaderPercent / 100;
@@ -294,10 +288,9 @@ exports.getUnitEmbed = async function (unit, level, user) {
     }
 
     unitData.push(unitLevelData)
-    // console.log(`Getting data for ${unit['Unit Name']} ${i}`)
-    levelCalcEnd = performance.now();
-    levelCalcTime = levelCalcEnd - levelCalcStart;
-    console.log(`Level ${i} took ${levelCalcTime}ms`)
+    // levelCalcEnd = performance.now();
+    // levelCalcTime = levelCalcEnd - levelCalcStart;
+    // console.log(`Level ${i} took ${levelCalcTime}ms`)
 
   }
   if (hitsPerAttack > 1) {
@@ -340,7 +333,12 @@ exports.getUnitEmbed = async function (unit, level, user) {
       },
       "SG Crystals": {
         'boost': 25,
-        'emoji': '?'
+        'emoji': '<:SpacegodzillaCrystal:994763030518845500>'
+      },
+      "Below 33% HP": {
+        'boost': 50,
+        'emoji': '💔',
+        'units': ['Godzilla Earth']
       },
     }
 
@@ -501,12 +499,7 @@ exports.getUnitEmbed = async function (unit, level, user) {
   cache.set(`${unit['Unit Name']}_${level}`, returnData, 0);
   endTime = performance.now();
   console.log(`${unit['Unit Name']} took ${endTime - startTime}ms`);
-
-
-
-
-
-  return returnData;
+ return returnData;
 };
 
 
