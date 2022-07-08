@@ -56,10 +56,8 @@ module.exports = {
     }) => {
 
 
-        var commandStart = performance.now();
 
         var {unit_one_name, unit_one_level, unit_two_name, unit_two_level} = args;
-        startTime = performance.now();
         db.add(`stats.uses`)
         const embed = new MessageEmbed()
         .setColor('#ffb33c')
@@ -194,9 +192,7 @@ module.exports = {
         
 
 
-        // console.log(unitOneData)
-        // console.log(unitTwoData)
-        var extraHTML = '';
+
         var finalHTML = `
         <link rel="preconnect" href="https://fonts.googleapis.com">
  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -258,22 +254,15 @@ ${cardSections.join('')}
             var img = cache.get(`compare_${unitOneData.Name}_${unitOneData.Level}_${unitTwoData.Name}_${unitTwoData.Level}`)
         } else {
             
-            // if(interaction.user.id ==='222781123875307521') {
-            //     var img = await imgGen.makeTest(finalHTML)
-            // } else {
-            //     var img = await imgGen.make(allData)
-            // }
             var img = await imgGen.makeTest(finalHTML, '.unit-compare-card')
-            // cache.set(`compare_${unitOneData.Name}_${unitOneData.Level}_${unitTwoData.Name}_${unitTwoData.Level}`, img)
+            cache.set(`compare_${unitOneData.Name}_${unitOneData.Level}_${unitTwoData.Name}_${unitTwoData.Level}`, img)
         }
 
         // var img = await compareImg.make(allData)
 
 
 
-        // console.log(img)
-        var commandEnd = performance.now();
-        console.log(`Command took ${commandEnd - commandStart}ms`);
+
 
         return interaction.editReply({
             embeds: [],
