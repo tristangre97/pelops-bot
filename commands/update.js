@@ -30,7 +30,7 @@ module.exports = {
         guild
     }) => {
         var allowed = ['222781123875307521', '216368047110225920', '521823544724684851']
-        if (!allowed.includes(interaction.user.id)) return interaction.editReply("You are not allowed to use this command.")
+        if (!allowed.includes(interaction.user.id)) return interaction.reply("You are not allowed to use this command.")
         msg = []
         downloadInfo = []
         var updateStatus = await cache.get("pelops_update_status");
@@ -41,7 +41,7 @@ module.exports = {
                 .setDescription('Please wait until the current update is finished.')
                 .setImage('https://res.cloudinary.com/tristangregory/image/upload/v1646260264/gbl/pelops/pelops_wait.png')
 
-            reply = await interaction.editReply({
+            reply = await interaction.reply({
                 embeds: [embed],
             });
             return
@@ -57,7 +57,7 @@ module.exports = {
             .setTitle(`Updating ${dataList.length} files...`)
             .setImage('https://res.cloudinary.com/tristangregory/image/upload/v1646259339/gbl/pelops/pelops_load.jpg')
 
-        reply = await interaction.editReply({
+        reply = await interaction.reply({
             embeds: [embed],
         });
         var ready = true;

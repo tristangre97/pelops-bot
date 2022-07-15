@@ -35,7 +35,7 @@ module.exports = {
         `)
             .addField('__Developer__', `<@222781123875307521>`)
             .setThumbnail('https://res.cloudinary.com/tristangregory/image/upload/v1654043653/gbl/pelops/pelops_reading.png')
-        await interaction.editReply({
+        await interaction.reply({
             embeds: [embed]
         });
     }

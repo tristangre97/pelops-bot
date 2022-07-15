@@ -76,7 +76,7 @@ module.exports = {
             unitEmbed.addField(`__Aliases__`, `${aliases.join('\n')}`);
         }
 
-        await interaction.editReply({
+        await interaction.reply({
             embeds: [unitEmbed],
 
         });

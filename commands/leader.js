@@ -51,7 +51,7 @@ module.exports = {
                 .setDescription(`Unit \`${unit_name}\` not found`)
                 .setFooter(`Either the unit does not exist or the unit cannot be a leader`)
                 .setThumbnail('https://res.cloudinary.com/tristangregory/image/upload/v1654043653/gbl/pelops/pelops_error.png')
-                return interaction.editReply({
+                return interaction.reply({
                 embeds: [embed],
 
             });
@@ -83,7 +83,7 @@ module.exports = {
 
 
 
-        await interaction.editReply({
+        await interaction.reply({
             embeds: [unitEmbed],
         })
 

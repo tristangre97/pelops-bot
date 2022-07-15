@@ -65,7 +65,7 @@ module.exports = {
         .setDescription(`I am generating a comparison between **__${unit_one_name}__** and **__${unit_two_name}__**.`)
         .setImage('https://res.cloudinary.com/tristangregory/image/upload/v1646259339/gbl/pelops/pelops_load.jpg')
 
-    reply = await interaction.editReply({
+    reply = await interaction.reply({
         embeds: [embed],
     });
 
@@ -80,7 +80,7 @@ module.exports = {
                 .setDescription(`Unit \`${unit_one_name}\` not found`)
                 .setFooter(`Check your spelling and try again.`)
                 .setThumbnail('https://res.cloudinary.com/tristangregory/image/upload/v1654043653/gbl/pelops/pelops_error.png')
-                return interaction.editReply({
+                return interaction.reply({
                 embeds: [embed],
 
             });
@@ -94,7 +94,7 @@ module.exports = {
                 .setDescription(`Unit \`${unit_two_name}\` not found`)
                 .setFooter(`Check your spelling and try again.`)
                 .setThumbnail('https://res.cloudinary.com/tristangregory/image/upload/v1654043653/gbl/pelops/pelops_error.png')
-                return interaction.editReply({
+                return interaction.reply({
                 embeds: [embed],
 
             });
@@ -120,8 +120,8 @@ module.exports = {
         // console.log(unitOneData)
         unitTwoData = await unitEmbedGen.getUnitEmbed(unit2, unit_two_level)
        
-        unitOneData = unitOneData.unitData[unitOneData.unitData.length - 1];
-        unitTwoData = unitTwoData.unitData[unitTwoData.unitData.length - 1];
+        unitOneData = unitOneData.unitData;
+        unitTwoData = unitTwoData.unitData;
         // console.log(unitOneData)
         var cardSections = []
 
@@ -216,8 +216,8 @@ module.exports = {
         </div>
         
          <div class="unit-data flex-wrap full">
-         <p class="unitLevel half" id="unitOneLevel">Level ${unit_one_level}</p>
-        <p class="unitLevel half" id="unitOneLevel">Level ${unit_two_level}</p>
+         <p class="unitLevel half" id="unitOneLevel">Level ${unitOneData.Level}</p>
+        <p class="unitLevel half" id="unitOneLevel">Level ${unitTwoData.Level}</p>
         <p class="unitName half" id="unitOneName">${unitOneData.Name}</p>
         <p class="unitName half" id="unitOneName">${unitTwoData.Name}</p>
         

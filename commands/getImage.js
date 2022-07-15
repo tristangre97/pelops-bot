@@ -55,7 +55,7 @@ module.exports = {
                 .setDescription(`Unit \`${unit_name}\` not found`)
                 .setFooter(`Check your spelling and try again.`)
                 .setThumbnail('https://res.cloudinary.com/tristangregory/image/upload/v1654043653/gbl/pelops/pelops_error.png')
-                return interaction.editReply({
+                return interaction.reply({
                 embeds: [embed],
 
             });
@@ -97,7 +97,7 @@ module.exports = {
         }
 
 
-        await interaction.editReply({
+        await interaction.reply({
             embeds: [embed],
             files: [{
                 attachment: unitImage,

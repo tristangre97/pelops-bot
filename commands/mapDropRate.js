@@ -26,7 +26,7 @@ module.exports = {
 18% Monster
 37% Normal
        `)
-        await interaction.editReply({
+        await interaction.reply({
             embeds: [embed]
         });
     }
