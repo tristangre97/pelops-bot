@@ -49,6 +49,7 @@ client.on('ready', () => {
     handleSlash: 'both',
     handleNormal: false,
     prefix: ",", // Bot's prefix
+    autoDefer: false,
     timeout: false, // If you want to add timeouts in commands
     permissionReply: "You don't have enough permissions to use this command",
     timeoutMessage: "You are on a timeout",
@@ -113,7 +114,7 @@ Started update ${Date.now() - updateStart}ms ago
         .setURL(`https://dsc.gg/tristangames`)
       )
 
-      command_data.message.editReply({
+      command_data.message.reply({
         embeds: [errorMessageEmbed],
         components: [row]
       });
