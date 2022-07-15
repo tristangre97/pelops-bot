@@ -92,7 +92,7 @@ module.exports = {
 
         });
 
-        return interaction.editReply({
+        return interaction.reply({
             embeds: [embed]
         })
 
