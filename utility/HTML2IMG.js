@@ -5,7 +5,7 @@ const nodeHtmlToImage = require('node-html-to-image')
 
 
 exports.makeTest = async function (HTML, selector) {
-  
+  if(!selector) selector = 'body'
   const image = await nodeHtmlToImage({
     html: HTML,
     puppeteerArgs: {
