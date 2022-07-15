@@ -1,14 +1,26 @@
-const starpoints = [95, 102, 109, 119, 129, 139, 150, 162, 175, 189, 205, 221, 258, 279, 301, 325, 351, 379]
-var level = 2;
-var starpointsTotal = 0;
+const search = require('./utility/search')
+const mathjs = require('mathjs')
 
-var starpointsFinal = []
+var results = search.starRankSearch('Hedorah')
+return console.log(results)
+totalHPBonus = 0;
+totalDmgBonus = 0
 
-for(data of starpoints) {
-    starpointsTotal += data
-    starpointsFinal.push(`**Level ${level}**  ${data} <:starpoints:992512783100948592> (${starpointsTotal} Total)`)
-    level++
+star_rank = 5
+i = 1
+for (item in results) {
+    bonusType = results[item]
+    if (i >= star_rank) {
+    } else {
+        if (bonusType.startsWith('HP')) {
+            totalHPBonus = Math.abs(totalHPBonus + Number(bonusType.split('+')[1].trim().replace('%', '')))
+        }
+        if (bonusType.startsWith('Dmg')) {
+            totalDmgBonus = Math.abs(totalDmgBonus + Number(bonusType.split('+')[1].trim().replace('%', '')))
+        }
+    }
+    i++
 }
+console.log(totalHPBonus)
+console.log(totalDmgBonus)
 
-
-console.log(starpoints.length)
