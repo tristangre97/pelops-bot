@@ -53,7 +53,7 @@ module.exports = {
             .setDescription(`I am generating a random deck for you. This may take a second.`)
             .setImage('https://res.cloudinary.com/tristangregory/image/upload/v1646259339/gbl/pelops/pelops_load.jpg')
 
-        reply = await interaction.editReply({
+        reply = await interaction.reply({
             embeds: [waitEmbed],
         });
 
