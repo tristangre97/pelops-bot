@@ -14,6 +14,7 @@ module.exports = {
     slash: "both",
     testOnly: false,
     expectedArgs: '<item> <amount>',
+    dm: true,
     options: [{
             name: 'unit_name', // Must be lower case
             description: 'The name of the unit.',
@@ -25,6 +26,12 @@ module.exports = {
             name: 'unit_level', // Must be lower case
             description: 'The level of the unit.',
             required: true,
+            type: 10,
+        },
+        {
+            name: 'star_rank', // Must be lower case
+            description: 'The star rank of the unit.',
+            required: false,
             type: 10,
         }
     ],
@@ -43,7 +50,7 @@ module.exports = {
         
         
 
-        var [unit_name, unit_level] = args;
+        var [unit_name, unit_level, star_rank] = args;
         var embedComponents = [];
         
         startTime = performance.now();
@@ -59,7 +66,7 @@ module.exports = {
                 .setDescription(`Unit \`${unit_name}\` not found`)
                 .setFooter(`Check your spelling and try again.`)
                 .setThumbnail('https://res.cloudinary.com/tristangregory/image/upload/v1654043653/gbl/pelops/pelops_error.png')
-                return interaction.editReply({
+                return interaction.reply({
                 embeds: [embed],
 
             });
@@ -96,7 +103,7 @@ module.exports = {
         actionBtns = new MessageActionRow();
         actionBtns.addComponents(
             new MessageButton()
-            .setCustomId(`levelDownBtn ${unitsName} ${level - 1} ${originalUser}`)
+            .setCustomId(`levelDownBtn ${unitsName} ${level - 1} ${star_rank} ${originalUser}`)
             .setLabel(`Level ${level - 1}`)
             .setStyle('PRIMARY')
             .setEmoji(`<:caretdownsolid:982871764575076383>`)
@@ -104,7 +111,7 @@ module.exports = {
         )
         actionBtns.addComponents(
             new MessageButton()
-            .setCustomId(`levelUpBtn ${unitsName} ${parseInt(level) + 1} ${originalUser}`)
+            .setCustomId(`levelUpBtn ${unitsName} ${parseInt(level) + 1} ${star_rank} ${originalUser}`)
             .setLabel(`Level ${parseInt(level) + 1}`)
             .setStyle('PRIMARY')
             .setEmoji(`<:caretupsolid:982871763899789312>`)
@@ -117,7 +124,7 @@ module.exports = {
             evoUnit = evoSearch[0].item;
             actionBtns.addComponents(
                 new MessageButton()
-                .setCustomId(`evolveBtn ${evo.replaceAll(" ","_")} ${level} ${originalUser}`)
+                .setCustomId(`evolveBtn ${evo.replaceAll(" ","_")} ${level} ${star_rank} ${originalUser}`)
                 .setLabel(`${evo}`)
                 .setEmoji(`${evoUnit['EMOJI']}`)
                 .setStyle('SUCCESS'),
@@ -131,9 +138,9 @@ module.exports = {
 
         
 
-        embed = await unitEmbedGen.getUnitEmbed(unit, unit_level, interaction.user.id);
+        embed = await unitEmbedGen.getUnitEmbed(unit, unit_level, star_rank);
 
-        await interaction.editReply({
+        await interaction.reply({
             embeds: [embed.embed],
             components: embedComponents,
         }).then(async msg => {
