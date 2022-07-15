@@ -31,7 +31,7 @@ module.exports = {
         embed.setTitle('Starpoints')
         embed.setColor('#ffb33c');
         embed.setDescription(starpointsFinal.join('\n'))
-        await interaction.editReply({
+        await interaction.reply({
             embeds: [embed]
         });
     }
