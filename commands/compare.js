@@ -18,65 +18,65 @@ module.exports = {
     testOnly: false,
     expectedArgs: '<item> <amount>',
     options: [{
-            name: 'unit_one_name', // Must be lower case
-            description: 'The name of the unit.',
-            required: true,
-            type: 3,
-            autocomplete: true,
-        },
-        {
-            name: 'unit_one_level', // Must be lower case
-            description: 'The level of the unit.',
-            required: true,
-            type: 10,
-        },
-        {
-            name: 'unit_two_name', // Must be lower case
-            description: 'The name of the unit.',
-            required: true,
-            type: 3,
-            autocomplete: true,
-        },
-        {
-            name: 'unit_two_level', // Must be lower case
-            description: 'The level of the unit.',
-            required: true,
-            type: 10,
-        },
-        {
-            name: 'unit_one_star_rank', // Must be lower case
-            description: 'The star rank of the unit.',
-            required: false,
-            type: 10,
-        },
-        {
-            name: 'unit_one_apply_boost', // Must be lower case
-            description: 'Prevent unavailable units from appearing in the deck',
-            required: false,
-            type: 3,
-            choices: [{ name: 'In Water', value: 'In Water' },
-            { name: 'Battra', value: 'Battra' },
-            { name: 'Jet Jaguar 73', value: 'Jet Jaguar 73' },
-            { name: 'Spacegodzilla Crystals', value: 'Spacegodzilla Crystals' },
-            { name: 'Below 33% HP', value: 'Below 33% HP' }]
-        },
-        {
-            name: 'unit_two_star_rank', // Must be lower case
-            description: 'The star rank of the unit.',
-            required: false,
-            type: 10,
-        },
-        {
-            name: 'unit_two_apply_boost', // Must be lower case
-            description: 'Prevent unavailable units from appearing in the deck',
-            required: false,
-            type: 3,
-            choices: [{ name: 'In Water', value: 'In Water' },
-            { name: 'Battra', value: 'Battra' },
-            { name: 'Jet Jaguar 73', value: 'Jet Jaguar 73' },
-            { name: 'Spacegodzilla Crystals', value: 'Spacegodzilla Crystals' },
-            { name: 'Below 33% HP', value: 'Below 33% HP' }]
-        }
+        name: 'unit_one_name', // Must be lower case
+        description: 'The name of the unit.',
+        required: true,
+        type: 3,
+        autocomplete: true,
+    },
+    {
+        name: 'unit_one_level', // Must be lower case
+        description: 'The level of the unit.',
+        required: true,
+        type: 10,
+    },
+    {
+        name: 'unit_two_name', // Must be lower case
+        description: 'The name of the unit.',
+        required: true,
+        type: 3,
+        autocomplete: true,
+    },
+    {
+        name: 'unit_two_level', // Must be lower case
+        description: 'The level of the unit.',
+        required: true,
+        type: 10,
+    },
+    {
+        name: 'unit_one_star_rank', // Must be lower case
+        description: 'The star rank of the unit.',
+        required: false,
+        type: 10,
+    },
+    {
+        name: 'unit_one_apply_boost', // Must be lower case
+        description: 'Prevent unavailable units from appearing in the deck',
+        required: false,
+        type: 3,
+        choices: [{ name: 'In Water', value: 'In Water' },
+        { name: 'Battra', value: 'Battra' },
+        { name: 'Jet Jaguar 73', value: 'Jet Jaguar 73' },
+        { name: 'Spacegodzilla Crystals', value: 'Spacegodzilla Crystals' },
+        { name: 'Below 33% HP', value: 'Below 33% HP' }]
+    },
+    {
+        name: 'unit_two_star_rank', // Must be lower case
+        description: 'The star rank of the unit.',
+        required: false,
+        type: 10,
+    },
+    {
+        name: 'unit_two_apply_boost', // Must be lower case
+        description: 'Prevent unavailable units from appearing in the deck',
+        required: false,
+        type: 3,
+        choices: [{ name: 'In Water', value: 'In Water' },
+        { name: 'Battra', value: 'Battra' },
+        { name: 'Jet Jaguar 73', value: 'Jet Jaguar 73' },
+        { name: 'Spacegodzilla Crystals', value: 'Spacegodzilla Crystals' },
+        { name: 'Below 33% HP', value: 'Below 33% HP' }]
+    }
     ],
 
 
@@ -103,14 +103,14 @@ module.exports = {
 
         db.add(`stats.uses`)
         const embed = new MessageEmbed()
-        .setColor('#ffb33c')
-        .setTitle('Generating Comparison...')
-        .setDescription(`I am generating a comparison between **__${unit_one_name}__** and **__${unit_two_name}__**.`)
-        .setImage('https://res.cloudinary.com/tristangregory/image/upload/v1646259339/gbl/pelops/pelops_load.jpg')
+            .setColor('#ffb33c')
+            .setTitle('Generating Comparison...')
+            .setDescription(`I am generating a comparison between **__${unit_one_name}__** and **__${unit_two_name}__**.`)
+            .setImage('https://res.cloudinary.com/tristangregory/image/upload/v1646259339/gbl/pelops/pelops_load.jpg')
 
-    reply = await interaction.reply({
-        embeds: [embed],
-    });
+        reply = await interaction.reply({
+            embeds: [embed],
+        });
 
 
         unitOneSearchResults = await search.unitSearch(unit_one_name);
@@ -123,11 +123,11 @@ module.exports = {
                 .setDescription(`Unit \`${unit_one_name}\` not found`)
                 .setFooter(`Check your spelling and try again.`)
                 .setThumbnail('https://res.cloudinary.com/tristangregory/image/upload/v1654043653/gbl/pelops/pelops_error.png')
-                return interaction.reply({
+            return interaction.reply({
                 embeds: [embed],
 
             });
-            
+
         }
 
         if (unitTwoSearchResults.length == 0) {
@@ -137,11 +137,11 @@ module.exports = {
                 .setDescription(`Unit \`${unit_two_name}\` not found`)
                 .setFooter(`Check your spelling and try again.`)
                 .setThumbnail('https://res.cloudinary.com/tristangregory/image/upload/v1654043653/gbl/pelops/pelops_error.png')
-                return interaction.reply({
+            return interaction.reply({
                 embeds: [embed],
 
             });
-            
+
         }
 
 
@@ -150,19 +150,19 @@ module.exports = {
         unit1 = unitOneSearchResults[0].item;
         unit2 = unitTwoSearchResults[0].item;
 
-        
-        
+
+
         // db.add(`unit.${unit['Unit Name']}.uses`)
 
-       
 
-    
+
+
 
         // console.log(`${unit_one_name} ${unit_one_level} ${unit_two_name} ${unit_two_level}`)
         unitOneData = await unitEmbedGen.getUnitEmbed(unit1, unit_one_level, unit_one_star_rank, unit_one_apply_boost);
         // console.log(unitOneData)
         unitTwoData = await unitEmbedGen.getUnitEmbed(unit2, unit_two_level, unit_two_star_rank, unit_two_apply_boost);
-       
+
         unitOneData = unitOneData.unitData;
         unitTwoData = unitTwoData.unitData;
         // console.log(unitOneData)
@@ -175,23 +175,23 @@ module.exports = {
           </div>`)
 
 
-          if(unitOneData.Boosts.length > 0 || unitTwoData.Boosts.length > 0) {
+        if (unitOneData.Boosts.length > 0 || unitTwoData.Boosts.length > 0) {
             cardSections.push(`<div class="stat-card-section">
             <p class="stat-title full">Applied Buffs</p>
             <p class="stat-total half" >${unitOneData.Boosts.join(`<br>`)}</p>
             <p class="stat-total half" >${unitTwoData.Boosts.join(`<br>`)}</p>
               </div>`)
-          }
+        }
 
-          if(unitOneData.HP > 0 || unitTwoData.HP > 0) {
+        if (unitOneData.HP > 0 || unitTwoData.HP > 0) {
             cardSections.push(`<div class="stat-card-section">
             <p class="stat-title full">Health</p>
             <p class="stat-total half" >${unitOneData.HP}</p>
             <p class="stat-total half" >${unitTwoData.HP}</p>
               </div>`)
-          }
+        }
 
-          if(unitOneData.ATK > 0 || unitTwoData.ATK > 0) {
+        if (unitOneData.ATK > 0 || unitTwoData.ATK > 0) {
 
             cardSections.push(`
             <div class="stat-card-section">
@@ -208,10 +208,10 @@ module.exports = {
                   </div>
 `)
 
-           
-          }
 
-        
+        }
+
+
 
 
 
@@ -271,15 +271,12 @@ ${cardSections.join('')}
 
 
         allData = [unitOneData, unitTwoData]
+        imgGenStart = performance.now()
 
-        if(cache.get(`compare_${unitOneData.Name}_${unitOneData.Level}_${unitTwoData.Name}_${unitTwoData.Level}_${unit_one_star_rank}_${unit_one_apply_boost}_${unit_two_star_rank}_${unit_two_apply_boost}`)) {
-            var img = cache.get(`compare_${unitOneData.Name}_${unitOneData.Level}_${unitTwoData.Name}_${unitTwoData.Level}`)
-        } else {
-            
-            var img = await imgGen.makeTest(finalHTML, '.unit-compare-card')
-            cache.set(`compare_${unitOneData.Name}_${unitOneData.Level}_${unitTwoData.Name}_${unitTwoData.Level}_${unit_one_star_rank}_${unit_one_apply_boost}_${unit_two_star_rank}_${unit_two_apply_boost}`, img)
-        }
+        var img = await imgGen.cluster(finalHTML, '.unit-compare-card')
 
+        imgGenEnd = performance.now()
+        totalImgGenTime = imgGenEnd - imgGenStart
         // var img = await compareImg.make(allData)
 
 
@@ -287,6 +284,7 @@ ${cardSections.join('')}
 
 
         return interaction.editReply({
+            content: `\`${totalImgGenTime.toFixed(2)}ms\``,
             embeds: [],
             files: [img],
         })
