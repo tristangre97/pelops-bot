@@ -67,7 +67,7 @@ module.exports = {
       })
 
       var HTML = newsDetails.HTML;
-      img = await imgGen.makeTest(HTML, '.cont')
+      img = await imgGen.cluster(HTML, '.cont')
       return interaction.editReply({
         embeds: [],
         components: [],

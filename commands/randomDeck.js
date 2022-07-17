@@ -164,7 +164,10 @@ module.exports = {
 </div>
         
         `
-        var img = await imgGen.makeTest(finalHTML, '.deck-card')
+        var imgGenStart = performance.now()
+        var img = await imgGen.cluster(finalHTML, '.deck-card')
+        var imgGenEnd = performance.now()
+        totalImgGenTime = imgGenEnd - imgGenStart
 
 
         const embed = new MessageEmbed()
@@ -179,6 +182,7 @@ module.exports = {
 
 
         var reply = await interaction.editReply({
+            content: `\`${totalImgGenTime.toFixed(2)}ms\``,
             embeds: [embed],
             files: [{
                 attachment: img,
