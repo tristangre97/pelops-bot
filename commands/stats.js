@@ -72,7 +72,6 @@ module.exports = {
 
         unitEmbed.addField(`__Stats__`, `${unitStatsData.join('\n')}`);
         if(aliases.length > 0) {
-            console.log(aliases)
             unitEmbed.addField(`__Aliases__`, `${aliases.join('\n')}`);
         }
 

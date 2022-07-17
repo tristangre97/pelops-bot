@@ -12,7 +12,7 @@ const buffs = {
         'boost': 30,
         'emoji': '<:Jet_Jaguar_73:982860088714883162>'
       },
-      "SG Crystals": {
+      "Spacegodzilla Crystals": {
         'boost': 25,
         'emoji': '<:SpacegodzillaCrystal:994763030518845500>'
       },
@@ -22,3 +22,4 @@ const buffs = {
         'units': ['Godzilla Earth']
       },
     }
+    const sayings = new Map();
