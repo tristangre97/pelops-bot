@@ -45,7 +45,7 @@ Click the \`Set News Details\` button to begin
         btns = new MessageActionRow();
         btns.addComponents(
             new MessageButton()
-            .setCustomId(`setNewsDetails null null null ${interaction.user.id} ${interactionID}`)
+            .setCustomId(`setNewsDetails ${interactionID}`)
             .setLabel(`Set News Details`)
             .setStyle('PRIMARY')
         )
@@ -53,9 +53,10 @@ Click the \`Set News Details\` button to begin
         details = {
             id: interactionID,
             user: interaction.user.id,
+            type: 'news',
         }
 
-        cache.set(`interactions.${interactionID}`, details, 9999)
+        db.set(`interactions.${interactionID}`, details)
 
 
         await interaction.reply({
