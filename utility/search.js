@@ -139,7 +139,7 @@ exports.starRankSearch = function (unit) {
 
     if(results.length == 0) return null;
     
-    cache.set(`starRank_${unit}`, results, 0);
+    cache.set(`starRank_${unit}`, results[0].item, 0);
     return results[0].item;
 
 };
