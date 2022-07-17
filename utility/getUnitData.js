@@ -1,5 +1,6 @@
 const cache = require('./cache.js');
 const db = require('./database.js');
+const unitBoosts = require('../data/boosts.json').BOOSTS;
 const {
   MessageEmbed,
   MessageActionRow,
@@ -10,11 +11,11 @@ const search = require('./search.js');
 const mathjs = require('mathjs')
 
 
-exports.getUnitEmbed = async function (unit, level, star_rank) {
+exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost) {
   db.add(`stats.uses`)
   db.add(`unitStats.${unit['Unit Name']}`)
   startTime = performance.now();
-
+  if(unitBoost) unitBoost = unitBoost.replaceAll("_", " ")
   var unitName = unit['Unit Name']
   var unitHealth = Number(unit.HP);
   var unitAttack = Number(unit.ATK);
@@ -33,7 +34,8 @@ exports.getUnitEmbed = async function (unit, level, star_rank) {
   var unitNotice = unit['NOTICE'];
   var transferTimeDecrease;
   var hitsPerAttack = Number(unit['HITS PER ATTACK']);
-
+  
+  level = Number(level.replaceAll(",", ""));
   level++;
   var star_rank = Number(star_rank) || 1;
   if (star_rank > 20) star_rank = 20;
@@ -49,16 +51,17 @@ exports.getUnitEmbed = async function (unit, level, star_rank) {
     level = maxLevel + 1;
     levelMsg = `**MAX LEVEL**`
   }
-  if (cache.get(`${unit['Unit Name']}_${level}_${star_rank}`)) {
+  if (cache.get(`${unit['Unit Name']}_${level}_${star_rank}_${unitBoost}`)) {
     endTime = performance.now();
     console.log(`${unit['Unit Name']} took ${endTime - startTime}ms`);
-    return await cache.get(`${unit['Unit Name']}_${level}_${star_rank}`);
+    return await cache.get(`${unit['Unit Name']}_${level}_${star_rank}_${unitBoost}`);
   }
   const unitEmbed = new MessageEmbed();
   unitEmbed.setTitle(`${unit['Unit Name']} - Level __${level - 1}__`);
   unitEmbed.setColor('#ffb33c');
 
   var appliedBoosts = []
+  var appliedBoostList = []
   var totalHPBonus = 0;
   var totalDmgBonus = 0;
   const upgradePercent = {
@@ -269,40 +272,59 @@ exports.getUnitEmbed = async function (unit, level, star_rank) {
 
 
 
-  
+
   // Start apply star rank rewards
-  var starRankResults = search.starRankSearch(unitName)
-  if (star_rank > 1 && starRankResults) {
+  if (star_rank > 1) {
     if (unitName.includes("Hedorah")) unitName = 'Hedorah'
     if (unitName.includes("Kamacurus")) unitName = 'Kamacurus + Swarm'
-    
-    results = starRankResults
-    appliedBoosts.push(`**Star Rank**: ${star_rank}`)
-    i = 1
-    for (item in results) {
-      bonusType = results[item]
-      if (i >= star_rank) {
-      } else {
-        if (bonusType.startsWith('HP')) {
-          totalHPBonus = Math.abs(totalHPBonus + Number(bonusType.split('+')[1].trim().replace('%', '')))
+    if (unitName.includes("Shin")) unitName = 'Shin Godzilla'
+    var starRankResults = search.starRankSearch(unitName)
+    if (starRankResults) {
+
+      results = starRankResults
+
+      i = 1
+      for (item in results) {
+        bonusType = results[item]
+        if (i >= star_rank) {
+        } else {
+          if (bonusType.startsWith('HP')) {
+            totalHPBonus = Math.abs(totalHPBonus + Number(bonusType.split('+')[1].trim().replace('%', '')))
+          }
+          if (bonusType.startsWith('Dmg')) {
+            totalDmgBonus = Math.abs(totalDmgBonus + Number(bonusType.split('+')[1].trim().replace('%', '')))
+          }
         }
-        if (bonusType.startsWith('Dmg')) {
-          totalDmgBonus = Math.abs(totalDmgBonus + Number(bonusType.split('+')[1].trim().replace('%', '')))
-        }
+        i++
       }
-      i++
+      unitHealth = Math.floor(mathjs.evaluate(`${unitHealth} + ${Number(totalHPBonus)}%`))
+      unitAttack = Math.floor(mathjs.evaluate(`${unitAttack} + ${Number(totalDmgBonus)}%`))
+      appliedBoosts.push(`**Star Rank** \`${star_rank}\`\n╰HP Bonus \`${Math.round(10*totalHPBonus)/10}%\`\n╰Attack Bonus \`${Math.round(10*totalDmgBonus)/10}%\``)
+      appliedBoostList.push(`Star Rank: ${star_rank}`)
+    } else {
+      appliedBoosts.push(`\`\`\`This unit has no star rank rewards\`\`\``)
     }
-    unitHealth = Math.floor(mathjs.evaluate(`${unitHealth} + ${Number(totalHPBonus)}%`))
-    unitAttack = Math.floor(mathjs.evaluate(`${unitAttack} + ${Number(totalDmgBonus)}%`))
   }
   // End apply star rank rewards
 
 
 
 
-  
-  // Start apply boosts
 
+  // Start apply boosts
+    if(unitBoost && unitBoost != 0) {
+      boostData = unitBoosts[unitBoost]
+      if(boostData.units && !boostData.units.includes(unitName)) {
+        appliedBoosts.push(`\`\`\`This unit cannot benefit from the ${unitBoost} boost\`\`\``)
+
+      } else {
+        appliedBoosts.push(`**${unitBoost} Boost** ${boostData.emoji}\n╰Attack Boost \`${boostData.boost}%\``)
+      appliedBoostList.push(`${unitBoost} Buff (${boostData.boost}%)`)
+
+        unitAttack = mathjs.evaluate(`${unitAttack} + ${boostData.boost}%`)
+      }
+      
+    }
   // End apply boosts
 
 
@@ -339,10 +361,10 @@ exports.getUnitEmbed = async function (unit, level, star_rank) {
       unitStats.push(`**Air Attack** \`${unitAttack.toLocaleString()}\` | **DPS** \`${dpsAir.toLocaleString()}\``)
     }
 
-    if(acidDamage > 0) {
+    if (acidDamage > 0) {
       unitStats.push(`**Acid Damage** \`${acidDamage.toLocaleString()}\``)
     }
-    if(digDamage > 0) {
+    if (digDamage > 0) {
       // unitStats.push(`**Dig Damage** \`${Math.floor(digDamage).toLocaleString()}\``)
     }
 
@@ -440,12 +462,16 @@ exports.getUnitEmbed = async function (unit, level, star_rank) {
     "Cost": unitCost,
     "HP": unitHealth,
     "ATK": unitAttack,
+    "HitsPerAttack": hitsPerAttack,
     "DPS": dps,
+    "Boosts": appliedBoostList,
   }
 
 
-
-  unitEmbed.setDescription(`${appliedBoosts.join(`, `)}`);
+  if(appliedBoosts.length > 0) {
+    appliedBoosts.unshift(`__**Applied Buffs**__`)
+  }
+  unitEmbed.setDescription(`${appliedBoosts.join(`\n`)}`);
   unitEmbed.setThumbnail(`https://res.cloudinary.com/tristangregory/image/upload/e_sharpen,h_300,w_300,c_fit,c_pad,b_rgb:ffb33c/v1654043653/gbl/${unit['Unit Name'].replaceAll(" ", "_").replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "")}`)
 
 
@@ -455,7 +481,7 @@ exports.getUnitEmbed = async function (unit, level, star_rank) {
     unitData: unitData,
   }
 
-  cache.set(`${unit['Unit Name']}_${level}_${star_rank}`, returnData, 0);
+  cache.set(`${unit['Unit Name']}_${level}_${star_rank}_${unitBoost}`, returnData, 0);
   endTime = performance.now();
   console.log(`${unit['Unit Name']} took ${endTime - startTime}ms`);
   return returnData;

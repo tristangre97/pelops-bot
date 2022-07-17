@@ -1,4 +1,5 @@
 const db = require('../utility/database.js');
+const random = require('../utility/random.js');
 const {
     MessageEmbed,
     MessageActionRow,
@@ -6,7 +7,15 @@ const {
 } = require('discord.js');
 const search = require('../utility/search.js');
 const unitEmbedGen = require('../utility/getUnitData.js');
+const unitBoosts = require('../data/unitBoosts.js');
+const boostOptions = []
 
+for (item in unitBoosts) {
+    boostOptions.push({
+        name: item,
+        value: item,
+    })
+}
 module.exports = {
     name: 'unit',
     category: 'Tools',
@@ -33,6 +42,17 @@ module.exports = {
             description: 'The star rank of the unit.',
             required: false,
             type: 10,
+        },
+        {
+            name: 'apply_boost', // Must be lower case
+            description: 'Prevent unavailable units from appearing in the deck',
+            required: false,
+            type: 3,
+            choices: [{ name: 'In Water', value: 'In Water' },
+            { name: 'Battra', value: 'Battra' },
+            { name: 'Jet Jaguar 73', value: 'Jet Jaguar 73' },
+            { name: 'Spacegodzilla Crystals', value: 'Spacegodzilla Crystals' },
+            { name: 'Below 33% HP', value: 'Below 33% HP' }]
         }
     ],
 
@@ -50,7 +70,12 @@ module.exports = {
         
         
 
-        var [unit_name, unit_level, star_rank] = args;
+        var unit_name = args['unit_name'];
+        var unit_level = args['unit_level'];
+        var star_rank = args['star_rank'] || 1;
+        var apply_boost = args['apply_boost'] || 0;
+
+        if(apply_boost) apply_boost = apply_boost.replaceAll(" ", "_");
         var embedComponents = [];
         
         startTime = performance.now();
@@ -93,28 +118,42 @@ module.exports = {
 
         previousEvolution = unit['Unit Name']
         evolutions = unit['EVOLUTION'].split(", ")
-        if(evolutions[0] == '0') evolutions = []
+        if(evolutions[0] == "") evolutions = []
         // console.log(evolutions)
         unitsName = unit['Unit Name'].replaceAll(" ", "_")
         originalUser = interaction.user.id
 
+        interactionID = random.bytes(10);
+
+        const interactionData = {
+            id: interactionID,
+            timestamp: Date.now(),
+            user: interaction.user.id,
+            unit: unit['Unit Name'],
+            level: level,
+            starRank: star_rank,
+            boosts: apply_boost,
+            evolutions: evolutions,
+        }
+
+        await db.set(`interactions.${interactionID}`, interactionData)
 
 
         actionBtns = new MessageActionRow();
         actionBtns.addComponents(
             new MessageButton()
-            .setCustomId(`levelDownBtn ${unitsName} ${level - 1} ${star_rank} ${originalUser}`)
+            .setCustomId(`levelDownBtn ${interactionID}`)
             .setLabel(`Level ${level - 1}`)
             .setStyle('PRIMARY')
-            .setEmoji(`<:caretdownsolid:982871764575076383>`)
+            .setEmoji(`<:downarrow:998267358177153055>`)
             .setDisabled(level == 1)
         )
         actionBtns.addComponents(
             new MessageButton()
-            .setCustomId(`levelUpBtn ${unitsName} ${parseInt(level) + 1} ${star_rank} ${originalUser}`)
+            .setCustomId(`levelUpBtn ${interactionID}`)
             .setLabel(`Level ${parseInt(level) + 1}`)
             .setStyle('PRIMARY')
-            .setEmoji(`<:caretupsolid:982871763899789312>`)
+            .setEmoji(`<:uparrow:998267359280250890>`)
             .setDisabled(level == maxLevel)
         )
         
@@ -124,7 +163,7 @@ module.exports = {
             evoUnit = evoSearch[0].item;
             actionBtns.addComponents(
                 new MessageButton()
-                .setCustomId(`evolveBtn ${evo.replaceAll(" ","_")} ${level} ${star_rank} ${originalUser}`)
+                .setCustomId(`evolveBtn ${interactionID} ${evo.replaceAll(" ", "_")}`)
                 .setLabel(`${evo}`)
                 .setEmoji(`${evoUnit['EMOJI']}`)
                 .setStyle('SUCCESS'),
@@ -138,7 +177,7 @@ module.exports = {
 
         
 
-        embed = await unitEmbedGen.getUnitEmbed(unit, unit_level, star_rank);
+        embed = await unitEmbedGen.getUnitEmbed(unit, unit_level, star_rank, apply_boost);
 
         await interaction.reply({
             embeds: [embed.embed],

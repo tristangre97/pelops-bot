@@ -43,6 +43,40 @@ module.exports = {
             required: true,
             type: 10,
         },
+        {
+            name: 'unit_one_star_rank', // Must be lower case
+            description: 'The star rank of the unit.',
+            required: false,
+            type: 10,
+        },
+        {
+            name: 'unit_one_apply_boost', // Must be lower case
+            description: 'Prevent unavailable units from appearing in the deck',
+            required: false,
+            type: 3,
+            choices: [{ name: 'In Water', value: 'In Water' },
+            { name: 'Battra', value: 'Battra' },
+            { name: 'Jet Jaguar 73', value: 'Jet Jaguar 73' },
+            { name: 'Spacegodzilla Crystals', value: 'Spacegodzilla Crystals' },
+            { name: 'Below 33% HP', value: 'Below 33% HP' }]
+        },
+        {
+            name: 'unit_two_star_rank', // Must be lower case
+            description: 'The star rank of the unit.',
+            required: false,
+            type: 10,
+        },
+        {
+            name: 'unit_two_apply_boost', // Must be lower case
+            description: 'Prevent unavailable units from appearing in the deck',
+            required: false,
+            type: 3,
+            choices: [{ name: 'In Water', value: 'In Water' },
+            { name: 'Battra', value: 'Battra' },
+            { name: 'Jet Jaguar 73', value: 'Jet Jaguar 73' },
+            { name: 'Spacegodzilla Crystals', value: 'Spacegodzilla Crystals' },
+            { name: 'Below 33% HP', value: 'Below 33% HP' }]
+        }
     ],
 
 
@@ -57,7 +91,16 @@ module.exports = {
 
 
 
-        var {unit_one_name, unit_one_level, unit_two_name, unit_two_level} = args;
+        // var {unit_one_name, unit_one_level, unit_two_name, unit_two_level} = args;
+        var unit_one_name = args['unit_one_name'];
+        var unit_one_level = args['unit_one_level'];
+        var unit_two_name = args['unit_two_name'];
+        var unit_two_level = args['unit_two_level'];
+        var unit_one_star_rank = args['unit_one_star_rank'] || 1;
+        var unit_one_apply_boost = args['unit_one_apply_boost'] || 0;
+        var unit_two_star_rank = args['unit_two_star_rank'] || 1;
+        var unit_two_apply_boost = args['unit_two_apply_boost'] || 0;
+
         db.add(`stats.uses`)
         const embed = new MessageEmbed()
         .setColor('#ffb33c')
@@ -116,9 +159,9 @@ module.exports = {
     
 
         // console.log(`${unit_one_name} ${unit_one_level} ${unit_two_name} ${unit_two_level}`)
-        unitOneData = await unitEmbedGen.getUnitEmbed(unit1, unit_one_level)
+        unitOneData = await unitEmbedGen.getUnitEmbed(unit1, unit_one_level, unit_one_star_rank, unit_one_apply_boost);
         // console.log(unitOneData)
-        unitTwoData = await unitEmbedGen.getUnitEmbed(unit2, unit_two_level)
+        unitTwoData = await unitEmbedGen.getUnitEmbed(unit2, unit_two_level, unit_two_star_rank, unit_two_apply_boost);
        
         unitOneData = unitOneData.unitData;
         unitTwoData = unitTwoData.unitData;
@@ -131,6 +174,14 @@ module.exports = {
         <p class="stat-total half" >${unitTwoData.Cost}</p>
           </div>`)
 
+
+          if(unitOneData.Boosts.length > 0 || unitTwoData.Boosts.length > 0) {
+            cardSections.push(`<div class="stat-card-section">
+            <p class="stat-title full">Applied Buffs</p>
+            <p class="stat-total half" >${unitOneData.Boosts.join(`<br>`)}</p>
+            <p class="stat-total half" >${unitTwoData.Boosts.join(`<br>`)}</p>
+              </div>`)
+          }
 
           if(unitOneData.HP > 0 || unitTwoData.HP > 0) {
             cardSections.push(`<div class="stat-card-section">
@@ -150,23 +201,6 @@ module.exports = {
               </div>
               `)
 
-            if(unitOneData.HitsPerAttack > 1 || unitTwoData.HitsPerAttack > 1) {
-                cardSections.push(`
-                <div class="stat-card-section">
-                <p class="stat-title full">Hits Per Attack</p>
-                <p class="stat-total half" >${unitOneData.HitsPerAttack}</p>
-                <p class="stat-total half" >${unitTwoData.HitsPerAttack}</p>
-                  </div>
-                `)
-                cardSections.push(`
-                  <div class="stat-card-section">
-                  <p class="stat-title full">Total Damage</p>
-                  <p class="stat-total half" >${parseInt(unitOneData.ATK * unitOneData.HitsPerAttack)}</p>
-                  <p class="stat-total half" >${parseInt(unitTwoData.ATK * unitTwoData.HitsPerAttack)}</p>
-                    </div>
-                  `)
-            }
-
             cardSections.push(`<div class="stat-card-section">
                 <p class="stat-title full">DPS</p>
                 <p class="stat-total half" >${unitOneData.DPS}</p>
@@ -177,18 +211,6 @@ module.exports = {
            
           }
 
-        if(unitOneData.HitsPerAttack > 1 || unitTwoData.HitsPerAttack > 1) {
-
-            unitOneATKHTML = `<p class="stat-total full">${parseInt(unitOneData.ATK).toLocaleString()}</p><p class="stat-total full small-text">Hits ${unitOneData.HitsPerAttack}x</p>`
-        } else {
-
-        }
-
-        if(unitTwoData.HitsPerAttack > 1) {
-            unitTwoATKHTML = `<p class="stat-total full">${parseInt(unitTwoData.ATK * unitTwoData.HitsPerAttack).toLocaleString()}</p><p class="stat-total full small-text">Hits ${unitTwoData.HitsPerAttack}x</p>`
-        } else {
-            unitTwoATKHTML = `<p class="stat-total full">${parseInt(unitTwoData.ATK * unitTwoData.HitsPerAttack).toLocaleString()}</p><p class="full small-text"></p>`
-        }
         
 
 
@@ -216,10 +238,10 @@ module.exports = {
         </div>
         
          <div class="unit-data flex-wrap full">
-         <p class="unitLevel half" id="unitOneLevel">Level ${unitOneData.Level}</p>
-        <p class="unitLevel half" id="unitOneLevel">Level ${unitTwoData.Level}</p>
-        <p class="unitName half" id="unitOneName">${unitOneData.Name}</p>
-        <p class="unitName half" id="unitOneName">${unitTwoData.Name}</p>
+         <p class="unitLevel half">Level ${unitOneData.Level}</p>
+        <p class="unitLevel half">Level ${unitTwoData.Level}</p>
+        <p class="unitName half">${unitOneData.Name}</p>
+        <p class="unitName half">${unitTwoData.Name}</p>
         
            </div>
       </div>
@@ -250,12 +272,12 @@ ${cardSections.join('')}
 
         allData = [unitOneData, unitTwoData]
 
-        if(cache.get(`compare_${unitOneData.Name}_${unitOneData.Level}_${unitTwoData.Name}_${unitTwoData.Level}`)) {
+        if(cache.get(`compare_${unitOneData.Name}_${unitOneData.Level}_${unitTwoData.Name}_${unitTwoData.Level}_${unit_one_star_rank}_${unit_one_apply_boost}_${unit_two_star_rank}_${unit_two_apply_boost}`)) {
             var img = cache.get(`compare_${unitOneData.Name}_${unitOneData.Level}_${unitTwoData.Name}_${unitTwoData.Level}`)
         } else {
             
             var img = await imgGen.makeTest(finalHTML, '.unit-compare-card')
-            cache.set(`compare_${unitOneData.Name}_${unitOneData.Level}_${unitTwoData.Name}_${unitTwoData.Level}`, img)
+            cache.set(`compare_${unitOneData.Name}_${unitOneData.Level}_${unitTwoData.Name}_${unitTwoData.Level}_${unit_one_star_rank}_${unit_one_apply_boost}_${unit_two_star_rank}_${unit_two_apply_boost}`, img)
         }
 
         // var img = await compareImg.make(allData)
