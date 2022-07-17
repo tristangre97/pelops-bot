@@ -98,7 +98,7 @@ ${newsQuote}
                 article: newsArticle,
                 HTML: HTML
               }
-              cache.set(`news.${interactionID}`, details, 9999)
+              db.set(`news.${interactionID}`, details, 9999)
 
 
               const embed = new MessageEmbed()
@@ -138,13 +138,13 @@ ${newsArticle}
       btns = new MessageActionRow();
       btns.addComponents(
         new MessageButton()
-          .setCustomId(`editNewsModal null null null ${originalUser} ${interactionID}`)
+          .setCustomId(`editNewsModal ${interactionID}`)
           .setLabel(`Edit News Details`)
           .setStyle('PRIMARY')
       )
       btns.addComponents(
         new MessageButton()
-          .setCustomId(`generateNews null null null ${originalUser} ${interactionID}`)
+          .setCustomId(`generateNews ${interactionID}`)
           .setLabel(`Generate Image`)
           .setStyle('SUCCESS')
           .setDisabled(hasErrors)

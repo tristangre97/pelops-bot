@@ -2,7 +2,8 @@ const unitEmbedGen = require('../utility/getUnitData.js');
 const search = require('../utility/search.js');
 const cache = require('../utility/cache.js');
 const imgGen = require('../utility/HTML2IMG')
-
+const db = require('../utility/database.js');
+const random = require('../utility/random.js');
 const {
   MessageEmbed,
   MessageActionRow,
@@ -23,22 +24,31 @@ module.exports = {
 
     const data = interaction.customId.split(' ');
     var btnType = data[0];
-    var unitName = data[1].replaceAll(" ", "_");
-    var level = data[2];
-    var star_rank = data[3];
-    var originalUser = data[4] || '222781123875307521';
-    var interactionID = data[5] || null;
+    var interactionID = data[1];
+    var unitEvo = data[2];
 
-    if(btnType == 'generateNews') {
+    var interactionData = await db.get(`interactions.${interactionID}`) || db.get(`news.${interactionID}`);
+    if (!interactionData) {
+      return interaction.reply({
+        content: 'Interaction not found.',
+        ephemeral: true
+      });
+    }
+
+    var originalUser = interactionData.user;
+
+
+
+    if (btnType == 'generateNews') {
       if (originalUser != interaction.user.id) {
         return interaction.reply({
           content: `You must run this command yourself to edit `,
           ephemeral: true
         })
       }
-      var newsDetails = cache.get(`news.${interactionID}`);
+      var newsDetails = db.get(`news.${interactionID}`);
 
-      if(!newsDetails) {
+      if (!newsDetails) {
         return interaction.reply({
           content: `This interaction has expired, please run the command again.`,
           ephemeral: true
@@ -46,10 +56,10 @@ module.exports = {
       }
 
       const waitEmbed = new MessageEmbed()
-      .setColor('#ffb33c')
-      .setTitle('Generating Deck...')
-      .setDescription(`I am generating your news article. This may take a second.`)
-      .setImage('https://res.cloudinary.com/tristangregory/image/upload/v1646259339/gbl/pelops/pelops_load.jpg')
+        .setColor('#ffb33c')
+        .setTitle('Generating News...')
+        .setDescription(`I am generating your news article. This may take a second.`)
+        .setImage('https://res.cloudinary.com/tristangregory/image/upload/v1646259339/gbl/pelops/pelops_load.jpg')
 
       await interaction.update({
         embeds: [waitEmbed],
@@ -67,9 +77,9 @@ module.exports = {
         }],
       })
     }
-    
-    
-    if(btnType == 'setNewsDetails') {
+
+
+    if (btnType == 'setNewsDetails') {
 
       if (originalUser != interaction.user.id) {
         return interaction.reply({
@@ -79,53 +89,53 @@ module.exports = {
       }
 
       const modal = new Modal()
-			.setCustomId(`newsModal ${interactionID} ${originalUser}`)
-			.setTitle('Set News Details')
+        .setCustomId(`newsModal ${interactionID}`)
+        .setTitle('Set News Details')
 
       // const reportTypeText = new TextInputComponent()
-			// .setCustomId('reportTypeText')
-			// .setLabel("Alert Text")
-			// .setStyle('SHORT')
+      // .setCustomId('reportTypeText')
+      // .setLabel("Alert Text")
+      // .setStyle('SHORT')
 
       const newsTitle = new TextInputComponent()
-			.setCustomId('newsTitle')
-			.setLabel("Title")
-			.setStyle('SHORT')
+        .setCustomId('newsTitle')
+        .setLabel("Title")
+        .setStyle('SHORT')
 
 
       const imageURL = new TextInputComponent()
-			.setCustomId('imageURL')
-			.setLabel("Image URL")
-			.setStyle('SHORT')
-     // .setRequired(true)
+        .setCustomId('imageURL')
+        .setLabel("Image URL")
+        .setStyle('SHORT')
+      // .setRequired(true)
 
 
       const newsQuote = new TextInputComponent()
-			.setCustomId('newsQuote')
-			.setLabel("Blockquote")
-			.setStyle('SHORT')
-     // .setRequired(true)
+        .setCustomId('newsQuote')
+        .setLabel("Blockquote")
+        .setStyle('SHORT')
+      // .setRequired(true)
 
 
-		const newsArticle = new TextInputComponent()
-			.setCustomId('newsArticle')
-			.setLabel("Article")
-			.setStyle('PARAGRAPH')
-     // .setRequired(true)
+      const newsArticle = new TextInputComponent()
+        .setCustomId('newsArticle')
+        .setLabel("Article")
+        .setStyle('PARAGRAPH')
+      // .setRequired(true)
 
-		// const firstActionRow = new MessageActionRow().addComponents(reportTypeText);
-    const secondActionRow = new MessageActionRow().addComponents(newsTitle);
-    const thirdActionRow = new MessageActionRow().addComponents(imageURL);
-    const fourthActionRow = new MessageActionRow().addComponents(newsQuote);
-    const fifthActionRow = new MessageActionRow().addComponents(newsArticle);
+      // const firstActionRow = new MessageActionRow().addComponents(reportTypeText);
+      const secondActionRow = new MessageActionRow().addComponents(newsTitle);
+      const thirdActionRow = new MessageActionRow().addComponents(imageURL);
+      const fourthActionRow = new MessageActionRow().addComponents(newsQuote);
+      const fifthActionRow = new MessageActionRow().addComponents(newsArticle);
 
 
-		modal.addComponents(secondActionRow, thirdActionRow, fourthActionRow, fifthActionRow);
+      modal.addComponents(secondActionRow, thirdActionRow, fourthActionRow, fifthActionRow);
 
-		return interaction.showModal(modal);
+      return interaction.showModal(modal);
     }
 
-    if(btnType == 'editNewsModal') {
+    if (btnType == 'editNewsModal') {
 
       if (originalUser != interaction.user.id) {
         return interaction.reply({
@@ -134,9 +144,9 @@ module.exports = {
         })
       }
 
-      var newsDetails = cache.get(`news.${interactionID}`);
+      var newsDetails = db.get(`news.${interactionID}`);
 
-      if(!newsDetails) {
+      if (!newsDetails) {
         return interaction.reply({
           content: `This interaction has expired, please run the command again.`,
           ephemeral: true
@@ -149,117 +159,144 @@ module.exports = {
       var newsArticleCache = newsDetails.article;
 
       const modal = new Modal()
-			.setCustomId(`newsModal ${interactionID} ${originalUser}`)
-			.setTitle('Set News Details')
+        .setCustomId(`newsModal ${interactionID}`)
+        .setTitle('Set News Details')
 
       // const reportTypeText = new TextInputComponent()
-			// .setCustomId('reportTypeText')
-			// .setLabel("Alert Text")
-			// .setStyle('SHORT')
+      // .setCustomId('reportTypeText')
+      // .setLabel("Alert Text")
+      // .setStyle('SHORT')
       // .setValue(reportTypeTextCache)
-      
+
       const newsTitle = new TextInputComponent()
-			.setCustomId('newsTitle')
-			.setLabel("Title")
-			.setStyle('SHORT')
-      .setValue(newsTitleCache)
+        .setCustomId('newsTitle')
+        .setLabel("Title")
+        .setStyle('SHORT')
+        .setValue(newsTitleCache)
 
       const imageURL = new TextInputComponent()
-			.setCustomId('imageURL')
-			.setLabel("Image URL")
-			.setStyle('SHORT')
-      .setValue(imageURLCache)
+        .setCustomId('imageURL')
+        .setLabel("Image URL")
+        .setStyle('SHORT')
+        .setValue(imageURLCache)
 
 
       const newsQuote = new TextInputComponent()
-			.setCustomId('newsQuote')
-			.setLabel("Blockquote")
-			.setStyle('SHORT')
-      .setValue(newsQuoteCache)
+        .setCustomId('newsQuote')
+        .setLabel("Blockquote")
+        .setStyle('SHORT')
+        .setValue(newsQuoteCache)
 
 
-		const newsArticle = new TextInputComponent()
-			.setCustomId('newsArticle')
-			.setLabel("Article")
-			.setStyle('PARAGRAPH')
-      .setValue(newsArticleCache)
-
-
-
-		// const firstActionRow = new MessageActionRow().addComponents(reportTypeText);
-    const secondActionRow = new MessageActionRow().addComponents(newsTitle);
-    const thirdActionRow = new MessageActionRow().addComponents(imageURL);
-    const fourthActionRow = new MessageActionRow().addComponents(newsQuote);
-    const fifthActionRow = new MessageActionRow().addComponents(newsArticle);
+      const newsArticle = new TextInputComponent()
+        .setCustomId('newsArticle')
+        .setLabel("Article")
+        .setStyle('PARAGRAPH')
+        .setValue(newsArticleCache)
 
 
 
+      // const firstActionRow = new MessageActionRow().addComponents(reportTypeText);
+      const secondActionRow = new MessageActionRow().addComponents(newsTitle);
+      const thirdActionRow = new MessageActionRow().addComponents(imageURL);
+      const fourthActionRow = new MessageActionRow().addComponents(newsQuote);
+      const fifthActionRow = new MessageActionRow().addComponents(newsArticle);
 
-		modal.addComponents(secondActionRow, thirdActionRow, fourthActionRow, fifthActionRow);
 
-		return interaction.showModal(modal);
+
+
+      modal.addComponents(secondActionRow, thirdActionRow, fourthActionRow, fifthActionRow);
+
+      return interaction.showModal(modal);
 
 
     }
 
 
-    searchResults = await search.unitSearch(unitName);
-    unit = searchResults[0].item;
-    unitRarity = unit.RARITY;
-    if (unitRarity == "4") {
-      maxLevel = 30;
-    } else {
-      maxLevel = 40;
-    }
+    const unitBtns = ['levelDownBtn', 'levelUpBtn', 'evolveBtn']
+
+    if (unitBtns.includes(btnType)) {
+
+      if (originalUser != interaction.user.id) {
+        interactionID = random.bytes(16)
+        await db.set(`interactions.${interactionID}`, interactionData)
+        await db.set(`interactions.${interactionID}.temp`, true)
+        await db.set(`interactions.${interactionID}.newUser`, interaction.user.id)
 
 
-    row = new MessageActionRow();
-    unitsName = unit['Unit Name'].replaceAll(" ", "_")
+        interactionData = db.get(`interactions.${interactionID}`)
+      }
 
-    row.addComponents(
-      new MessageButton()
-      .setCustomId(`levelDownBtn ${unitsName} ${level - 1} ${star_rank} ${originalUser}`)
-      .setLabel(`Level ${level - 1}`)
-      .setStyle('PRIMARY')
-      .setEmoji(`<:caretdownsolid:982871764575076383>`)
-      .setDisabled(level == 1)
-    )
-    row.addComponents(
-      new MessageButton()
-      .setCustomId(`levelUpBtn ${unitsName} ${parseInt(level) + 1} ${star_rank} ${originalUser}`)
-      .setLabel(`Level ${parseInt(level) + 1}`)
-      .setStyle('PRIMARY')
-      .setEmoji(`<:caretupsolid:982871763899789312>`)
-      .setDisabled(level == maxLevel)
-    )
+      var unitName = interactionData.unit;
+      var level = interactionData.level;
+      var star_rank = interactionData.starRank;
+      var apply_boost = interactionData.boosts;
+      var evolutions = interactionData.evolutions;
 
-    // console.log(unit, level)
-    unitEmbed = await unitEmbedGen.getUnitEmbed(unit, level, star_rank);
 
-    evolutions = unit['EVOLUTION'].split(", ")
-    if(evolutions[0] == '0') evolutions = []
+      if (btnType == 'levelDownBtn') interactionData.level--;
+      if (btnType == 'levelUpBtn') interactionData.level++;
+      if (btnType == 'evolveBtn') interactionData.unit = unitEvo.replaceAll('_', ' ');
 
-    // console.log(evolutions)
-    for(const evo of evolutions) {
-      evoSearch = await search.unitSearch(evo);
-      evoUnit = evoSearch[0].item;
+      unitName = interactionData.unit;
+      level = interactionData.level;
+
+      await db.set(`interactions.${interactionID}`, interactionData)
+
+      const searchResults = await search.unitSearch(unitName);
+
+      unit = searchResults[0].item;
+
+
+      unitRarity = unit.RARITY;
+      if (unitRarity == "4") {
+        maxLevel = 30;
+      } else {
+        maxLevel = 40;
+      }
+
+      unitEmbed = await unitEmbedGen.getUnitEmbed(unit, level, star_rank, apply_boost);
+
+
+
+      row = new MessageActionRow();
+
       row.addComponents(
+        new MessageButton()
+          .setCustomId(`levelDownBtn ${interactionID}`)
+          .setLabel(`Level ${level - 1}`)
+          .setStyle('PRIMARY')
+          .setEmoji(`<:downarrow:998267358177153055>`)
+          .setDisabled(level == 1)
+      )
+      row.addComponents(
+        new MessageButton()
+          .setCustomId(`levelUpBtn ${interactionID}`)
+          .setLabel(`Level ${parseInt(level) + 1}`)
+          .setStyle('PRIMARY')
+          .setEmoji(`<:uparrow:998267359280250890>`)
+          .setDisabled(level == maxLevel)
+      )
+
+
+
+      var unitEvolutions = unit['EVOLUTION'].split(',')
+      if (unitEvolutions[0] == "") unitEvolutions = []
+      for (const evo of unitEvolutions) {
+        evoSearch = await search.unitSearch(evo);
+        evoUnit = evoSearch[0].item;
+        row.addComponents(
           new MessageButton()
-          .setCustomId(`evolveBtn ${evo.replaceAll(" ","_")} ${level} ${originalUser}`)
-          .setLabel(`${evo}`)
-          .setEmoji(`${evoUnit['EMOJI']}`)
-          .setStyle('SUCCESS'),
-      );
+            .setCustomId(`evolveBtn ${interactionID} ${evo.replaceAll(" ", "_")}`)
+            .setLabel(`${evo}`)
+            .setEmoji(`${evoUnit['EMOJI']}`)
+            .setStyle('SUCCESS'),
+        );
 
-  }
-   
-
-
-
+      }
 
       if (originalUser != interaction.user.id) {
         return interaction.reply({
-          content: `Run the command yourself to get more information.`,
           embeds: [unitEmbed.embed],
           ephemeral: true
         })
@@ -270,6 +307,7 @@ module.exports = {
         components: [row]
       });
 
+    }
 
 
 
