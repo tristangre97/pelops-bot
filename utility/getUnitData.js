@@ -15,7 +15,7 @@ exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost) {
   db.add(`stats.uses`)
   db.add(`unitStats.${unit['Unit Name']}`)
   startTime = performance.now();
-  if(unitBoost) unitBoost = unitBoost.replaceAll("_", " ")
+  if (unitBoost) unitBoost = unitBoost.replaceAll("_", " ")
   var unitName = unit['Unit Name']
   var unitHealth = Number(unit.HP);
   var unitAttack = Number(unit.ATK);
@@ -27,6 +27,7 @@ exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost) {
   var dmgBoost = Number(unit['DMG INCREASE'])
   var recoveryAmount = Number(unit['RECOVERY AMOUNT'])
   var attackSpeed = Number(unit['ATK SPD']);
+  var leaderAttackSpeed = Number(unit['LEADER ATK SPD']);
   var transferTime = Number(unit['TELEPORT TIME']);
   var attackSpeedAir = Number(unit['ATK SPD AIR']);
   var acidDamage = Number(unit['ACID DMG']);
@@ -34,8 +35,7 @@ exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost) {
   var unitNotice = unit['NOTICE'];
   var transferTimeDecrease;
   var hitsPerAttack = Number(unit['HITS PER ATTACK']);
-  
-  level = Number(level.replaceAll(",", ""));
+
   level++;
   var star_rank = Number(star_rank) || 1;
   if (star_rank > 20) star_rank = 20;
@@ -64,6 +64,8 @@ exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost) {
   var appliedBoostList = []
   var totalHPBonus = 0;
   var totalDmgBonus = 0;
+  var totalLeaderHPBonus = 0;
+  var totalLeaderDmgBonus = 0;
   const upgradePercent = {
     1: {
       "1-5": "20",
@@ -103,23 +105,32 @@ exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost) {
       "31-40": "0.50",
     },
   };
+  // 16%
+  // 5%
 
+  // 16%
+  // 2%
+  // 2%
   const leaderUpgradePercent = {
     3: {
       "1-5": "16",
       "5-10": "5",
-      "10-15": "9",
-      "15-20": "2",
+      "10-15": "8",
+      "15-20": "16",
+      "20-25": "2",
+      "25-30": "2",
+      "31-40": "0.50",
     },
 
     4: {
-      "1-10": "2",
-      "10-20": "3",
-      "20-30": "2",
+      "1-5": "2",
+      "5-10": "3",
+      "10-15": "3",
+      "15-20": "3",
+      "20-25": "2",
+      "25-30": "2",
     },
   }
-
-
 
   var kidsUpgradePercent = {
     "1-5": "2",
@@ -278,11 +289,14 @@ exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost) {
     if (unitName.includes("Hedorah")) unitName = 'Hedorah'
     if (unitName.includes("Kamacurus")) unitName = 'Kamacurus + Swarm'
     if (unitName.includes("Shin")) unitName = 'Shin Godzilla'
+    if (unitName.includes("Battra")) unitName = 'Battra'
+
     var starRankResults = search.starRankSearch(unitName)
     if (starRankResults) {
 
       results = starRankResults
-
+      // Leader HP
+      // Leader Dmg
       i = 1
       for (item in results) {
         bonusType = results[item]
@@ -294,12 +308,25 @@ exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost) {
           if (bonusType.startsWith('Dmg')) {
             totalDmgBonus = Math.abs(totalDmgBonus + Number(bonusType.split('+')[1].trim().replace('%', '')))
           }
+          if (bonusType.startsWith('Leader HP')) {
+            totalLeaderHPBonus = Math.abs(totalLeaderHPBonus + Number(bonusType.split('+')[1].trim().replace('%', '')))
+          }
+          if (bonusType.startsWith('Leader DMG')) {
+            totalLeaderDmgBonus = Math.abs(totalLeaderDmgBonus + Number(bonusType.split('+')[1].trim().replace('%', '')))
+          }
         }
         i++
       }
       unitHealth = Math.floor(mathjs.evaluate(`${unitHealth} + ${Number(totalHPBonus)}%`))
       unitAttack = Math.floor(mathjs.evaluate(`${unitAttack} + ${Number(totalDmgBonus)}%`))
-      appliedBoosts.push(`**Star Rank** \`${star_rank}\`\n╰HP Bonus \`${Math.round(10*totalHPBonus)/10}%\`\n╰Attack Bonus \`${Math.round(10*totalDmgBonus)/10}%\``)
+      appliedBoosts.push(`**Star Rank** \`${star_rank}\`\n╰HP Bonus \`${Math.round(10 * totalHPBonus) / 10}%\`\n╰Attack Bonus \`${Math.round(10 * totalDmgBonus) / 10}%\``)
+      if (unit.LEADER == 'TRUE') {
+        unitLeaderHealth = Math.floor(mathjs.evaluate(`${unitLeaderHealth} + ${Number(totalLeaderHPBonus)}%`))
+        unitLeaderAttack = Math.floor(mathjs.evaluate(`${unitLeaderAttack} + ${Number(totalLeaderDmgBonus)}%`))
+        appliedBoosts.push(`╰Leader HP Bonus \`${Math.round(10 * totalLeaderHPBonus) / 10}%\`\n╰Leader Attack Bonus \`${Math.round(10 * totalLeaderDmgBonus) / 10}%\``)
+      }
+
+
       appliedBoostList.push(`Star Rank: ${star_rank}`)
     } else {
       appliedBoosts.push(`\`\`\`This unit has no star rank rewards\`\`\``)
@@ -312,19 +339,19 @@ exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost) {
 
 
   // Start apply boosts
-    if(unitBoost && unitBoost != 0) {
-      boostData = unitBoosts[unitBoost]
-      if(boostData.units && !boostData.units.includes(unitName)) {
-        appliedBoosts.push(`\`\`\`This unit cannot benefit from the ${unitBoost} boost\`\`\``)
+  if (unitBoost && unitBoost != 0) {
+    boostData = unitBoosts[unitBoost]
+    if (boostData.units && !boostData.units.includes(unitName)) {
+      appliedBoosts.push(`\`\`\`This unit cannot benefit from the ${unitBoost} boost\`\`\``)
 
-      } else {
-        appliedBoosts.push(`**${unitBoost} Boost** ${boostData.emoji}\n╰Attack Boost \`${boostData.boost}%\``)
+    } else {
+      appliedBoosts.push(`**${unitBoost} Boost** ${boostData.emoji}\n╰Attack Boost \`${boostData.boost}%\``)
       appliedBoostList.push(`${unitBoost} Buff (${boostData.boost}%)`)
 
-        unitAttack = mathjs.evaluate(`${unitAttack} + ${boostData.boost}%`)
-      }
-      
+      unitAttack = mathjs.evaluate(`${unitAttack} + ${boostData.boost}%`)
     }
+
+  }
   // End apply boosts
 
 
@@ -405,12 +432,13 @@ exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost) {
   if (unitStats.length > 0) {
     unitEmbed.addField(`__Unit Stats__`, `${unitStats.join('\n')}`);
   }
-
-  if (unit.LEADER === 'TRUE') {
-    //     unitEmbed.addField(`__Leader Stats__`, `
-    // **HP** \`${unitLeaderHealth.toLocaleString()}\`
-    // **Attack** \`${unitLeaderAttack.toLocaleString()}\`
-    //     `);
+  if (unit.LEADER == 'TRUE') {
+    var attacksPerSecond = Math.abs(1 / leaderAttackSpeed);
+    var dps = parseInt(attacksPerSecond * unitLeaderAttack)
+    unitEmbed.addField(`__Leader Stats__`, `
+**HP** \`${unitLeaderHealth.toLocaleString()}\`
+**Attack** \`${unitLeaderAttack.toLocaleString()}\` | **DPS** \`${dps.toLocaleString()}\`
+`);
     unitEmbed.setFooter({ text: `To see leader ability use /leader_ability` })
   }
 
@@ -468,7 +496,7 @@ exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost) {
   }
 
 
-  if(appliedBoosts.length > 0) {
+  if (appliedBoosts.length > 0) {
     appliedBoosts.unshift(`__**Applied Buffs**__`)
   }
   unitEmbed.setDescription(`${appliedBoosts.join(`\n`)}`);
