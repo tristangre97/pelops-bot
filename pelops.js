@@ -87,7 +87,7 @@ client.on('ready', () => {
 Started update ${Date.now() - updateStart}ms ago
                 `)
                 .setImage('https://res.cloudinary.com/tristangregory/image/upload/v1646260264/gbl/pelops/pelops_wait.png')
-          return command_data.message.editReply({
+          return command_data.message.reply({
             embeds:[embed]
           });
         }
