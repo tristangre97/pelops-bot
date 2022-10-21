@@ -1,9 +1,9 @@
 const cache = require('../utility/cache.js');
 const db = require('../utility/database.js');
 const {
-    MessageEmbed,
-    MessageActionRow,
-    MessageButton
+    EmbedBuilder,
+    ActionRowBuilder,
+    ButtonBuilder
 } = require('discord.js');
 const prettyMilliseconds = require('pretty-ms');
 
@@ -17,7 +17,7 @@ module.exports = {
 
 
     run: async ({ message, interaction, channel, client, args, guild }) => {
-        const embed = new MessageEmbed()
+        const embed = new EmbedBuilder()
         .setColor('#ffb33c')
         .setTitle('Map Drop Rates')
        .setDescription(`5% Legendary
@@ -26,7 +26,7 @@ module.exports = {
 18% Monster
 37% Normal
        `)
-        await interaction.editReply({
+        await interaction.reply({
             embeds: [embed]
         });
     }

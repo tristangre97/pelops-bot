@@ -1,8 +1,8 @@
 const db = require('../utility/database.js');
 const {
-    MessageEmbed,
-    MessageActionRow,
-    MessageButton
+    EmbedBuilder,
+    ActionRowBuilder,
+    ButtonBuilder
 } = require('discord.js');
 const search = require('../utility/search.js');
 
@@ -38,27 +38,27 @@ module.exports = {
 
 
 
-        var [unit_name] = args;
+        var {unit_name} = args;
 
         db.add(`stats.uses`)
 
 
         leaderData = await search.leaderSearch(unit_name)
         if (leaderData.length == 0) {
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
                 .setColor('#ff6a56')
                 .setTitle('Unit not found')
                 .setDescription(`Unit \`${unit_name}\` not found`)
                 .setFooter(`Either the unit does not exist or the unit cannot be a leader`)
                 .setThumbnail('https://res.cloudinary.com/tristangregory/image/upload/v1654043653/gbl/pelops/pelops_error.png')
-                return interaction.editReply({
+                return interaction.reply({
                 embeds: [embed],
 
             });
             
         }
         db.add(`unitLeaderStats.${leaderData['UNIT']}`)
-        const unitEmbed = new MessageEmbed();
+        const unitEmbed = new EmbedBuilder();
         unitEmbed.setTitle(`Leader Ability`);
         unitEmbed.setColor('#ffb33c');
 
@@ -77,13 +77,14 @@ module.exports = {
         unitEmbed.setDescription(`**Unit** \`${leaderData['UNIT']}\``);
         unitEmbed.setThumbnail(`https://res.cloudinary.com/tristangregory/image/upload/e_sharpen,h_300,w_300,c_fit,c_pad,b_rgb:ffb33c/v1654043653/gbl/${leaderData['UNIT'].replaceAll(" ", "_").replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "")}`)
 
-        unitEmbed.addField(`__Ability Details__`, `
-    ${entries.join('\n')}
-        `);
+        unitEmbed.addFields({
+            name: `__Ability Details__`,
+            value: `${entries.join('\n')}`,
+        })
 
 
 
-        await interaction.editReply({
+        await interaction.reply({
             embeds: [unitEmbed],
         })
 

@@ -14,7 +14,15 @@ exports.get = function (dbName) {
     return value;
 };
 
-exports.add = function (dbName,) {
+exports.add = function (dbName) {
     db.add(dbName, 1)
     return 'db updated';
+};
+exports.sub = function (dbName) {
+    db.subtract(dbName, 1)
+    return 'db updated';
+};
+exports.delete = function (dbName) {
+    db.delete(dbName)
+    return 'db deleted';
 };

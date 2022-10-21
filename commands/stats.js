@@ -1,10 +1,10 @@
 const search = require('../utility/search.js');
 
 const {
-    MessageEmbed,
-    MessageActionRow,
-    MessageButton,
-    MessageSelectMenu
+    EmbedBuilder,
+    ActionRowBuilder,
+    ButtonBuilder,
+    SelectMenuBuilder
 } = require('discord.js');
 
 
@@ -33,11 +33,11 @@ module.exports = {
         guild
     }) => {
 
-        var [unit_name] = args;
+        var {unit_name} = args;
         var selectedUnit = unit_name;
         searchResults = await search.unitSearch(selectedUnit);
         if (!searchResults[0]) {
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
                 .setColor('#ff6a56')
                 .setTitle('Unit not found')
                 .setDescription(`Unit \`${unit_name}\` not found`)
@@ -49,7 +49,7 @@ module.exports = {
         unit = searchResults[0].item;
         unitStatsData = []
         aliases = []
-        const unitEmbed = new MessageEmbed();
+        const unitEmbed = new EmbedBuilder();
         unitEmbed.setTitle(`Unit Base Stats`)
         unitEmbed.setThumbnail(`https://res.cloudinary.com/tristangregory/image/upload/e_sharpen,h_300,w_300,c_fit,c_pad,b_rgb:ffb33c/v1654043653/gbl/${unit['Unit Name'].replaceAll(" ","_")}.webp`)
         unitEmbed.setColor('#ffb33c');
@@ -70,13 +70,20 @@ module.exports = {
         });
 
 
-        unitEmbed.addField(`__Stats__`, `${unitStatsData.join('\n')}`);
+        unitEmbed.addFields({
+            name: `__Stats__`,
+            value: `${unitStatsData.join('\n')}`,
+            inline: false
+        })
         if(aliases.length > 0) {
-            console.log(aliases)
-            unitEmbed.addField(`__Aliases__`, `${aliases.join('\n')}`);
+            unitEmbed.addFields({
+                name: `__Aliases__`,
+                value: `${aliases.join('\n')}`,
+                inline: false
+            })
         }
 
-        await interaction.editReply({
+        await interaction.reply({
             embeds: [unitEmbed],
 
         });

@@ -1,29 +1,72 @@
-const MathJS = require('mathjs')
 const cache = require('./cache.js');
 const db = require('./database.js');
+const unitBoosts = require('../data/boosts.json').BOOSTS;
 const {
-  MessageEmbed,
-  MessageActionRow,
-  MessageButton,
+  EmbedBuilder,
+  ActionRowBuilder,
+  ButtonBuilder,
   Interaction
 } = require('discord.js');
+const search = require('./search.js');
+const mathjs = require('mathjs')
 
-exports.getUnitEmbed = async function (unit, level, user) {
+
+exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost) {
   db.add(`stats.uses`)
   db.add(`unitStats.${unit['Unit Name']}`)
-  var unitData = []
   startTime = performance.now();
-  level++;
-  const unitLevelUpData = []
-  if (cache.get(`${unit['Unit Name']}_${level}`)) {
-    endTime = performance.now();
-    console.log(`${unit['Unit Name']} took ${endTime - startTime}ms`);
-    return await cache.get(`${unit['Unit Name']}_${level}`);
-  }
-  var msg = []
-  var levelMsg = ''
-  var attackMsg = ''
+  if (unitBoost) unitBoost = unitBoost.replaceAll("_", " ")
+  var unitName = unit['Unit Name']
+  var unitHealth = Number(unit.HP);
+  var unitAttack = Number(unit.ATK);
+  var unitLeaderHealth = Number(unit['LEADER HP']);
+  var unitLeaderAttack = Number(unit['LEADER ATK']);
+  var unitRarity = Number(unit.RARITY);
+  var unitCost = Number(unit.COST);
+  var rushMultiplier = Number(unit['RUSH MULTIPLIER']);
+  var dmgBoost = Number(unit['DMG INCREASE'])
+  var recoveryAmount = Number(unit['RECOVERY AMOUNT'])
+  var attackSpeed = Number(unit['ATK SPD']);
+  var leaderAttackSpeed = Number(unit['LEADER ATK SPD']) || 1;
+  var transferTime = Number(unit['TELEPORT TIME']);
+  var attackSpeedAir = Number(unit['ATK SPD AIR']);
+  var acidDamage = Number(unit['ACID DMG']);
+  var digDamage = Number(unit['DIGGING DMG']);
+  var unitNotice = unit['NOTICE'];
+  var transferTimeDecrease;
+  var hitsPerAttack = Number(unit['HITS PER ATTACK']);
 
+  level++;
+  var star_rank = Number(star_rank) || 1;
+  if (star_rank > 30) star_rank = 30;
+
+
+  if (unitRarity == "4") {
+    maxLevel = 30;
+  } else {
+    maxLevel = 40;
+  }
+
+  if (level - 1 >= maxLevel) {
+    level = maxLevel + 1;
+    levelMsg = `**MAX LEVEL**`
+  }
+  if (cache.get(`${unit['Unit Name']}_${level}_${star_rank}_${unitBoost}`)) {
+    endTime = performance.now();
+    // console.log(`${unit['Unit Name']} took ${endTime - startTime}ms`);
+    return await cache.get(`${unit['Unit Name']}_${level}_${star_rank}_${unitBoost}`);
+  }
+  const unitEmbed = new EmbedBuilder();
+  unitEmbed.setTitle(`${unit['Unit Name']} - Level __${level - 1}__`);
+  unitEmbed.setColor('#ffb33c');
+
+  var appliedBoosts = []
+  var appliedBoostList = []
+  var totalHPBonus = 0;
+  var totalDmgBonus = 0;
+  var totalLeaderHPBonus = 0;
+  var totalLeaderDmgBonus = 0;
+  var totalSpeedBonus = 0;
   const upgradePercent = {
     1: {
       "1-5": "20",
@@ -63,23 +106,32 @@ exports.getUnitEmbed = async function (unit, level, user) {
       "31-40": "0.50",
     },
   };
+  // 16%
+  // 5%
 
+  // 16%
+  // 2%
+  // 2%
   const leaderUpgradePercent = {
     3: {
       "1-5": "16",
       "5-10": "5",
-      "10-15": "9",
-      "15-20": "2",
+      "10-15": "8",
+      "15-20": "16",
+      "20-25": "2",
+      "25-30": "2",
+      "31-40": "0.50",
     },
 
     4: {
-      "1-10": "2",
-      "10-20": "3",
-      "20-30": "2",
+      "1-5": "2",
+      "5-10": "3",
+      "10-15": "3",
+      "15-20": "3",
+      "20-25": "2",
+      "25-30": "2",
     },
   }
-
-
 
   var kidsUpgradePercent = {
     "1-5": "2",
@@ -100,33 +152,16 @@ exports.getUnitEmbed = async function (unit, level, user) {
 
   var psychicChorusUpgradePercent = {
     "1-5": "10",
-    "5-10": "20",
+    "5-10": "10",
     "10-15": "15",
-    "15-20": "2",
+    "15-20": "11",
     "25-30": "0.5",
     "31-40": "0.5",
   }
 
   i = 1;
   bl = i;
-  unitHealth = Number(unit.HP);
-  unitAttack = Number(unit.ATK);
-  unitLeaderHealth = Number(unit['LEADER HP']);
-  unitLeaderAttack = Number(unit['LEADER ATK']);
-  unitRarity = Number(unit.RARITY);
-  unitCost = Number(unit.COST);
-  unitDigDmg = Number(unit['DIGGING DMG']);
-  rushDmg = Number(unit['RUSH DMG']);
-  dmgBoost = Number(unit['DMG INCREASE'])
-  recoveryAmount = Number(unit['RECOVERY AMOUNT'])
-  attackSpeed = Number(unit['ATK SPD']);
-  transferTime = Number(unit['TELEPORT TIME']);
-  attackSpeedAir = Number(unit['ATK SPD AIR']);
 
-
-  unitNotice = unit['NOTICE'];
-  var transferTimeDecrease;
-  var hitsPerAttack = Number(unit['HITS PER ATTACK']);
   var unitStats = []
   var leaderStats = []
 
@@ -134,22 +169,7 @@ exports.getUnitEmbed = async function (unit, level, user) {
 
 
 
-  // if (unitRarity == "4") {
-  //   maxLevel = 30;
-  // } else {
-  //   maxLevel = 40;
-  // }
 
-  if (unitRarity == "4") {
-    maxLevel = 99999999999999999999999999;
-  } else {
-    maxLevel = 99999999999999999999999999;
-  }
-
-  if (level - 1 >= maxLevel) {
-    level = maxLevel + 1;
-    levelMsg = `**MAX LEVEL**`
-  }
 
   var spawnedUnitAttack
   var spawnedUnitHP
@@ -174,21 +194,22 @@ exports.getUnitEmbed = async function (unit, level, user) {
     pieceChart = fourStarPieces;
   }
 
+  // Start stat calculation loop
   while (i < level) {
-    levelCalcStart = performance.now();
+    // levelCalcStart = performance.now();
 
-    if (inRange(bl, 0, 1)) {
-      transferTimeDecrease = 0.16
-    }
-    if (inRange(bl, 2, 4)) {
-      transferTimeDecrease = 0.15
-    }
-    if (inRange(bl, 5, 9)) {
-      transferTimeDecrease = 0.14
-    }
-    if (inRange(bl, 10, 14)) {
-      transferTimeDecrease = 0.13
-    }
+    // if (inRange(bl, 0, 1)) {
+    //   transferTimeDecrease = 0.16
+    // }
+    // if (inRange(bl, 2, 4)) {
+    //   transferTimeDecrease = 0.15
+    // }
+    // if (inRange(bl, 5, 9)) {
+    //   transferTimeDecrease = 0.14
+    // }
+    // if (inRange(bl, 10, 14)) {
+    //   transferTimeDecrease = 0.13
+    // }
 
     if (inRange(bl, 0, 4)) {
       var percent = upgradePercent[unitRarity]["1-5"];
@@ -228,89 +249,135 @@ exports.getUnitEmbed = async function (unit, level, user) {
       var recoveryPercent = psychicChorusUpgradePercent?.["31-40"] || 0;
     }
 
-    var factor = percent / 100;
-    var leaderFactor = leaderPercent / 100;
-    var recoveryFactor = recoveryPercent / 100;
+
+    var factor = percent;
+    var leaderFactor = leaderPercent;
+    var recoveryFactor = recoveryPercent;
     bl++;
     i++;
     if (bl > level - 1) {
-      // console.log(`${unit['Unit Name']} is finished`)
+
     } else {
-      addedHP = Math.ceil(unitHealth * factor);
-      addedAttack = Math.ceil(unitAttack * factor);
-
-      addedLeaderHP = Math.ceil(unitLeaderHealth * leaderFactor);
-      addedLeaderAttack = Math.ceil(unitLeaderAttack * leaderFactor);
-
-      addedSpawnedUnitAttack = Math.ceil(spawnedUnitAttack * factor);
-      addedSpawnedUnitHP = Math.ceil(spawnedUnitHP * factor);
-
-      addedDigDmg = Math.ceil(unitDigDmg * factor);
-
-      addedRecoveryAmount = Math.ceil(recoveryAmount * recoveryFactor);
-
-      unitHealth = unitHealth + addedHP;
-      unitAttack = unitAttack + addedAttack;
 
 
+      unitHealth = Math.ceil(mathjs.evaluate(`${unitHealth} + ${factor}%`));
+      unitAttack = Math.ceil(mathjs.evaluate(`${unitAttack} + ${factor}%`));
 
-      unitLeaderHealth = unitLeaderHealth + addedLeaderHP;
-      unitLeaderAttack = unitLeaderAttack + addedLeaderAttack;
+      unitLeaderHealth = Math.ceil(mathjs.evaluate(`${unitLeaderHealth} + ${leaderFactor}%`));
+      unitLeaderAttack = Math.ceil(mathjs.evaluate(`${unitLeaderAttack} + ${leaderFactor}%`));
 
-      spawnedUnitAttack = spawnedUnitAttack + addedSpawnedUnitAttack;
-      spawnedUnitHP = spawnedUnitHP + addedSpawnedUnitHP;
 
-      unitDigDmg = unitDigDmg + addedDigDmg;
 
       transferTime = transferTime - transferTimeDecrease;
 
-      recoveryAmount = recoveryAmount + addedRecoveryAmount;
+      recoveryAmount = Math.ceil(mathjs.evaluate(`${recoveryAmount} + ${recoveryFactor}%`));
 
-
+      acidDamage = Math.ceil(mathjs.evaluate(`${acidDamage} + ${factor}%`));
+      digDamage = Math.round(mathjs.evaluate(`${digDamage} + ${factor}%`));
 
     }
-    if (attackSpeed == 0) attackSpeed = 1
-    var attacksPerSecond = Math.abs(1 / attackSpeed);
-    var dps = parseInt(attacksPerSecond * unitAttack)
 
-    if (hitsPerAttack > 1) {
-      dps = parseInt((unitAttack * hitsPerAttack) / attackSpeed)
+  }
+  // End stat calculation loop
+
+  var unbuffedStats = {
+    "HP": unitHealth,
+    "ATK": unitAttack,
+    "leaderHP": unitLeaderHealth,
+    "leaderATK": unitLeaderAttack,
+  }
+
+
+
+
+  // Start apply star rank rewards
+
+  if (star_rank > 1) {
+    if (unitName.includes("Hedorah")) unitName = 'Hedorah'
+    if (unitName.includes("Kamacurus")) unitName = 'Kamacurus + Swarm'
+    if (unitName.includes("Shin")) unitName = 'Shin Godzilla'
+    if (unitName.includes("Biollante")) unitName = 'Biollante'
+    if (unitName.includes("Battra")) unitName = 'Battra'
+
+    if (unitName == 'Destoroyah Aggregate Form' || unitName == 'Destoroyah Flying Form' || unitName == 'Destoroyah Perfect Form') unitName = 'Destoroyah'
+
+    var starRankResults = search.starRankSearch(unitName)
+    if (starRankResults) {
+
+      results = starRankResults
+      // Leader HP
+      // Leader Dmg
+      i = 1
+      for (item in results) {
+        bonusType = results[item]
+        if (i >= star_rank) {
+        } else {
+          if (bonusType.startsWith('HP')) {
+            totalHPBonus = Math.abs(totalHPBonus + Number(bonusType.split('+')[1].trim().replace('%', '')))
+          }
+          if (bonusType.startsWith('Dmg')) {
+            totalDmgBonus = Math.abs(totalDmgBonus + Number(bonusType.split('+')[1].trim().replace('%', '')))
+          }
+          if (bonusType.startsWith('Movement Spd')) {
+            totalSpeedBonus = Math.abs(totalSpeedBonus + Number(bonusType.split('+')[1].trim().replace('%', '')))
+          }
+          if (bonusType.startsWith('Leader HP')) {
+            totalLeaderHPBonus = Math.abs(totalLeaderHPBonus + Number(bonusType.split('+')[1].trim().replace('%', '')))
+          }
+          if (bonusType.startsWith('Leader DMG') || bonusType.startsWith('Leader Dmg')) {
+            totalLeaderDmgBonus = Math.abs(totalLeaderDmgBonus + Number(bonusType.split('+')[1].trim().replace('%', '')))
+          }
+        }
+        i++
+      }
+      unitHealth = Math.floor(mathjs.evaluate(`${unitHealth} + ${Number(totalHPBonus)}%`))
+      unitAttack = Math.floor(mathjs.evaluate(`${unitAttack} + ${Number(totalDmgBonus)}%`))
+
+      addedHealth = Math.floor(mathjs.evaluate(`${unitHealth} + ${Number(totalHPBonus)}%`)) - unbuffedStats.HP
+      addedAttack = Math.floor(mathjs.evaluate(`${unitAttack} + ${Number(totalDmgBonus)}%`)) - unbuffedStats.ATK
+
+
+      appliedBoosts.push(`**Star Rank** \`${star_rank}\`
+╰HP Bonus \`${Math.round(10 * totalHPBonus) / 10}%\`
+╰Attack Bonus \`${Math.round(10 * totalDmgBonus) / 10}%\`
+╰Movement Speed Bonus \`${Math.round(10 * totalSpeedBonus) / 10}%\``)
+      if (unit.LEADER == 'TRUE') {
+        unitLeaderHealth = Math.floor(mathjs.evaluate(`${unitLeaderHealth} + ${Number(totalLeaderHPBonus)}%`))
+        unitLeaderAttack = Math.floor(mathjs.evaluate(`${unitLeaderAttack} + ${Number(totalLeaderDmgBonus)}%`))
+
+        addedUnitLeaderHealth = Math.floor(mathjs.evaluate(`${unitLeaderHealth} + ${Number(totalLeaderHPBonus)}%`)) - unbuffedStats.leaderHP
+        addedUnitLeaderAttack = Math.floor(mathjs.evaluate(`${unitLeaderAttack} + ${Number(totalLeaderDmgBonus)}%`)) - unbuffedStats.leaderATK
+
+        appliedBoosts.push(`╰Leader HP Bonus \`${Math.round(10 * totalLeaderHPBonus) / 10}%\`\n╰Leader Attack Bonus \`${Math.round(10 * totalLeaderDmgBonus) / 10}%\``)
+      }
+
+
+      appliedBoostList.push(`Star Rank: ${star_rank}`)
+    } else {
+      appliedBoosts.push(`\`\`\`This unit has no star rank rewards\`\`\``)
+    }
+  }
+  // End apply star rank rewards
+
+
+
+
+
+  // Start apply boosts
+  if (unitBoost && unitBoost != 0) {
+    boostData = unitBoosts[unitBoost]
+    if (boostData.units && !boostData.units.includes(unitName)) {
+      appliedBoosts.push(`\`\`\`This unit cannot benefit from the ${unitBoost} boost\`\`\``)
+
+    } else {
+      appliedBoosts.push(`**${unitBoost} Boost** ${boostData.emoji}\n╰Attack Boost \`${boostData.boost}%\``)
+      appliedBoostList.push(`${unitBoost} Buff (${boostData.boost}%)`)
+
+      unitAttack = mathjs.evaluate(`${unitAttack} + ${boostData.boost}%`)
     }
 
-    unitAttackBoosted = Math.ceil(unitAttack + (unitAttack * dmgBoost / 100))
-    var dpsBoosted = parseInt(attacksPerSecond * unitAttackBoosted)
-    unitLevelData = {
-      "Name": unit['Unit Name'],
-      "Level": bl,
-      "Rarity": unitRarity,
-      "Cost": unitCost,
-      "HP": unitHealth,
-      "ATK": unitAttack,
-      "HitsPerAttack": hitsPerAttack,
-      "DMGBoost": dmgBoost,
-      "ATKBoosted": unitAttackBoosted,
-      "DPS": dps,
-      "DPSBoosted": dpsBoosted,
-    }
-
-    unitData.push(unitLevelData)
-    // console.log(`Getting data for ${unit['Unit Name']} ${i}`)
-    levelCalcEnd = performance.now();
-    levelCalcTime = levelCalcEnd - levelCalcStart;
-    console.log(`Level ${i} took ${levelCalcTime}ms`)
-
   }
-  if (hitsPerAttack > 1) {
-    attackMsg = `\`This unit hits ${hitsPerAttack} times per attack\``
-  }
-  if (msg.length > 0) {
-    msg = `\`\`\`${msg.join('\n')}\`\`\``
-  }
-  const unitEmbed = new MessageEmbed();
-  unitEmbed.setTitle(`Unit Calculator`);
-  unitEmbed.setColor('#ffb33c');
-  unitEmbed.setDescription(`**Unit** \`${unit['Unit Name']}\`\n**Level**  \`${i - 1}\` ${levelMsg}\n${msg}`);
-  unitEmbed.setThumbnail(`https://res.cloudinary.com/tristangregory/image/upload/e_sharpen,h_300,w_300,c_fit,c_pad,b_rgb:ffb33c/v1654043653/gbl/${unit['Unit Name'].replaceAll(" ", "_").replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "")}`)
+  // End apply boosts
 
 
 
@@ -318,53 +385,27 @@ exports.getUnitEmbed = async function (unit, level, user) {
     unitStats.push(`**HP** \`${unitHealth.toLocaleString()}\``)
   }
 
+
   if (unitAttack > 0) {
     if (attackSpeed == 0) attackSpeed = 1
-    var attacksPerSecond = Math.abs(1 / attackSpeed);
 
-    var dps = parseInt(attacksPerSecond * unitAttack)
+    if (hitsPerAttack > 1) {
+      unitStats.push(`<:pelops_alert:983097178513895544> __**This unit hits \`${hitsPerAttack}\` times per attack**__`)
+      unitStats.push(`**In-Game Stat** \`${unitAttack.toLocaleString()}\``)
+      unitAttack = Math.floor(unitAttack * hitsPerAttack)
 
-    const buffs = {
-      "In Water": {
-        'boost': 80,
-        'emoji': '💧',
-        'units': ['Biollante Flower Beast', 'Biollante Plant Beast']
-      },
-      "Battra": {
-        'boost': 30,
-        'emoji': '<:Battra_Larva:982860056334831647>/<:Battra_Imago:982860055449858098>'
-      },
-      "Jet Jaguar 73": {
-        'boost': 30,
-        'emoji': '<:Jet_Jaguar_73:982860088714883162>'
-      },
-      "SG Crystals": {
-        'boost': 25,
-        'emoji': '?'
-      },
     }
 
 
+    var attacksPerSecond = Math.abs(1 / attackSpeed);
+    var dps = parseInt(attacksPerSecond * unitAttack)
+
     unitStats.push(`**Attack** \`${unitAttack.toLocaleString()}\` | **DPS** \`${dps.toLocaleString()}\``)
 
-    //   Object.keys(buffs).forEach(key => {
-    //     if (buffs[key].units && !buffs[key].units.includes(unit['Unit Name'])) return
-
-    //     unitAttackBoosted = Math.ceil(unitAttack + (unitAttack * buffs[key].boost / 100))
-    //     var dpsBoosted = parseInt(attacksPerSecond * unitAttackBoosted)
-
-    //     unitStats.push(`\xa0\xa0**╰${buffs[key].emoji} ${key} Boost** \`${unitAttackBoosted.toLocaleString()}\` | **DPS** \`${dpsBoosted.toLocaleString()}\``)
-
-    //   })
-
-
-
-    //   unitAttackBoosted = Math.ceil(unitAttack + (unitAttack * dmgBoost / 100))
-    //   var dpsBoosted = parseInt(attacksPerSecond * unitAttackBoosted)
-
-
-
-
+    if (rushMultiplier > 1) {
+      rushAttack = Math.floor(unitAttack * rushMultiplier)
+      unitStats.push(`**Rush Attack** \`${rushAttack.toLocaleString()}\``)
+    }
 
     if (attackSpeedAir > 0) {
       var attacksPerSecondAir = Math.abs(1 / attackSpeedAir);
@@ -372,16 +413,20 @@ exports.getUnitEmbed = async function (unit, level, user) {
       unitStats.push(`**Air Attack** \`${unitAttack.toLocaleString()}\` | **DPS** \`${dpsAir.toLocaleString()}\``)
     }
 
-    if (hitsPerAttack > 1) {
-      dps = parseInt((unitAttack * hitsPerAttack) / attackSpeed)
-      unitStats.push(`<:pelops_alert:983097178513895544> ${attackMsg}\n**Damage per Attack** \`${(unitAttack * hitsPerAttack).toLocaleString()}\` | **DPS** \`${((unitAttack * hitsPerAttack) / attackSpeed).toLocaleString()}\``)
+    if (acidDamage > 0) {
+      unitStats.push(`**Acid Damage** \`${acidDamage.toLocaleString()}\``)
     }
+    if (digDamage > 0) {
+      // unitStats.push(`**Dig Damage** \`${Math.floor(digDamage).toLocaleString()}\``)
+    }
+
+
 
   }
 
 
   if (unit['Unit Name'] === "Godzilla 21") {
-    unitStats.push(`<:pelops_alert:983097178513895544> \`Godzilla 21's attack is boosted every 3.1 seconds\`
+    unitStats.push(`<:pelops_alert:983097178513895544> __**Godzilla 21's attack is boosted every 3.1 seconds**__
 **Attack at __3.1__ Seconds** \`${(unitAttack).toLocaleString()}\` | **DPS** \`${parseInt(Math.abs(1 / attackSpeed) * unitAttack).toLocaleString()}\`
 **Attack at __6.2__ Seconds** \`${Math.ceil(unitAttack * 4).toLocaleString()}\` | **DPS** \`${parseInt(Math.abs(1 / 6.2) * Math.ceil(unitAttack * 4)).toLocaleString()}\`
 **Attack at __9.3__ Seconds** \`${Math.ceil(unitAttack * 13).toLocaleString()}\` | **DPS** \`${parseInt(Math.abs(1 / 9.3) * Math.ceil(unitAttack * 13)).toLocaleString()}\`
@@ -389,26 +434,15 @@ exports.getUnitEmbed = async function (unit, level, user) {
     `)
   }
 
-  if (unitDigDmg > 0) {
-    // unitStats.push(`**Burrow Damage** \`${unitDigDmg.toLocaleString()}\``)
-  }
-  if (rushDmg > 0) {
-    rushMultipler = 1;
-    if (unit['Unit Name'] === "King Caesar") rushMultipler = 3
-    if (unit['Unit Name'] === "Mothra Leo") rushMultipler = 2
 
-    rushDmg = Math.ceil(unitAttack * rushMultipler)
-    unitStats.push(`**Rush Damage** \`${rushDmg.toLocaleString()}\``)
-  }
-  if (recoveryAmount > 0) {
-    if (!unit['Unit Name'] === "Psychic Chorus") return
-    unitStats.push(`**Recovery Rate** Exact recovery rate per level is currently unknown, please share in the <#875214614416224266> channel if you know!`)
-    // unitStats.push(`**Recovery Rate** \`${recoveryAmount.toLocaleString()}\``)
 
-  }
 
   if (transferTime > 0) {
     unitStats.push(`**Transfer Time** \`${transferTime.toLocaleString()}\``)
+  }
+
+  if(recoveryAmount > 0 && unitName == "Psychic Chorus") {
+    // unitStats.push(`**Recovery Amount** \`${recoveryAmount.toLocaleString()}\``)
   }
 
   if (unit['Unit Name'] === "Burning Godzilla") {
@@ -425,25 +459,37 @@ exports.getUnitEmbed = async function (unit, level, user) {
   }
 
   if (unitStats.length > 0) {
-    unitEmbed.addField(`__Unit Stats__`, `${unitStats.join('\n')}`);
+    unitEmbed.addFields({
+      name: `__Unit Stats__`,
+      value: `${unitStats.join('\n')}`,
+      inline: false
+    })
   }
+  if (unit.LEADER == 'TRUE') {
+    var attacksPerSecond = Math.abs(1 / leaderAttackSpeed);
+    var dps = parseInt(attacksPerSecond * unitLeaderAttack)
 
-  // && user === '222781123875307521'
-  if (unit.LEADER === 'TRUE') {
-    //     unitEmbed.addField(`__Leader Stats__`, `
-    // **HP** \`${unitLeaderHealth.toLocaleString()}\`
-    // **Attack** \`${unitLeaderAttack.toLocaleString()}\`
-    //     `);
+    unitEmbed.addFields({
+      name: `__Leader Stats__`,
+      value: `
+**HP** \`${unitLeaderHealth.toLocaleString()}\`
+**Attack** \`${unitLeaderAttack.toLocaleString()}\` | **DPS** \`${dps.toLocaleString()}\`
+`,
+      inline: false
+    })
     unitEmbed.setFooter({ text: `To see leader ability use /leader_ability` })
   }
 
   if (unit.BUILDING === "TRUE") {
-    unitEmbed.addField(`__Spawned Unit Stats__`, `
+
+    unitEmbed.addFields({
+      name: `__Spawned Unit Stats__`,
+      value: `
 **HP** \`${spawnedUnitHP.toLocaleString()}\`
 **Attack** \`${spawnedUnitAttack.toLocaleString()}\`
-    `);
-    // unitEmbed.addField(`HP`, `${spawnedUnitHP.toLocaleString()}`);
-    // unitEmbed.addField(`Spawned Unit Attack`, `${spawnedUnitAttack.toLocaleString()}`);
+`,
+      inline: false
+    })
   }
   if (level < 1) level = 1
   if (level - 1 > maxLevel) level = maxLevel
@@ -451,61 +497,82 @@ exports.getUnitEmbed = async function (unit, level, user) {
   upgradeData = []
   requiredPieceData = []
 
+  // <:coins:943379224163672074>
+  // unit['EMOJI']
 
+  var upgradeCostData = []
 
-  if (level - 2 == 0) {
-    nextLevel = costChart[level - 1] || `Data not found for level ${level}`
-    upgradeData.push(`**Next Level** \`${nextLevel.toLocaleString()}\` <:coins:943379224163672074> \`(${getTotalCost(level - 1, costChart)} Total)\``)
-
+  if (level <= maxLevel) {
     nextLevelPieceCost = pieceChart[level - 1] || `Data not found for level ${level}`
-    requiredPieceData.push(`**Next Level** \`${nextLevelPieceCost.toLocaleString()}\` \`(${getTotalCost(level - 1, pieceChart)} Total)\``)
+    upgradeCostData.push(`**G-Tokens** <:coins:943379224163672074> \`${(costChart[level - 1]).toLocaleString()}\``)
+    upgradeCostData.push(`**Pieces** ${unit['EMOJI']} \`${(nextLevelPieceCost).toLocaleString()}\``)
+  } else {
 
   }
 
-  if (level - 1 === maxLevel) {
-    prevLevel = costChart[level - 2] || `Data not found for level ${level - 2}`
-    upgradeData.push(`**Previous Level** \`${prevLevel.toLocaleString()}\` <:coins:943379224163672074> \`(${getTotalCost(level - 2, costChart)} Total)\``)
+  upgradeCostData.push(`
+**Total G-Tokens** <:coins:943379224163672074> \`${getTotalCost(level - 2, costChart)}\`
+**Total Pieces** ${unit['EMOJI']} \`${getTotalCost(level - 2, pieceChart)}\`
+  `)
 
-    prevLevelPieceCost = pieceChart[level - 2] || `Data not found for level ${level - 2}`
-    requiredPieceData.push(`**Previous Level** \`${prevLevelPieceCost.toLocaleString()}\` \`(${getTotalCost(level - 1, pieceChart)} Total)\``)
-  }
 
-  if (level - 1 != maxLevel && level - 2 !== 0) {
-    prevLevel = costChart[level - 2] || `Data not found for level ${level - 2}`
-    nextLevel = costChart[level - 1] || `Data not found for level ${level}`
-    upgradeData.push(`**Previous Level** \`${prevLevel.toLocaleString()}\` <:coins:943379224163672074> \`(${getTotalCost(level - 2, costChart)} Total)\``)
-    upgradeData.push(`**Next Level** \`${nextLevel.toLocaleString()}\` <:coins:943379224163672074> \`(${getTotalCost(level - 1, costChart)} Total)\``)
 
-    prevLevelPieceCost = pieceChart[level - 2] || `Data not found for level ${level - 2}`
-    nextLevelPieceCost = pieceChart[level - 1] || `Data not found for level ${level}`
-    requiredPieceData.push(`**Previous Level** \`${prevLevelPieceCost.toLocaleString()}\` ${unit['EMOJI']} \`(${getTotalCost(level - 2, pieceChart)} Total)\``)
-    requiredPieceData.push(`**Next Level** \`${nextLevelPieceCost.toLocaleString()}\` ${unit['EMOJI']} \`(${getTotalCost(level - 1, pieceChart)} Total)\``)
-  }
 
-  if (upgradeData.length > 0) {
-    unitEmbed.addField(`__Upgrade Cost__`, `${upgradeData.join('\n')}`);
-  }
-  if (requiredPieceData.length > 0) {
-    unitEmbed.addField(`__Required Pieces__`, `${requiredPieceData.join('\n')}`);
-  }
-
+  unitEmbed.addFields({
+    name: `__Upgrade Costs__`,
+    value: `${upgradeCostData.join('\n')}`,
+    inline: false
+  })
   if (unitNotice.length > 0) {
-    unitEmbed.addField(`__Notice__`, `\`\`\`${unitNotice}\`\`\``);
+    unitEmbed.addFields({
+      name: `__Notice__`,
+      value: `\`\`\`${unitNotice}\`\`\``,
+      inline: false
+    })
   }
+  // var attacksPerSecond = Math.abs(1 / attackSpeed);
+  // var dps = parseInt(attacksPerSecond * unitAttack)
+
+  unitData = {
+    "Name": unit['Unit Name'],
+    "Level": bl - 1,
+    "Rarity": unitRarity,
+    "Cost": unitCost,
+    "stats": {
+
+    },
+    "unitStats": {
+      "HP": unitHealth,
+      "ATK": unitAttack,
+      "DPS": Math.floor(Math.abs(1 / attackSpeed) * unitAttack),
+    },
+    "leaderStats": {
+      "HP": unitLeaderHealth,
+      "ATK": unitLeaderAttack,
+      "DPS": Math.floor(Math.abs(1 / leaderAttackSpeed) * unitLeaderAttack),
+    },
+    "HitsPerAttack": hitsPerAttack,
+    "Boosts": appliedBoostList,
+  }
+
+
+  if (appliedBoosts.length > 0) {
+    appliedBoosts.unshift(`__**Applied Buffs**__`)
+    unitEmbed.setDescription(`${appliedBoosts.join(`\n`)}`);
+
+  }
+  unitEmbed.setThumbnail(`https://res.cloudinary.com/tristangregory/image/upload/e_sharpen,h_300,w_300,c_fit,c_pad,b_rgb:ffb33c/v1654043653/gbl/${unit['Unit Name'].replaceAll(" ", "_").replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "")}`)
+
+
 
   var returnData = {
     embed: unitEmbed,
     unitData: unitData,
   }
 
-  cache.set(`${unit['Unit Name']}_${level}`, returnData, 0);
+  cache.set(`${unit['Unit Name']}_${level}_${star_rank}_${unitBoost}`, returnData, 0);
   endTime = performance.now();
-  console.log(`${unit['Unit Name']} took ${endTime - startTime}ms`);
-
-
-
-
-
+  // console.log(`${unit['Unit Name']} took ${endTime - startTime}ms`);
   return returnData;
 };
 
@@ -533,3 +600,4 @@ function getTotalCost(level, array) {
   total = totalArray.reduce((a, b) => a + b, 0)
   return total.toLocaleString()
 }
+

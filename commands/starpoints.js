@@ -1,8 +1,8 @@
 const db = require('../utility/database.js');
 const {
-    MessageEmbed,
-    MessageActionRow,
-    MessageButton
+    EmbedBuilder,
+    ActionRowBuilder,
+    ButtonBuilder
 } = require('discord.js');
 
 module.exports = {
@@ -15,8 +15,8 @@ module.exports = {
 
     run: async ({ message, interaction, channel, client, args, guild }) => {
 
-        const starpoints = [95, 102, 109, 119, 129, 139, 150, 162, 175, 189, 205, 221, 258, 279, 301, 325, 351, 379]
-        var level = 1;
+        const starpoints =[95, 102, 109, 119, 129, 139, 150, 162, 175, 189, 205,221, 258,279,301,325,351,379, 409, 442, 478, 516, 557, 602,650, 702, 758, 819]
+        var level = 2;
         var starpointsTotal = 0;
         
         var starpointsFinal = []
@@ -27,14 +27,13 @@ module.exports = {
             level++
         }
 
-        const embed = new MessageEmbed()
+        const embed = new EmbedBuilder()
         embed.setTitle('Starpoints')
         embed.setColor('#ffb33c');
         embed.setDescription(starpointsFinal.join('\n'))
-        await interaction.editReply({
+        await interaction.reply({
             embeds: [embed]
         });
     }
 }
 
-// .addField('__Links__', `[Donate](https://paypal.me/TristanGregory?country.x=US&locale.x=en_US) | [Invite](https://dsc.gg/pelops)`)

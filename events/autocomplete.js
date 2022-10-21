@@ -8,14 +8,37 @@ const leaderData = require('../data/leaderData.json')
 var unitSearch = []
 var leaderSearch = []
 
-for(item of unitData) {
+var userDeckUnits = []
+var userDeckLeaders = []
+
+for (unit of unitData) {
+    if (unit['ISFINALEVOLUTION'] === 'FALSE' ) continue 
+
+    if (unit.LEADER === 'TRUE') {
+        userDeckLeaders.push({
+            name: unit['Unit Name'],
+            value: unit['Unit Name']
+        })
+        userDeckUnits.push({
+            name: unit['Unit Name'],
+            value: unit['Unit Name']
+        })
+    } else {
+        userDeckUnits.push({
+            name: unit['Unit Name'],
+            value: unit['Unit Name']
+        })
+    }
+}
+
+for (item of unitData) {
     unitSearch.push({
         name: item['Unit Name'],
         value: item['Unit Name'],
         aliases: item['ALIASES'].split(', '),
     })
 }
-for(item of leaderData) {
+for (item of leaderData) {
     leaderSearch.push({
         name: `${item['UNIT']} (${item['ABILITY NAME']})`,
         value: item['UNIT'],
@@ -29,15 +52,49 @@ module.exports = {
         if (!interaction.isAutocomplete()) return;
         start = performance.now();
 
+        subCommandData = interaction?.options?.data
 
-        if (interaction.commandName === 'unit' || interaction.commandName === 'stats' || interaction.commandName === 'get_image' || interaction.commandName === 'compare' || interaction.commandName === 'tier_list') {
+
+        if (subCommandData[0].name === 'create') {
+            var currentInputName = interaction.options.getFocused(true).name;
+
+            if (currentInputName === 'leader') {
+                searchData = userDeckLeaders
+                cacheName = 'userDeckLeaders'
+                unitRanking = searchData
+            } else {
+                searchData = userDeckUnits
+                cacheName = 'userDeckUnits'
+                unitRanking = searchData
+            }
+        }
+
+
+        if (subCommandData[0].name === 'view') {
+            deckSearch = []
+            userDecks = await db.get('usersDecks')
+            for(item in userDecks) {
+                deckSearch.push({
+                    name: `${userDecks[item].details.name}`,
+                    value: `${item}`,
+                    aliases: userDecks[item].id
+                })
+            }
+            searchData = deckSearch;
+            cacheName = 'userDecks';
+            unitRanking = searchData
+        }
+
+
+
+        if (interaction.commandName === 'unit' || interaction.commandName === 'stats' || interaction.commandName === 'unit_image' || interaction.commandName === 'compare' || interaction.commandName === 'tier_list') {
             searchData = unitSearch;
             cacheName = 'unitNames';
 
             var unitUsage = cache.get('unitUsage') || db.get('unitStats')
             if (!cache.get('unitUsage')) cache.set('unitUsage', unitUsage, 5)
 
-            var rankedUnits = Object.entries(unitUsage).sort((a,b) => b[1]-a[1])
+            var rankedUnits = Object.entries(unitUsage).sort((a, b) => b[1] - a[1])
 
 
             var unitUsageRank = []
@@ -62,7 +119,7 @@ module.exports = {
             if (!cache.get('unitLeaderStats')) cache.set('unitLeaderStats', unitUsage, 3600)
 
 
-            var rankedUnits = Object.entries(unitUsage).sort((a,b) => b[1]-a[1])
+            var rankedUnits = Object.entries(unitUsage).sort((a, b) => b[1] - a[1])
 
             var unitUsageRank = []
 
@@ -114,10 +171,10 @@ module.exports = {
             results.forEach(element => {
                 itemOptions.push({
                     name: element.name,
-                    value: element.name,
+                    value: element.value || element.name,
                 })
             })
-            
+
         }
 
 

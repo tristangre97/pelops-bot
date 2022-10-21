@@ -1,10 +1,11 @@
+const fs = require('node:fs');
 const cache = require('../utility/cache.js');
-const seasonData = JSON.parse(cache.get('seasonData'));
+const seasonData = require('../data/seasonData.json');
 const db = require('../utility/database.js');
 const {
-    MessageEmbed,
-    MessageActionRow,
-    MessageButton
+    EmbedBuilder,
+    ActionRowBuilder,
+    ButtonBuilder
 } = require('discord.js');
 const search = require('../utility/search.js');
 
@@ -58,11 +59,11 @@ module.exports = {
         args,
         guild
     }) => {
-        var [season] = args;
+        var {season} = args;
 
         const seasonData = JSON.parse(cache.get('seasonData'))[season];
 
-        embed = new MessageEmbed()
+        embed = new EmbedBuilder()
         embed.setTitle(`Season ${seasonData['Number']} - \`${seasonData['Name']}\``)
         embed.setColor('#ffb33c');
 
@@ -84,15 +85,23 @@ module.exports = {
 
             } else if (key === 'All Star Battle Leader') {
                 var unitData = search.unitSearch(value)
-                embed.addField(`__${key}__`, `${unitData[0].item['EMOJI']}  **${unitData[0].item['Unit Name']}**`)
+                embed.addFields({
+                    name: `__${key}__`,
+                    value: `${unitData[0].item['EMOJI']}  **${unitData[0].item['Unit Name']}**`,
+                    inline: false
+                })
             } else {
-                embed.addField(`__${key}__`, `${value}`)
+                embed.addFields({
+                    name: `__${key}__`,
+                    value: `${value}`,
+                    inline: false
+                })
             }
 
 
         });
 
-        return interaction.editReply({
+        return interaction.reply({
             embeds: [embed]
         })
 

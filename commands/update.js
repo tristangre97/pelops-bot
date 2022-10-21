@@ -1,7 +1,7 @@
 const {
-    MessageEmbed,
-    MessageActionRow,
-    MessageButton
+    EmbedBuilder,
+    ActionRowBuilder,
+    ButtonBuilder
 } = require('discord.js');
 const fs = require("fs");
 const fetch = require("node-fetch");
@@ -30,18 +30,18 @@ module.exports = {
         guild
     }) => {
         var allowed = ['222781123875307521', '216368047110225920', '521823544724684851']
-        if (!allowed.includes(interaction.user.id)) return interaction.editReply("You are not allowed to use this command.")
+        if (!allowed.includes(interaction.user.id)) return interaction.reply("You are not allowed to use this command.")
         msg = []
         downloadInfo = []
         var updateStatus = await cache.get("pelops_update_status");
         if (updateStatus != "finished") {
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
                 .setColor('#ffb33c')
                 .setTitle('Already Updating...')
                 .setDescription('Please wait until the current update is finished.')
                 .setImage('https://res.cloudinary.com/tristangregory/image/upload/v1646260264/gbl/pelops/pelops_wait.png')
 
-            reply = await interaction.editReply({
+            reply = await interaction.reply({
                 embeds: [embed],
             });
             return
@@ -52,12 +52,12 @@ module.exports = {
         cache.flush()
         cache.set("pelops_update_status", "running", 25);
         cache.set("pelops_update_start", Date.now(), 60);
-        const embed = new MessageEmbed()
+        const embed = new EmbedBuilder()
             .setColor('#ffb33c')
             .setTitle(`Updating ${dataList.length} files...`)
             .setImage('https://res.cloudinary.com/tristangregory/image/upload/v1646259339/gbl/pelops/pelops_load.jpg')
 
-        reply = await interaction.editReply({
+        reply = await interaction.reply({
             embeds: [embed],
         });
         var ready = true;
@@ -65,7 +65,7 @@ module.exports = {
         i = 0;
 
 
-        const finishedEmbed = new MessageEmbed();
+        const finishedEmbed = new EmbedBuilder();
         finishedEmbed.setColor('#ffb33c')
 
         updateStart = performance.now();
@@ -131,28 +131,28 @@ async function serverDownloader(name, url) {
     try {
         var controller = new AbortController();
         var signal = controller.signal;
-        // downloadStart = performance.now();
+        downloadStart = performance.now();
         const response = await fetch(url, {
             signal
         });
         const data = await response.json();
         if (!response.status == 200) return;
-        fs.writeFile(`/home/tristan/Downloads/pelops/data/${name}.json`, JSON.stringify(data), function (err) {
+        fs.writeFile(`./data/${name}.json`, JSON.stringify(data), function (err) {
             if (err) {
                 console.log('Error writing file');
-                cache.set(`${name}`, fs.readFileSync(`/home/tristan/Downloads/pelops/data/${name}.json`, 'utf8'), 0);
+                cache.set(`${name}`, fs.readFileSync(`./data/${name}.json`, 'utf8'), 0);
                 return msg.push(`\`${name}\` failed to download, keeping current version.\n\`${error}\``)
             }
-            // downloadFinish = performance.now();
+            downloadFinish = performance.now();
             cache.set(name, JSON.stringify(data), 0);
 
-            // console.log(`Downloaded ${name} in ${downloadFinish - downloadStart}ms`);
+            console.log(`Downloaded ${name} in ${downloadFinish - downloadStart}ms`);
             // downloadInfo.push(`\`${name}\` downloaded in ${downloadFinish - downloadStart}ms`)
             controller.abort();
         });
         return 'Success';
     } catch (error) {
-        cache.set(`${name}`, fs.readFileSync(`/home/tristan/Downloads/pelops/data/${name}.json`, 'utf8'), 0);
+        cache.set(`${name}`, fs.readFileSync(`./data/${name}.json`, 'utf8'), 0);
          msg.push(`\`${name}\` failed to download, keeping current version.\n\`\`\`${error}\`\`\``)
         return 'Failed';
         // console.log(error);
@@ -179,11 +179,16 @@ var dataList = [{
     name: "leaderData",
     fullName: "Unit Leader Data",
     url: "https://sheetsu.com/apis/v1.0su/9c52e24e16f7",
+},
+{
+    name: "starRankRewards",
+    fullName: "Star Rank Rewards",
+    url: "https://sheetsu.com/apis/v1.0bu/6069e15a0d0e",
 }
 ];
 
 
-
+// starRankRewards
 
 
 
