@@ -55,10 +55,9 @@ module.exports = {
         });
 
         interactionID = random.id(10)
+
         options = {
-            id: interactionID,
             disable_unavailable_units: disable_unavailable_units,
-            user: interaction.user.id,
         }
 
         randomDeckData = await randomDeck.get(options)
@@ -84,7 +83,8 @@ module.exports = {
         )
 
         await interaction.editReply({
-            content: `<@${interaction.user.id}> \`${randomDeckData.totalImgGenTime.toFixed(2)}ms\``,
+            content: `<@${interaction.user.id}> 
+Made in \`${randomDeckData.totalImgGenTime.toFixed(2)}ms\``,
             embeds: [],
             components: [actionBtns],
             files: [{
