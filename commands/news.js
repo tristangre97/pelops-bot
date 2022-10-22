@@ -1,5 +1,5 @@
 const crypto = require("crypto");
-const cache = require("../utility/cache.js");
+const random = require("../utility/random.js");
 const db = require('../utility/database.js');
 const {
     EmbedBuilder,
@@ -7,6 +7,7 @@ const {
     ButtonBuilder,
     Modal
 } = require('discord.js');
+imageTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'image/webp'];
 
 module.exports = {
     name: 'create_news',
@@ -24,19 +25,21 @@ module.exports = {
     ],
     run: async ({ message, interaction, channel, client, args, guild }) => {
 
-        const image = interaction.options.get('image') ? interaction.options.get('image').attachment.attachment : null;
+        var image = interaction.options.get('image') 
 
+        if(image) {
+            if(!imageTypes.includes(image.attachment.contentType)) return interaction.reply({ content: "Please upload a valid image", ephemeral: true })
+            image = image.attachment.attachment
+        }
 
         db.add(`stats.uses`)
         const embed = new EmbedBuilder()
         embed.setTitle("Create a news article")
-        embed.setDescription(`This command is in beta
-Images cannot be uploaded yet, you must have a link to an image
-
+        embed.setDescription(`
 Click the \`Set News Details\` button to begin
 `)
 
-        var interactionID = crypto.randomBytes(8).toString("hex");
+        var interactionID = random.id(10);
 
         btns = new ActionRowBuilder();
         btns.addComponents(
