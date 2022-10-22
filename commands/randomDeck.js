@@ -21,7 +21,7 @@ module.exports = {
     testOnly: false,
     options: [
         {
-            name: 'disable_unavailable_units', 
+            name: 'disable_unavailable_units',
             description: 'Prevent unavailable units from appearing in the deck',
             required: false,
             type: 3,
@@ -39,7 +39,7 @@ module.exports = {
             autocomplete: true,
         },
         {
-            name: 'amount', 
+            name: 'amount',
             description: 'Amount of decks to get - 10 Max',
             required: false,
             type: 10,
@@ -59,18 +59,22 @@ module.exports = {
         var extraMsg = []
         var { disable_unavailable_units, preferred_leader, amount } = args;
         if (!disable_unavailable_units) disable_unavailable_units = 'False';
-        if(preferred_leader) extraMsg.push(`Preferred Leader: ${preferred_leader}`);
-        
+        if (preferred_leader) extraMsg.push(`Preferred Leader: ${preferred_leader}`);
+
         amount = Math.min(Math.max(amount || 1, 1), 10);
 
-        const waitEmbed = new EmbedBuilder()
-            .setColor('#ffb33c')
-            .setTitle('Generating Deck...')
-            .setDescription(`I am generating a random deck for you. This may take a second.`)
-            .setImage('https://res.cloudinary.com/tristangregory/image/upload/v1664223401/gbl/pelops/random.gif')
+        const embed = new EmbedBuilder()
+        embed.setColor('#ffb33c')
+        embed.setTitle('Generating Deck...')
+        if (amount > 1) {
+            embed.setDescription(`I am generating ${amount} random decks for you. This may take a second.`)
+        } else {
+            embed.setDescription(`I am generating a random deck for you. This may take a second.`)
+        }
+        embed.setImage('https://res.cloudinary.com/tristangregory/image/upload/v1664223401/gbl/pelops/random.gif')
 
         await interaction.reply({
-            embeds: [waitEmbed],
+            embeds: [embed],
         });
 
 
@@ -78,7 +82,7 @@ module.exports = {
             disable_unavailable_units: disable_unavailable_units,
             preferredLeader: preferred_leader,
         }
-        
+
 
         const randomDeckImages = new Array();
         const arrayOfPromises = new Array();
@@ -91,7 +95,7 @@ module.exports = {
 
         async function processParallel(arrayOfPromises) {
             var t = await Promise.all(arrayOfPromises)
-            for(item of t) {
+            for (item of t) {
                 randomDeckImages.push({
                     attachment: item.image,
                     name: `${item.id}.png`
@@ -109,20 +113,31 @@ module.exports = {
 
 
 
-        actionBtns = new ActionRowBuilder();
-        actionBtns.addComponents(
+        buttons = new ActionRowBuilder();
+
+        buttons.addComponents(
             new ButtonBuilder()
                 .setCustomId(`randomDeckBtn`)
                 .setLabel(`Get Random Deck`)
                 .setStyle('Primary')
         )
 
-        actionBtns.addComponents(
+        if (amount > 1) {
+            buttons.addComponents(
+                new ButtonBuilder()
+                    .setCustomId(`randomDeckMultiBtn ${amount}`)
+                    .setLabel(`Get ${amount} Random Decks`)
+                    .setStyle('Primary')
+            )
+        }
+
+        buttons.addComponents(
             new ButtonBuilder()
                 .setCustomId(`randomDeckBtn User`)
                 .setLabel(`Get Random User Deck`)
                 .setStyle('Success')
         )
+
 
         await interaction.editReply({
             content: `<@${interaction.user.id}> 
@@ -130,7 +145,7 @@ Made \`${amount}\` random decks in \`${totalImgGenTime.toFixed(2)}ms\`
 ${extraMsg}
 `,
             embeds: [],
-            components: [actionBtns],
+            components: [buttons],
             files: randomDeckImages
         })
 
