@@ -229,9 +229,7 @@ ${deckData.details.description}
 
       reply = await interaction.reply({
         embeds: [waitEmbed],
-
       });
-      var randomDeckID = crypto.randomBytes(16).toString("hex");
 
       unitEvo = 'True'
       extraMessage = ''
@@ -239,7 +237,7 @@ ${deckData.details.description}
         randomDeckData = await randomDeck.getUserDeck();
         extraMessage = `Create your own deck with </user_deck create:1023654598470283268>!`
       } else {
-        randomDeckData = await randomDeck.get(randomDeckID, unitEvo);
+        randomDeckData = await randomDeck.get();
       }
 
       actionBtns = new ActionRowBuilder();
@@ -264,7 +262,7 @@ ${extraMessage}`,
         components: [actionBtns],
         files: [{
           attachment: randomDeckData.image,
-          name: `${randomDeckID}.png`
+          name: `${randomDeckData.id}.png`
         }]
       })
     }

@@ -1,6 +1,6 @@
 const cache = require('../utility/cache.js')
 const db = require('../utility/database.js')
-const search = require('../utility/search.js');
+const random = require('../utility/random.js');
 const imgGen = require('../utility/HTML2IMG.js');
 const userDecks = require('./getUserDeck');
 const fs = require('node:fs');
@@ -107,11 +107,10 @@ exports.get = async function (options) {
 
 
     returnData = {
+        id: random.id(8),
         deck: deck,
-        deckHTML: deckHTML,
         image: img,
         totalImgGenTime: imgGenEnd - imgGenStart
-
     }
 
 

@@ -21,7 +21,7 @@ module.exports = {
     testOnly: false,
     options: [
         {
-            name: 'disable_unavailable_units', // Must be lower case
+            name: 'disable_unavailable_units', 
             description: 'Prevent unavailable units from appearing in the deck',
             required: false,
             type: 3,
@@ -32,13 +32,19 @@ module.exports = {
             ]
         },
         {
-            name: 'preferred_leader', // Must be lower case
+            name: 'preferred_leader',
             description: 'Set your preferred leader',
             required: false,
             type: 3,
             autocomplete: true,
         },
+        {
+            name: 'amount', 
+            description: 'Amount of decks to get',
+            required: false,
+            type: 10,
 
+        },
 
     ],
 
@@ -50,12 +56,13 @@ module.exports = {
         args,
         guild
     }) => {
-        var extraMsg = ''
-        var { disable_unavailable_units, preferred_leader } = args;
+        var extraMsg = []
+        var { disable_unavailable_units, preferred_leader, amount } = args;
         if (!disable_unavailable_units) disable_unavailable_units = 'False';
-        if(preferred_leader) extraMsg = `Preferred Leader: ${preferred_leader}`;
-        db.add(`stats.uses`)
-
+        if(preferred_leader) extraMsg.push(`Preferred Leader: ${preferred_leader}`);
+        if(amount > 10) amount = 10;
+        if(amount < 1) amount = 1;
+        if(!amount) amount = 1;
 
         const waitEmbed = new EmbedBuilder()
             .setColor('#ffb33c')
@@ -67,18 +74,47 @@ module.exports = {
             embeds: [waitEmbed],
         });
 
-        interactionID = random.id(10)
 
         options = {
             disable_unavailable_units: disable_unavailable_units,
             preferredLeader: preferred_leader,
         }
         
-        randomDeckData = await randomDeck.get(options)
 
-        const embed = new EmbedBuilder()
-        embed.setColor('#ffb33c')
-        embed.setImage(`attachment://${interactionID}.png`)
+        const randomDeckImages = new Array();
+        const arrayOfPromises = new Array();
+
+        madeDecks = 0;
+        while (madeDecks < amount) {
+            arrayOfPromises.push(randomDeck.get(options));
+            madeDecks++;
+        }
+
+
+        async function processParallel(arrayOfPromises) {
+            console.time('Processing Parallel')
+            var t = await Promise.all(arrayOfPromises)
+            
+
+            for(item of t) {
+                randomDeckImages.push({
+                    attachment: item.image,
+                    name: `${item.id}.png`
+                })
+            }
+
+            console.timeEnd('Processing Parallel')
+            console.log('Processing Parallel Complete  \n')
+            return;
+        }
+
+
+
+        startImageGen = performance.now();
+        await processParallel(arrayOfPromises)
+        endImageGen = performance.now();
+        totalImgGenTime = endImageGen - startImageGen;
+
 
 
         actionBtns = new ActionRowBuilder();
@@ -98,15 +134,12 @@ module.exports = {
 
         await interaction.editReply({
             content: `<@${interaction.user.id}> 
-Made in \`${randomDeckData.totalImgGenTime.toFixed(2)}ms\`
+Made \`${amount}\` random decks in \`${totalImgGenTime.toFixed(2)}ms\`
 ${extraMsg}
 `,
             embeds: [],
             components: [actionBtns],
-            files: [{
-                attachment: randomDeckData.image,
-                name: `${interactionID}.png`
-            }]
+            files: randomDeckImages
         })
 
 
