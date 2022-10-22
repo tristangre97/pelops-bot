@@ -40,7 +40,7 @@ module.exports = {
         },
         {
             name: 'amount', 
-            description: 'Amount of decks to get',
+            description: 'Amount of decks to get - 10 Max',
             required: false,
             type: 10,
 
@@ -60,9 +60,8 @@ module.exports = {
         var { disable_unavailable_units, preferred_leader, amount } = args;
         if (!disable_unavailable_units) disable_unavailable_units = 'False';
         if(preferred_leader) extraMsg.push(`Preferred Leader: ${preferred_leader}`);
-        if(amount > 10) amount = 10;
-        if(amount < 1) amount = 1;
-        if(!amount) amount = 1;
+        
+        amount = Math.min(Math.max(amount || 1, 1), 10);
 
         const waitEmbed = new EmbedBuilder()
             .setColor('#ffb33c')
@@ -90,21 +89,14 @@ module.exports = {
             madeDecks++;
         }
 
-
         async function processParallel(arrayOfPromises) {
-            console.time('Processing Parallel')
             var t = await Promise.all(arrayOfPromises)
-            
-
             for(item of t) {
                 randomDeckImages.push({
                     attachment: item.image,
                     name: `${item.id}.png`
                 })
             }
-
-            console.timeEnd('Processing Parallel')
-            console.log('Processing Parallel Complete  \n')
             return;
         }
 
