@@ -50,8 +50,10 @@ module.exports = {
         args,
         guild
     }) => {
+        var extraMsg = ''
         var { disable_unavailable_units, preferred_leader } = args;
         if (!disable_unavailable_units) disable_unavailable_units = 'False';
+        if(preferred_leader) extraMsg = `Preferred Leader: ${preferred_leader}`;
         db.add(`stats.uses`)
 
 
@@ -71,7 +73,7 @@ module.exports = {
             disable_unavailable_units: disable_unavailable_units,
             preferredLeader: preferred_leader,
         }
-
+        
         randomDeckData = await randomDeck.get(options)
 
         const embed = new EmbedBuilder()
@@ -96,7 +98,9 @@ module.exports = {
 
         await interaction.editReply({
             content: `<@${interaction.user.id}> 
-Made in \`${randomDeckData.totalImgGenTime.toFixed(2)}ms\``,
+Made in \`${randomDeckData.totalImgGenTime.toFixed(2)}ms\`
+${extraMsg}
+`,
             embeds: [],
             components: [actionBtns],
             files: [{
