@@ -55,6 +55,13 @@ module.exports = {
         subCommandData = interaction?.options?.data
 
 
+
+        if (interaction.commandName === 'random_deck') {
+            searchData = userDeckLeaders
+            cacheName = 'userDeckLeaders'
+            unitRanking = searchData
+        }
+
         if (subCommandData[0].name === 'create') {
             var currentInputName = interaction.options.getFocused(true).name;
 

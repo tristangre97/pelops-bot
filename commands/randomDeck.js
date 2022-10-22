@@ -19,17 +19,28 @@ module.exports = {
     slash: "both",
     argsDescription: "The command category | the command name",
     testOnly: false,
-    options: [{
-        name: 'disable_unavailable_units', // Must be lower case
-        description: 'Prevent unavailable units from appearing in the deck',
-        required: false,
-        type: 3,
-        choices: [{
-            name: 'True',
-            value: 'True',
-        }
-        ]
-    },],
+    options: [
+        {
+            name: 'disable_unavailable_units', // Must be lower case
+            description: 'Prevent unavailable units from appearing in the deck',
+            required: false,
+            type: 3,
+            choices: [{
+                name: 'True',
+                value: 'True',
+            }
+            ]
+        },
+        {
+            name: 'preferred_leader', // Must be lower case
+            description: 'Set your preferred leader',
+            required: false,
+            type: 3,
+            autocomplete: true,
+        },
+
+
+    ],
 
     run: async ({
         message,
@@ -39,7 +50,7 @@ module.exports = {
         args,
         guild
     }) => {
-        var { disable_unavailable_units } = args;
+        var { disable_unavailable_units, preferred_leader } = args;
         if (!disable_unavailable_units) disable_unavailable_units = 'False';
         db.add(`stats.uses`)
 
@@ -58,6 +69,7 @@ module.exports = {
 
         options = {
             disable_unavailable_units: disable_unavailable_units,
+            preferredLeader: preferred_leader,
         }
 
         randomDeckData = await randomDeck.get(options)
