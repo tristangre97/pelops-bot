@@ -101,7 +101,6 @@ module.exports = {
         var unit_two_star_rank = args['unit_two_star_rank'] || 1;
         var unit_two_apply_boost = args['unit_two_apply_boost'] || 0;
 
-        db.add(`stats.uses`)
         const embed = new EmbedBuilder()
             .setColor('#ffb33c')
             .setTitle('Generating Comparison...')

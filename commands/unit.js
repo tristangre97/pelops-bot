@@ -102,7 +102,6 @@ module.exports = {
 
 
         unit = searchResults[0].item;
-        db.add(`stats.uses`)
         unitRarity = Number(unit.RARITY);
         if (unitRarity == "4") {
             maxLevel = 30;

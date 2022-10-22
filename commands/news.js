@@ -32,7 +32,6 @@ module.exports = {
             image = image.attachment.attachment
         }
 
-        db.add(`stats.uses`)
         const embed = new EmbedBuilder()
         embed.setTitle("Create a news article")
         embed.setDescription(`

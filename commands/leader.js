@@ -40,7 +40,6 @@ module.exports = {
 
         var {unit_name} = args;
 
-        db.add(`stats.uses`)
 
 
         leaderData = await search.leaderSearch(unit_name)

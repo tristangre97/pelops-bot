@@ -2,7 +2,7 @@ const config = require("./auth.json");
 const cache = require('./utility/cache.js');
 const fs = require('node:fs');
 const path = require('node:path');
-
+const db = require('./utility/database.js');
 const {
   Intents,
   EmbedBuilder,
@@ -90,6 +90,8 @@ client.on('interactionCreate', async interaction => {
     await command.run(commandData);
     commandEnd = performance.now();
     console.log(`Command ${command.name} executed by ${interaction.user.username} in ${interaction.guild.name} in ${commandEnd - commandStart}ms`);
+    db.add(`stats.uses`)
+
   } catch (error) {
     console.error(error);
     await interaction.editReply({
