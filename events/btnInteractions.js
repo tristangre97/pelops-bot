@@ -258,7 +258,9 @@ ${deckData.details.description}
 
       return interaction.editReply({
         embeds: [],
-        content: `Made a deck for ${interaction.user.username} in \`${randomDeckData.totalImgGenTime.toFixed(2)}ms\`\n${extraMessage}`,
+        content: `<@${interaction.user.id}>
+Made in \`${randomDeckData.totalImgGenTime.toFixed(2)}ms\`
+${extraMessage}`,
         components: [actionBtns],
         files: [{
           attachment: randomDeckData.image,
