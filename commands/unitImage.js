@@ -68,11 +68,9 @@ module.exports = {
 
         unit = searchResults[0].item;
         unitName = unit['Unit Name'].replaceAll(" ", "_").replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "")
-        img = `https://res.cloudinary.com/tristangregory/image/upload/v1664809740/gbl/${unitName}.png`
+        img = `http://localhost:8008/gbl/${unitName}.png`
         await interaction.reply({
             files: [img],
-        }).then(async msg => {
-             
         })
 
     }
