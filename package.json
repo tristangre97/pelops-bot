@@ -13,7 +13,7 @@
     "better-sqlite3": "^7.5.0",
     "discord.js": "^14.3.0",
     "fuse.js": "^6.6.2",
-    "humanize-duration": "^3.27.1",
+    "humanize-duration": "^3.27.3",
     "image-url-validator": "^1.0.4",
     "mathjs": "^10.6.4",
     "node-cache": "^5.1.2",
