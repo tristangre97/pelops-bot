@@ -120,7 +120,7 @@ exports.get = async function (options, user) {
 
 
 
-exports.getUserDeck = async function (user) {
+exports.getUserDeck = async function (user, commandUser) {
     if (!user) {
         var deckList = await db.get(`usersDecks`)
     } else {
@@ -129,6 +129,28 @@ exports.getUserDeck = async function (user) {
 
 
     var deckListArray = []
+    var components = new Array();
+
+    buttons = new ActionRowBuilder();
+
+    buttons.addComponents(
+        new ButtonBuilder()
+            .setCustomId(`randomDeckBtn`)
+            .setLabel(`Get Random Deck`)
+            .setStyle('Primary')
+    )
+
+
+    buttons.addComponents(
+        new ButtonBuilder()
+            .setCustomId(`randomDeckBtn User`)
+            .setLabel(`Get Random User Deck`)
+            .setStyle('Success')
+    )
+
+    components.push(buttons)
+
+
     for (deck in deckList) {
         deckListArray.push(deck)
     }
@@ -139,11 +161,22 @@ exports.getUserDeck = async function (user) {
     var img = await userDecks.get(deckData)
     var imgGenEnd = performance.now()
     totalImgGenTime = imgGenEnd - imgGenStart
-    returnData = {
-        image: img,
+
+    msg = `<@${commandUser}>\nGenerated deck in \`${totalImgGenTime.toFixed(2)}ms\``
+
+    imageFiles = [{
+        attachment: img,
+        name: `yeyey.png`
+    }]
+
+    return {
+        msg: msg,
+        files: imageFiles,
+        components: components,
         totalImgGenTime: totalImgGenTime
     }
-    return returnData
+
+
 
 }
 

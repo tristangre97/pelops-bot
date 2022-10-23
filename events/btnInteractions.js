@@ -219,32 +219,49 @@ ${deckData.details.description}
 
     if (btnType == 'randomDeckBtn') {
 
-      const waitEmbed = new EmbedBuilder()
-        .setColor('#ffb33c')
-        .setTitle('Generating Deck...')
-        .setDescription(`I am generating a random deck for you. This may take a second.`)
-        .setImage(`https://res.cloudinary.com/tristangregory/image/upload/v1664223401/gbl/pelops/random.gif`)
 
-      reply = await interaction.reply({
-        embeds: [waitEmbed],
-      });
+      const waitEmbed = new EmbedBuilder()
+          .setColor('#ffb33c')
+          .setTitle('Generating Deck...')
+          .setDescription(`I am generating a random deck for you. This may take a second.`)
+          .setImage(`https://res.cloudinary.com/tristangregory/image/upload/v1664223401/gbl/pelops/random.gif`)
+
+        reply = await interaction.reply({
+          embeds: [waitEmbed],
+        });
+
+      if (data[1] === 'User') {
+        
+
+        var deckData = await randomDeck.getUserDeck(null, interaction.user.id)
+
+        return interaction.editReply({
+          embeds: [],
+          content: deckData.msg,
+          files: deckData.files,
+          components: deckData.components
+        })
+
+      }
+
+      
 
       options = {
         disable_unavailable_units: null,
         preferred_leader: null,
         amount: data[1] || 1
-    }
+      }
 
 
-    var randomDeckData = await randomDeck.get(options, interaction.user.id)
+      var randomDeckData = await randomDeck.get(options, interaction.user.id)
 
 
-    return interaction.editReply({
+      return interaction.editReply({
         embeds: [],
         components: randomDeckData.components,
         content: randomDeckData.msg,
         files: randomDeckData.files,
-    })
+      })
     }
 
 
