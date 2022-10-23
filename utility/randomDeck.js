@@ -1,7 +1,9 @@
 const {
     EmbedBuilder,
     ActionRowBuilder,
-    ButtonBuilder
+    ButtonBuilder,
+    Events,
+    SelectMenuBuilder
 } = require('discord.js');
 
 const convert = require('../utility/convert')
@@ -78,15 +80,7 @@ exports.get = async function (options, user) {
             .setLabel(`Get Random Deck`)
             .setStyle('Primary')
     )
-
-    if (options.amount > 1) {
-        buttons.addComponents(
-            new ButtonBuilder()
-                .setCustomId(`randomDeckBtn ${options.amount}`)
-                .setLabel(`Get ${options.amount} Random Decks`)
-                .setStyle('Primary')
-        )
-    }
+    
 
     buttons.addComponents(
         new ButtonBuilder()
@@ -96,6 +90,56 @@ exports.get = async function (options, user) {
     )
 
     components.push(buttons)
+
+
+
+    const selectMenu = new ActionRowBuilder()
+    .addComponents(
+        new SelectMenuBuilder()
+            .setCustomId('randomDeckSelectMenu')
+            .setPlaceholder('Generate multiple decks')
+            .addOptions(
+                {
+                    label: 'Generate 2 Decks',
+                    value: '2',
+                },
+                {
+                    label: 'Generate 3 Decks',
+                    value: '3',
+                },
+                {
+                    label: 'Generate 4 Decks',
+                    value: '4',
+                },
+                {
+                    label: 'Generate 5 Decks',
+                    value: '5',
+                },
+                {   
+                    label: 'Generate 6 Decks',
+                    value: '6',
+                },
+                {
+                    label: 'Generate 7 Decks',
+                    value: '7',
+                },
+                {
+                    label: 'Generate 8 Decks',
+                    value: '8',
+                },
+                {
+                    label: 'Generate 9 Decks',
+                    value: '9',
+                },
+                {
+                    label: 'Generate 10 Decks',
+                    value: '10',
+                },
+            ),
+    );
+
+    components.push(selectMenu)
+
 
     if (options.amount > 1) {
         var deckMsg = `Generated \`${options.amount}\` decks in \`${total.toFixed(2)}ms\``

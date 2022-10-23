@@ -22,7 +22,7 @@ module.exports = {
   name: 'interactionCreate',
   async execute(interaction) {
 
-    if (interaction.type != InteractionType.MessageComponent) return;
+    if (interaction.type != InteractionType.MessageComponent || interaction.isSelectMenu()) return;
 
 
 
