@@ -220,19 +220,24 @@ ${deckData.details.description}
     if (btnType == 'randomDeckBtn') {
 
 
-      const waitEmbed = new EmbedBuilder()
-          .setColor('#ffb33c')
-          .setTitle('Generating Deck...')
-          .setDescription(`I am generating a random deck for you. This may take a second.`)
-          .setImage(`https://res.cloudinary.com/tristangregory/image/upload/v1664223401/gbl/pelops/random.gif`)
+        const embed = new EmbedBuilder()
+        embed.setColor('#ffb33c')
+        embed.setTitle('Generating Deck...')
+        if (!isNaN(data[1])) {
+            embed.setDescription(`I am generating ${data[1]} random decks for you. This may take a second.`)
+        } else {
+            embed.setDescription(`I am generating a random deck for you. This may take a second.`)
+        }
+        embed.setImage('https://res.cloudinary.com/tristangregory/image/upload/v1664223401/gbl/pelops/random.gif')
 
-        reply = await interaction.reply({
-          embeds: [waitEmbed],
+        await interaction.reply({
+            embeds: [embed],
         });
 
-      if (data[1] === 'User') {
-        
 
+
+
+      if (data[1] === 'User') {
         var deckData = await randomDeck.getUserDeck(null, interaction.user.id)
 
         return interaction.editReply({
