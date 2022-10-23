@@ -215,95 +215,6 @@ ${deckData.details.description}
 
 
 
-    if (btnType == 'randomDeckMultiBtn') {
-      extraMsg = []
-      amount = interactionID
-      const embed = new EmbedBuilder()
-      embed.setColor('#ffb33c')
-      embed.setTitle('Generating Deck...')
-      if (amount > 1) {
-          embed.setDescription(`I am generating ${amount} random decks for you. This may take a second.`)
-      } else {
-          embed.setDescription(`I am generating a random deck for you. This may take a second.`)
-      }
-      embed.setImage('https://res.cloudinary.com/tristangregory/image/upload/v1664223401/gbl/pelops/random.gif')
-
-      await interaction.reply({
-          embeds: [embed],
-      });
-
-
-
-      const randomDeckImages = new Array();
-        const arrayOfPromises = new Array();
-
-        madeDecks = 0;
-        while (madeDecks < amount) {
-            arrayOfPromises.push(randomDeck.get());
-            madeDecks++;
-        }
-
-        async function processParallel(arrayOfPromises) {
-            var t = await Promise.all(arrayOfPromises)
-            for (item of t) {
-                randomDeckImages.push({
-                    attachment: item.image,
-                    name: `${item.id}.png`
-                })
-            }
-            return;
-        }
-
-
-
-        startImageGen = performance.now();
-        await processParallel(arrayOfPromises)
-        endImageGen = performance.now();
-        totalImgGenTime = endImageGen - startImageGen;
-
-
-        buttons = new ActionRowBuilder();
-
-        buttons.addComponents(
-            new ButtonBuilder()
-                .setCustomId(`randomDeckBtn`)
-                .setLabel(`Get Random Deck`)
-                .setStyle('Primary')
-        )
-
-        if (amount > 1) {
-            buttons.addComponents(
-                new ButtonBuilder()
-                    .setCustomId(`randomDeckMultiBtn ${amount}`)
-                    .setLabel(`Get ${amount} Random Decks`)
-                    .setStyle('Primary')
-            )
-        }
-
-        buttons.addComponents(
-            new ButtonBuilder()
-                .setCustomId(`randomDeckBtn User`)
-                .setLabel(`Get Random User Deck`)
-                .setStyle('Success')
-        )
-
-
-        await interaction.editReply({
-            content: `<@${interaction.user.id}> 
-Made \`${amount}\` random decks in \`${totalImgGenTime.toFixed(2)}ms\`
-${extraMsg}
-`,
-            embeds: [],
-            components: [buttons],
-            files: randomDeckImages
-        })
-
-      return interaction.editReply({
-        embeds: [],
-        components: [buttons],
-        files: randomDeckImages
-      })
-    }
 
 
     if (btnType == 'randomDeckBtn') {
@@ -318,40 +229,22 @@ ${extraMsg}
         embeds: [waitEmbed],
       });
 
-      unitEvo = 'True'
-      extraMessage = ''
-      if(interactionID == 'User') {
-        randomDeckData = await randomDeck.getUserDeck();
-        extraMessage = `Create your own deck with </user_deck create:1023654598470283268>!`
-      } else {
-        randomDeckData = await randomDeck.get();
-      }
+      options = {
+        disable_unavailable_units: null,
+        preferred_leader: null,
+        amount: data[1] || 1
+    }
 
-      actionBtns = new ActionRowBuilder();
-      actionBtns.addComponents(
-        new ButtonBuilder()
-          .setCustomId(`randomDeckBtn`)
-          .setLabel(`Get Random Deck`)
-          .setStyle('Primary')
-      )
-      actionBtns.addComponents(
-        new ButtonBuilder()
-        .setCustomId(`randomDeckBtn User`)
-        .setLabel(`Get Random User Deck`)
-        .setStyle('Success')
-    )
 
-      return interaction.editReply({
+    var randomDeckData = await randomDeck.get(options, interaction.user.id)
+
+
+    return interaction.editReply({
         embeds: [],
-        content: `<@${interaction.user.id}>
-Made in \`${randomDeckData.totalImgGenTime.toFixed(2)}ms\`
-${extraMessage}`,
-        components: [actionBtns],
-        files: [{
-          attachment: randomDeckData.image,
-          name: `${randomDeckData.id}.png`
-        }]
-      })
+        components: randomDeckData.components,
+        content: randomDeckData.msg,
+        files: randomDeckData.files,
+    })
     }
 
 

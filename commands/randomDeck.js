@@ -80,76 +80,20 @@ module.exports = {
 
         options = {
             disable_unavailable_units: disable_unavailable_units,
-            preferredLeader: preferred_leader,
+            preferred_leader: preferred_leader,
+            amount: amount
         }
 
 
-        const randomDeckImages = new Array();
-        const arrayOfPromises = new Array();
-
-        madeDecks = 0;
-        while (madeDecks < amount) {
-            arrayOfPromises.push(randomDeck.get(options));
-            madeDecks++;
-        }
-
-        async function processParallel(arrayOfPromises) {
-            var t = await Promise.all(arrayOfPromises)
-            for (item of t) {
-                randomDeckImages.push({
-                    attachment: item.image,
-                    name: `${item.id}.png`
-                })
-            }
-            return;
-        }
+        var data = await randomDeck.get(options, interaction.user.id)
 
 
-
-        startImageGen = performance.now();
-        await processParallel(arrayOfPromises)
-        endImageGen = performance.now();
-        totalImgGenTime = endImageGen - startImageGen;
-
-
-
-        buttons = new ActionRowBuilder();
-
-        buttons.addComponents(
-            new ButtonBuilder()
-                .setCustomId(`randomDeckBtn`)
-                .setLabel(`Get Random Deck`)
-                .setStyle('Primary')
-        )
-
-        if (amount > 1) {
-            buttons.addComponents(
-                new ButtonBuilder()
-                    .setCustomId(`randomDeckMultiBtn ${amount}`)
-                    .setLabel(`Get ${amount} Random Decks`)
-                    .setStyle('Primary')
-            )
-        }
-
-        buttons.addComponents(
-            new ButtonBuilder()
-                .setCustomId(`randomDeckBtn User`)
-                .setLabel(`Get Random User Deck`)
-                .setStyle('Success')
-        )
-
-
-        await interaction.editReply({
-            content: `<@${interaction.user.id}> 
-Made \`${amount}\` random decks in \`${totalImgGenTime.toFixed(2)}ms\`
-${extraMsg}
-`,
+        return interaction.editReply({
             embeds: [],
-            components: [buttons],
-            files: randomDeckImages
+            components: data.components,
+            content: data.msg,
+            files: data.files,
         })
-
-
 
     }
 }

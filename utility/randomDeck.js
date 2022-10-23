@@ -1,4 +1,10 @@
-const cache = require('../utility/cache.js')
+const {
+    EmbedBuilder,
+    ActionRowBuilder,
+    ButtonBuilder
+} = require('discord.js');
+
+const convert = require('../utility/convert')
 const db = require('../utility/database.js')
 const random = require('../utility/random.js');
 const imgGen = require('../utility/HTML2IMG.js');
@@ -28,18 +34,129 @@ for (unit of unitData) {
 defaultOptions = {
     disable_unavailable_units: 'True',
     preferred_leader: null,
+    amount: 1
 }
 
 
-exports.get = async function (options) {
-    // Options do not apply to button interactions atm :P
+exports.get = async function (options, user) {
+
     if (!options) options = defaultOptions
 
+    // Makes sure older buttons still work
+    if (!options.amount || options.amount < 1 || options.amount == 'null') options.amount = 1
+
+
+    const randomDeckImages = new Array()
+    const arrayOfPromises = new Array();
+    const components = new Array();
+
+    while (arrayOfPromises.length < options.amount) {
+        arrayOfPromises.push(getDeckList(options))
+    }
+
+
+    async function processParallel(arrayOfPromises) {
+        var t = await Promise.all(arrayOfPromises)
+        for (item of t) {
+            randomDeckImages.push({
+                attachment: item.image,
+                name: `${item.id}.png`
+            })
+        }
+        return;
+    }
+    start = performance.now()
+    await processParallel(arrayOfPromises)
+    end = performance.now()
+    total = end - start
+
+    buttons = new ActionRowBuilder();
+
+    buttons.addComponents(
+        new ButtonBuilder()
+            .setCustomId(`randomDeckBtn ${options.disable_unavailable_units} ${options.amount} ${options.amount}`)
+            .setLabel(`Get Random Deck`)
+            .setStyle('Primary')
+    )
+
+    if (options.amount > 1) {
+        buttons.addComponents(
+            new ButtonBuilder()
+                .setCustomId(`randomDeckBtn ${options.amount}`)
+                .setLabel(`Get ${options.amount} Random Decks`)
+                .setStyle('Primary')
+        )
+    }
+
+    buttons.addComponents(
+        new ButtonBuilder()
+            .setCustomId(`randomDeckBtn User`)
+            .setLabel(`Get Random User Deck`)
+            .setStyle('Success')
+    )
+
+    components.push(buttons)
+
+    if (options.amount > 1) {
+        var deckMsg = `Generated \`${options.amount}\` decks in \`${total.toFixed(2)}ms\``
+    } else {
+        var deckMsg = `Generated deck in \`${total.toFixed(2)}ms\``
+    }
+
+    msg = `<@${user}>\n${deckMsg}`
+
+
+    return {
+        msg: msg,
+        files: randomDeckImages,
+        components: components,
+        totalImgGenTime: total
+    }
+
+}
+
+
+
+
+
+
+exports.getUserDeck = async function (user) {
+    if (!user) {
+        var deckList = await db.get(`usersDecks`)
+    } else {
+        var deckList = await db.get(`user.${user}.decks`)
+    }
+
+
+    var deckListArray = []
+    for (deck in deckList) {
+        deckListArray.push(deck)
+    }
+    // Get random deck
+    var randomDeck = deckListArray[Math.floor(Math.random() * deckListArray.length)];
+    deckData = deckList[randomDeck]
+    var imgGenStart = performance.now()
+    var img = await userDecks.get(deckData)
+    var imgGenEnd = performance.now()
+    totalImgGenTime = imgGenEnd - imgGenStart
+    returnData = {
+        image: img,
+        totalImgGenTime: totalImgGenTime
+    }
+    return returnData
+
+}
+
+
+
+
+
+async function getDeckList(options) {
     deck = new Array()
 
-    // Get random leader
-    var randomLeader =  options.preferredLeader || leaderUnits[Math.floor(Math.random() * leaderUnits.length)];
-    deck.push(randomLeader)
+    // Get leader - Check if preferred leader is available and if not, get a random leader
+    var leaderUnit = options.preferred_leader || leaderUnits[Math.floor(Math.random() * leaderUnits.length)];
+    deck.push(leaderUnit)
 
     // Get random units
     for (i = 0; i < deckSize - 1; i++) {
@@ -51,6 +168,7 @@ exports.get = async function (options) {
                 i--
                 continue
             }
+
         }
 
         // Check if unit is already in deck
@@ -101,59 +219,15 @@ exports.get = async function (options) {
         ${deckHTML.join('')}
     </div>
         `
-    var imgGenStart = performance.now()
     var img = await imgGen.cluster(finalHTML, '.deck-card')
-    var imgGenEnd = performance.now()
 
 
-    returnData = {
+    return {
         id: random.id(8),
-        deck: deck,
         image: img,
-        totalImgGenTime: imgGenEnd - imgGenStart
+        deck: deck
     }
-
-
-    return returnData
 
 }
-
-
-
-
-
-
-exports.getUserDeck = async function (user) {
-    if (!user) {
-        var deckList = await db.get(`usersDecks`)
-    } else {
-        var deckList = await db.get(`user.${user}.decks`)
-    }
-
-
-    var deckListArray = []
-    for (deck in deckList) {
-        deckListArray.push(deck)
-    }
-    // Get random deck
-    var randomDeck = deckListArray[Math.floor(Math.random() * deckListArray.length)];
-    deckData = deckList[randomDeck]
-    var imgGenStart = performance.now()
-    var img = await userDecks.get(deckData)
-    var imgGenEnd = performance.now()
-    totalImgGenTime = imgGenEnd - imgGenStart
-    returnData = {
-        image: img,
-        totalImgGenTime: totalImgGenTime
-    }
-    return returnData
-
-}
-
-
-
-
-
-
 
 
