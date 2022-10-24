@@ -177,11 +177,7 @@ ${newsArticle}
       
 
       
-      
-
-
-      // img = await imgGen.makeTest(HTML, '.news-container')
-
+    
 
       btns = new ActionRowBuilder();
       btns.addComponents(
