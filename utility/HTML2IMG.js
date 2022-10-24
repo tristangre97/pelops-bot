@@ -28,8 +28,8 @@ const https = require('https');
 
 (async () => {
   const cluster = await Cluster.launch({
-    concurrency: Cluster.CONCURRENCY_CONTEXT,
-    maxConcurrency: 5,
+    concurrency: Cluster.CONCURRENCY_PAGE,
+    maxConcurrency: 50,
     puppeteerOptions: {
       headless: true,
       userDataDir: './data/puppeteer/cache',
@@ -43,7 +43,11 @@ const https = require('https');
 
     await page.setContent(data.html);
     const content = await page.$(`${data.selector}`);
-    const imageBuffer = await content.screenshot({ omitBackground: true });
+    const imageBuffer = await content.screenshot({ 
+      omitBackground: true,
+      type: 'jpeg',
+      quality: 100,
+    });
     return imageBuffer;
   });
 
