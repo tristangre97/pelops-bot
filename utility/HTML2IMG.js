@@ -40,11 +40,12 @@ const https = require('https');
 
 
   await cluster.task(async ({ page, data: data }) => {
-
     await page.setContent(data.html);
+
+
     const content = await page.$(`${data.selector}`);
     const imageBuffer = await content.screenshot({ 
-      omitBackground: true,
+      omitBackground: false,
       type: 'jpeg',
       quality: 100,
     });
