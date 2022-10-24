@@ -147,7 +147,7 @@ Create your own deck with </user_deck create:1023654598470283268>!
                 components: [btns],
                 files: [{
                     attachment: img,
-                    name: `${deckID}.png`
+                    name: `${deckID}.jpg`
                 }]
             });
         }
