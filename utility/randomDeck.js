@@ -45,8 +45,7 @@ exports.get = async function (options, user) {
     if (!options) options = defaultOptions
 
     // Makes sure older buttons still work
-    if (!options.amount || options.amount < 1 || options.amount == 'null') options.amount = 1
-
+    if (!options.amount || options.amount < 1 || options.amount == 'null' || isNaN(options.amount)) options.amount = 1
 
     const randomDeckImages = new Array()
     const arrayOfPromises = new Array();
@@ -80,7 +79,7 @@ exports.get = async function (options, user) {
             .setLabel(`Get Random Deck`)
             .setStyle('Primary')
     )
-    
+
 
     buttons.addComponents(
         new ButtonBuilder()
@@ -94,49 +93,49 @@ exports.get = async function (options, user) {
 
 
     const selectMenu = new ActionRowBuilder()
-    .addComponents(
-        new SelectMenuBuilder()
-            .setCustomId('randomDeckSelectMenu')
-            .setPlaceholder('Generate multiple decks')
-            .addOptions(
-                {
-                    label: 'Generate 2 Decks',
-                    value: '2',
-                },
-                {
-                    label: 'Generate 3 Decks',
-                    value: '3',
-                },
-                {
-                    label: 'Generate 4 Decks',
-                    value: '4',
-                },
-                {
-                    label: 'Generate 5 Decks',
-                    value: '5',
-                },
-                {   
-                    label: 'Generate 6 Decks',
-                    value: '6',
-                },
-                {
-                    label: 'Generate 7 Decks',
-                    value: '7',
-                },
-                {
-                    label: 'Generate 8 Decks',
-                    value: '8',
-                },
-                {
-                    label: 'Generate 9 Decks',
-                    value: '9',
-                },
-                {
-                    label: 'Generate 10 Decks',
-                    value: '10',
-                },
-            ),
-    );
+        .addComponents(
+            new SelectMenuBuilder()
+                .setCustomId('randomDeckSelectMenu')
+                .setPlaceholder('Generate multiple decks')
+                .addOptions(
+                    {
+                        label: 'Generate 2 Decks',
+                        value: '2',
+                    },
+                    {
+                        label: 'Generate 3 Decks',
+                        value: '3',
+                    },
+                    {
+                        label: 'Generate 4 Decks',
+                        value: '4',
+                    },
+                    {
+                        label: 'Generate 5 Decks',
+                        value: '5',
+                    },
+                    {
+                        label: 'Generate 6 Decks',
+                        value: '6',
+                    },
+                    {
+                        label: 'Generate 7 Decks',
+                        value: '7',
+                    },
+                    {
+                        label: 'Generate 8 Decks',
+                        value: '8',
+                    },
+                    {
+                        label: 'Generate 9 Decks',
+                        value: '9',
+                    },
+                    {
+                        label: 'Generate 10 Decks',
+                        value: '10',
+                    },
+                ),
+        );
 
     components.push(selectMenu)
 
@@ -296,6 +295,8 @@ async function getDeckList(options) {
         ${deckHTML.join('')}
     </div>
         `
+
+
     var img = await imgGen.cluster(finalHTML, '.deck-card')
 
 
