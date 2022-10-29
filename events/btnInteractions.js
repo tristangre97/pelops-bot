@@ -35,6 +35,7 @@ module.exports = {
     if (btnType == 'kong2') {
       img = `http://localhost:8008/gbl/Kong_2.png`
       return interaction.reply({
+        content: `<@${interaction.user.id}> 🍌🐒`,
           files: [img],
           components: []
       })
