@@ -32,7 +32,13 @@ module.exports = {
     var interactionID = data[1];
     var unitEvo = data[2];
 
-
+    if (btnType == 'kong2') {
+      img = `http://localhost:8008/gbl/Kong_2.png`
+      return interaction.reply({
+          files: [img],
+          components: []
+      })
+    }
 
     if (btnType == 'deckLike') {
       var deckID = interactionID

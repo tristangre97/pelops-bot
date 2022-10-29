@@ -45,7 +45,7 @@ module.exports = {
     }) => {
 
         var unit_name = args['unit_name'];
-
+        components = []
         var selectedUnit = unit_name;
         searchResults = await search.unitSearch(selectedUnit);
 
@@ -68,9 +68,24 @@ module.exports = {
 
         unit = searchResults[0].item;
         unitName = unit['Unit Name'].replaceAll(" ", "_").replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "")
+
+        if(unitName === "Kong") {
+            buttons = new ActionRowBuilder();
+
+            buttons.addComponents(
+                new ButtonBuilder()
+                    .setCustomId(`kong2`)
+                    .setLabel(`Kong 2`)
+                    .setStyle('Primary')
+            )
+
+            components.push(buttons)
+        }
+
         img = `http://localhost:8008/gbl/${unitName}.png`
         await interaction.reply({
             files: [img],
+            components: components
         })
 
     }
