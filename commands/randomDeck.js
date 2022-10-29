@@ -78,6 +78,31 @@ module.exports = {
         });
 
 
+
+        // Mess with TS Dragun by giving him Battra as a leader
+        if(interaction.user.id === '222781123875307521') {
+
+
+            options = {
+                disable_unavailable_units: disable_unavailable_units,
+                preferred_leader: 'Battra Imago',
+                amount: amount
+            }
+
+            var data = await randomDeck.get(options, interaction.user.id)
+
+            
+
+            await interaction.editReply({
+                embeds: [],
+                components: data.components,
+                content: `😈`,
+                files: data.files,
+            })
+            await delay(5000);
+
+        }
+
         options = {
             disable_unavailable_units: disable_unavailable_units,
             preferred_leader: preferred_leader,
@@ -86,6 +111,8 @@ module.exports = {
 
 
         var data = await randomDeck.get(options, interaction.user.id)
+
+        
 
 
         return interaction.editReply({
@@ -100,3 +127,4 @@ module.exports = {
 
 
 
+const delay = ms => new Promise(res => setTimeout(res, ms));
