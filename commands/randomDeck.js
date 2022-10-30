@@ -1,15 +1,10 @@
-const cache = require('../utility/cache.js');
-const db = require('../utility/database.js');
-const random = require('../utility/random.js')
-
 const {
     EmbedBuilder,
     ActionRowBuilder,
     ButtonBuilder
 } = require('discord.js');
 const randomDeck = require('../utility/randomDeck.js');
-
-
+const developer = require('../developer.json');
 
 
 module.exports = {
@@ -80,9 +75,7 @@ module.exports = {
 
 
         // Mess with TS Dragun by giving him Battra as a leader for 3 seconds
-        if(interaction.user.id === '212101930531553281') {
-
-
+        if(interaction.user.id === '212101930531553281' || interaction.user.id === '222781123875307521') {
             options = {
                 disable_unavailable_units: disable_unavailable_units,
                 preferred_leader: 'Battra Imago',
@@ -90,8 +83,6 @@ module.exports = {
             }
 
             var data = await randomDeck.get(options, interaction.user.id)
-
-            
 
             await interaction.editReply({
                 embeds: [],
