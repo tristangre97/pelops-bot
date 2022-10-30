@@ -79,8 +79,8 @@ module.exports = {
 
 
 
-        // Mess with TS Dragun by giving him Battra as a leader
-        if(interaction.user.id === '222781123875307521') {
+        // Mess with TS Dragun by giving him Battra as a leader for 3 seconds
+        if(interaction.user.id === '212101930531553281') {
 
 
             options = {
@@ -99,8 +99,13 @@ module.exports = {
                 content: `😈`,
                 files: data.files,
             })
-            await delay(5000);
-
+            await delay(3000);
+            await interaction.editReply({
+                embeds: [],
+                components: [],
+                content: `Your real deck will generated in a moment.`,
+            })
+            await delay(2000);
         }
 
         options = {
