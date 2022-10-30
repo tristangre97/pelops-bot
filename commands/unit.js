@@ -122,7 +122,7 @@ module.exports = {
         unitsName = unit['Unit Name'].replaceAll(" ", "_")
         originalUser = interaction.user.id
 
-        interactionID = random.bytes(10);
+        interactionID = random.id(8);
 
         const interactionData = {
             id: interactionID,
