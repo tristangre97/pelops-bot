@@ -6,7 +6,6 @@ const {
     SelectMenuBuilder
 } = require('discord.js');
 
-const convert = require('../utility/convert')
 const db = require('../utility/database.js')
 const random = require('../utility/random.js');
 const imgGen = require('../utility/HTML2IMG.js');
@@ -43,9 +42,9 @@ defaultOptions = {
 
 exports.get = async function (options, user) {
 
-    if (!options) options = defaultOptions
 
     // Makes sure older buttons still work
+    if (!options) options = defaultOptions
     if (!options.amount || options.amount < 1 || options.amount == 'null' || isNaN(options.amount)) options.amount = 1
 
     const randomDeckImages = new Array()
@@ -260,17 +259,17 @@ async function getDeckList(options) {
 
 
     deckHTML = new Array()
-	var imageHost = (developer.cloudinary) ? "https://res.cloudinary.com/tristangregory/image/upload/v1644991354/gbl" : "http://localhost:8008/gbl";
-	
+	var imageHost = (developer.cloudinary) ? "https://res.cloudinary.com/tristangregory/image/upload/v1644991354/gbl" : "http://localhost:8008/gbl/webp";
     for (unit of deck) {
-        unitName = unit.replaceAll(" ", "_").replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "")
+        var unitName = unit.replaceAll(" ", "_").replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "")
+        var imageLink = `${imageHost}/${unitName}.webp`
 
         if (deckHTML.length < 1) {
             deckHTML.push(`
             <div class="unit-card leader-card">
             <div class="leader-tag">LEADER</div>
             <div class="unit-img-cont">
-              <img src="${imageHost}/${unitName.replaceAll(" ", "_").replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "")}.png">
+              <img src="${imageLink}">
             </div>
           </div>
             `)
@@ -278,7 +277,7 @@ async function getDeckList(options) {
             deckHTML.push(`
             <div class="unit-card">
             <div class="unit-img-cont">
-              <img src="${imageHost}/${unitName.replaceAll(" ", "_").replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "")}.png">
+              <img src="${imageLink}">
             </div>
           </div>
             `)
