@@ -22,4 +22,3 @@ const buffs = {
         'units': ['Godzilla Earth']
       },
     }
-    const sayings = new Map();
