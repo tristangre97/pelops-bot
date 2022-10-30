@@ -16,7 +16,7 @@ const {
   Collection
 } = require("discord.js");
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMessageReactions], partials: [Partials.Channel] });
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMessageReactions, GatewayIntentBits.MessageContent], partials: [Partials.Channel] });
 
 client.commands = new Collection();
 const commandsPath = path.join(__dirname, 'commands');
@@ -59,6 +59,8 @@ client.on('ready', async () => {
   console.log("Pelops is ready!");
 
 });
+
+
 
 
 client.on('interactionCreate', async interaction => {
