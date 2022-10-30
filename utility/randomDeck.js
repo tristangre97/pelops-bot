@@ -61,7 +61,7 @@ exports.get = async function (options, user) {
         for (item of t) {
             randomDeckImages.push({
                 attachment: item.image,
-                name: `${item.id}.png`
+                name: `${item.id}.jpg`
             })
         }
         return;
