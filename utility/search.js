@@ -25,7 +25,6 @@ exports.unitSearch = function (unit_name) {
             }
         ],
         findAllMatches: true,
-        threshold: 0.5,
     };
     const fuse = new Fuse(gblData, options);
     const result = fuse.search(unit_name);
