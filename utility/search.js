@@ -17,7 +17,7 @@ exports.unitSearch = function (unit_name) {
         includeScore: true,
         keys: [{
                 name: 'Unit Name',
-                weight: 0.7
+                weight: 0.5
             },
             {
                 name: 'ALIASES',
