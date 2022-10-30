@@ -7,7 +7,6 @@ const fs = require("fs");
 const fetch = require("node-fetch");
 const humanizeDuration = require("humanize-duration");
 const cache = require('../utility/cache.js');
-const db = require('../utility/database.js');
 var msg = []
 var downloadInfo = []
 
