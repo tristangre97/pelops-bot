@@ -10,7 +10,6 @@ const cache = require('../utility/cache.js');
 var msg = []
 var downloadInfo = []
 
-const prettyMilliseconds = require('pretty-ms');
 
 module.exports = {
     name: 'update',

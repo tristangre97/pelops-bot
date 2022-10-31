@@ -5,7 +5,6 @@ const {
     ActionRowBuilder,
     ButtonBuilder
 } = require('discord.js');
-const prettyMilliseconds = require('pretty-ms');
 
 module.exports = {
     name: 'map_drop_rates',
