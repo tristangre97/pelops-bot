@@ -24,7 +24,6 @@ exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost) {
   var unitRarity = Number(unit.RARITY);
   var unitCost = Number(unit.COST);
   var rushMultiplier = Number(unit['RUSH MULTIPLIER']);
-  var dmgBoost = Number(unit['DMG INCREASE'])
   var recoveryAmount = Number(unit['RECOVERY AMOUNT'])
   var attackSpeed = Number(unit['ATK SPD']);
   var leaderAttackSpeed = Number(unit['LEADER ATK SPD']) || 1;
@@ -40,12 +39,7 @@ exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost) {
   var star_rank = Number(star_rank) || 1;
   if (star_rank > 30) star_rank = 30;
 
-
-  if (unitRarity == "4") {
-    maxLevel = 30;
-  } else {
-    maxLevel = 40;
-  }
+	const maxLevel = (unitRarity == "3") ? 40 : 30;
 
   if (level - 1 >= maxLevel) {
     level = maxLevel + 1;
@@ -53,7 +47,7 @@ exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost) {
   }
   if (cache.get(`${unit['Unit Name']}_${level}_${star_rank}_${unitBoost}`)) {
     endTime = performance.now();
-    // console.log(`${unit['Unit Name']} took ${endTime - startTime}ms`);
+    console.log(`${unit['Unit Name']} took ${endTime - startTime}ms`);
     return await cache.get(`${unit['Unit Name']}_${level}_${star_rank}_${unitBoost}`);
   }
   const unitEmbed = new EmbedBuilder();
@@ -561,8 +555,7 @@ exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost) {
     unitEmbed.setDescription(`${appliedBoosts.join(`\n`)}`);
 
   }
-  unitEmbed.setThumbnail(`https://res.cloudinary.com/tristangregory/image/upload/e_sharpen,h_300,w_300,c_fit,c_pad,b_rgb:ffb33c/v1654043653/gbl/${unit['Unit Name'].replaceAll(" ", "_").replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "")}`)
-
+  unitEmbed.setThumbnail(`https://res.cloudinary.com/tristangregory/image/upload/e_sharpen,h_300,w_300,c_fit,c_pad,b_rgb:ffb33c/v1667588389/gbl/${unit['Unit Name'].replaceAll(" ", "_").replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "")}`)
 
 
   var returnData = {
@@ -572,7 +565,7 @@ exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost) {
 
   cache.set(`${unit['Unit Name']}_${level}_${star_rank}_${unitBoost}`, returnData, 0);
   endTime = performance.now();
-  // console.log(`${unit['Unit Name']} took ${endTime - startTime}ms`);
+  console.log(`${unit['Unit Name']} took ${endTime - startTime}ms`);
   return returnData;
 };
 

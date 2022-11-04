@@ -263,7 +263,6 @@ async function getDeckList(options) {
     for (unit of deck) {
         var unitName = unit.replaceAll(" ", "_").replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "")
         var imageLink = `${imageHost}/${unitName}.webp`
-
         if (deckHTML.length < 1) {
             deckHTML.push(`
             <div class="unit-card leader-card">
