@@ -49,7 +49,7 @@ module.exports = {
                 .setTitle('Unit not found')
                 .setDescription(`Unit \`${unit_name}\` not found`)
                 .setFooter(`Either the unit does not exist or the unit cannot be a leader`)
-                .setThumbnail('https://res.cloudinary.com/tristangregory/image/upload/v1654043653/gbl/pelops/pelops_error.png')
+                .setThumbnail('https://res.cloudinary.com/tristangregory/image/upload/v1667588389/gbl/pelops/pelops_error.png')
                 return interaction.reply({
                 embeds: [embed],
 
@@ -74,7 +74,7 @@ module.exports = {
 
        
         unitEmbed.setDescription(`**Unit** \`${leaderData['UNIT']}\``);
-        unitEmbed.setThumbnail(`https://res.cloudinary.com/tristangregory/image/upload/e_sharpen,h_300,w_300,c_fit,c_pad,b_rgb:ffb33c/v1654043653/gbl/${leaderData['UNIT'].replaceAll(" ", "_").replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "")}`)
+        unitEmbed.setThumbnail(`https://res.cloudinary.com/tristangregory/image/upload/e_sharpen,h_300,w_300,c_fit,c_pad,b_rgb:ffb33c/v1667588389/gbl/${leaderData['UNIT'].replaceAll(" ", "_").replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "")}`)
 
         unitEmbed.addFields({
             name: `__Ability Details__`,
