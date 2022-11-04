@@ -55,7 +55,7 @@ module.exports = {
                 .setTitle('Unit not found')
                 .setDescription(`Unit \`${unit_name}\` not found`)
                 .setFooter(`Check your spelling and try again.`)
-                .setThumbnail('https://res.cloudinary.com/tristangregory/image/upload/v1654043653/gbl/pelops/pelops_error.png')
+                .setThumbnail('https://res.cloudinary.com/tristangregory/image/upload/v1667588389/gbl/pelops/pelops_error.png')
                 return interaction.reply({
                 embeds: [embed],
 
@@ -82,7 +82,7 @@ module.exports = {
             components.push(buttons)
         }
 
-        img = `http://localhost:8008/gbl/${unitName}.png`
+        img = `http://localhost:8008/gbl/webp/${unitName}.webp`
         await interaction.reply({
             files: [img],
             components: components
