@@ -75,7 +75,7 @@ module.exports = {
 
 
         // Mess with TS Dragun by giving him Battra as a leader for 3 seconds
-        if(interaction.user.id === '212101930531553281' || interaction.user.id === '222781123875307521') {
+        if(interaction.user.id === '212101930531553281') {
             options = {
                 disable_unavailable_units: disable_unavailable_units,
                 preferred_leader: 'Battra Imago',
