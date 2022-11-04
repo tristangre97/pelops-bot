@@ -240,7 +240,7 @@ module.exports = {
         </style>
         <div class="unit-compare-card">
         <div class="thing"></div>
-        <img class="credit-img" src="http://localhost:8008/gbl/pelops/Pelops_II.webp">
+        <img class="credit-img" src="http://localhost:8008/gbl/webp/pelops/Pelops_II.webp">
 
       <div class="unit-card">
     
@@ -248,10 +248,10 @@ module.exports = {
     
         <div class="unit-data flex-wrap full">
         <div class="unit-img-cont half">
-          <img id="unitOneName" src="http://localhost:8008/gbl/${unitOneData.Name.replaceAll(" ", "_").replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "")}.png">
+          <img id="unitOneName" src="http://localhost:8008/gbl/webp/${unitOneData.Name.replaceAll(" ", "_").replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "")}.webp">
         </div>
          <div class="unit-img-cont half">
-          <img id="unitOneName" src="http://localhost:8008/gbl/${unitTwoData.Name.replaceAll(" ", "_").replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "")}.png">
+          <img id="unitOneName" src="http://localhost:8008/gbl/webp/${unitTwoData.Name.replaceAll(" ", "_").replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "")}.webp">
         </div>
         
          <div class="unit-data flex-wrap full">

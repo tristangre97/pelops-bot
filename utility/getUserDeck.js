@@ -32,7 +32,7 @@ exports.get = async function (deckData) {
         <div class="unit-card leader-card">
             <div class="leader-tag">LEADER</div>
             <div class="unit-img-cont">
-              <img src="http://localhost:8008/gbl/${unit.replaceAll(" ", "_").replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "")}.png">
+              <img src="http://localhost:8008/gbl/webp/${unit.replaceAll(" ", "_").replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "")}.webp">
             </div>
           </div>
           `)
@@ -41,7 +41,7 @@ exports.get = async function (deckData) {
       deckHTML.push(`
         <div class="unit-card">
             <div class="unit-img-cont">
-              <img src="http://localhost:8008/gbl/${unit.replaceAll(" ", "_").replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "")}.png">
+              <img src="http://localhost:8008/gbl/webp/${unit.replaceAll(" ", "_").replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "")}.webp">
             </div>
           </div>
           `)
