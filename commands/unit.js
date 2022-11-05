@@ -104,9 +104,9 @@ module.exports = {
         unit = searchResults[0].item;
         unitRarity = Number(unit.RARITY);
         if (unitRarity == "4") {
-            maxLevel = 30;
-        } else {
             maxLevel = 40;
+        } else {
+            maxLevel = 50;
         }
         if (level < 1) level = 1
         if (level - 1 > maxLevel) {
