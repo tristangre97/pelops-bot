@@ -25,10 +25,14 @@ module.exports = {
         const cpuName = `${cpu.manufacturer} ${cpu.brand}`
         const cpuSpeeds = await si.cpuCurrentSpeed()
         const cpuTemps = await si.cpuTemperature()
-        const gpuName = gpu.controllers[0].model
+        const gpuName = gpu.controllers[0].model;
+        const memory = await si.mem()
+        const memoryUsageActive = (memory.active / 1024 / 1024 / 1024).toFixed(2)
+        const memoryUsageTotal = (memory.total / 1024 / 1024 / 1024).toFixed(2)
+        const memoryUsagePercent = `${(memory.active / memory.total * 100).toFixed(2)}%`
         const embed = new EmbedBuilder()
         embed.setColor('#ffb33c')
-        embed.setTitle('Info')
+        embed.setTitle('Bot/Server Info')
 
 
         embed.addFields([
@@ -55,6 +59,7 @@ module.exports = {
 **CPU** \`${cpuName}\`
 **CPU Speed** \`${cpuSpeeds.avg} GHz/${cpuSpeeds.max} GHz\`
 **CPU Temp** \`${cpuTemps.main}°C\`
+**RAM** \`${memoryUsageActive} GB/${memoryUsageTotal} GB\` \`${memoryUsagePercent}\`
 **GPU** \`${gpuName}\`
 `
             },
