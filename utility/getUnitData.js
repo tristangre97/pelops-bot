@@ -31,7 +31,7 @@ exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost) {
   var attackSpeedAir = Number(unit['ATK SPD AIR']);
   var acidDamage = Number(unit['ACID DMG']);
   var digDamage = Number(unit['DIGGING DMG']);
-  var unitNotice = unit['NOTICE'];
+  var unitNotice = [];
   var transferTimeDecrease;
   var hitsPerAttack = Number(unit['HITS PER ATTACK']);
 
@@ -39,7 +39,7 @@ exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost) {
   var star_rank = Number(star_rank) || 1;
   if (star_rank > 30) star_rank = 30;
 
-	const maxLevel = (unitRarity == "3") ? 40 : 30;
+  const maxLevel = (unitRarity < 4) ? 50 : 40;
 
   if (level - 1 >= maxLevel) {
     level = maxLevel + 1;
@@ -70,6 +70,7 @@ exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost) {
       "20-25": "2",
       "25-30": "2",
       "31-40": "0.50",
+      "41-50": "0.05",
     },
     2: {
       "1-5": "20",
@@ -79,6 +80,7 @@ exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost) {
       "20-25": "2",
       "25-30": "2",
       "31-40": "0.50",
+      "41-50": "0.05",
     },
     3: {
       "1-5": "12",
@@ -97,15 +99,10 @@ exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost) {
       "15-20": "1",
       "20-25": "2",
       "25-30": "2",
-      "31-40": "0.50",
+      "31-40": "0.5",
     },
   };
-  // 16%
-  // 5%
 
-  // 16%
-  // 2%
-  // 2%
   const leaderUpgradePercent = {
     3: {
       "1-5": "16",
@@ -336,6 +333,9 @@ exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost) {
 ╰Attack Bonus \`${Math.round(10 * totalDmgBonus) / 10}%\`
 ╰Movement Speed Bonus \`${Math.round(10 * totalSpeedBonus) / 10}%\``)
       if (unit.LEADER == 'TRUE') {
+
+
+
         unitLeaderHealth = Math.floor(mathjs.evaluate(`${unitLeaderHealth} + ${Number(totalLeaderHPBonus)}%`))
         unitLeaderAttack = Math.floor(mathjs.evaluate(`${unitLeaderAttack} + ${Number(totalLeaderDmgBonus)}%`))
 
@@ -435,7 +435,7 @@ exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost) {
     unitStats.push(`**Transfer Time** \`${transferTime.toLocaleString()}\``)
   }
 
-  if(recoveryAmount > 0 && unitName == "Psychic Chorus") {
+  if (recoveryAmount > 0 && unitName == "Psychic Chorus") {
     // unitStats.push(`**Recovery Amount** \`${recoveryAmount.toLocaleString()}\``)
   }
 
@@ -460,6 +460,8 @@ exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost) {
     })
   }
   if (unit.LEADER == 'TRUE') {
+    unitNotice.push(`Leader levels above 40/50 are currently not correct. If you have a leader at level 41/51, please post in the <#875214614416224266> channel.`)
+
     var attacksPerSecond = Math.abs(1 / leaderAttackSpeed);
     var dps = parseInt(attacksPerSecond * unitLeaderAttack)
 
@@ -496,31 +498,34 @@ exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost) {
 
   var upgradeCostData = []
 
-  if (level <= maxLevel) {
-    nextLevelPieceCost = pieceChart[level - 1] || `Data not found for level ${level}`
-    upgradeCostData.push(`**G-Tokens** <:coins:943379224163672074> \`${(costChart[level - 1]).toLocaleString()}\``)
-    upgradeCostData.push(`**Pieces** ${unit['EMOJI']} \`${(nextLevelPieceCost).toLocaleString()}\``)
-  } else {
+  // if (level <= maxLevel) {
+  //   nextLevelPieceCost = pieceChart[level - 1] || `Data not found for level ${level}`
+  //   upgradeCostData.push(`**G-Tokens** <:coins:943379224163672074> \`${(costChart[level - 1]).toLocaleString()}\``)
+  //   upgradeCostData.push(`**Pieces** ${unit['EMOJI']} \`${(nextLevelPieceCost).toLocaleString()}\``)
+  // } else {
 
-  }
+  // }
 
-  upgradeCostData.push(`
-**Total G-Tokens** <:coins:943379224163672074> \`${getTotalCost(level - 2, costChart)}\`
-**Total Pieces** ${unit['EMOJI']} \`${getTotalCost(level - 2, pieceChart)}\`
-  `)
+  //   upgradeCostData.push(`
+  // **Total G-Tokens** <:coins:943379224163672074> \`${getTotalCost(level - 2, costChart)}\`
+  // **Total Pieces** ${unit['EMOJI']} \`${getTotalCost(level - 2, pieceChart)}\`
+  //   `)
 
 
 
+  // value: `${upgradeCostData.join('\n')}`,
 
   unitEmbed.addFields({
     name: `__Upgrade Costs__`,
-    value: `${upgradeCostData.join('\n')}`,
+    value: `Upgrade costs were recently changed, please wait until I get updated data.`,
     inline: false
   })
+
+
   if (unitNotice.length > 0) {
     unitEmbed.addFields({
       name: `__Notice__`,
-      value: `\`\`\`${unitNotice}\`\`\``,
+      value: unitNotice.join('\n'),
       inline: false
     })
   }
@@ -561,6 +566,7 @@ exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost) {
   var returnData = {
     embed: unitEmbed,
     unitData: unitData,
+    unbuffedStats: unbuffedStats,
   }
 
   cache.set(`${unit['Unit Name']}_${level}_${star_rank}_${unitBoost}`, returnData, 0);
