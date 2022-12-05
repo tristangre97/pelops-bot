@@ -1,3 +1,5 @@
 {
-	"cloudinary": false
+	"cloudinary": false,
+	"test": false,
+	"testers": ["222781123875307521"]
 }
