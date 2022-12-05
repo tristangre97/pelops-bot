@@ -23,15 +23,3 @@ exports.id = function (length) {
     return result;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-// next = exports.number(0, 255);
