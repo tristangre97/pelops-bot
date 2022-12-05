@@ -11,8 +11,8 @@ exports.set = async function (dbName, newValue) {
 
 
 exports.get = async function (dbName) {
-    await db.get(dbName)
-    return 'k';
+    data = await db.get(dbName)
+    return data;
 };
 
 exports.add = async function (dbName) {
