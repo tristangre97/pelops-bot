@@ -36,8 +36,8 @@ module.exports = {
       img = `http://localhost:8008/gbl/Kong_2.png`
       return interaction.reply({
         content: `<@${interaction.user.id}> 🍌🐒`,
-          files: [img],
-          components: []
+        files: [img],
+        components: []
       })
     }
 
@@ -227,19 +227,19 @@ ${deckData.details.description}
     if (btnType == 'randomDeckBtn') {
 
 
-        const embed = new EmbedBuilder()
-        embed.setColor('#ffb33c')
-        embed.setTitle('Generating Deck...')
-        if (!isNaN(data[1])) {
-            embed.setDescription(`I am generating ${data[1]} random decks for you. This may take a second.`)
-        } else {
-            embed.setDescription(`I am generating a random deck for you. This may take a second.`)
-        }
-        embed.setImage('https://res.cloudinary.com/tristangregory/image/upload/v1664223401/gbl/pelops/random.gif')
+      const embed = new EmbedBuilder()
+      embed.setColor('#ffb33c')
+      embed.setTitle('Generating Deck...')
+      if (!isNaN(data[1])) {
+        embed.setDescription(`I am generating ${data[1]} random decks for you. This may take a second.`)
+      } else {
+        embed.setDescription(`I am generating a random deck for you. This may take a second.`)
+      }
+      embed.setImage('https://res.cloudinary.com/tristangregory/image/upload/v1664223401/gbl/pelops/random.gif')
 
-        await interaction.reply({
-            embeds: [embed],
-        });
+      await interaction.reply({
+        embeds: [embed],
+      });
 
 
 
@@ -256,7 +256,7 @@ ${deckData.details.description}
 
       }
 
-      
+
 
       options = {
         disable_unavailable_units: null,
@@ -498,11 +498,9 @@ ${deckData.details.description}
 
 
       unitRarity = unit.RARITY;
-      if (unitRarity == "4") {
-        maxLevel = 30;
-      } else {
-        maxLevel = 40;
-      }
+
+      const maxLevel = (unitRarity < 4) ? 50 : 40;
+
 
       unitEmbed = await unitEmbedGen.getUnitEmbed(unit, level, star_rank, apply_boost);
 
