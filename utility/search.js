@@ -2,12 +2,10 @@ const fs = require('fs');
 const cache = require('./cache.js')
 const Fuse = require("fuse.js");
 const starRankData = require(`../data/starRankRewards.json`)
-
-
+const gblData = JSON.parse(fs.readFileSync('./data/unitData.json', 'utf8'))
 
 
 exports.unitSearch = function (unit_name) {
-    const gblData = JSON.parse(cache.get('unitData'));
 
     if (cache.get(`search_${unit_name}`)) {
         return cache.get(`search_${unit_name}`);

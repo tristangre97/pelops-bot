@@ -1,28 +1,29 @@
-const db = require("quick.db");
+const { QuickDB } = require("quick.db");
+const db = new QuickDB(); 
 
 
 
-exports.set = function (dbName, newValue) {
-    db.set(dbName, newValue)
+exports.set = async function (dbName, newValue) {
+    await db.set(dbName, newValue)
     return 'db updated';
 };
 
 
 
-exports.get = function (dbName) {
-    var value = db.get(dbName)
-    return value;
+exports.get = async function (dbName) {
+    await db.get(dbName)
+    return 'k';
 };
 
-exports.add = function (dbName) {
-    db.add(dbName, 1)
+exports.add = async function (dbName) {
+    await db.add(dbName, 1)
     return 'db updated';
 };
-exports.sub = function (dbName) {
-    db.subtract(dbName, 1)
+exports.sub = async function (dbName) {
+    await db.subtract(dbName, 1)
     return 'db updated';
 };
-exports.delete = function (dbName) {
-    db.delete(dbName)
+exports.delete = async function (dbName) {
+    await db.delete(dbName)
     return 'db deleted';
 };

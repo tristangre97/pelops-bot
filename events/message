@@ -1,0 +1,15 @@
+module.exports = {
+    name: 'messageCreate',
+    async execute(message) {
+        
+        messageContent = message.content.toLowerCase();
+
+        if(messageContent === 'pelops bad') {
+            message.channel.send('Fuck you');
+        }
+
+
+    }
+
+
+}

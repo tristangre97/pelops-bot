@@ -11,7 +11,7 @@ const search = require('./search.js');
 const mathjs = require('mathjs')
 
 
-exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost) {
+exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost, disableMaxLevel) {
   db.add(`stats.uses`)
   db.add(`unitStats.${unit['Unit Name']}`)
   startTime = performance.now();
@@ -34,20 +34,26 @@ exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost) {
   var unitNotice = [];
   var transferTimeDecrease;
   var hitsPerAttack = Number(unit['HITS PER ATTACK']);
-
+  let maxLevel
   level++;
   var star_rank = Number(star_rank) || 1;
   if (star_rank > 30) star_rank = 30;
 
-  const maxLevel = (unitRarity < 4) ? 50 : 40;
+  if (disableMaxLevel) {
+    maxLevel = level;
+  } else {
 
-  if (level - 1 >= maxLevel) {
-    level = maxLevel + 1;
-    levelMsg = `**MAX LEVEL**`
+    maxLevel = (unitRarity < 4) ? 50 : 40;
+    if (level - 1 >= maxLevel) {
+      level = maxLevel + 1;
+      levelMsg = `**MAX LEVEL**`
+    }
+
   }
+
   if (cache.get(`${unit['Unit Name']}_${level}_${star_rank}_${unitBoost}`)) {
     endTime = performance.now();
-    console.log(`Level ${level-1} ${unit['Unit Name']} took ${endTime - startTime}ms (cached)`)
+    console.log(`Level ${level - 1} ${unit['Unit Name']} took ${endTime - startTime}ms (cached)`)
     return await cache.get(`${unit['Unit Name']}_${level}_${star_rank}_${unitBoost}`);
   }
   const unitEmbed = new EmbedBuilder();
@@ -190,7 +196,7 @@ exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost) {
 
   // Start stat calculation loop
   while (i < level) {
-    // levelCalcStart = performance.now();
+    levelCalcStart = performance.now();
 
     // if (inRange(bl, 0, 1)) {
     //   transferTimeDecrease = 0.16
@@ -270,7 +276,8 @@ exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost) {
       digDamage = Math.round(mathjs.evaluate(`${digDamage} + ${factor}%`));
 
     }
-
+    levelCalcEnd = performance.now();
+    console.log(`Level ${i} calculated in ${levelCalcEnd - levelCalcStart}ms`);
   }
   // End stat calculation loop
 
@@ -499,13 +506,13 @@ exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost) {
 
   if (level <= maxLevel) {
     nextLevelPieceCost = pieceChart[level - 1] || `Data not found for level ${level}`
-    upgradeCostData.push(`**G-Tokens** <:coins:943379224163672074> \`${(costChart[level - 1]).toLocaleString()}\``)
+    upgradeCostData.push(`**G-Tokens** <:coins:943379224163672074> \`${(costChart[level - 1] || 0).toLocaleString()}\``)
     upgradeCostData.push(`**Pieces** ${unit['EMOJI']} \`${(nextLevelPieceCost).toLocaleString()}\``)
   } else {
 
   }
 
-    upgradeCostData.push(`
+  upgradeCostData.push(`
   **Total G-Tokens** <:coins:943379224163672074> \`${getTotalCost(level - 2, costChart)}\`
   **Total Pieces** ${unit['EMOJI']} \`${getTotalCost(level - 2, pieceChart)}\`
     `)
@@ -566,7 +573,7 @@ exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost) {
 
   cache.set(`${unit['Unit Name']}_${level}_${star_rank}_${unitBoost}`, returnData, 0);
   endTime = performance.now();
-  console.log(`Level ${level-1} ${unit['Unit Name']} took ${endTime - startTime}ms`)
+  console.log(`Level ${level - 1} ${unit['Unit Name']} took ${endTime - startTime}ms`)
   return returnData;
 };
 
@@ -578,16 +585,16 @@ function inRange(x, min, max) {
 }
 
 
-const oneStarCost = [0, 20,80,120,200,300,400,500,600,800,1000,1500,2000,2500,3000,4000,5000,6000,7000,12000,13500,15000,16500,18000,19500,21000,22500,24000,27000,30000,33000,33000,36000,36000,39000,39000,42000,42000,45000,45000,48000,51000,54000,58000,62000,67000,72000,77000,83000,89000]
-const twoStarCost = [0,50,200,300,400,500,750,1000,1250,1500,1750,2000,2250,2500,3000,3500,4000,4500,5000,6000,11900,13600,15300,17000,19125,21250,23375,25500,29750,34000,35700,37400,39100,40800,42500,44200,45900,47600,49300,51000,54000,57000,60000,64000,68000,73000,78000,83000,89000,95000]
-const threeStarCost = [0,200,600,800,1000,1200,1400,1600,1800,2000,2200,2400,2800,3200,3600,4000,4400,4800,5200,5600,10500,14000,15750,17500,19250,21000,22750,24500,29750,35000,40000,40000,40000,40000,40000,40000,40000,40000,40000,40000,45000,45000,51000,51000,58000,58000,66000,66000,75000,75000]
-const fourStarCost = [0,2500,2500,2500,2500,5000,5000,5000,5000,5000,9000,9000,9000,9000,9000,9000,9000,9000,9000,9000,20000,20000,20000,20000,20000,25000,25000,25000,25000,25000,30000,30000,30000,30000,30000,35000,35000,35000,35000,35000]
+const oneStarCost = [0, 20, 80, 120, 200, 300, 400, 500, 600, 800, 1000, 1500, 2000, 2500, 3000, 4000, 5000, 6000, 7000, 12000, 13500, 15000, 16500, 18000, 19500, 21000, 22500, 24000, 27000, 30000, 33000, 33000, 36000, 36000, 39000, 39000, 42000, 42000, 45000, 45000, 48000, 51000, 54000, 58000, 62000, 67000, 72000, 77000, 83000, 89000]
+const twoStarCost = [0, 50, 200, 300, 400, 500, 750, 1000, 1250, 1500, 1750, 2000, 2250, 2500, 3000, 3500, 4000, 4500, 5000, 6000, 11900, 13600, 15300, 17000, 19125, 21250, 23375, 25500, 29750, 34000, 35700, 37400, 39100, 40800, 42500, 44200, 45900, 47600, 49300, 51000, 54000, 57000, 60000, 64000, 68000, 73000, 78000, 83000, 89000, 95000]
+const threeStarCost = [0, 200, 600, 800, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 2400, 2800, 3200, 3600, 4000, 4400, 4800, 5200, 5600, 10500, 14000, 15750, 17500, 19250, 21000, 22750, 24500, 29750, 35000, 40000, 40000, 40000, 40000, 40000, 40000, 40000, 40000, 40000, 40000, 45000, 45000, 51000, 51000, 58000, 58000, 66000, 66000, 75000, 75000]
+const fourStarCost = [0, 2500, 2500, 2500, 2500, 5000, 5000, 5000, 5000, 5000, 9000, 9000, 9000, 9000, 9000, 9000, 9000, 9000, 9000, 9000, 20000, 20000, 20000, 20000, 20000, 25000, 25000, 25000, 25000, 25000, 30000, 30000, 30000, 30000, 30000, 35000, 35000, 35000, 35000, 35000]
 
 
-const oneStarPieces = [0,2,4,6,10,15,20,25,30,40,50,60,70,80,90,100,125,150,175,200,250,300,350,400,450,500,550,600,650,700,750,800,875,950,1025,1100,1200,1300,1400,1500,1600,1700,1900,2100,2500,3000,3500,4000,4500,5500]
-const twoStarPieces = [0,2,4,6,8,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,90,100,110,120,130,140,160,180,200,220,240,270,300,330,360,390,420,450,500,550,600,675,750,850,950,1050,1200,1350,1500,2000]
-const threeStarPieces = [0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,18,20,22,24,26,28,31,34,37,40,45,50,55,60,65,70,75,80,85,90,95,100,105,110,120,130,150,170,210,250,300,350,400,500,]
-const fourStarPieces = [0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,3,3,3,4,4,4,5,5,6,6,7,7,8,8,9,9,10,10,11,12,]
+const oneStarPieces = [0, 2, 4, 6, 10, 15, 20, 25, 30, 40, 50, 60, 70, 80, 90, 100, 125, 150, 175, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 875, 950, 1025, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1900, 2100, 2500, 3000, 3500, 4000, 4500, 5500]
+const twoStarPieces = [0, 2, 4, 6, 8, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 90, 100, 110, 120, 130, 140, 160, 180, 200, 220, 240, 270, 300, 330, 360, 390, 420, 450, 500, 550, 600, 675, 750, 850, 950, 1050, 1200, 1350, 1500, 2000]
+const threeStarPieces = [0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 20, 22, 24, 26, 28, 31, 34, 37, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 120, 130, 150, 170, 210, 250, 300, 350, 400, 500,]
+const fourStarPieces = [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 11, 12,]
 
 function getTotalCost(level, array) {
   totalArray = array.slice(0, level + 1)

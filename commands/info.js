@@ -19,7 +19,7 @@ module.exports = {
 
     run: async ({ message, interaction, channel, client, args, guild }) => {
         const cacheStats = cache.getCacheStats();
-        var botUses = db.get(`stats.uses`)
+        var botUses = await db.get(`stats.uses`)
         const cpu = await si.cpu();
         const gpu = await si.graphics();
         const cpuName = `${cpu.manufacturer} ${cpu.brand}`

@@ -125,7 +125,7 @@ ${newsQuote}
           <div class="article">${newsArticle}</div>
            <div class="credit-bar">
       Created by ${interaction.user.username}
-       <span class="issue-number">Issue #${db.get('news.uses')}</span>
+       <span class="issue-number">Issue #${await db.get('news.uses')}</span>
       </div>
           
           </img>

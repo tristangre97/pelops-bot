@@ -13,7 +13,7 @@ const {
 module.exports = {
     name: 'interactionCreate',
     async execute(interaction) {
-        if (!interaction.isSelectMenu()) return;
+        if (!interaction.isStringSelectMenu()) return;
 
         if (interaction.customId === 'randomDeckSelectMenu') {
             deckAmount = Number(interaction.values[0])

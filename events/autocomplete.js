@@ -98,7 +98,7 @@ module.exports = {
             searchData = unitSearch;
             cacheName = 'unitNames';
 
-            var unitUsage = cache.get('unitUsage') || db.get('unitStats')
+            var unitUsage = cache.get('unitUsage') || await db.get('unitStats')
             if (!cache.get('unitUsage')) cache.set('unitUsage', unitUsage, 5)
 
             var rankedUnits = Object.entries(unitUsage).sort((a, b) => b[1] - a[1])
@@ -122,7 +122,7 @@ module.exports = {
             searchData = leaderSearch;
             cacheName = 'leaderNames';
 
-            var unitUsage = cache.get('unitLeaderStats') || db.get('unitLeaderStats')
+            var unitUsage = cache.get('unitLeaderStats') || await db.get('unitLeaderStats')
             if (!cache.get('unitLeaderStats')) cache.set('unitLeaderStats', unitUsage, 3600)
 
 

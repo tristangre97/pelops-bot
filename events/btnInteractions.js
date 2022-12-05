@@ -22,7 +22,7 @@ module.exports = {
   name: 'interactionCreate',
   async execute(interaction) {
 
-    if (interaction.type != InteractionType.MessageComponent || interaction.isSelectMenu()) return;
+    if (interaction.type != InteractionType.MessageComponent || interaction.isStringSelectMenu()) return;
 
 
 
@@ -45,8 +45,8 @@ module.exports = {
       var deckID = interactionID
 
 
-      if (db.get(`userLikes.${interaction.user.id}.${deckID}`)) return interaction.reply({ content: 'You already liked this deck!', ephemeral: true })
-      if (db.get(`userDislikes.${interaction.user.id}.${deckID}`)) {
+      if (await db.get(`userLikes.${interaction.user.id}.${deckID}`)) return interaction.reply({ content: 'You already liked this deck!', ephemeral: true })
+      if (await db.get(`userDislikes.${interaction.user.id}.${deckID}`)) {
         db.delete(`userDislikes.${interaction.user.id}.${deckID}`)
         await db.sub(`deckStats.${deckID}.dislikes`, 1)
       }
@@ -83,8 +83,8 @@ module.exports = {
 
     if (btnType == 'deckDislike') {
       var deckID = interactionID
-      if (db.get(`userDislikes.${interaction.user.id}.${deckID}`)) return interaction.reply({ content: 'You already disliked this deck!', ephemeral: true })
-      if (db.get(`userLikes.${interaction.user.id}.${deckID}`)) {
+      if (await db.get(`userDislikes.${interaction.user.id}.${deckID}`)) return interaction.reply({ content: 'You already disliked this deck!', ephemeral: true })
+      if (await db.get(`userLikes.${interaction.user.id}.${deckID}`)) {
         await db.delete(`userLikes.${interaction.user.id}.${deckID}`)
         await db.sub(`deckStats.${deckID}.likes`, 1)
       }
@@ -277,7 +277,7 @@ ${deckData.details.description}
     }
 
 
-    var interactionData = await db.get(`interactions.${interactionID}`) || db.get(`news.${interactionID}`);
+    var interactionData = await db.get(`interactions.${interactionID}`) || await db.get(`news.${interactionID}`);
     if (!interactionData) {
       return interaction.reply({
         content: 'Interaction not found.',
@@ -296,7 +296,7 @@ ${deckData.details.description}
           ephemeral: true
         })
       }
-      var newsDetails = db.get(`news.${interactionID}`);
+      var newsDetails = await db.get(`news.${interactionID}`);
 
       if (!newsDetails) {
         return interaction.reply({
@@ -398,7 +398,7 @@ ${deckData.details.description}
         })
       }
 
-      var newsDetails = db.get(`news.${interactionID}`);
+      var newsDetails = await db.get(`news.${interactionID}`);
 
       if (!newsDetails) {
         return interaction.reply({
@@ -473,7 +473,7 @@ ${deckData.details.description}
         await db.set(`interactions.${interactionID}.newUser`, interaction.user.id)
 
 
-        interactionData = db.get(`interactions.${interactionID}`)
+        interactionData = await db.get(`interactions.${interactionID}`)
       }
 
       var unitName = interactionData.unit;
