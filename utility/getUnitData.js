@@ -47,7 +47,7 @@ exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost) {
   }
   if (cache.get(`${unit['Unit Name']}_${level}_${star_rank}_${unitBoost}`)) {
     endTime = performance.now();
-    console.log(`${unit['Unit Name']} took ${endTime - startTime}ms`);
+    console.log(`Level ${level-1} ${unit['Unit Name']} took ${endTime - startTime}ms (cached)`)
     return await cache.get(`${unit['Unit Name']}_${level}_${star_rank}_${unitBoost}`);
   }
   const unitEmbed = new EmbedBuilder();
@@ -69,7 +69,7 @@ exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost) {
       "15-20": "10",
       "20-25": "2",
       "25-30": "2",
-      "31-40": "0.50",
+      "31-40": "0.5",
       "41-50": "0.05",
     },
     2: {
@@ -79,7 +79,7 @@ exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost) {
       "15-20": "10",
       "20-25": "2",
       "25-30": "2",
-      "31-40": "0.50",
+      "31-40": "0.5",
       "41-50": "0.05",
     },
     3: {
@@ -89,7 +89,8 @@ exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost) {
       "15-20": "10",
       "20-25": "2",
       "25-30": "2",
-      "31-40": "0.50",
+      "31-40": "0.5",
+      "41-50": "0.5",
     },
 
     4: {
@@ -112,6 +113,7 @@ exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost) {
       "20-25": "2",
       "25-30": "2",
       "31-40": "0.50",
+      "41-50": "0.50",
     },
 
     4: {
@@ -121,6 +123,7 @@ exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost) {
       "15-20": "3",
       "20-25": "2",
       "25-30": "2",
+      "31-40": "0.50",
     },
   }
 
@@ -289,6 +292,7 @@ exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost) {
     if (unitName.includes("Shin")) unitName = 'Shin Godzilla'
     if (unitName.includes("Biollante")) unitName = 'Biollante'
     if (unitName.includes("Battra")) unitName = 'Battra'
+    if (unitName.includes("Terrestris ")) unitName = 'Godzilla Ultima'
 
     if (unitName == 'Destoroyah Aggregate Form' || unitName == 'Destoroyah Flying Form' || unitName == 'Destoroyah Perfect Form') unitName = 'Destoroyah'
 
@@ -460,7 +464,7 @@ exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost) {
     })
   }
   if (unit.LEADER == 'TRUE') {
-    unitNotice.push(`Leader levels above 40/50 are currently not correct. If you have a leader at level 41/51, please post in the <#875214614416224266> channel.`)
+    unitNotice.push(`Leader levels above 40/50 may not be accurate. If you have a leader at level 41+, please post in the <#875214614416224266> channel.`)
 
     var attacksPerSecond = Math.abs(1 / leaderAttackSpeed);
     var dps = parseInt(attacksPerSecond * unitLeaderAttack)
@@ -571,7 +575,7 @@ exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost) {
 
   cache.set(`${unit['Unit Name']}_${level}_${star_rank}_${unitBoost}`, returnData, 0);
   endTime = performance.now();
-  console.log(`${unit['Unit Name']} took ${endTime - startTime}ms`);
+  console.log(`Level ${level-1} ${unit['Unit Name']} took ${endTime - startTime}ms`)
   return returnData;
 };
 
@@ -583,16 +587,16 @@ function inRange(x, min, max) {
 }
 
 
-const oneStarCost = [0, 20, 80, 120, 200, 300, 400, 500, 600, 800, 1000, 1500, 2000, 2500, 3000, 4000, 5000, 6000, 7000, 12000, 13500, 15000, 16500, 18000, 19500, 21000, 22500, 24000, 27000, 30000, 33000, 33000, 36000, 36000, 39000, 39000, 42000, 42000, 45000, 45000]
-const twoStarCost = [0, 50, 200, 300, 400, 500, 750, 1000, 1250, 1500, 1750, 2000, 2250, 2500, 3000, 3500, 4000, 4500, 5000, 6000, 11900, 13600, 15300, 17000, 19125, 21250, 23375, 25500, 29750, 34000, 35700, 37400, 39100, 40800, 42500, 44200, 45900, 47600, 49300, 51000]
-const threeStarCost = [0, 200, 600, 800, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 2400, 2800, 3200, 3600, 4000, 4400, 4800, 5200, 5600, 10500, 14000, 15750, 17500, 19250, 21000, 22750, 24500, 29750, 35000, 40000, 40000, 40000, 40000, 40000, 40000, 40000, 40000, 40000, 40000]
-const fourStarCost = [0, 2500, 2500, 2500, 2500, 5000, 5000, 5000, 5000, 5000, 9000, 9000, 9000, 9000, 9000, 9000, 9000, 9000, 9000, 9000, 20000, 20000, 20000, 20000, 20000, 25000, 25000, 25000, 25000, 25000]
+const oneStarCost = []
+const twoStarCost = []
+const threeStarCost = []
+const fourStarCost = []
 
 
-const oneStarPieces = [0, 2, 4, 6, 10, 15, 20, 25, 30, 40, 50, 75, 100, 125, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 900, 1000, 1100, 1100, 1200, 1200, 1300, 1300, 1400, 1400, 1500, 1500]
-const twoStarPieces = [0, 2, 4, 6, 8, 10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 120, 140, 160, 180, 200, 225, 250, 275, 300, 350, 400, 420, 440, 460, 480, 500, 520, 540, 560, 580, 600]
-const threeStarPieces = [0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 40, 45, 50, 55, 60, 65, 70, 85, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
-const fourStarPieces = [0, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5]
+const oneStarPieces = []
+const twoStarPieces = []
+const threeStarPieces = []
+const fourStarPieces = []
 
 function getTotalCost(level, array) {
   totalArray = array.slice(0, level + 1)
