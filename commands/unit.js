@@ -7,8 +7,10 @@ const {
 } = require('discord.js');
 const search = require('../utility/search.js');
 const unitEmbedGen = require('../utility/getUnitData.js');
+const unitEmbedGenV2 = require('../utility/getUnitDataV2.js');
 const unitBoosts = require('../data/unitBoosts.js');
 const boostOptions = []
+const developer = require('../developer.json');
 
 for (item in unitBoosts) {
     boostOptions.push({
@@ -67,19 +69,60 @@ module.exports = {
     }) => {
 
 
+        //    args = {unit_name, unit_level, star_rank, apply_boost};
+        var { unit_name, unit_level, star_rank, apply_boost } = args;
+
+        interactionID = random.id(8);
+
+        // var unit_name = args['unit_name'];
+        // var unit_level = args['unit_level'];
+        // var star_rank = args['star_rank'] || 1;
+        // var apply_boost = args['apply_boost'] || 0;
 
 
 
-        var unit_name = args['unit_name'];
-        var unit_level = args['unit_level'];
-        var star_rank = args['star_rank'] || 1;
-        var apply_boost = args['apply_boost'] || 0;
+
+
+
+        if (developer.test === true && developer.testers.includes(interaction.user.id)) {
+            data = {
+                id: interactionID,
+                user: interaction.user.id,
+                time: Date.now(),
+                guild: interaction.guild.id,
+                unit: {
+                    name: unit_name,
+                    level: unit_level,
+                    star_rank: star_rank,
+                    apply_boost: apply_boost,
+                }
+            }
+
+           const unitData = await unitEmbedGenV2.get(data);
+
+
+           return interaction.reply({
+            embeds: [unitData.embed],
+
+        });
+
+        }
+
 
         if (apply_boost) apply_boost = apply_boost.replaceAll(" ", "_");
+
+
+
+
+
+
+
+
+
+
         var embedComponents = [];
 
         startTime = performance.now();
-
         var selectedUnit = unit_name;
         var level = Math.abs(unit_level);
         searchResults = await search.unitSearch(selectedUnit);
@@ -103,11 +146,8 @@ module.exports = {
 
         unit = searchResults[0].item;
         unitRarity = Number(unit.RARITY);
-        if (unitRarity == "4") {
-            maxLevel = 40;
-        } else {
-            maxLevel = 50;
-        }
+        const maxLevel = (unitRarity < 4) ? 50 : 40;
+
         if (level < 1) level = 1
         if (level - 1 > maxLevel) {
             level = maxLevel
@@ -122,7 +162,6 @@ module.exports = {
         unitsName = unit['Unit Name'].replaceAll(" ", "_")
         originalUser = interaction.user.id
 
-        interactionID = random.id(8);
 
         const interactionData = {
             id: interactionID,
