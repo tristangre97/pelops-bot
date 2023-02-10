@@ -151,7 +151,7 @@ module.exports = {
 
 
 
-        
+
 
 
 
@@ -165,7 +165,9 @@ module.exports = {
         unitOneData = unitOneData.unitData;
         unitTwoData = unitTwoData.unitData;
         // console.log(unitOneData)
-        var cardSections = [`<div class="separation-title half">Unit Stats</div>`]
+        var unitCardSections = [`<div class="separation-title half">Unit Stats</div>`]
+        var leaderCardSections = [`<div class="separation-title half">Leader Stats</div>`]
+
 
         // cardSections.push(`<div class="stat-card-section">
         // <p class="stat-title">Cost</p>
@@ -183,7 +185,7 @@ module.exports = {
         // }
 
         if (unitOneData.unitStats.HP > 0 || unitTwoData.unitStats.HP > 0) {
-            cardSections.push(`<div class="stat-card-section">
+            unitCardSections.push(`<div class="stat-card-section">
             <p class="stat-title">Health</p>
             <p class="stat-total half" >${unitOneData.unitStats.HP.toLocaleString()}</p>
             <p class="stat-total half" >${unitTwoData.unitStats.HP.toLocaleString()}</p>
@@ -191,7 +193,7 @@ module.exports = {
         }
 
         if (unitOneData.unitStats.ATK > 0 || unitTwoData.unitStats.ATK > 0) {
-            cardSections.push(`<div class="stat-card-section">
+            unitCardSections.push(`<div class="stat-card-section">
             <p class="stat-title">Attack</p>
             <p class="stat-total half" >${unitOneData.unitStats.ATK.toLocaleString()}</p>
             <p class="stat-total half" >${unitTwoData.unitStats.ATK.toLocaleString()}</p>
@@ -207,8 +209,7 @@ module.exports = {
 
 
         if (unitOneData.leaderStats.HP > 0 || unitTwoData.leaderStats.HP > 0) {
-            cardSections.push(`<div class="separation-title half">Leader Stats</div>`)
-            cardSections.push(`<div class="stat-card-section">
+            leaderCardSections.push(`<div class="stat-card-section">
             <p class="stat-title">Health</p>
             <p class="stat-total half" >${unitOneData.leaderStats.HP.toLocaleString()}</p>
             <p class="stat-total half" >${unitTwoData.leaderStats.HP.toLocaleString()}</p>
@@ -216,7 +217,7 @@ module.exports = {
         }
 
         if (unitOneData.leaderStats.ATK > 0 || unitTwoData.leaderStats.ATK > 0) {
-            cardSections.push(`<div class="stat-card-section">
+            leaderCardSections.push(`<div class="stat-card-section">
             <p class="stat-title">Attack</p>
             <p class="stat-total half" >${unitOneData.leaderStats.ATK.toLocaleString()}</p>
             <p class="stat-total half" >${unitTwoData.leaderStats.ATK.toLocaleString()}</p>
@@ -231,12 +232,18 @@ module.exports = {
         }
 
 
+        var leaderStatSection = '';
 
+        if(leaderCardSections.length > 1) {
+            leaderStatSection = `<div class="unit-stat-card-half">  
+            ${leaderCardSections.join('')}
+        </div>`
+        }
 
 
         var finalHTML = `
         <style>
-*{font-family:"Poppins",sans-serif;box-sizing:border-box;z-index:100;text-shadow:0 1px 1px rgb(0 0 0 / 20%)}.unit-compare-card{background:linear-gradient(to bottom,rgba(255,162,76,113),rgba(255,185,76));color:#462b00;width:900px;height:auto;border-radius:0px;display:flex;position:relative;padding-top:25px;padding-bottom:15px;overflow:hidden;position:relative;z-index:10}.unit-card{width:100%;text-align:center}.unit-card-header{width:95%;margin:auto;height:auto;display:flex}.unit-data{width:50%}.unit-img-cont{max-width:300px;min-height:200px;margin:auto;display:flex;justify-content:center;align-items:center;position:relative}.unit-img-cont img{max-width:300px;max-height:150px;filter:drop-shadow(0 2px 3px rgba(76,146,255,.4))}.unitName{font-size:34px;letter-spacing:.25px;margin-top:0;margin-bottom:8px;color:#462b00}.unitRarity{display:none}.unitLevel{font-size:20px;font-weight:500;letter-spacing:.15px;margin-top:5px;margin-bottom:5px}.unit-stat-card{display:flex;flex-wrap:wrap;position:relative;padding:25px;row-gap:15px;column-gap:25px;justify-content:space-between}.stat-card-section{display:flex;flex-wrap:wrap;width:95%;margin:auto;background:rgba(255,185,76);border:2px solid rgb(255,162,113);border-radius:15px;position:relative;padding-top:15px;padding-bottom:15px;margin-bottom:0;box-shadow:0 2px 4px rgb(255,162,113)}.mini-stat-card-section{display:flex;flex-wrap:wrap;width:100%;margin:auto;position:relative;padding-top:15px;padding-bottom:0;margin-bottom:0}.full{width:100%}.half{width:50%}.stat-title{width:140px;font-size:18px;font-weight:700;letter-spacing:.15px;color:#fff;text-transform:uppercase;margin-top:8px;position:absolute;top:21px;left:50%;transform:translatex(-50%);background:rgb(255,162,113);border:0 solid rgb(76,146,255);border-radius:9px;padding:5px;padding-left:15px;padding-right:15px}.stat-total{font-size:34px;font-weight:600;letter-spacing:.15px;color:#003735;margin-top:8px;margin-bottom:8px}.credit-text{position:absolute;bottom:-10px;right:50%;transform:translatex(50%);display:none}.credit-img{position:absolute;height:75px;display:block;bottom:5px;right:5px;filter:drop-shadow(0 2px 2px rgba(102,248,243,1));z-index:10000}.small-text{font-size:20px;font-weight:400;letter-spacing:.15px}.flex-wrap{display:flex;flex-wrap:wrap}.higher{color:rgb(0,226,167)}.lower{color:rgb(255,76,148)}.separation-title{font-size:34px;font-weight:600;letter-spacing:.15px;background:rgb(76,146,255);color:#fff;border:0 solid rgb(76,146,255);margin:auto;border-radius:15px;box-shadow:0 2px 4px rgb(255,162,113)}
+*{font-family:"Poppins",sans-serif;box-sizing:border-box;z-index:100;text-shadow:0 1px 1px rgb(0 0 0 / 20%)}.unit-compare-card{background:linear-gradient(to bottom,rgba(255,162,76,113),rgba(255,185,76));color:#462b00;width:900px;height:auto;border-radius:0px;display:flex;position:relative;padding-top:25px;padding-bottom:0;overflow:hidden;position:relative;z-index:10}.unit-card{width:100%;text-align:center}.unit-card-header{width:95%;margin:auto;height:auto;display:flex}.unit-data{width:50%}.unit-img-cont{max-width:300px;min-height:200px;margin:auto;display:flex;justify-content:center;align-items:center;position:relative}.unit-img-cont img{max-width:300px;max-height:150px;filter:drop-shadow(0 2px 3px rgba(76,146,255,.4))}.unitName{font-size:34px;letter-spacing:.25px;margin-top:0;margin-bottom:8px;color:#462b00}.unitRarity{display:none}.unitLevel{font-size:20px;font-weight:500;letter-spacing:.15px;margin-top:5px;margin-bottom:5px}.unit-stat-card-half{display:flex;flex-wrap:wrap;position:relative;row-gap:10px;column-gap:25px;justify-content:space-between}.stat-card-section{display:flex;flex-wrap:wrap;width:95%;margin:auto;border-radius:15px;position:relative;padding-top:15px;padding-bottom:15px;margin-bottom:0}.mini-stat-card-section{display:flex;flex-wrap:wrap;width:100%;margin:auto;position:relative;padding-top:15px;padding-bottom:0;margin-bottom:0}.full{width:100%}.half{width:50%}.stat-title{width:140px;font-size:18px;font-weight:700;letter-spacing:.15px;color:#fff;text-transform:uppercase;margin-top:8px;position:absolute;top:21px;left:50%;transform:translatex(-50%);background:rgb(255,162,113);border:0 solid rgb(76,146,255);border-radius:9px;padding:5px;padding-left:15px;padding-right:15px}.stat-total{font-size:34px;font-weight:600;letter-spacing:.15px;color:#003735;margin-top:8px;margin-bottom:8px}.credit-text{position:absolute;bottom:-10px;right:50%;transform:translatex(50%);display:none}.credit-img{position:absolute;height:75px;display:block;bottom:5px;right:5px;filter:drop-shadow(0 2px 2px rgba(102,248,243,1));z-index:10000}.small-text{font-size:20px;font-weight:400;letter-spacing:.15px}.flex-wrap{display:flex;flex-wrap:wrap}.higher{color:rgb(0,226,167)}.lower{color:rgb(255,76,148)}.separation-title{font-size:24px;font-weight:800;letter-spacing:.15px;background:rgb(76,146,255);color:#fff;border:0 solid rgb(76,146,255);margin:auto;width:100%;border-radius:0;box-shadow:0 2px 4px rgb(255,162,113);padding:3px;text-transform:uppercase}.margin-top-large{margin-top:20px}.margin-top-bottom{margin-bottom:20px}
         </style>
         <div class="unit-compare-card">
         <div class="thing"></div>
@@ -264,15 +271,13 @@ module.exports = {
     
         </div>
     
-        <div class="unit-stat-card">
-          
-          
-          
-${cardSections.join('')}
-
-   
-          
+        <div class="unit-stat-card-half margin-top-large">  
+            ${unitCardSections.join('')}
         </div>
+
+        ${leaderStatSection}
+
+
     
     
     

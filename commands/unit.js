@@ -98,13 +98,13 @@ module.exports = {
                 }
             }
 
-           const unitData = await unitEmbedGenV2.get(data);
+            const unitData = await unitEmbedGenV2.get(data);
 
 
-           return interaction.reply({
-            embeds: [unitData.embed],
+            return interaction.reply({
+                embeds: [unitData.embed],
 
-        });
+            });
 
         }
 
@@ -215,7 +215,31 @@ module.exports = {
 
 
 
-        embed = await unitEmbedGen.getUnitEmbed(unit, unit_level, star_rank, apply_boost);
+        if (interaction.user.id == `222781123875307521`) {
+            estimatedTimeMS = unit_level * 0.3;
+            if (estimatedTimeMS > 4900) {
+                await interaction.reply({
+                    content: `To calculate a level ${unit_level} ${unit_name} it will take an estimated **${(estimatedTimeMS / 1000).toFixed(2)}** seconds.
+Discord only gives me 5 seconds to respond so I will send you a DM with the results.
+`,
+                })
+
+
+                embed = await unitEmbedGen.getUnitEmbed(unit, unit_level, star_rank, apply_boost, true);
+
+                return interaction.user.send({
+                    embeds: [embed.embed],
+                })
+
+            } else {
+                embed = await unitEmbedGen.getUnitEmbed(unit, unit_level, star_rank, apply_boost, true);
+            }
+
+
+        } else {
+            embed = await unitEmbedGen.getUnitEmbed(unit, unit_level, star_rank, apply_boost);
+        }
+
 
         await interaction.reply({
             embeds: [embed.embed],

@@ -67,6 +67,7 @@ exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost, disabl
   var totalLeaderHPBonus = 0;
   var totalLeaderDmgBonus = 0;
   var totalSpeedBonus = 0;
+
   const upgradePercent = {
     1: {
       "1-5": "20",
@@ -198,18 +199,7 @@ exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost, disabl
   while (i < level) {
     levelCalcStart = performance.now();
 
-    // if (inRange(bl, 0, 1)) {
-    //   transferTimeDecrease = 0.16
-    // }
-    // if (inRange(bl, 2, 4)) {
-    //   transferTimeDecrease = 0.15
-    // }
-    // if (inRange(bl, 5, 9)) {
-    //   transferTimeDecrease = 0.14
-    // }
-    // if (inRange(bl, 10, 14)) {
-    //   transferTimeDecrease = 0.13
-    // }
+    
 
     if (inRange(bl, 0, 4)) {
       var percent = upgradePercent[unitRarity]["1-5"];
@@ -250,34 +240,37 @@ exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost, disabl
     }
 
 
+
     var factor = percent;
     var leaderFactor = leaderPercent;
     var recoveryFactor = recoveryPercent;
+
     bl++;
     i++;
     if (bl > level - 1) {
 
     } else {
 
+      unitHealth = Math.ceil(unitHealth + (unitHealth * (factor / 100)));
+      unitAttack = Math.ceil(unitAttack + (unitAttack * (factor / 100)));
 
-      unitHealth = Math.ceil(mathjs.evaluate(`${unitHealth} + ${factor}%`));
-      unitAttack = Math.ceil(mathjs.evaluate(`${unitAttack} + ${factor}%`));
 
-      unitLeaderHealth = Math.ceil(mathjs.evaluate(`${unitLeaderHealth} + ${leaderFactor}%`));
-      unitLeaderAttack = Math.ceil(mathjs.evaluate(`${unitLeaderAttack} + ${leaderFactor}%`));
+      unitLeaderHealth = Math.ceil(unitLeaderHealth + (unitLeaderHealth * (leaderFactor / 100)));
+      unitLeaderAttack = Math.ceil(unitLeaderAttack + (unitLeaderAttack * (leaderFactor / 100)));
 
 
 
       transferTime = transferTime - transferTimeDecrease;
 
-      recoveryAmount = Math.ceil(mathjs.evaluate(`${recoveryAmount} + ${recoveryFactor}%`));
+      recoveryAmount = Math.ceil(recoveryAmount + (recoveryAmount * (recoveryFactor / 100)));
 
-      acidDamage = Math.ceil(mathjs.evaluate(`${acidDamage} + ${factor}%`));
-      digDamage = Math.round(mathjs.evaluate(`${digDamage} + ${factor}%`));
+    
+      acidDamage = Math.ceil(acidDamage + (acidDamage * (factor / 100)));
+      digDamage = Math.round(digDamage + (digDamage * (factor / 100)));
 
     }
     levelCalcEnd = performance.now();
-    console.log(`Level ${i} calculated in ${levelCalcEnd - levelCalcStart}ms`);
+    // console.log(`Level ${i} calculated in ${levelCalcEnd - levelCalcStart}ms`);
   }
   // End stat calculation loop
 

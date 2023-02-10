@@ -44,19 +44,38 @@ const https = require('https');
 
 
     const content = await page.$(`${data.selector}`);
-    const imageBuffer = await content.screenshot({ 
-      omitBackground: false,
-      type: 'jpeg',
-      quality: 100,
-    });
+
+    // Make a permanent fix later
+
+    if (data.image.type == 'jpeg') {
+      var imageBuffer = await content.screenshot({
+        omitBackground: false,
+        type: 'jpeg',
+        quality: 100,
+      });
+    }
+
+    if (data.image.type == 'png') {
+      var imageBuffer = await content.screenshot({
+        omitBackground: true,
+        type: 'png'
+      });
+    }
+
+
+
     return imageBuffer;
   });
 
   // setup server
-  exports.cluster = async function (html, selector) {
+  exports.cluster = async function (html, selector, type, quality) {
     data = {
       html: html,
-      selector: selector
+      selector: selector,
+      image: {
+        type: type || 'jpeg',
+        quality: quality || 100,
+      }
     }
     const image = await cluster.execute(data);
     return image;
@@ -71,7 +90,7 @@ const https = require('https');
 
 exports.request = async function (html, selector) {
   if (!selector) selector = 'body'
-  
+
   body = {
     html: html,
     selector: selector
