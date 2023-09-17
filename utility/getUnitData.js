@@ -1,6 +1,6 @@
 const cache = require('./cache.js');
 const db = require('./database.js');
-const unitBoosts = require('../data/boosts.json').BOOSTS;
+const unitBoosts = JSON.parse(cache.get("boosts")) || require('../data/boosts.json').BOOSTS;
 const {
   EmbedBuilder,
   ActionRowBuilder,
@@ -11,7 +11,7 @@ const search = require('./search.js');
 const mathjs = require('mathjs')
 
 
-exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost, disableMaxLevel) {
+exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost) {
   db.add(`stats.uses`)
   db.add(`unitStats.${unit['Unit Name']}`)
   startTime = performance.now();
@@ -39,16 +39,12 @@ exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost, disabl
   var star_rank = Number(star_rank) || 1;
   if (star_rank > 30) star_rank = 30;
 
-  if (disableMaxLevel) {
-    maxLevel = level;
-  } else {
 
-    maxLevel = (unitRarity < 4) ? 50 : 40;
-    if (level - 1 >= maxLevel) {
-      level = maxLevel + 1;
-      levelMsg = `**MAX LEVEL**`
-    }
 
+  maxLevel = (unitRarity < 4) ? 50 : 40;
+  if (level - 1 >= maxLevel) {
+    level = maxLevel + 1;
+    levelMsg = `**MAX LEVEL**`
   }
 
   if (cache.get(`${unit['Unit Name']}_${level}_${star_rank}_${unitBoost}`)) {
@@ -199,7 +195,7 @@ exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost, disabl
   while (i < level) {
     levelCalcStart = performance.now();
 
-    
+
 
     if (inRange(bl, 0, 4)) {
       var percent = upgradePercent[unitRarity]["1-5"];
@@ -264,7 +260,7 @@ exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost, disabl
 
       recoveryAmount = Math.ceil(recoveryAmount + (recoveryAmount * (recoveryFactor / 100)));
 
-    
+
       acidDamage = Math.ceil(acidDamage + (acidDamage * (factor / 100)));
       digDamage = Math.round(digDamage + (digDamage * (factor / 100)));
 
@@ -475,7 +471,6 @@ exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost, disabl
 `,
       inline: false
     })
-    unitEmbed.setFooter({ text: `To see leader ability use /leader_ability` })
   }
 
   if (unit.BUILDING === "TRUE") {
@@ -555,7 +550,7 @@ exports.getUnitEmbed = async function (unit, level, star_rank, unitBoost, disabl
     unitEmbed.setDescription(`${appliedBoosts.join(`\n`)}`);
 
   }
-  unitEmbed.setThumbnail(`https://res.cloudinary.com/tristangregory/image/upload/e_sharpen,h_300,w_300,c_fit,c_pad,b_rgb:ffb33c/v1667588389/gbl/${unit['Unit Name'].replaceAll(" ", "_").replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "")}`)
+  unitEmbed.setThumbnail(`https://res.cloudinary.com/tristangregory/image/upload/e_sharpen,h_300,w_300,c_fit,c_pad/v1667588389/gbl/${unit['Unit Name'].replaceAll(" ", "_").replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "")}`)
 
 
   var returnData = {
