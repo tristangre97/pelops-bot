@@ -210,35 +210,18 @@ module.exports = {
         }
 
 
+        actionBtns.addComponents(
+            new ButtonBuilder()
+                .setCustomId(`reportBtn ${interactionID}`)
+                .setLabel(`Report Incorrect Data`)
+                .setStyle('Danger')
+        )
+
 
         embedComponents.push(actionBtns);
 
 
-
-        if (interaction.user.id == `222781123875307521`) {
-            estimatedTimeMS = unit_level * 0.3;
-            if (estimatedTimeMS > 4900) {
-                await interaction.reply({
-                    content: `To calculate a level ${unit_level} ${unit_name} it will take an estimated **${(estimatedTimeMS / 1000).toFixed(2)}** seconds.
-Discord only gives me 5 seconds to respond so I will send you a DM with the results.
-`,
-                })
-
-
-                embed = await unitEmbedGen.getUnitEmbed(unit, unit_level, star_rank, apply_boost, true);
-
-                return interaction.user.send({
-                    embeds: [embed.embed],
-                })
-
-            } else {
-                embed = await unitEmbedGen.getUnitEmbed(unit, unit_level, star_rank, apply_boost, true);
-            }
-
-
-        } else {
-            embed = await unitEmbedGen.getUnitEmbed(unit, unit_level, star_rank, apply_boost);
-        }
+        embed = await unitEmbedGen.getUnitEmbed(unit, unit_level, star_rank, apply_boost);
 
 
         await interaction.reply({
