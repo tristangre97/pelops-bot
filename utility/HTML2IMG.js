@@ -1,28 +1,5 @@
-const nodeHtmlToImage = require('node-html-to-image')
-// const NodeImageFromHtml = require("node-image-from-html");
 const { Cluster } = require('puppeteer-cluster');
-// const fetch = require('node-fetch');
-const https = require('https');
 
-// const engine = new NodeImageFromHtml.BrowserHandler({
-//   concurrency: 5,
-// });
-
-// (async () => {
-
-//   await engine.start();
-
-//   exports.idk = async function (html, selector) {
-
-//     start = performance.now()
-//     const rendered = await engine.render(html, { selector: selector });
-//     end = performance.now()
-//     console.log(end - start)
-//     return rendered;
-
-//   }
-
-// })();
 
 
 
@@ -39,28 +16,27 @@ const https = require('https');
 
 
 
+
   await cluster.task(async ({ page, data: data }) => {
     await page.setContent(data.html);
 
 
     const content = await page.$(`${data.selector}`);
 
-    // Make a permanent fix later
+    const options = {
+      omitBackground: false,
+      type: 'jpeg',
+      quality: 100
+      };
+      
+      if (data?.image?.type == 'png') {
+      options.omitBackground = true;
+      options.type = 'png';
+      // remove quality
+      delete options.quality;
+      }
 
-    if (data.image.type == 'jpeg') {
-      var imageBuffer = await content.screenshot({
-        omitBackground: false,
-        type: 'jpeg',
-        quality: 100,
-      });
-    }
-
-    if (data.image.type == 'png') {
-      var imageBuffer = await content.screenshot({
-        omitBackground: true,
-        type: 'png'
-      });
-    }
+      var imageBuffer = await content.screenshot(options);
 
 
 
@@ -81,40 +57,9 @@ const https = require('https');
     return image;
   }
 
+      exports.close = async function (data) {
+        return await cluster.close();
+    };
+
 
 })();
-
-
-
-
-
-exports.request = async function (html, selector) {
-  if (!selector) selector = 'body'
-
-  body = {
-    html: html,
-    selector: selector
-  }
-
-  image = await fetch('http://localhost:8008/htmltoimg', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(body)
-
-  }).then((response) => response.json()).then((serverResponse) => {
-    return Buffer.from(JSON.stringify(serverResponse.image));
-  })
-
-
-
-  return image;
-
-}
-
-
-
-
-
-
