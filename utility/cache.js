@@ -10,6 +10,10 @@ exports.get = function (cacheName) {
   return botCache.get(cacheName);
 };
 
+exports.del = function (cacheName) {
+  return botCache.del(cacheName);
+};
+
 exports.getCacheStats = function () {
   var stats = {
     keys: botCache.keys(),
