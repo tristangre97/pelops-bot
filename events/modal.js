@@ -1,5 +1,4 @@
 const imgGen = require('../utility/HTML2IMG')
-const isImageURL = require('image-url-validator').default;
 const cache = require('../utility/cache.js');
 const db = require('../utility/database.js');
 const {
@@ -21,52 +20,6 @@ module.exports = {
 
 
     var hasErrors = false;
-
-
-
-    if (type === 'userDeckModal') {
-      deckData = await cache.get(`userDeckCreator_${interactionID}`)
-
-      const deckName = interaction.fields.getTextInputValue('deckName').substring(0, 100) || ""
-      
-      const deckDescription = interaction.fields.getTextInputValue('deckDescription') || ""
-      deckData.details.name = deckName
-      deckData.details.description = deckDescription
-      await cache.set(`userDeckCreator_${interactionID}`, deckData)
-
-      var embed = new EmbedBuilder()
-      embed.setDescription(`
-**Name**: 
-${deckData.details.name}
-**Description**:
-${deckData.details.description}
-${deckData.units.join('\n')}
-`)
-
-
-      var btns = new ActionRowBuilder()
-
-      btns = new ActionRowBuilder();
-      btns.addComponents(
-          new ButtonBuilder()
-              .setCustomId(`setUserDeckDetails ${interactionID}`)
-              .setLabel(`Set Deck Details`)
-              .setStyle('Primary')
-      )
-
-      btns.addComponents(
-        new ButtonBuilder()
-            .setCustomId(`submitUserDeck ${interactionID}`)
-            .setLabel(`Save Deck`)
-            .setStyle('Primary')
-            .setDisabled(deckData.details.name == '')
-    )
-      return interaction.update({
-        embeds: [embed],
-        components: [btns]
-      })
-
-    }
 
 
 
@@ -210,4 +163,10 @@ ${newsArticle}
   }
 
 
+}
+
+
+
+function isImageURL(url) {
+  return (url.match(/\.(jpeg|jpg|gif|png)$/) != null);
 }

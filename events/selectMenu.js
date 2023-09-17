@@ -1,6 +1,5 @@
 const random = require('../utility/random.js');
 const randomDeck = require('../utility/randomDeck');
-const userDecks = require('../utility/getUserDeck');
 const {
     EmbedBuilder,
     ActionRowBuilder,
