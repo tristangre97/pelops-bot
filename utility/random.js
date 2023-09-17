@@ -1,6 +1,5 @@
 const crypto = require("node:crypto");
 
-
 exports.number = function (min, max) {
     number = crypto.randomInt(min, max);
     return number;
@@ -11,15 +10,18 @@ exports.bytes = function (length) {
     return string;
 }
 
+exports.id = async function (length) {
+  const numBytes = Math.ceil(length / 2);
+  const randomBytes = crypto.randomBytes(numBytes);
+  const hexString = randomBytes.toString('hex').slice(0, length);
 
-exports.id = function (length) {
-    var result = '';
-    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    var charactersLength = characters.length;
-    for (var i = 0; i < length; i++) {
-        result += characters.charAt(Math.floor(Math.random() *
-            charactersLength));
-    }
-    return result;
+  const timestamp = Date.now().toString();
+
+  const hash = crypto.createHash('sha256');
+  hash.update(hexString + timestamp);
+  const hashDigest = hash.digest('hex');
+
+  const result = hashDigest.slice(0, length);
+
+  return result;
 }
-
