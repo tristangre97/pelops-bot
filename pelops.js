@@ -1,8 +1,31 @@
 const config = require("./auth.json");
-const cache = require('./utility/cache.js');
-const fs = require('node:fs');
-const path = require('node:path');
-const db = require('./utility/database.js');
+const cache = require("./utility/cache.js");
+const fs = require("node:fs");
+const path = require("node:path");
+const db = require("./utility/database.js");
+
+cache.set(
+  "unitData",
+  fs.readFileSync("./data/unitData.json", "utf8"),
+  0
+);
+console.log(`Unit data cached`);
+
+cache.set(
+  "starRankRewards",
+  fs.readFileSync("./data/starRankRewards.json", "utf8"),
+  0
+);
+console.log(`Star rank rewards cached`);
+
+cache.set(
+  "boosts",
+  fs.readFileSync("./data/boosts.json", "utf8"),
+  0
+);
+console.log(`Boosts cached`);
+
+
 const {
   Intents,
   EmbedBuilder,
@@ -13,23 +36,31 @@ const {
   Client,
   GatewayIntentBits,
   Partials,
-  Collection
+  Collection,
 } = require("discord.js");
+const { update } = require("./utility/update");
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMessageReactions, GatewayIntentBits.MessageContent], partials: [Partials.Channel] });
+const client = new Client({
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.GuildMessageReactions,
+    GatewayIntentBits.MessageContent,
+  ],
+  partials: [Partials.Channel],
+});
 
 client.commands = new Collection();
-const commandsPath = path.join(__dirname, 'commands');
-const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
+const commandsPath = path.join(__dirname, "commands");
+const commandFiles = fs
+  .readdirSync(commandsPath)
+  .filter((file) => file.endsWith(".js"));
 
 for (const file of commandFiles) {
   const filePath = path.join(commandsPath, file);
   const command = require(filePath);
-  // Set a new item in the Collection
-  // With the key as the command name and the value as the exported module
   client.commands.set(command.name, command);
 }
-
 
 // Get events
 const eventFiles = fs
@@ -44,27 +75,21 @@ for (const file of eventFiles) {
   }
 }
 
-
-client.on('ready', async () => {
-  await cache.set('unitData', fs.readFileSync('./data/unitData.json', 'utf8'), 0);
-  console.log(`Unit data cached`);
-  await cache.set('mapLogs', fs.readFileSync('./data/mapLogs.json', 'utf8'), 0);
-  console.log(`Map logs cached`);
-  await cache.set('seasonData', fs.readFileSync('./data/seasonData.json', 'utf8'), 0);
-  console.log(`Season data cached`);
-  await cache.set('leaderData', fs.readFileSync('./data/leaderData.json', 'utf8'), 0);
-  console.log(`Leader data cached`);
-  cache.set("pelops_update_status", "finished", 0);
-
+client.on("ready", async () => {
   console.log("Pelops is ready!");
-
 });
 
-
-
-
-client.on('interactionCreate', async interaction => {
+client.on("interactionCreate", async (interaction) => {
   if (!interaction.isChatInputCommand()) return;
+
+  updateStatus = cache.get("updateStatus") || false;
+
+  if(updateStatus == true) {
+    return interaction.reply({
+      content: "I am currently updating my data. Please try again later.",
+      ephemeral: true,
+    })
+  }
 
   const command = client.commands.get(interaction.commandName);
 
@@ -77,7 +102,6 @@ client.on('interactionCreate', async interaction => {
       args[arg.name] = arg.value || args[arg.name];
     }
 
-
     commandData = {
       message: interaction.message,
       interaction: interaction,
@@ -86,27 +110,26 @@ client.on('interactionCreate', async interaction => {
       args: args,
       guild: guild,
       member: interaction.member,
-    }
+    };
 
     commandStart = performance.now();
     await command.run(commandData);
     commandEnd = performance.now();
-    console.log(`Command ${command.name} executed by ${interaction.user.username} in ${interaction.guild.name} in ${commandEnd - commandStart}ms`);
-    db.add(`stats.uses`)
-
+    console.log(
+      `Command ${command.name} executed by ${interaction.user.username} in ${interaction.guild.name
+      } in ${commandEnd - commandStart}ms`
+    );
+    db.add(`stats.uses`);
   } catch (error) {
     console.error(error);
-    await interaction.reply({
+    await interaction.update({
       content: `There was an error while executing this command!\n${error}}`,
       embeds: [],
       components: [],
-      ephemeral: true
+      ephemeral: true,
     });
   }
-
 });
 
 
-
 client.login(config.token);
-
