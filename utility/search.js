@@ -1,11 +1,15 @@
 const fs = require('fs');
 const cache = require('./cache.js')
 const Fuse = require("fuse.js");
-const starRankData = require(`../data/starRankRewards.json`)
-const gblData = JSON.parse(fs.readFileSync('./data/unitData.json', 'utf8'))
+
+let starRankData = require(`../data/starRankRewards.json`)
+let gblData = require(`../data/unitData.json`)
+
 
 
 exports.unitSearch = function (unit_name) {
+    starRankData = JSON.parse(cache.get("starRankRewards")) 
+    gblData = JSON.parse(cache.get("unitData")) 
 
     if (cache.get(`search_${unit_name}`)) {
         return cache.get(`search_${unit_name}`);
@@ -35,89 +39,6 @@ exports.unitSearch = function (unit_name) {
 
 };
 
-exports.unitSearchExact = function (unit_name) {
-    const gblData = JSON.parse(cache.get('unitData'));
-    const options = {
-        includeScore: true,
-        keys: ['Unit Name'],
-        findAllMatches: true,
-        threshold: 0.0,
-    };
-    const fuse = new Fuse(gblData, options);
-    const result = fuse.search(unit_name);
-
-    // console.log(result)
-    results = result;
-
-
-    return results;
-
-};
-
-
-exports.logSearch = function (log_text) {
-    const logData = JSON.parse(cache.get('mapLogs'));
-    const options = {
-        includeScore: true,
-        keys: [{
-            name: 'Log',
-            weight: 1
-        }],
-        findAllMatches: true,
-        threshold: 0.4,
-    };
-    const fuse = new Fuse(logData, options);
-    const result = fuse.search(log_text);
-
-    // console.log(result)
-    results = result;
-
-
-    return results;
-
-};
-
-
-exports.logUnitSearch = function (unit) {
-    const logData = JSON.parse(cache.get('mapLogs'));
-    const options = {
-        includeScore: true,
-        keys: [{
-            name: 'Units',
-            weight: 1
-        }],
-        findAllMatches: true,
-        threshold: 0.1,
-    };
-    const fuse = new Fuse(logData, options);
-    const results = fuse.search(unit);
-
-
-
-    return results;
-
-};
-
-
-
-exports.leaderSearch = function (unit) {
-    const leaderData = JSON.parse(cache.get('leaderData'));
-    const options = {
-        includeScore: true,
-        keys: [{
-            name: 'UNIT',
-            weight: 1
-        }],
-        findAllMatches: true,
-        threshold: 0.3,
-    };
-    const fuse = new Fuse(leaderData, options);
-    const results = fuse.search(unit)[0].item;
-
-
-    return results;
-
-};
 
 exports.starRankSearch = function (unit) {
     if(cache.get(`starRank_${unit}`))  return cache.get(`starRank_${unit}`);

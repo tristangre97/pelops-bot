@@ -3,23 +3,26 @@ const {
     ActionRowBuilder,
     ButtonBuilder,
     Events,
-    SelectMenuBuilder
+    StringSelectMenuBuilder
 } = require('discord.js');
 
 const db = require('../utility/database.js')
 const random = require('../utility/random.js');
 const imgGen = require('../utility/HTML2IMG.js');
-const userDecks = require('./getUserDeck');
 const developer = require('../developer.json');
 const fs = require('node:fs');
 
 const unitData = JSON.parse(fs.readFileSync('./data/unitData.json'));
 
 
-const unavailiableUnits = ['Kong', 'Godzilla 21']
+const unavailiableUnits = [] //No unavailiable units at the moment
+
+
 const deckSize = 8
-var leaderUnits = []
-var units = []
+const maxMultiDeckSize = 10
+
+const leaderUnits = []
+const units = []
 
 for (unit of unitData) {
     // Prevent unevolved units from appearing
@@ -27,10 +30,9 @@ for (unit of unitData) {
 
     if (unit.LEADER === 'TRUE') {
         leaderUnits.push(unit['Unit Name'])
-        units.push(unit['Unit Name'])
-    } else {
-        units.push(unit['Unit Name'])
     }
+    units.push(unit['Unit Name'])
+
 }
 
 defaultOptions = {
@@ -81,60 +83,26 @@ exports.get = async function (options, user) {
     )
 
 
-    buttons.addComponents(
-        new ButtonBuilder()
-            .setCustomId(`randomDeckBtn User`)
-            .setLabel(`Get Random User Deck`)
-            .setStyle('Success')
-    )
-
     components.push(buttons)
 
+        multiDeckSelect = []
+        i = 1 
+
+        while (i <= maxMultiDeckSize) {
+            multiDeckSelect.push({
+                label: `Generate ${i} Decks`,
+                value: i.toString(),
+            })
+            i++
+        }
 
 
     const selectMenu = new ActionRowBuilder()
         .addComponents(
-            new SelectMenuBuilder()
+            new StringSelectMenuBuilder()
                 .setCustomId('randomDeckSelectMenu')
                 .setPlaceholder('Generate multiple decks')
-                .addOptions(
-                    {
-                        label: 'Generate 2 Decks',
-                        value: '2',
-                    },
-                    {
-                        label: 'Generate 3 Decks',
-                        value: '3',
-                    },
-                    {
-                        label: 'Generate 4 Decks',
-                        value: '4',
-                    },
-                    {
-                        label: 'Generate 5 Decks',
-                        value: '5',
-                    },
-                    {
-                        label: 'Generate 6 Decks',
-                        value: '6',
-                    },
-                    {
-                        label: 'Generate 7 Decks',
-                        value: '7',
-                    },
-                    {
-                        label: 'Generate 8 Decks',
-                        value: '8',
-                    },
-                    {
-                        label: 'Generate 9 Decks',
-                        value: '9',
-                    },
-                    {
-                        label: 'Generate 10 Decks',
-                        value: '10',
-                    },
-                ),
+                .addOptions(multiDeckSelect),
         );
 
     components.push(selectMenu)
@@ -157,72 +125,6 @@ exports.get = async function (options, user) {
     }
 
 }
-
-
-
-
-
-
-exports.getUserDeck = async function (user, commandUser) {
-    if (!user) {
-        var deckList = await db.get(`usersDecks`)
-    } else {
-        var deckList = await db.get(`user.${user}.decks`)
-    }
-
-
-    var deckListArray = []
-    var components = new Array();
-
-    buttons = new ActionRowBuilder();
-
-    buttons.addComponents(
-        new ButtonBuilder()
-            .setCustomId(`randomDeckBtn`)
-            .setLabel(`Get Random Deck`)
-            .setStyle('Primary')
-    )
-
-
-    buttons.addComponents(
-        new ButtonBuilder()
-            .setCustomId(`randomDeckBtn User`)
-            .setLabel(`Get Random User Deck`)
-            .setStyle('Success')
-    )
-
-    components.push(buttons)
-
-
-    for (deck in deckList) {
-        deckListArray.push(deck)
-    }
-    // Get random deck
-    var randomDeck = deckListArray[Math.floor(Math.random() * deckListArray.length)];
-    deckData = deckList[randomDeck]
-    var imgGenStart = performance.now()
-    var img = await userDecks.get(deckData)
-    var imgGenEnd = performance.now()
-    totalImgGenTime = imgGenEnd - imgGenStart
-
-    msg = `<@${commandUser}>\nGenerated deck in \`${totalImgGenTime.toFixed(2)}ms\``
-
-    imageFiles = [{
-        attachment: img,
-        name: `yeyey.png`
-    }]
-
-    return {
-        msg: msg,
-        files: imageFiles,
-        components: components,
-        totalImgGenTime: totalImgGenTime
-    }
-
-
-
-}
-
 
 
 
@@ -259,7 +161,7 @@ async function getDeckList(options) {
 
 
     deckHTML = new Array()
-	var imageHost = (developer.cloudinary) ? "https://res.cloudinary.com/tristangregory/image/upload/v1644991354/gbl" : "http://localhost:8008/gbl/webp";
+    var imageHost = (developer.cloudinary) ? "https://res.cloudinary.com/tristangregory/image/upload/v1644991354/gbl" : "http://localhost:8008/gbl/webp";
     for (unit of deck) {
         var unitName = unit.replaceAll(" ", "_").replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "")
         var imageLink = `${imageHost}/${unitName}.webp`
