@@ -10,7 +10,7 @@ exports.bytes = function (length) {
     return string;
 }
 
-exports.id = async function (length) {
+exports.id = function (length) {
   const numBytes = Math.ceil(length / 2);
   const randomBytes = crypto.randomBytes(numBytes);
   const hexString = randomBytes.toString('hex').slice(0, length);
