@@ -122,7 +122,7 @@ client.on("interactionCreate", async (interaction) => {
     db.add(`stats.uses`);
   } catch (error) {
     console.error(error);
-    await interaction.update({
+    await interaction.followUp({
       content: `There was an error while executing this command!\n${error}}`,
       embeds: [],
       components: [],
