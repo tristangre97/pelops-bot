@@ -73,32 +73,6 @@ module.exports = {
         });
 
 
-
-        // Mess with TS Dragun by giving him Battra as a leader for 3 seconds
-        if(interaction.user.id === '212101930531553281') {
-            options = {
-                disable_unavailable_units: disable_unavailable_units,
-                preferred_leader: 'Battra Imago',
-                amount: amount
-            }
-
-            var data = await randomDeck.get(options, interaction.user.id)
-
-            await interaction.editReply({
-                embeds: [],
-                components: data.components,
-                content: `😈`,
-                files: data.files,
-            })
-            await delay(3000);
-            await interaction.editReply({
-                embeds: [],
-                components: [],
-                content: `Your real deck will generated in a moment.`,
-            })
-            await delay(2000);
-        }
-
         options = {
             disable_unavailable_units: disable_unavailable_units,
             preferred_leader: preferred_leader,

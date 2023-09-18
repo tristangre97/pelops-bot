@@ -125,20 +125,28 @@ module.exports = {
       db.add(`news.uses`)
 
       await interaction.update({
-        content: `Created interaction ${interactionID}`,
         embeds: [waitEmbed],
         components: [],
       })
 
       var HTML = newsDetails.HTML;
-      img = await imgGen.cluster(HTML, '.cont', 'png')
+
+      // img = await imgGen.cluster(HTML, '.cont', 'png')
+      img = await imgGen.post({
+        html: HTML,
+        selector: '.cont',
+        type: 'png',
+    })
+
+
+
       return interaction.editReply({
-        content: `Created interaction ${interactionID}`,
+        content: `Fresh off the press! Here is your news`,
         embeds: [],
         components: [],
         files: [{
           attachment: img,
-          name: `news.png`
+          name: `news-${interactionID}.png`
         }],
       })
     }

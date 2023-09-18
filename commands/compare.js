@@ -293,8 +293,15 @@ module.exports = {
 
         allData = [unitOneData, unitTwoData]
         imgGenStart = performance.now()
+        
+        var img = await imgGen.post({
+            html: finalHTML,
+            selector: '.unit-compare-card',
+            type: 'jpeg',
+            quality: 100
+        })
 
-        var img = await imgGen.cluster(finalHTML, '.unit-compare-card')
+        console.log(img)
 
         imgGenEnd = performance.now()
         totalImgGenTime = imgGenEnd - imgGenStart

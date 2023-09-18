@@ -85,16 +85,16 @@ exports.get = async function (options, user) {
 
     components.push(buttons)
 
-        multiDeckSelect = []
-        i = 1 
+    multiDeckSelect = []
+    i = 1
 
-        while (i <= maxMultiDeckSize) {
-            multiDeckSelect.push({
-                label: `Generate ${i} Decks`,
-                value: i.toString(),
-            })
-            i++
-        }
+    while (i <= maxMultiDeckSize) {
+        multiDeckSelect.push({
+            label: `Generate ${i} Decks`,
+            value: i.toString(),
+        })
+        i++
+    }
 
 
     const selectMenu = new ActionRowBuilder()
@@ -155,6 +155,10 @@ async function getDeckList(options) {
             continue
         }
 
+        if (randomUnit.includes('Gyaos')) {
+            randomUnit = 'Gyaos'
+        }
+
         deck.push(randomUnit)
 
     }
@@ -198,9 +202,15 @@ async function getDeckList(options) {
         `
 
 
-    var img = await imgGen.cluster(finalHTML, '.deck-card')
+    // var img = await imgGen.cluster(finalHTML, '.deck-card')
+    var img = await imgGen.post({
+        html: finalHTML,
+        selector: '.deck-card',
+        type: 'jpeg',
+        quality: 100
+    })
 
-
+    
     return {
         id: random.id(8),
         image: img,

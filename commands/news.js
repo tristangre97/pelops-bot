@@ -58,7 +58,6 @@ Click the \`Set News Details\` button to begin
         db.set(`interactions.${interactionID}`, details)
         
         await interaction.reply({
-            content: `Created interaction ${interactionID}`,
             embeds: [embed],
             components: [btns]
         });

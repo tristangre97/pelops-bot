@@ -10,3 +10,6 @@ t.js
 data/puppeteer
 .gitignore
 developer.json
+json.sqlite
+.gitignore
+t.js
