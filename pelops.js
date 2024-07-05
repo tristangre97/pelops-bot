@@ -1,30 +1,6 @@
 const config = require("./auth.json");
-const cache = require("./utility/cache.js");
 const fs = require("node:fs");
 const path = require("node:path");
-const db = require("./utility/database.js");
-
-cache.set(
-  "unitData",
-  fs.readFileSync("./data/unitData.json", "utf8"),
-  0
-);
-console.log(`Unit data cached`);
-
-cache.set(
-  "starRankRewards",
-  fs.readFileSync("./data/starRankRewards.json", "utf8"),
-  0
-);
-console.log(`Star rank rewards cached`);
-
-cache.set(
-  "boosts",
-  fs.readFileSync("./data/boosts.json", "utf8"),
-  0
-);
-console.log(`Boosts cached`);
-
 
 const {
   Intents,
@@ -37,8 +13,8 @@ const {
   GatewayIntentBits,
   Partials,
   Collection,
+  ActivityType
 } = require("discord.js");
-const { update } = require("./utility/update");
 
 const client = new Client({
   intents: [
@@ -77,19 +53,19 @@ for (const file of eventFiles) {
 
 client.on("ready", async () => {
   console.log("Pelops is ready!");
+  client.user.setPresence({
+    activities: [
+      {
+        name: `Godzilla Battle Line`,
+        type: ActivityType.Playing,
+      },
+    ],
+    status: "online",
+  });
 });
 
 client.on("interactionCreate", async (interaction) => {
   if (!interaction.isChatInputCommand()) return;
-
-  updateStatus = cache.get("updateStatus") || false;
-
-  if(updateStatus == true) {
-    return interaction.reply({
-      content: "I am currently updating my data. Please try again later.",
-      ephemeral: true,
-    })
-  }
 
   const command = client.commands.get(interaction.commandName);
 
@@ -119,7 +95,6 @@ client.on("interactionCreate", async (interaction) => {
       `Command ${command.name} executed by ${interaction.user.username} in ${interaction.guild.name
       } in ${commandEnd - commandStart}ms`
     );
-    db.add(`stats.uses`);
   } catch (error) {
     console.error(error);
     await interaction.followUp({

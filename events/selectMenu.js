@@ -1,5 +1,6 @@
 const random = require('../utility/random.js');
 const randomDeck = require('../utility/randomDeck');
+const unitData = require('../utility/getUnitData.js');
 const {
     EmbedBuilder,
     ActionRowBuilder,
@@ -9,10 +10,13 @@ const {
     InteractionType
 } = require("discord.js");
 
+
+
 module.exports = {
     name: 'interactionCreate',
     async execute(interaction) {
         if (!interaction.isStringSelectMenu()) return;
+
 
         if (interaction.customId === 'randomDeckSelectMenu') {
             deckAmount = Number(interaction.values[0])

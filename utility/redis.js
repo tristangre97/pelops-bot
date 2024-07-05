@@ -55,31 +55,76 @@ exports.getAllOf = async function (name) {
 };
 
 
-exports.push = async function (name, data) {
+exports.push = async function (name, data, expiration) {
   await redis.lpush(name, data)
-  return 'Setting updated';
+  if (expiration) {
+    await redis.expire(name, expiration)
+  }
+  return true
 }
 
-exports.pipelineSet = async function (name, data) {
-  await pipeline.set(name, JSON.stringify(data));
-  return 'Setting updated';
+exports.lrange = async function (name, start, end) {
+  if(!start) start = 0
+  if(!end) end = -1
+  data = await redis.lrange(name, start, end)
+  return data
+}
+
+exports.tsAdd = async function (name, time, data, expire) {
+  if (!expire) expire = 0
+  await redis.call('TS.ADD', name, time, data, 'DUPLICATE_POLICY', 'LAST')
+  if (expire > 0) {
+    await redis.call('EXPIRE', name, expire);
+  }
 };
 
-exports.pipelineAdd = async function (name, data) {
-  current = await redis.get(name) || 0
-  await pipeline.set(name, parseInt(Number(current) + data))
-  return 'Setting updated';
+exports.tsRange = async function (name, from, to) {
+  try {
+    data = await redis.call('TS.RANGE', name, from, to)
+    return data
+  } catch (error) {
+    console.log(error);
+    return null
+  }
 };
 
-exports.pipelinePush = async function (name, data) {
-  await pipeline.rpush(name, data);
-  return 'Setting updated';
-};
+exports.del = async function (name) {
+  await redis.del(name)
+  return 'Setting deleted';
+}
 
-exports.pipelineExec = async function () {
-  await pipeline.exec((err, results) => {
-    // console.log(results);
-  });
 
-  return 'Setting updated';
-};
+exports.jsonSet = async function (name, entry, data, expiration) {
+  if(!entry) entry = '$'
+
+  if(!await redis.call('JSON.GET', name)) {
+    await redis.call('JSON.SET', name, '$', '{}')
+  }
+
+  await redis.call('JSON.SET', name, entry, JSON.stringify(data))
+}
+
+exports.jsonGet = async function (name, entry) {
+  if(!entry) entry = '$'
+  data = await redis.call('JSON.GET', name, entry)
+  data = JSON.parse(data)
+  return data
+}
+
+exports.jsonDel = async function (name, entry) {
+  if(!entry) entry = '$'
+  await redis.call('JSON.DEL', name, entry)
+}
+
+exports.jsonKeys = async function (name, entry) {
+  if(!entry) entry = '$'
+  data = await redis.call('JSON.OBJKEYS', name, entry)
+  return data
+}
+
+
+// redis.monitor((err, monitor) => {
+//   monitor.on("monitor", (time, args, source, database) => {
+//     console.log(`${time} ${args} ${source} ${database}`);
+//   });
+// });

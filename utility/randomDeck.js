@@ -6,13 +6,11 @@ const {
     StringSelectMenuBuilder
 } = require('discord.js');
 
-const db = require('../utility/database.js')
 const random = require('../utility/random.js');
 const imgGen = require('../utility/HTML2IMG.js');
-const developer = require('../developer.json');
-const fs = require('node:fs');
 
-const unitData = JSON.parse(fs.readFileSync('./data/unitData.json'));
+const unitDataFile = require('../data/unitData.json');
+
 
 
 const unavailiableUnits = [] //No unavailiable units at the moment
@@ -24,15 +22,16 @@ const maxMultiDeckSize = 10
 const leaderUnits = []
 const units = []
 
-for (unit of unitData) {
-    // Prevent unevolved units from appearing
-    if (unit['ISFINALEVOLUTION'] === 'FALSE') continue
+for (const unit in unitDataFile) {
+    // console.log(unitDataFile[unit].name)
+    unitData = unitDataFile[unit]
 
-    if (unit.LEADER === 'TRUE') {
-        leaderUnits.push(unit['Unit Name'])
+    if(unitData.finalEvolution == false) continue
+
+    if (unitData.leader) {
+        leaderUnits.push(unitData.name)
     }
-    units.push(unit['Unit Name'])
-
+    units.push(unitData.name)
 }
 
 defaultOptions = {
@@ -83,7 +82,7 @@ exports.get = async function (options, user) {
     )
 
 
-    components.push(buttons)
+    // components.push(buttons)
 
     multiDeckSelect = []
     i = 1
@@ -165,7 +164,7 @@ async function getDeckList(options) {
 
 
     deckHTML = new Array()
-    var imageHost = (developer.cloudinary) ? "https://res.cloudinary.com/tristangregory/image/upload/v1644991354/gbl" : "http://localhost:8008/gbl/webp";
+    const imageHost = 'https://res.cloudinary.com/tristangregory/image/upload/e_trim/v1689538433/gbl'
     for (unit of deck) {
         var unitName = unit.replaceAll(" ", "_").replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "")
         var imageLink = `${imageHost}/${unitName}.webp`
@@ -210,7 +209,7 @@ async function getDeckList(options) {
         quality: 100
     })
 
-    
+
     return {
         id: random.id(8),
         image: img,

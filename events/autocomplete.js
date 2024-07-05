@@ -1,23 +1,23 @@
-const cache = require('../utility/cache')
-const Fuse = require('fuse.js')
-const unitData = JSON.parse(cache.get("unitData"))
-
+const search = require('../utility/search')
+const unitData = require('../data/unitData.json')
 
 const unitSearch = []
 const leaderUnits = []
 
-for (item of unitData) {
+for (item in unitData) {
+    unit = unitData[item]
+    if(unit.skip) continue
     unitSearch.push({
-        name: item['Unit Name'],
-        value: item['Unit Name'],
-        aliases: item['ALIASES'].split(', '),
+        name: unit.name,
+        value: unit.name,
+        aliases: unit.aliases,
     })
 
-    if (unit.LEADER === 'TRUE') {
+    if (unit.leader) {
         leaderUnits.push({
-            name: item['Unit Name'],
-            value: item['Unit Name'],
-            aliases: item['ALIASES'].split(', '),
+            name: unit.name,
+            value: unit.name,
+            aliases: unit.aliases,
         })
     }
 }
@@ -33,69 +33,66 @@ module.exports = {
         const subCommandData = interaction?.options?.data
 
 
+        const commandName = interaction.commandName
+        console.log(commandName)
 
-        if (interaction.commandName === 'random_deck') {
-            searchData = leaderUnits
+        if (commandName === 'unit' || commandName === 'compare') {
+            searchList = unitSearch;
+            cacheName = 'unitSearch'
+        }
+
+        if (commandName === 'random_deck') {
+            searchList = leaderUnits;
             cacheName = 'leaderUnits'
         }
 
 
-        if (interaction.commandName === 'unit' || interaction.commandName === 'stats' || interaction.commandName === 'unit_image' || interaction.commandName === 'compare' || interaction.commandName === 'tier_list') {
-            searchData = unitSearch;
-            cacheName = 'unitNames';
-        }
+
+        let itemOptions = []
 
 
-        var itemOptions = []
-
-        if (focusedValue) {
-
-            const fuse = new Fuse(searchData, {
-                shouldSort: true,
-                keys: ['name', 'aliases'],
-                findAllMatches: true,
-                threshold: 0.4,
-            })
-
-            if (!cache.get(`autocomplete.${cacheName}.${focusedValue}`)) {
-                results = fuse.search(focusedValue);
-                cache.set(`autocomplete.${cacheName}.${focusedValue}`, results);
-            } else {
-                results = cache.get(`autocomplete.${cacheName}.${focusedValue}`);
-            }
-
-            if (!results) return
-
-            results.forEach(element => {
-                itemOptions.push({
-                    name: element.item.name,
-                    value: element.item.value,
-                })
-            })
-
-
+        if (!focusedValue) {
+            itemOptions = searchList.filter(item => item?.name?.trim() !== '')
+            // sort items by name
+            itemOptions.sort((a, b) => a.name.localeCompare(b.name))
         } else {
-            searchData.forEach(element => {
-                itemOptions.push({
-                    name: element.name,
-                    value: element.value,
-                })
+            itemOptions = await search.search({
+                searchList: searchList,
+                query: focusedValue,
+                searchKeys: ["name", "aliases"],
+                workerAmount: 1,
+                cacheName: cacheName
             })
 
         }
 
 
-        const choices = itemOptions.slice(0, 25)
+        if (itemOptions.length < 1) return
+
+        var choices = itemOptions.slice(0, 25)
+
+        end = performance.now();
+        console.log(`${interaction.user.username} searched ${cacheName} (${focusedValue}) ${(end - start).toFixed(2)}ms.`);
+
+
+
+        try {
+            return interaction.respond(
+                choices.map(choice => ({
+                    // Only let name and value be 100 characters
+                    name: choice.name.substring(0, 100),
+                    value: choice.value.substring(0, 100),
+                }))
+            )
+        } catch (error) {
+            console.error(`Error sending autocomplete response: ${cacheName} (${focusedValue})`)
+            console.error(error)
+            return
+        }
+
 
 
         end = performance.now();
-        const response = await interaction.respond(
-            choices.map(choice => ({
-                name: choice.name,
-                value: choice.value,
-            })),
-        );
-
 
     },
 };
