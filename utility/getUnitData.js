@@ -229,11 +229,8 @@ exports.get = async function (data) {
 
 
 
-    // embed.setTitle('Unit Stat Calculator')
     embed.setTitle(`${unitData.name} - Level ${level} Stats`)
     embed.setColor('#ffb33c')
-//     embed.setDescription(`**Unit** \`${name}\`
-// **Level** \`${level}\``)
     embed.setFields(fields)
     const imageLink = `https://res.cloudinary.com/tristangregory/image/upload/v1689538433/gbl/${unitData.name.replaceAll(" ", "_").replaceAll("(", "").replaceAll(")", "")}.png`
     embed.setThumbnail(imageLink)
