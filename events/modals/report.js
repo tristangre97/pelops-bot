@@ -6,14 +6,7 @@ module.exports = {
     requiresID: false,
     originalUserOnly: false,
     run: async ({ interaction, interactionID, buttonData }) => {
-        // console.log(interaction.fields.fields)
-        // Collection(3) [Map] {
-        //     'unit' => { value: '2323k', type: 4, customId: 'unit' },
-        //     'level' => { value: 'kjkjkjkj', type: 4, customId: 'level' },
-        //     'issue' => { value: 'jkjkjkjk', type: 4, customId: 'issue' }
-        //   }
 
-        // const hobbies = interaction.fields.getTextInputValue('hobbiesInput');
         const unit = interaction.fields.getTextInputValue('unit');
         const level = interaction.fields.getTextInputValue('level');
         const issue = interaction.fields.getTextInputValue('issue');
