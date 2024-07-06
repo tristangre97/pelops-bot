@@ -5,7 +5,7 @@ const {
 } = require('discord.js');
 const random = require('../utility/random.js');
 const cache = require('../utility/cache.js');
-const unitEmbedGen = require('../utility/getunitData.js');
+const unitEmbedGen = require('../utility/getUnitData.js');
 
 
 module.exports = {
