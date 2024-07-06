@@ -16,6 +16,17 @@ for (unit in unitDataFile) {
     })
 }
 
+const levelRanges = {
+    "1-5": [0, 4],
+    "5-10": [5, 9],
+    "10-15": [10, 14],
+    "15-20": [15, 19],
+    "20-25": [20, 24],
+    "25-30": [25, 29],
+    "31-40": [30, 40],
+    "41-50": [41, 50]
+};
+
 const upgradePercent = {
     1: {
         "1-5": "20",
@@ -119,12 +130,14 @@ exports.get = async function (data) {
 
     const unitRarity = unitData.rarity
     const maxLevel = (unitRarity < 4) ? 50 : 40;
+
     if (level > maxLevel) {
         level = maxLevel;
         const options = cache.get(`pelops:interactions:${id}`)
         options.level = level
         cache.set(`pelops:interactions:${id}`, options, 600)
     }
+
     if (level < 1) level = 1;
 
     const fields = new Array();
@@ -138,7 +151,7 @@ exports.get = async function (data) {
             fields.push(
                 {
                     name: `__**${unit.name} Stats**__`,
-                    value: `**HP** \`${unitHealth.toLocaleString()}\`\n${unitAttacks.join('\n')}`,
+                    value: `<:pelops_health:1258999655186960465> **HP** \`${unitHealth.toLocaleString()}\`\n${unitAttacks.join('\n')}`,
                     inline: false
                 }
             )
@@ -161,7 +174,7 @@ exports.get = async function (data) {
         fields.push(
             {
                 name: '__**Unit Stats**__',
-                value: `**HP** \`${unitHealth.toLocaleString()}\`\n${unitAttacks.join('\n')}`,
+                value: `<:pelops_health:1258999655186960465> **HP** \`${unitHealth.toLocaleString()}\`\n${unitAttacks.join('\n')}`,
                 inline: false
             }
         )
@@ -177,7 +190,7 @@ exports.get = async function (data) {
             fields.push(
                 {
                     name: '__**Spawned Unit Stats**__',
-                    value: `**HP** \`${spawnedUnitHealth.toLocaleString()}\`\n${spawnedUnitAttacks.join('\n')}`,
+                    value: `<:pelops_health:1258999655186960465> **HP** \`${spawnedUnitHealth.toLocaleString()}\`\n${spawnedUnitAttacks.join('\n')}`,
                     inline: false
                 }
             )
@@ -195,7 +208,7 @@ exports.get = async function (data) {
         fields.push(
             {
                 name: '__**Unit Stats**__',
-                value: `**HP** \`${unitHealth.toLocaleString()}\`\n${unitAttacks.join('\n')}`,
+                value: `<:pelops_health:1258999655186960465> **HP** \`${unitHealth.toLocaleString()}\`\n${unitAttacks.join('\n')}`,
                 inline: false
             }
         )
@@ -207,8 +220,8 @@ exports.get = async function (data) {
         const leaderAttack = calculateStat(level, unitRarity, unitData.leader.attack, true)
         fields.push({
             name: '__**Leader Stats**__',
-            value: `**HP** \`${leaderHealth.toLocaleString()}\`
-**Attack** \`${leaderAttack.toLocaleString()}\` | **DPS** \`${calculateDPS(leaderAttack, unitData.leader.attackSpeed).toLocaleString()}\`
+            value: `<:pelops_health:1258999655186960465> **HP** \`${leaderHealth.toLocaleString()}\`
+<:pelops_attack:1258999656193462335> **Attack** \`${leaderAttack.toLocaleString()}\` | **DPS** \`${calculateDPS(leaderAttack, unitData.leader.attackSpeed).toLocaleString()}\`
 `
         })
     }
@@ -216,9 +229,11 @@ exports.get = async function (data) {
 
 
 
-    embed.setTitle('Unit Stat Calculator')
+    // embed.setTitle('Unit Stat Calculator')
+    embed.setTitle(`${unitData.name} - Level ${level} Stats`)
     embed.setColor('#ffb33c')
-    embed.setDescription(`\`${name}\` at level \`${level}\``)
+//     embed.setDescription(`**Unit** \`${name}\`
+// **Level** \`${level}\``)
     embed.setFields(fields)
     const imageLink = `https://res.cloudinary.com/tristangregory/image/upload/v1689538433/gbl/${unitData.name.replaceAll(" ", "_").replaceAll("(", "").replaceAll(")", "")}.png`
     embed.setThumbnail(imageLink)
@@ -228,7 +243,7 @@ exports.get = async function (data) {
         new ButtonBuilder()
             .setCustomId(`level ${id} down`)
             .setLabel(`Level ${level - 1}`)
-            .setStyle('Secondary')
+            .setStyle('Primary')
             .setEmoji(`<:pelops_arrow_down:1201214028291252296>`)
             .setDisabled(level == 1)
     )
@@ -236,16 +251,17 @@ exports.get = async function (data) {
         new ButtonBuilder()
             .setCustomId(`level ${id} up`)
             .setLabel(`Level ${parseInt(level + 1)}`)
-            .setStyle('Secondary')
+            .setStyle('Primary')
             .setEmoji(`<:pelops_arrow_up:1201214024940015747>`)
             .setDisabled(level == maxLevel)
     )
 
     levelBtns.addComponents(
         new ButtonBuilder()
-            .setCustomId(`report`)
+            .setCustomId(`report ${id}`)
             .setLabel(`Report Issue`)
-            .setStyle('Primary')
+            .setStyle('Secondary')
+            .setEmoji('<:error_bug:1258997306364006543>')
     )
 
     components.push(levelBtns)
@@ -277,17 +293,6 @@ function calculateStat(level, unitRarity, stat, isLeader = false) {
     level = parseInt(level);
     unitRarity = parseInt(unitRarity);
     stat = parseInt(stat);
-
-    const levelRanges = {
-        "1-5": [0, 4],
-        "5-10": [5, 9],
-        "10-15": [10, 14],
-        "15-20": [15, 19],
-        "20-25": [20, 24],
-        "25-30": [25, 29],
-        "31-40": [30, 40],
-        "41-50": [41, 50]
-    };
 
     let currentLevel = 1;
     let lastRange = null;
@@ -325,7 +330,7 @@ function getAttacks(options) {
     return attacks.map((attack) => {
         attackStat = calculateStat(level, unitRarity, attack.attack) * attack.hitsPerAttack
         const multiHitMessage = attack.hitsPerAttack > 1 ? ` | **Hits** \`${attack.hitsPerAttack}\`` : ''
-        const notesMessage = attack.notes ? `\n**Notes** \`${attack.notes}\`` : ''
-        return `**${attack.name}** \`${attackStat.toLocaleString()}\` | **DPS** \`${calculateDPS(attackStat, attack.attackSpeed).toLocaleString()}\` ${multiHitMessage}${notesMessage}`
+        const notesMessage = attack.notes ? `\n<:arrowturndownrightsolid:1258996539376795688> **Notes** \`${attack.notes}\`` : ''
+        return `<:pelops_attack:1258999656193462335> **${attack.name}** \`${attackStat.toLocaleString()}\` | **DPS** \`${calculateDPS(attackStat, attack.attackSpeed).toLocaleString()}\` ${multiHitMessage}${notesMessage}`
     })
 }
