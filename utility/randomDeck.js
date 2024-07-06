@@ -164,7 +164,7 @@ async function getDeckList(options) {
 
 
     deckHTML = new Array()
-    const imageHost = 'https://res.cloudinary.com/tristangregory/image/upload/e_trim/v1689538433/gbl'
+    const imageHost = 'https://res.cloudinary.com/tristangregory/image/upload/h_256,e_trim/v1689538433/gbl'
     for (unit of deck) {
         var unitName = unit.replaceAll(" ", "_").replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "")
         var imageLink = `${imageHost}/${unitName}.webp`
