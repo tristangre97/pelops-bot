@@ -2279,7 +2279,7 @@
         {
           "name": "Ranged Attack",
           "attack": "286",
-          "attackSpeed": "1.9",
+          "attackSpeed": "1",
           "hitsPerAttack": "1",
           "notes": "This attack will only be used on units with 80% or higher HP, and removes any buffs on enemy units."
         }
