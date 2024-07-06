@@ -8,6 +8,9 @@ module.exports = {
     run: async ({ interaction, interactionID, buttonData }) => {
 
 
+        const interactionInfo = await cache.get(`pelops:interactions:${interactionID}`);
+
+
         const modal = new ModalBuilder()
             .setCustomId(`reportModal ${interactionID}`)
             .setTitle('Report Issue');
@@ -16,11 +19,15 @@ module.exports = {
             .setCustomId('unit')
             .setLabel("Which unit is this issue related to?")
             .setStyle(TextInputStyle.Short);
+            if(interactionInfo.name) unit.setValue(interactionInfo.name);
+
+
 
         const level = new TextInputBuilder()
             .setCustomId('level')
             .setLabel("Unit Level")
             .setStyle(TextInputStyle.Short);
+            if(interactionInfo.level) level.setValue(JSON.stringify(interactionInfo.level));
 
         const issue = new TextInputBuilder()
             .setCustomId('issue')

@@ -24,7 +24,7 @@ module.exports = {
     const interactionType = buttonData[0];
     const interactionID = buttonData[1] || null;
     const command = commands.get(interactionType);
-    console.log(interactionType);
+
     if (!command) {
       await interaction.reply({
         content: `This button is not yet implemented.`,
