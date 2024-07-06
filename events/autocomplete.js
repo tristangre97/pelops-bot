@@ -72,10 +72,7 @@ module.exports = {
         var choices = itemOptions.slice(0, 25)
 
         end = performance.now();
-        console.log(`${interaction.user.username} searched ${cacheName} (${focusedValue}) ${(end - start).toFixed(2)}ms.`);
-
-
-
+        // console.log(`${interaction.user.username} searched ${cacheName} (${focusedValue}) ${(end - start).toFixed(2)}ms.`);
         try {
             return interaction.respond(
                 choices.map(choice => ({
