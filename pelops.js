@@ -3,12 +3,7 @@ const fs = require("node:fs");
 const path = require("node:path");
 
 const {
-  Intents,
-  EmbedBuilder,
-  ActionRowBuilder,
-  ButtonBuilder,
-  WebhookClient,
-  permissions,
+
   Client,
   GatewayIntentBits,
   Partials,
@@ -53,15 +48,12 @@ for (const file of eventFiles) {
 
 client.on("ready", async () => {
   console.log("Pelops is ready!");
-  client.user.setPresence({
-    activities: [
-      {
-        name: `Godzilla Battle Line`,
-        type: ActivityType.Playing,
-      },
-    ],
-    status: "online",
-  });
+  
+  setBotPresence(client);
+
+  setInterval(() => {
+    setBotPresence(client);
+  }, 1000 * 60 * 60);
 });
 
 client.on("interactionCreate", async (interaction) => {
@@ -106,5 +98,37 @@ client.on("interactionCreate", async (interaction) => {
   }
 });
 
+// client.user.setPresence({
+//   activities: [
+//     {
+//       name: `Godzilla Battle Line`,
+//       type: ActivityType.Playing,
+//     },
+//   ],
+//   status: "online",
+// });
+
+function setBotPresence(client) {
+
+  const activitys = [
+    {
+      type: ActivityType.Playing,
+      name: "Godzilla Battle Line",
+    },
+    {
+      type: ActivityType.Watching,
+      name: "Sir Melee",
+    }
+  ]
+
+
+  const activity = activitys[Math.floor(Math.random() * activitys.length)];
+
+  client.user.setPresence({
+    activities: [activity],
+    status: "online",
+  });
+
+}
 
 client.login(config.token);
