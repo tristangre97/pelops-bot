@@ -19,7 +19,7 @@ module.exports = {
             .setCustomId('unit')
             .setLabel("Which unit is this issue related to?")
             .setStyle(TextInputStyle.Short);
-            if(interactionInfo.name) unit.setValue(interactionInfo.name);
+            if(interactionInfo?.name) unit.setValue(interactionInfo.name);
 
 
 
@@ -27,7 +27,7 @@ module.exports = {
             .setCustomId('level')
             .setLabel("Unit Level")
             .setStyle(TextInputStyle.Short);
-            if(interactionInfo.level) level.setValue(JSON.stringify(interactionInfo.level));
+            if(interactionInfo?.level) level.setValue(JSON.stringify(interactionInfo.level));
 
         const issue = new TextInputBuilder()
             .setCustomId('issue')

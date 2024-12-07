@@ -34,7 +34,6 @@ module.exports = {
 
 
         const commandName = interaction.commandName
-        console.log(commandName)
 
         if (commandName === 'unit' || commandName === 'compare') {
             searchList = unitSearch;

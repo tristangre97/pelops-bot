@@ -6,7 +6,7 @@ const {
 const random = require('../utility/random.js');
 const cache = require('../utility/cache.js');
 const unitEmbedGen = require('../utility/getUnitData.js');
-
+const unitData = require('../data/unitData.json');
 
 module.exports = {
     name: 'unit',
@@ -60,10 +60,15 @@ module.exports = {
         const unit = interaction?.options?.data[0]?.options[0]?.value
 
         if (type == 'image') {
+
+            const unitImage = unitData[unit].image
+
+            if (!unitImage) return interaction.reply('Unit not found. Please check your spelling.')
+
             return interaction.reply(
                 {
                     files: [{
-                        attachment: `https://res.cloudinary.com/tristangregory/image/upload/e_trim/v1689538433/gbl/${unit.replaceAll(" ", "_").replaceAll("-", "_").replaceAll("(", "").replaceAll(")", "")}.png`,
+                        attachment: unitImage,
                         name: `${unit}.png`
                     }]
                 }
@@ -71,7 +76,7 @@ module.exports = {
         }
 
         level = interaction?.options?.data[0]?.options[1]?.value
-        if(level < 1) level = 1
+        if (level < 1) level = 1
 
 
         const id = random.id(12)
@@ -84,7 +89,7 @@ module.exports = {
             star_rank: 1,
             apply_boost: false,
         }
-        
+
         cache.set(`pelops:interactions:${id}`, options, 600)
 
         unitData = await unitEmbedGen.get(options)

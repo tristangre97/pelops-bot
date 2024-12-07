@@ -19,10 +19,9 @@ exports.post = async function (options) {
     body: JSON.stringify(data),
   });
 
+  const image = await response.json();
 
-  image = await response.json();
-  let buffer = Buffer.from(image.image, 'base64');
-
+  const buffer = new Buffer.from(Object.values(image.image));
 
   return buffer;
 

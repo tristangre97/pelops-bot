@@ -1,112 +1,138 @@
-const upgradePercent = {
-  1: {
-      "1-5": "20",
-      "5-10": "10",
-      "10-15": "15",
-      "15-20": "10",
-      "20-25": "2",
-      "25-30": "2",
-      "31-40": "0.5",
-      "41-50": "0.05",
-  },
-  2: {
-      "1-5": "20",
-      "5-10": "10",
-      "10-15": "15",
-      "15-20": "10",
-      "20-25": "2",
-      "25-30": "2",
-      "31-40": "0.5",
-      "41-50": "0.05",
-  },
-  3: {
-      "1-5": "12",
-      "5-10": "11",
-      "10-15": "11",
-      "15-20": "10",
-      "20-25": "2",
-      "25-30": "2",
-      "31-40": "0.5",
-      "41-50": "0.5",
-  },
+const unitDataJSON = require('./data/unitData.json');
+const unitDataNew = {}
+const fs = require('node:fs');
 
-  4: {
-      "1-5": "30",
-      "5-10": "3",
-      "10-15": "1",
-      "15-20": "1",
-      "20-25": "2",
-      "25-30": "2",
-      "31-40": "0.5",
-  },
-};
-const leaderUpgradePercent = {
-  3: {
-      "1-5": "16",
-      "5-10": "5",
-      "10-15": "8",
-      "15-20": "16",
-      "20-25": "2",
-      "25-30": "2",
-      "31-40": "0.50",
-      "41-50": "0.50",
-  },
+// "Battra Imago": {
+//     "name": "Battra Imago",
+//     "rarity": "4",
+//     "cost": "5",
+//     "aliases": [],
+//     "emoji": "<:Battra_Imago:982860055449858098>",
+//     "finalEvolution": true,
+//     "unit": {
+//       "hp": "653",
+//       "attacks": [
+//         {
+//           "name": "Attack",
+//           "attack": "173",
+//           "attackSpeed": "2.1",
+//           "hitsPerAttack": "1"
+//         }
+//       ]
+//     },
+//     "leader": { "hp": "5218", "attack": "289", "attackSpeed": "2.3" },
+//     "evolutions": ["Battra Larva"]
+//   },
 
-  4: {
-      "1-5": "2",
-      "5-10": "3",
-      "10-15": "3",
-      "15-20": "3",
-      "20-25": "2",
-      "25-30": "2",
-      "31-40": "0.50",
-  },
+// "Chibi Mechagodzilla and Chibi Godzilla": {
+//     "name": "Chibi Mechagodzilla and Chibi Godzilla",
+//     "type": "Duo",
+//     "rarity": "4",
+//     "cost": "6",
+//     "aliases": [],
+//     "emoji": "<:Kiryu_Kai:1038165791851421788>",
+//     "units": [
+//       {
+//         "name": "Chibi Mechagodzilla",
+//         "hp": "670",
+//         "attacks": [
+//           {
+//             "name": "Attack",
+//             "attack": "85",
+//             "attackSpeed": "2.6",
+//             "hitsPerAttack": "1",
+//             "notes": "Enemy units hit by this attack are inflicted with Stun for 0.6 seconds."
+//           }
+//         ]
+//       },
+//       {
+//         "name": "Chibi Godzilla",
+//         "hp": "572",
+//         "attacks": [
+//           {
+//             "name": "Attack",
+//             "attack": "104",
+//             "attackSpeed": "2.6",
+//             "hitsPerAttack": "1",
+//             "notes": "Enemy units hit by this attack are inflicted with Burning for 8 seconds."
+//           }
+//         ]
+//       }
+//     ],
+//     "evolutions": []
+//   },
+
+async function main() {
+    for (const unit in unitDataJSON) {
+
+        const unitData = unitDataJSON[unit];
+        const imageLink = `https://res.cloudinary.com/tristangregory/image/upload/v1689538433/gbl/${unitData.name.replaceAll(" ", "_").replaceAll("(", "").replaceAll(")", "")}.png`
+        const isImageValid = await fetch(imageLink, { method: 'HEAD' })
+
+        if (!isImageValid.ok) {
+            unitData.image = 'https://res.cloudinary.com/tristangregory/image/upload/v1645067926/gbl/pelops/pelops_error.png'
+        } else {
+            unitData.image = imageLink;
+        }
+
+        if (unitData.leader) {
+            unitData.leader = {
+                hp: parseInt(unitData.leader.hp),
+                attacks: [
+                    {
+                        name: "Attack",
+                        attack: parseInt(unitData.leader.attack),
+                        attackSpeed: parseFloat(unitData.leader.attackSpeed),
+                        hitsPerAttack: 1
+                    }
+                ]
+            }
+        }
+
+
+        // Go through each attack and convert to integer
+        if (unitData?.unit?.attacks) {
+            unitData.unit.attacks = unitData.unit.attacks.map(attack => {
+                return {
+                    name: attack.name,
+                    attack: parseInt(attack.attack),
+                    attackSpeed: parseFloat(attack.attackSpeed),
+                    hitsPerAttack: parseInt(attack.hitsPerAttack)
+                }
+            })
+        } else {
+            console.log(`${unitData.name} has no attacks`)
+        }
+
+        unitData.cost = parseInt(unitData.cost)
+        unitData.rarity = parseInt(unitData.rarity)
+
+
+        if (unitData.type != 'Duo') {
+            // Convert hp to integer
+            unitData.unit.hp = parseInt(unitData.unit.hp)
+
+        } else {
+            unitData.units = unitData.units.map(unit => {
+                unit.hp = parseInt(unit.hp)
+                unit.attacks = unit.attacks.map(attack => {
+                    return {
+                        name: attack.name,
+                        attack: parseInt(attack.attack),
+                        attackSpeed: parseFloat(attack.attackSpeed),
+                        hitsPerAttack: parseInt(attack.hitsPerAttack)
+                    }
+                })
+                return unit;
+            })
+        }
+
+
+        unitDataNew[unit] = unitData
+        console.log(unitData)
+
+    }
+    fs.writeFileSync('./data/unitDataNew.json', JSON.stringify(unitDataNew, null, 2));
 }
 
-function calculateStat(level, unitRarity, stat, isLeader = false) {
-  level = parseInt(level);
-  unitRarity = parseInt(unitRarity);
-  stat = parseInt(stat);
-
-  const levelRanges = {
-      "1-5": [0, 4],
-      "5-10": [5, 9],
-      "10-15": [10, 14],
-      "15-20": [15, 19],
-      "20-25": [20, 24],
-      "25-30": [25, 29],
-      "31-40": [30, 40],
-      "41-50": [41, 50]
-  };
-
-  let currentLevel = 1;
-  let lastRange = null;
-
-  while (currentLevel < level) {
-      let rangeKey = Object.keys(levelRanges).find(range => {
-          let [min, max] = levelRanges[range];
-          return currentLevel >= min && currentLevel <= max;
-      });
-
-      if (rangeKey !== lastRange) {
-          lastRange = rangeKey;
-          var percent = upgradePercent[unitRarity][rangeKey];
-          var leaderPercent = leaderUpgradePercent?.[unitRarity]?.[rangeKey] || percent;
-      }
-
-      const effectivePercent = isLeader ? leaderPercent : percent;
-      // stat = Math.ceil(stat + (stat * (effectivePercent / 100)));
-      stat = Math.ceil(stat + (stat * (effectivePercent / 100)));
-      console.log((stat * (effectivePercent / 100)))
-
-      currentLevel++;
-  }
-
-  return stat;
-}
-
-
-console.log(`
-410 || ${calculateStat(5, 4, 143)}
-820 || ${calculateStat(5, 4, 286)}
-`)
+main();

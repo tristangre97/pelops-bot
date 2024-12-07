@@ -4,7 +4,6 @@ const {
     ButtonBuilder
 } = require('discord.js');
 const randomDeck = require('../utility/randomDeck.js');
-const developer = require('../developer.json');
 
 
 module.exports = {
@@ -15,6 +14,82 @@ module.exports = {
     argsDescription: "The command category | the command name",
     testOnly: false,
     options: [
+        {
+            name: 'deck_size',
+            description: 'How many units in the deck (8-12)',
+            required: false,
+            type: 4,
+            choices: [
+                {
+                    name: '8',
+                    value: 8,
+                },
+                {
+                    name: '9',
+                    value: 9,
+                },
+                {
+                    name: '10',
+                    value: 10,
+                },
+                {
+                    name: '11',
+                    value: 11,
+                },
+                {
+                    name: '12',
+                    value: 12,
+                }
+            ]
+        },
+        {
+            name: 'amount',
+            description: 'Amount of decks to get - 10 Max',
+            required: false,
+            type: 10,
+            choices: [
+                {
+                    name: '1',
+                    value: 1,
+                },
+                {
+                    name: '2',
+                    value: 2,
+                },
+                {
+                    name: '3',
+                    value: 3,
+                },
+                {
+                    name: '4',
+                    value: 4,
+                },
+                {
+                    name: '5',
+                    value: 5,
+                },
+                {
+                    name: '6',
+                    value: 6,
+                },
+                {
+                    name: '7',
+                    value: 7,
+                },
+                {
+                    name: '8',
+                    value: 8,
+                },
+                {
+                    name: '9',
+                    value: 9,
+                },
+                {
+                    name: '10',
+                    value: 10,
+                }
+            ]
+        },
         {
             name: 'disable_unavailable_units',
             description: 'Prevent unavailable units from appearing in the deck',
@@ -32,15 +107,7 @@ module.exports = {
             required: false,
             type: 3,
             autocomplete: true,
-        },
-        {
-            name: 'amount',
-            description: 'Amount of decks to get - 10 Max',
-            required: false,
-            type: 10,
-
-        },
-
+        }
     ],
 
     run: async ({
@@ -51,10 +118,8 @@ module.exports = {
         args,
         guild
     }) => {
-        var extraMsg = []
-        var { disable_unavailable_units, preferred_leader, amount } = args;
+        let { disable_unavailable_units, preferred_leader, amount, deck_size } = args;
         if (!disable_unavailable_units) disable_unavailable_units = 'False';
-        if (preferred_leader) extraMsg.push(`Preferred Leader: ${preferred_leader}`);
 
         amount = Math.min(Math.max(amount || 1, 1), 10);
 
@@ -73,17 +138,14 @@ module.exports = {
         });
 
 
-        options = {
+        const options = {
             disable_unavailable_units: disable_unavailable_units,
             preferred_leader: preferred_leader,
-            amount: amount
+            amount: amount,
+            deckSize: deck_size
         }
 
-
-        var data = await randomDeck.get(options, interaction.user.id)
-
-        
-
+        const data = await randomDeck.get(options, interaction.user.id)
 
         return interaction.editReply({
             embeds: [],
@@ -94,7 +156,3 @@ module.exports = {
 
     }
 }
-
-
-
-const delay = ms => new Promise(res => setTimeout(res, ms));

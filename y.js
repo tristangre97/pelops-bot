@@ -4,13 +4,17 @@ const fs = require('node:fs');
 const ud = {}
 
 async function main() {
-    console.log(unitData)
     for (const unit in unitData) {
         data = unitData[unit]
-        ud[data.name] = data
+        image = data.image
+        imageCheck = await fetch(image, { method: 'HEAD' })
+        if (imageCheck.ok) {
+            ud[unit] = data
+        } else {
+            console.log(`Image not found for ${data.name}`)
+        }
     }
 
-    fs.writeFileSync('./data/unitDataV3.js', JSON.stringify(ud  , null, 4))
 }
 
 

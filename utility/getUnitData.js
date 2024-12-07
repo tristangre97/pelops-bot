@@ -1,7 +1,8 @@
 const {
     EmbedBuilder,
     ActionRowBuilder,
-    ButtonBuilder
+    ButtonBuilder,
+    StringSelectMenuBuilder
 } = require('discord.js');
 const search = require('./search');
 const cache = require('./cache');
@@ -133,7 +134,7 @@ exports.get = async function (data) {
 
     if (level > maxLevel) {
         level = maxLevel;
-        const options = cache.get(`pelops:interactions:${id}`)
+        const options = cache.get(`pelops:interactions:${id}`) || {}
         options.level = level
         cache.set(`pelops:interactions:${id}`, options, 600)
     }
@@ -158,47 +159,13 @@ exports.get = async function (data) {
         }
 
 
-    } else if (unitData.type === "Building") {
-
-        const spawnedUnit = unitData.spawnedUnit
-        const spawnedUnitData = unitDataMap.get(spawnedUnit);
+    } else if (unitData.type === "n") {
 
 
-        const unitHealth = calculateStat(level, unitRarity, unitData.unit.hp)
-        const unitAttacks = getAttacks({
-            attacks: unitData.unit.attacks,
-            level: level,
-            unitRarity: unitRarity
-        })
-
-        fields.push(
-            {
-                name: '__**Unit Stats**__',
-                value: `<:pelops_health:1258999655186960465> **HP** \`${unitHealth.toLocaleString()}\`\n${unitAttacks.join('\n')}`,
-                inline: false
-            }
-        )
-
-        if (spawnedUnitData) {
-            const spawnedUnitHealth = calculateStat(level, unitRarity, spawnedUnitData.unit.hp)
-            const spawnedUnitAttacks = getAttacks({
-                attacks: spawnedUnitData.unit.attacks,
-                level: level,
-                unitRarity: unitRarity
-            })
-
-            fields.push(
-                {
-                    name: '__**Spawned Unit Stats**__',
-                    value: `<:pelops_health:1258999655186960465> **HP** \`${spawnedUnitHealth.toLocaleString()}\`\n${spawnedUnitAttacks.join('\n')}`,
-                    inline: false
-                }
-            )
-        }
 
 
     } else {
-        const unitHealth = calculateStat(level, unitRarity, unitData.unit.hp)
+        const unitHealth = calculateStat(level, unitRarity, unitData.unit.hp) ?? 'N/A'
         const unitAttacks = getAttacks({
             attacks: unitData.unit.attacks,
             level: level,
@@ -217,22 +184,49 @@ exports.get = async function (data) {
 
     if (unitData.leader) {
         const leaderHealth = calculateStat(level, unitRarity, unitData.leader.hp, true)
-        const leaderAttack = calculateStat(level, unitRarity, unitData.leader.attack, true)
+        const leaderAttacks = getAttacks({
+            attacks: unitData.leader.attacks,
+            level: level,
+            unitRarity: unitRarity
+        })
+        //         fields.push({
+        //             name: '__**Leader Stats**__',
+        //             value: `<:pelops_health:1258999655186960465> **HP** \`${leaderHealth.toLocaleString()}\`
+        // ${leaderAttacks.join('\n')}
+        // `
+        //         })
+
         fields.push({
             name: '__**Leader Stats**__',
-            value: `<:pelops_health:1258999655186960465> **HP** \`${leaderHealth.toLocaleString()}\`
-<:pelops_attack:1258999656193462335> **Attack** \`${leaderAttack.toLocaleString()}\` | **DPS** \`${calculateDPS(leaderAttack, unitData.leader.attackSpeed).toLocaleString()}\`
-`
+            value: `Leader stats were changed at some point and I have no idea what they are. `
         })
     }
 
 
+    const spawnedUnit = unitData.spawnedUnit
+    const spawnedUnitData = unitDataMap.get(spawnedUnit);
 
+    if (spawnedUnitData) {
+        const spawnedUnitHealth = calculateStat(level, unitRarity, spawnedUnitData.unit.hp)
+        const spawnedUnitAttacks = getAttacks({
+            attacks: spawnedUnitData.unit.attacks,
+            level: level,
+            unitRarity: unitRarity
+        })
+
+        fields.push(
+            {
+                name: '__**Spawned Unit Stats**__',
+                value: `<:pelops_health:1258999655186960465> **Name** \`${spawnedUnitData.name}\` **HP** \`${spawnedUnitHealth.toLocaleString()}\`\n${spawnedUnitAttacks.join('\n')}`,
+                inline: false
+            }
+        )
+    }
 
     embed.setTitle(`${unitData.name} - Level ${level} Stats`)
     embed.setColor('#ffb33c')
     embed.setFields(fields)
-    const imageLink = `https://res.cloudinary.com/tristangregory/image/upload/v1689538433/gbl/${unitData.name.replaceAll(" ", "_").replaceAll("(", "").replaceAll(")", "")}.png`
+    const imageLink = unitData.image
     embed.setThumbnail(imageLink)
 
     const levelBtns = new ActionRowBuilder();
@@ -253,16 +247,46 @@ exports.get = async function (data) {
             .setDisabled(level == maxLevel)
     )
 
-    levelBtns.addComponents(
-        new ButtonBuilder()
-            .setCustomId(`report ${id}`)
-            .setLabel(`Report Issue`)
-            .setStyle('Secondary')
-            .setEmoji('<:error_bug:1258997306364006543>')
-    )
+
+
+    let i = 0;
+    let selectOptions = [];
+    let levelUp = level;
+    let levelDown = level;
+
+    while (i < 25) {
+
+        if (levelUp < maxLevel) {
+            levelUp++
+            selectOptions.push({
+                label: `Level ${levelUp}`,
+                value: levelUp.toString(),
+            })
+            i++
+        }
+        if (levelDown > 1) {
+            levelDown--
+            selectOptions.push({
+                label: `Level ${levelDown}`,
+                value: levelDown.toString(),
+            })
+            i++
+        }
+
+    }
+
+    selectOptions.sort((a, b) => a.value - b.value)
+
+    const selectMenu = new ActionRowBuilder()
+        .addComponents(
+            new StringSelectMenuBuilder()
+                .setCustomId(`levelSelectMenu_${id}`)
+                .setPlaceholder('Level Select')
+                .addOptions(selectOptions.slice(0, 25))
+        );
+
 
     components.push(levelBtns)
-
 
     const evolutionBtns = new ActionRowBuilder();
     if (unitData?.evolutions.length > 0) {
@@ -276,12 +300,13 @@ exports.get = async function (data) {
         })
         components.push(evolutionBtns)
     }
-
+    components.push(selectMenu)
 
 
     return {
         embed: embed,
         components: components,
+        fields: fields
     }
 }
 
@@ -327,7 +352,8 @@ function getAttacks(options) {
     return attacks.map((attack) => {
         attackStat = calculateStat(level, unitRarity, attack.attack) * attack.hitsPerAttack
         const multiHitMessage = attack.hitsPerAttack > 1 ? ` | **Hits** \`${attack.hitsPerAttack}\`` : ''
-        const notesMessage = attack.notes ? `\n<:arrowturndownrightsolid:1258996539376795688> **Notes** \`${attack.notes}\`` : ''
+        const notesMessage = attack.notes ? `
+-# ${attack.notes}` : ''
         return `<:pelops_attack:1258999656193462335> **${attack.name}** \`${attackStat.toLocaleString()}\` | **DPS** \`${calculateDPS(attackStat, attack.attackSpeed).toLocaleString()}\` ${multiHitMessage}${notesMessage}`
     })
 }
