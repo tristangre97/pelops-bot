@@ -1,13 +1,7 @@
-const {
-    EmbedBuilder,
-    ActionRowBuilder,
-    ButtonBuilder
-} = require('discord.js');
 const random = require('../utility/random.js');
 const cache = require('../utility/cache.js');
 const unitEmbedGen = require('../utility/getUnitData.js');
 const unitData = require('../data/unitData.json');
-
 module.exports = {
     name: 'unit',
     description: "Shows the stats and cost of the selected unit",
@@ -68,12 +62,13 @@ module.exports = {
             return interaction.reply(
                 {
                     files: [{
-                        attachment: unitImage,
+                        attachment: `http://api.pelops.app/images/units/${unitImage}`,
                         name: `${unit}.png`
                     }]
                 }
             )
         }
+
 
         level = interaction?.options?.data[0]?.options[1]?.value
         if (level < 1) level = 1
@@ -92,12 +87,12 @@ module.exports = {
 
         cache.set(`pelops:interactions:${id}`, options, 600)
 
-        unitData = await unitEmbedGen.get(options)
+        const data = await unitEmbedGen.get(options)
 
         await interaction.reply(
             {
-                embeds: [unitData.embed],
-                components: unitData.components
+                embeds: [data.embed],
+                components: data.components
             }
         )
 

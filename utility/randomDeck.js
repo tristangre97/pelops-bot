@@ -5,12 +5,13 @@ const {
   Events,
   StringSelectMenuBuilder
 } = require('discord.js');
+const fs = require('node:fs');
 
 const random = require('../utility/random.js');
 const imgGen = require('../utility/HTML2IMG.js');
+const deckCSS = fs.readFileSync('/home/tristan/Downloads/pelops/data/css/deck.css', 'utf8')
 
 const unitDataFile = require('../data/unitData.json');
-const fs = require('node:fs');
 // /home/tristan/Downloads/pelops/data/css/deck.css
 
 const unavailiableUnits = [] //No unavailiable units at the moment
@@ -44,7 +45,7 @@ const defaultOptions = {
 
 exports.get = async function (options, user) {
 
-  let { disable_unavailable_units, amount, deckSize } = options
+  let { disable_unavailable_units, amount, deckSize, textOnly } = options
 
   // Makes sure older buttons still work
   if (!options) options = defaultOptions
@@ -56,6 +57,25 @@ exports.get = async function (options, user) {
   const arrayOfPromises = new Array();
   const components = new Array();
 
+
+  if (textOnly) {
+    amount = 1
+    deck = await getDeckList(options)
+    let deckkMsg = deck.map(unit => {
+      let emojiName = unit.name.replace(/[^a-zA-Z0-9]/g, "").slice(0, 32);
+      let emojiID = unit.emoji
+      let emoji = `<:${emojiName}:${emojiID}>`
+
+      return `${emoji} **${unit.name}**`
+
+    })
+    let msg = `${deckkMsg.join('\n')}`
+    return {
+      msg: msg,
+
+    }
+  }
+
   while (arrayOfPromises.length < amount) {
     arrayOfPromises.push(getDeckList(options))
   }
@@ -66,7 +86,7 @@ exports.get = async function (options, user) {
     for (item of t) {
       randomDeckImages.push({
         attachment: item.image,
-        name: `${item.id}.png`
+        name: `${item.id}.jpeg`
       })
     }
     return;
@@ -133,8 +153,7 @@ exports.get = async function (options, user) {
 
 
 async function getDeckList(options) {
-  let { deckSize, disable_unavailable_units, preferred_leader } = options
-
+  let { deckSize, disable_unavailable_units, preferred_leader, textOnly } = options
   if (!deckSize) deckSize = 8
   let deck = new Array()
 
@@ -166,9 +185,16 @@ async function getDeckList(options) {
 
   }
 
+  if (textOnly) return deck
+
   let deckHTML = new Array()
   for (unit of deck) {
-    const imageLink = unit.image
+    let imageLink = unit.image;
+    imageLink = imageLink.replace('.png', '.webp')
+    // https://res.cloudinary.com/tristangregory/image/upload/e_trim,h_256/v1689538433/gbl/Mechagodzilla_93.webp
+    // After upload/ add e_trim,h_256/ to the link to crop the image
+    imageLink = imageLink.replace('https://res.cloudinary.com/tristangregory/image/upload/', 'https://res.cloudinary.com/tristangregory/image/upload/e_trim,h_300/')
+
 
     let stars = new Array()
     const rarity = unit.rarity
@@ -213,14 +239,8 @@ async function getDeckList(options) {
 
   }
 
-  const deckCSS = fs.readFileSync('/home/tristan/Downloads/pelops/data/css/deck.css', 'utf8')
 
   const finalHTML = `
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;500;700;800&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/f6742b3ee0.js" crossorigin="anonymous"></script>
-
     <style>${deckCSS}</style>
 <div class="deck-card" id="randomDeck">
 <img class="credit-img" src="https://res.cloudinary.com/tristangregory/image/upload/e_trim,h_128/v1653341451/gbl/pelops/Pelops_II.webp">
@@ -233,7 +253,8 @@ ${deckHTML.join('')}
   const img = await imgGen.post({
     html: finalHTML,
     selector: '#randomDeck',
-    type: 'png',
+    type: 'jpeg',
+    quality: 80
   })
 
 

@@ -126,12 +126,13 @@ module.exports = {
         const embed = new EmbedBuilder()
         embed.setColor('#ffb33c')
         embed.setTitle('Generating Deck...')
-        if (amount > 1) {
-            embed.setDescription(`I am generating ${amount} random decks for you. This may take a second.`)
-        } else {
-            embed.setDescription(`I am generating a random deck for you. This may take a second.`)
-        }
-        embed.setImage('https://res.cloudinary.com/tristangregory/image/upload/v1664223401/gbl/pelops/random.gif')
+        // if (amount > 1) {
+        //     embed.setDescription(`I am generating ${amount} random decks for you. This may take a second.`)
+        // } else {
+        //     embed.setDescription(`I am generating a random deck for you. This may take a second.`)
+        // }
+        embed.setDescription(`Generating deck...`)
+        // embed.setImage('https://res.cloudinary.com/tristangregory/image/upload/v1664223401/gbl/pelops/random.gif')
 
         await interaction.reply({
             embeds: [embed],
@@ -142,16 +143,17 @@ module.exports = {
             disable_unavailable_units: disable_unavailable_units,
             preferred_leader: preferred_leader,
             amount: amount,
-            deckSize: deck_size
+            deckSize: deck_size,
+            textOnly: true,
         }
 
         const data = await randomDeck.get(options, interaction.user.id)
 
         return interaction.editReply({
             embeds: [],
-            components: data.components,
+            components: data.components ?? [],
             content: data.msg,
-            files: data.files,
+            files: data.files ?? [],
         })
 
     }
