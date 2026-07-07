@@ -15,6 +15,8 @@ const bodyParser = require("body-parser");
 const recursiveRouting = require("recursive-routing");
 const app = express()
 
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb' }));
 
 app.use(cors({
   origin: '*',
@@ -202,8 +204,8 @@ client.on("clientReady", async () => {
         continue
       }
       let emojiName = ud.name.replace(/[^a-zA-Z0-9]/g, "").slice(0, 32);
-      const imageLink = ud.image.replace('upload/', 'upload/e_trim/').replace('.png', '.webp');
-
+      const imageLink = `https://api.pelops.app/images/units/${ud.image}.webp?height=128`
+      console.log(imageLink)
       let emojiID
       try {
         const emojiData = await client.application.emojis.create({
@@ -255,8 +257,7 @@ client.on("interactionCreate", async (interaction) => {
     await command.run(commandData);
     commandEnd = performance.now();
     console.log(
-      `Command ${command.name} executed by ${interaction.user.username} in ${interaction.guild.name
-      } in ${commandEnd - commandStart}ms`
+      `Command ${command.name} executed by ${interaction.user.username} in ${interaction?.guild?.name ?? "DM"} in ${commandEnd - commandStart}ms`
     );
   } catch (error) {
     console.error(error);

@@ -1,0 +1,6664 @@
+{
+  "AH-64D": {
+    "name": "AH-64D",
+    "rarity": 1,
+    "cost": 1,
+    "aliases": [],
+    "evolutions": [],
+    "emoji": "1337847300227338323",
+    "movie": "Shin Godzilla",
+    "year": 2016,
+    "skipSearch": true,
+    "unit": {
+      "hp": 0,
+      "attacks": []
+    },
+    "added": "2025-11-30T19:47:31.880Z",
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "AH-64D"
+  },
+  "Air Base": {
+    "name": "Air Base",
+    "rarity": 2,
+    "cost": 4,
+    "aliases": [],
+    "evolutions": [],
+    "image": "AirBase.png",
+    "emoji": "1337847300227338323",
+    "movie": "Shin Godzilla",
+    "year": 2016,
+    "type": "Building",
+    "unit": {
+      "hp": 180,
+      "attacks": []
+    },
+    "spawnedUnit": "AH-64D",
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Air Base"
+  },
+  "Anguirus": {
+    "name": "Anguirus",
+    "rarity": 2,
+    "cost": 3,
+    "aliases": [],
+    "evolutions": [],
+    "image": "Anguirus.png",
+    "emoji": "1337847303150633012",
+    "movie": "Godzilla Raids Again",
+    "year": 1955,
+    "unit": {
+      "hp": 495,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.7,
+          "hitsPerAttack": 1,
+          "attack": 105
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Anguirus"
+  },
+  "Anguirus (1968)": {
+    "name": "Anguirus (1968)",
+    "rarity": 4,
+    "cost": 4,
+    "aliases": [],
+    "evolutions": [],
+    "image": "unit_icon_middle_101571-e1777516316813.png",
+    "movie": "Destroy All Monsters",
+    "year": 1968,
+    "unit": {
+      "hp": 1641,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.6,
+          "hitsPerAttack": 1,
+          "attack": 321,
+          "canHitFlyer": true
+        },
+        {
+          "name": "Attack (Aerial Units)",
+          "attackSpeed": 2.5,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack",
+          "multiplierValue": 48,
+          "multiplierType": "Percent",
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "added": "2026-05-31T01:37:58.780Z",
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Anguirus_1968",
+    "emoji": "1523548451101736991"
+  },
+  "Anguirus 2021": {
+    "name": "Anguirus 2021",
+    "rarity": 4,
+    "cost": 4,
+    "aliases": [
+      "Anguirus Singular Point",
+      "AnguirusSP"
+    ],
+    "evolutions": [],
+    "image": "Anguirus2021.png",
+    "emoji": "1375650591790858240",
+    "movie": "Godzilla Singular Point",
+    "year": 2021,
+    "youtube": "UalVPWZGGRI",
+    "unit": {
+      "hp": 1472,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2,
+          "hitsPerAttack": 1,
+          "attack": 273
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Anguirus 2021"
+  },
+  "Aqua Mothra": {
+    "name": "Aqua Mothra",
+    "rarity": 4,
+    "cost": 4,
+    "aliases": [],
+    "evolutions": [],
+    "image": "AquaMothra.png",
+    "emoji": "1337847459912749112",
+    "movie": "Rebirth of Mothra II",
+    "year": 1997,
+    "isAerial": true,
+    "unit": {
+      "hp": 1231,
+      "attacks": [
+        {
+          "name": "Attack 1",
+          "attackSpeed": 1.1,
+          "hitsPerAttack": 1,
+          "attack": 191
+        },
+        {
+          "name": "Attack 2",
+          "attackSpeed": 1.1,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack 1",
+          "multiplierValue": 200,
+          "multiplierType": "Percent"
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Aqua Mothra"
+  },
+  "Armor Mothra": {
+    "name": "Armor Mothra",
+    "rarity": 4,
+    "cost": 6,
+    "aliases": [],
+    "evolutions": [],
+    "image": "ArmorMothra.png",
+    "emoji": "1375650589031010354",
+    "movie": "Rebirth of Mothra III",
+    "year": 1998,
+    "youtube": "o8ngeWZgbnU",
+    "isAerial": true,
+    "unit": {
+      "hp": 1641,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 1.9,
+          "hitsPerAttack": 1,
+          "attack": 315
+        },
+        {
+          "name": "Critical",
+          "attackSpeed": 1.9,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack",
+          "multiplierValue": 220,
+          "multiplierType": "Percent"
+        }
+      ]
+    },
+    "leader": {
+      "hp": 8390,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 1.9,
+          "hitsPerAttack": 1,
+          "attack": 722,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "memorySlotColors": [
+      "RED",
+      "GREEN",
+      "BLUE",
+      "YELLOW"
+    ],
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Armor Mothra"
+  },
+  "B-2 Bomber": {
+    "name": "B-2 Bomber",
+    "rarity": 1,
+    "cost": 5,
+    "aliases": [],
+    "evolutions": [],
+    "image": "B2Bomber.png",
+    "emoji": "1337847305365360641",
+    "movie": "Shin Godzilla",
+    "year": 2016,
+    "isAerial": true,
+    "unit": {
+      "hp": 270,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.4,
+          "hitsPerAttack": 1,
+          "attack": 90
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "B-2 Bomber"
+  },
+  "Bagan": {
+    "name": "Bagan",
+    "rarity": 4,
+    "cost": 6,
+    "aliases": [],
+    "evolutions": [],
+    "image": "Bagan.png",
+    "emoji": "1375650577144610936",
+    "movie": "Super Godzilla",
+    "year": 1993,
+    "unit": {
+      "hp": 1703,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.7,
+          "hitsPerAttack": 1,
+          "attack": 318,
+          "aoe": true,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "leader": {
+      "hp": 9190,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.4,
+          "hitsPerAttack": 1,
+          "attack": 602
+        }
+      ]
+    },
+    "memorySlotColors": [
+      "RED",
+      "RED",
+      "RED",
+      "YELLOW"
+    ],
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Bagan"
+  },
+  "Baragon": {
+    "name": "Baragon",
+    "rarity": 4,
+    "cost": 3,
+    "aliases": [],
+    "evolutions": [],
+    "image": "Baragon.png",
+    "emoji": "1444507926017609758",
+    "movie": "Frankenstein vs. Baragon",
+    "year": 1965,
+    "youtube": "FIKJT85vYOU",
+    "unit": {
+      "hp": 1231,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.2,
+          "hitsPerAttack": 1,
+          "attack": 253
+        }
+      ]
+    },
+    "added": "2025-11-30T01:41:45.771Z",
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Baragon"
+  },
+  "Battra (Imago)": {
+    "name": "Battra (Imago)",
+    "rarity": 4,
+    "cost": 5,
+    "aliases": [
+      "Imago 1992"
+    ],
+    "evolutions": [
+      "Battra (Larva)"
+    ],
+    "image": "BattraImago.png",
+    "emoji": "1337847307382821014",
+    "movie": "Godzilla vs. Mothra",
+    "year": 1992,
+    "isAerial": true,
+    "isFullyEvolved": true,
+    "unit": {
+      "hp": 976,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.1,
+          "hitsPerAttack": 1,
+          "attack": 253,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "leader": {
+      "hp": 8390,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.3,
+          "hitsPerAttack": 1,
+          "attack": 592
+        }
+      ]
+    },
+    "memorySlotColors": [
+      "RED",
+      "RED",
+      "BLUE",
+      "YELLOW"
+    ],
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Battra (Imago)"
+  },
+  "Battra (Larva)": {
+    "name": "Battra (Larva)",
+    "rarity": 4,
+    "cost": 4,
+    "aliases": [
+      "Battra Larva 1992"
+    ],
+    "evolutions": [
+      "Battra (Imago)"
+    ],
+    "image": "BattraLarva.png",
+    "emoji": "1337847308548837450",
+    "movie": "Godzilla vs. Mothra",
+    "year": 1992,
+    "unit": {
+      "hp": 572,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 1.8,
+          "hitsPerAttack": 1,
+          "attack": 152,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Battra (Larva)"
+  },
+  "Battra and Mothra": {
+    "name": "Battra and Mothra",
+    "rarity": 4,
+    "cost": 6,
+    "aliases": [],
+    "evolutions": [],
+    "image": "BattraandMothra.png",
+    "emoji": "1337854448197697627",
+    "movie": "Godzilla vs. Mothra",
+    "year": 1992,
+    "youtube": "P_O71jSUT4I",
+    "isAerial": true,
+    "type": "Duo",
+    "units": [
+      {
+        "name": "Battra",
+        "hp": 1188,
+        "attacks": [
+          {
+            "name": "Attack",
+            "attack": 118,
+            "attackSpeed": 2.1,
+            "hitsPerAttack": 2,
+            "canHitFlyer": true
+          },
+          {
+            "name": "Circular Attack (With Mothra)",
+            "attack": 154,
+            "attackSpeed": 2.1,
+            "hitsPerAttack": 2,
+            "aoe": true,
+            "canHitFlyer": true
+          }
+        ]
+      },
+      {
+        "name": "Mothra",
+        "hp": 1089,
+        "attacks": [
+          {
+            "name": "Attack",
+            "attack": 88,
+            "attackSpeed": 2.1,
+            "hitsPerAttack": 2,
+            "canHitFlyer": true
+          }
+        ]
+      }
+    ],
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Battra and Mothra"
+  },
+  "Behemoth": {
+    "name": "Behemoth",
+    "rarity": 4,
+    "cost": 5,
+    "aliases": [],
+    "evolutions": [],
+    "image": "Behemoth",
+    "emoji": "1453684858642763993",
+    "movie": "Godzilla: King of the Monsters",
+    "year": 2017,
+    "unit": {
+      "hp": 1641,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 3.3,
+          "hitsPerAttack": 1,
+          "attack": 321,
+          "aoe": true,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "added": "2025-12-25T09:32:31.764Z",
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Behemoth"
+  },
+  "Biollante (Flower Beast)": {
+    "name": "Biollante (Flower Beast)",
+    "rarity": 4,
+    "cost": 3,
+    "aliases": [],
+    "evolutions": [
+      "Biollante (Plant Beast Form)"
+    ],
+    "image": "BiollanteFlowerBeast.png",
+    "emoji": "1337847310196936837",
+    "movie": "Godzilla vs. Biollante",
+    "year": 1989,
+    "unit": {
+      "hp": 898,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2,
+          "hitsPerAttack": 1,
+          "attack": 174
+        },
+        {
+          "name": "Attack (In Water)",
+          "attackSpeed": 2,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack",
+          "multiplierValue": 80,
+          "multiplierType": "Percent",
+          "notes": "Must be placed in water"
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Biollante (Flower Beast)"
+  },
+  "Biollante (Plant Beast Form)": {
+    "name": "Biollante (Plant Beast Form)",
+    "rarity": 4,
+    "cost": 3,
+    "aliases": [],
+    "evolutions": [
+      "Biollante (Flower Beast)"
+    ],
+    "image": "BiollantePlantBeastForm.png",
+    "emoji": "1337847311031603221",
+    "movie": "Godzilla vs. Biollante",
+    "year": 1989,
+    "isFullyEvolved": true,
+    "unit": {
+      "hp": 1128,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 1.4,
+          "hitsPerAttack": 1,
+          "attack": 174,
+          "aoe": true
+        },
+        {
+          "name": "Attack (In Water)",
+          "attackSpeed": 1.4,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack",
+          "multiplierValue": 80,
+          "multiplierType": "Percent",
+          "notes": "Must be placed in water",
+          "aoe": true
+        }
+      ]
+    },
+    "leader": {
+      "hp": 8390,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.8,
+          "hitsPerAttack": 1,
+          "attack": 682
+        }
+      ]
+    },
+    "memorySlotColors": [
+      "RED",
+      "BLUE",
+      "BLUE",
+      "GREEN"
+    ],
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Biollante (Plant Beast Form)"
+  },
+  "Biollante (Wakasa Bay ver.)": {
+    "name": "Biollante (Wakasa Bay ver.)",
+    "rarity": 4,
+    "cost": 4,
+    "aliases": [],
+    "evolutions": [],
+    "image": "BiollanteWakasaBayver.png",
+    "emoji": "1337847312407593042",
+    "movie": "Godzilla vs. Biollante",
+    "year": 1989,
+    "unit": {
+      "hp": 1326,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.7,
+          "hitsPerAttack": 1,
+          "attack": 196,
+          "notes": "Units hit by this attack are inflicted with the acid status effect."
+        },
+        {
+          "name": "Tentacle Attack",
+          "attackSpeed": 5,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack",
+          "multiplierValue": 20,
+          "multiplierType": "Percent",
+          "notes": "Ariel units hit by this attack enter a low-fly state, which makes them vulnerable to ground attacks."
+        },
+        {
+          "name": "Acid",
+          "attackSpeed": 0.5,
+          "hitsPerAttack": 1,
+          "attack": 25
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Biollante (Wakasa Bay ver.)"
+  },
+  "Biollante Harvest": {
+    "name": "Biollante Harvest",
+    "rarity": 4,
+    "cost": 4,
+    "aliases": [],
+    "evolutions": [],
+    "image": "unit_icon_middle_101611-e1780024260445.png",
+    "movie": "Godzilla Battle Line",
+    "year": 2026,
+    "unit": {
+      "hp": 1450,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.9,
+          "hitsPerAttack": 1,
+          "attack": 321,
+          "aoe": true,
+          "canHitFlyer": true
+        },
+        {
+          "name": "Attack 2",
+          "attackSpeed": 2.9,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack",
+          "multiplierValue": 20,
+          "multiplierType": "PercentOf",
+          "aoe": true,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "added": "2026-05-31T01:21:33.372Z",
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Biollante_Harvest",
+    "emoji": "1523548452179411004"
+  },
+  "BLADE LIGER": {
+    "name": "BLADE LIGER",
+    "rarity": 4,
+    "cost": 5,
+    "aliases": [],
+    "evolutions": [],
+    "image": "BLADELIGER.png",
+    "emoji": "1444507927946854471",
+    "movie": "ZOIDs",
+    "year": 2000,
+    "youtube": "ASYGcjjAIxs",
+    "isMechanical": true,
+    "unit": {
+      "hp": 1674,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2,
+          "hitsPerAttack": 1,
+          "attack": 332,
+          "aoe": true,
+          "canHitFlyer": true
+        },
+        {
+          "name": "Attack (Laser Blade Extended)",
+          "attackSpeed": 1.7,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack",
+          "multiplierValue": 50,
+          "multiplierType": "Percent",
+          "aoe": true,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "added": "2025-11-30T01:06:13.335Z",
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "BLADE LIGER"
+  },
+  "Bolga": {
+    "name": "Bolga",
+    "rarity": 4,
+    "cost": 5,
+    "aliases": [
+      "Bolga 2025"
+    ],
+    "evolutions": [],
+    "image": "Bolga.png",
+    "emoji": "1444507929008144384",
+    "movie": "Godzilla Galaxy Odyssey",
+    "year": 2025,
+    "isAerial": true,
+    "unit": {
+      "hp": 1577,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.2,
+          "hitsPerAttack": 1,
+          "attack": 315
+        },
+        {
+          "name": "Attack (Flight Form)",
+          "attackSpeed": 2.2,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack",
+          "multiplierValue": 100,
+          "multiplierType": "PercentOf"
+        },
+        {
+          "name": "Attack (Close Range Flight)",
+          "attackSpeed": 2.2,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack (Flight Form)",
+          "multiplierValue": 20,
+          "multiplierType": "Percent"
+        }
+      ]
+    },
+    "added": "2025-11-30T01:02:56.964Z",
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Bolga"
+  },
+  "Burning Godzilla": {
+    "name": "Burning Godzilla",
+    "rarity": 4,
+    "cost": 5,
+    "aliases": [],
+    "evolutions": [],
+    "image": "BurningGodzilla.png",
+    "emoji": "1337847313841786922",
+    "movie": "Godzilla vs. Destoroyah",
+    "year": 1995,
+    "youtube": "8cNCDgM8_eA",
+    "unit": {
+      "hp": 1418,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 3.3,
+          "hitsPerAttack": 1,
+          "attack": 385
+        },
+        {
+          "name": "Self-Destruct",
+          "attackSpeed": 1,
+          "hitsPerAttack": 1,
+          "attack": 385
+        },
+        {
+          "name": "Self-Destruct 2",
+          "attackSpeed": 1,
+          "hitsPerAttack": 1,
+          "attack": 578
+        },
+        {
+          "name": "Self-Destruct 3",
+          "attackSpeed": 1,
+          "hitsPerAttack": 1,
+          "attack": 770
+        },
+        {
+          "name": "Self-Destruct 4",
+          "attackSpeed": 1,
+          "hitsPerAttack": 1,
+          "attack": 1155
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Burning Godzilla"
+  },
+  "Burning Godzilla (Ariake ver.)": {
+    "name": "Burning Godzilla (Ariake ver.)",
+    "rarity": 4,
+    "cost": 6,
+    "aliases": [
+      "Burning Godzilla (1995)"
+    ],
+    "evolutions": [],
+    "image": "BurningGodzillaAriakever.png",
+    "emoji": "1378760727157801040",
+    "movie": "Godzilla vs. Destoroyah",
+    "year": 1995,
+    "youtube": "WHPbqSkxCqA",
+    "unit": {
+      "hp": 1796,
+      "attacks": [
+        {
+          "name": "Ranged 1",
+          "attackSpeed": 2.9,
+          "hitsPerAttack": 1,
+          "attack": 366,
+          "canHitFlyer": true
+        },
+        {
+          "name": "Gauge 50%",
+          "attackSpeed": 2.9,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Ranged 1",
+          "multiplierValue": 40,
+          "multiplierType": "Percent",
+          "canHitFlyer": true
+        },
+        {
+          "name": "Gauge at 100%",
+          "attackSpeed": 2.9,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Ranged 1",
+          "multiplierValue": 80,
+          "multiplierType": "Percent",
+          "canHitFlyer": true
+        },
+        {
+          "name": "Additional Explosion",
+          "attackSpeed": 1,
+          "hitsPerAttack": 1,
+          "attack": 36,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Burning Godzilla (Ariake ver.)"
+  },
+  "Burning Godzilla 2019": {
+    "name": "Burning Godzilla 2019",
+    "rarity": 4,
+    "cost": 7,
+    "aliases": [],
+    "evolutions": [],
+    "image": "BurningGodzilla2019.png",
+    "emoji": "1337847509606989895",
+    "movie": "Godzilla: King of the Monsters",
+    "year": 2019,
+    "youtube": "kryHpMf2mfs",
+    "unit": {
+      "hp": 1987,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 3.1,
+          "hitsPerAttack": 1,
+          "attack": 598,
+          "aoe": true,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Burning Godzilla 2019"
+  },
+  "Burning Millennium Godzilla": {
+    "name": "Burning Millennium Godzilla",
+    "rarity": 4,
+    "cost": 5,
+    "aliases": [],
+    "evolutions": [],
+    "image": "unit_icon_middle_101591-e1780024307587.png",
+    "movie": "Fest Godzilla II: Shinjuku Burning",
+    "year": 2025,
+    "unit": {
+      "hp": 1625,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.6,
+          "hitsPerAttack": 1,
+          "attack": 385,
+          "canHitFlyer": true
+        },
+        {
+          "name": "Attack (Enflamed)",
+          "attackSpeed": 2.6,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack",
+          "multiplierValue": 10,
+          "multiplierType": "Percent",
+          "canHitFlyer": true
+        },
+        {
+          "name": "Attack (Fan Shape)",
+          "attackSpeed": 2.6,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack",
+          "multiplierValue": 100,
+          "multiplierType": "PercentOf",
+          "aoe": true,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "added": "2026-05-31T01:21:33.372Z",
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Burning_Millennium_Godzilla",
+    "emoji": "1523548452967944323"
+  },
+  "Chibi Godzilla": {
+    "name": "Chibi Godzilla",
+    "rarity": 2,
+    "cost": 2,
+    "aliases": [],
+    "evolutions": [],
+    "image": "ChibiGodzilla.png",
+    "emoji": "1337847314638962760",
+    "movie": "Chibi Godzilla Raids Again",
+    "year": 2023,
+    "unit": {
+      "hp": 240,
+      "attacks": [
+        {
+          "name": "Attack 1",
+          "attackSpeed": 3,
+          "hitsPerAttack": 1,
+          "attack": 62
+        },
+        {
+          "name": "Attack 2",
+          "attackSpeed": 3,
+          "hitsPerAttack": 1,
+          "attack": 69
+        },
+        {
+          "name": "Attack 3",
+          "attackSpeed": 3,
+          "hitsPerAttack": 1,
+          "attack": 75
+        },
+        {
+          "name": "Attack 4",
+          "attackSpeed": 3,
+          "hitsPerAttack": 1,
+          "attack": 81
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Chibi Godzilla"
+  },
+  "Chibi Mechagodzilla and Chibi Godzilla": {
+    "name": "Chibi Mechagodzilla and Chibi Godzilla",
+    "rarity": 4,
+    "cost": 4,
+    "aliases": [],
+    "evolutions": [],
+    "image": "ChibiMechagodzillaandChibiGodzilla.png",
+    "emoji": "1337847478699163669",
+    "movie": "Chibi Godzilla Raids Again",
+    "year": 2023,
+    "youtube": "rireMeXkZqk",
+    "isSwarm": true,
+    "type": "Duo",
+    "units": [
+      {
+        "name": "Chibi Mechagodzilla",
+        "hp": 853,
+        "attacks": [
+          {
+            "name": "Attack",
+            "attack": 127,
+            "attackSpeed": 3.3,
+            "hitsPerAttack": 1,
+            "notes": "Enemy units hit by this attack are inflicted with Stun for 0.6 seconds.",
+            "canHitFlyer": true
+          }
+        ],
+        "isMechanical": true
+      },
+      {
+        "name": "Chibi Godzilla",
+        "hp": 811,
+        "attacks": [
+          {
+            "name": "Attack",
+            "attack": 152,
+            "attackSpeed": 2.6,
+            "hitsPerAttack": 1,
+            "notes": "Enemy units hit by this attack are inflicted with Burning for 8 seconds.",
+            "canHitFlyer": true
+          }
+        ]
+      }
+    ],
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Chibi Mechagodzilla and Chibi Godzilla"
+  },
+  "DEATH SAURER": {
+    "name": "DEATH SAURER",
+    "rarity": 4,
+    "cost": 7,
+    "aliases": [],
+    "evolutions": [],
+    "image": "DEATHSAURER.png",
+    "emoji": "1444507930945781770",
+    "movie": "ZOIDs",
+    "year": 1987,
+    "youtube": "g430MH1UaZ8",
+    "isMechanical": true,
+    "unit": {
+      "hp": 2141,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 3.8,
+          "hitsPerAttack": 1,
+          "attack": 464,
+          "canHitFlyer": true
+        },
+        {
+          "name": "Attack (3> Units Around)",
+          "attackSpeed": 1,
+          "hitsPerAttack": 5,
+          "inheritsFrom": "Attack",
+          "multiplierValue": 12,
+          "multiplierType": "PercentOf",
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "leader": {
+      "hp": 8390,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 3.1,
+          "hitsPerAttack": 1,
+          "attack": 612,
+          "aoe": true,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "memorySlotColors": [
+      "RED",
+      "GREEN",
+      "GREEN",
+      "GREEN"
+    ],
+    "added": "2025-11-29T22:01:40.458Z",
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "DEATH SAURER"
+  },
+  "Desghidorah": {
+    "name": "Desghidorah",
+    "rarity": 4,
+    "cost": 7,
+    "aliases": [],
+    "evolutions": [],
+    "image": "Desghidorah.png",
+    "emoji": "1337847316236861481",
+    "movie": "Rebirth of Mothra",
+    "year": 1996,
+    "isAerial": true,
+    "unit": {
+      "hp": 1448,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.8,
+          "hitsPerAttack": 1,
+          "attack": 318
+        }
+      ]
+    },
+    "leader": {
+      "hp": 7357,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.8,
+          "hitsPerAttack": 1,
+          "attack": 652
+        }
+      ]
+    },
+    "memorySlotColors": [
+      "BLUE",
+      "BLUE",
+      "YELLOW",
+      "YELLOW"
+    ],
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Desghidorah"
+  },
+  "Destoroyah (Ariake ver.)": {
+    "name": "Destoroyah (Ariake ver.)",
+    "rarity": 4,
+    "cost": 5,
+    "aliases": [],
+    "evolutions": [],
+    "image": "DestoroyahAriakever.png",
+    "emoji": "1337847481303564350",
+    "movie": "Godzilla vs. Destoroyah",
+    "year": 1995,
+    "unit": {
+      "hp": 1641,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.4,
+          "hitsPerAttack": 2,
+          "attack": 275
+        },
+        {
+          "name": "Attack (Ground Units)",
+          "attackSpeed": 2.4,
+          "hitsPerAttack": 2,
+          "inheritsFrom": "Attack",
+          "multiplierValue": 20,
+          "multiplierType": "Percent"
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Destoroyah (Ariake ver.)"
+  },
+  "Destoroyah (Super Dragon Form)": {
+    "name": "Destoroyah (Super Dragon Form)",
+    "rarity": 4,
+    "cost": 6,
+    "aliases": [],
+    "evolutions": [],
+    "image": "unit_icon_middle_101601-e1780024290670.png",
+    "movie": "Godzilla Battle Line",
+    "year": 2026,
+    "unit": {
+      "hp": 1924,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.4,
+          "hitsPerAttack": 1,
+          "attack": 196
+        },
+        {
+          "name": "Attack 2",
+          "attackSpeed": 2.4,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack",
+          "multiplierValue": 50,
+          "multiplierType": "Percent"
+        },
+        {
+          "name": "Attack (Against Godzilla)",
+          "attackSpeed": 2.4,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack",
+          "multiplierValue": 30,
+          "multiplierType": "Percent"
+        }
+      ]
+    },
+    "leader": {
+      "hp": 9191,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.7,
+          "hitsPerAttack": 1,
+          "attack": 303
+        }
+      ]
+    },
+    "memorySlotColors": [
+      "RED",
+      "GREEN",
+      "BLUE",
+      "YELLOW"
+    ],
+    "added": "2026-05-31T01:21:33.372Z",
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Destoroyah_Super_Dragon_Form",
+    "emoji": "1523548453844549723"
+  },
+  "Destoroyah Aggregate Form": {
+    "name": "Destoroyah Aggregate Form",
+    "rarity": 4,
+    "cost": 3,
+    "aliases": [],
+    "evolutions": [
+      "Destoroyah Flying Form",
+      "Destoroyah Perfect Form"
+    ],
+    "image": "DestoroyahAggregateForm.png",
+    "emoji": "1337847317033910295",
+    "movie": "Godzilla vs. Destoroyah",
+    "year": "1995",
+    "unit": {
+      "hp": 742,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.5,
+          "hitsPerAttack": 1,
+          "attack": 129
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Destoroyah Aggregate Form"
+  },
+  "Destoroyah Flying Form": {
+    "name": "Destoroyah Flying Form",
+    "rarity": 4,
+    "cost": 5,
+    "aliases": [],
+    "evolutions": [
+      "Destoroyah Aggregate Form",
+      "Destoroyah Perfect Form"
+    ],
+    "image": "DestoroyahFlyingForm.png",
+    "emoji": "1337847318636134490",
+    "movie": "Godzilla vs. Destoroyah",
+    "year": 1995,
+    "isAerial": true,
+    "isFullyEvolved": true,
+    "unit": {
+      "hp": 1025,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.5,
+          "hitsPerAttack": 1,
+          "attack": 174,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Destoroyah Flying Form"
+  },
+  "Destoroyah Larva": {
+    "name": "Destoroyah Larva",
+    "rarity": 2,
+    "cost": 3,
+    "aliases": [],
+    "evolutions": [],
+    "image": "DestoroyahLarva.png",
+    "emoji": "1337847320083042355",
+    "movie": "Godzilla vs. Destoroyah",
+    "year": 1995,
+    "isSwarm": true,
+    "unit": {
+      "hp": 63,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 1.3,
+          "hitsPerAttack": 1,
+          "attack": 24,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Destoroyah Larva"
+  },
+  "Destoroyah Perfect Form": {
+    "name": "Destoroyah Perfect Form",
+    "rarity": 4,
+    "cost": 7,
+    "aliases": [],
+    "evolutions": [
+      "Destoroyah Aggregate Form",
+      "Destoroyah Flying Form"
+    ],
+    "image": "DestoroyahPerfectForm.png",
+    "emoji": "1337847321244733444",
+    "movie": "Godzilla vs. Destoroyah",
+    "year": 1995,
+    "isFullyEvolved": true,
+    "unit": {
+      "hp": 1888,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.5,
+          "hitsPerAttack": 1,
+          "attack": 556,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "leader": {
+      "hp": 8390,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.6,
+          "hitsPerAttack": 1,
+          "attack": 682
+        }
+      ]
+    },
+    "memorySlotColors": [
+      "RED",
+      "RED",
+      "BLUE",
+      "YELLOW"
+    ],
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Destoroyah Perfect Form"
+  },
+  "Dimension Tide": {
+    "name": "Dimension Tide",
+    "rarity": 2,
+    "cost": 4,
+    "aliases": [],
+    "evolutions": [],
+    "image": "DimensionTide.png",
+    "emoji": "1337847322469728399",
+    "movie": "Godzilla vs. Megaguirus",
+    "year": 2000,
+    "unit": {
+      "hp": 0,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 0,
+          "hitsPerAttack": 1,
+          "attack": 68
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Dimension Tide"
+  },
+  "Dorats": {
+    "name": "Dorats",
+    "rarity": 2,
+    "cost": 3,
+    "aliases": [
+      "Ugly Fuckers"
+    ],
+    "evolutions": [],
+    "image": "Dorats.png",
+    "emoji": "1337847324499640360",
+    "movie": "Godzilla vs. King Ghidorah",
+    "year": "1991",
+    "unit": {
+      "hp": 57,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 1.7,
+          "hitsPerAttack": 1,
+          "attack": 33
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Dorats"
+  },
+  "Ebirah": {
+    "name": "Ebirah",
+    "rarity": 2,
+    "cost": 3,
+    "aliases": [],
+    "evolutions": [],
+    "image": "Ebirah.png",
+    "emoji": "1375650581716144240",
+    "movie": "Ebirah, Horror of the Deep",
+    "year": 1966,
+    "unit": {
+      "hp": 300,
+      "attacks": [
+        {
+          "name": "Attack (In Water)",
+          "attackSpeed": 2.4,
+          "hitsPerAttack": 1,
+          "attack": 75
+        },
+        {
+          "name": "Attack (On Ground)",
+          "attackSpeed": 2.4,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack (In Water)",
+          "multiplierValue": 20,
+          "multiplierType": "Percent"
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Ebirah"
+  },
+  "Energy Refueling Base": {
+    "name": "Energy Refueling Base",
+    "rarity": 2,
+    "cost": 5,
+    "aliases": [],
+    "evolutions": [],
+    "image": "EnergyRefuelingBase.png",
+    "emoji": "1337847325951000687",
+    "movie": "Godzilla Battle Line",
+    "year": 2021,
+    "type": "Building",
+    "unit": {
+      "hp": 128,
+      "attacks": []
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Energy Refueling Base"
+  },
+  "EVA-00": {
+    "name": "EVA-00",
+    "rarity": 4,
+    "cost": 5,
+    "aliases": [
+      "Unit 00"
+    ],
+    "evolutions": [],
+    "image": "EVA00.png",
+    "emoji": "1337847327217680478",
+    "movie": "Evangelion: 2.0 You Can (Not) Advance",
+    "year": 2009,
+    "unit": {
+      "hp": 1231,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.3,
+          "hitsPerAttack": 3,
+          "attack": 88
+        },
+        {
+          "name": "Self-Destruct",
+          "attackSpeed": 1,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack",
+          "multiplierValue": 540,
+          "multiplierType": "Percent"
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "EVA-00"
+  },
+  "EVA-01": {
+    "name": "EVA-01",
+    "rarity": 4,
+    "cost": 6,
+    "aliases": [
+      "Milf",
+      "Unit 01"
+    ],
+    "evolutions": [],
+    "image": "EVA01.png",
+    "emoji": "1337847329604243487",
+    "movie": "Evangelion: 2.0 You Can (Not) Advance",
+    "year": 2009,
+    "unit": {
+      "hp": 1283,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.3,
+          "hitsPerAttack": 1,
+          "attack": 283,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "leader": {
+      "hp": 6263,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.3,
+          "hitsPerAttack": 1,
+          "attack": 344,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "memorySlotColors": [
+      "RED",
+      "RED",
+      "GREEN",
+      "BLUE"
+    ],
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "EVA-01"
+  },
+  "EVA-02": {
+    "name": "EVA-02",
+    "rarity": 4,
+    "cost": 6,
+    "aliases": [
+      "Unit 02"
+    ],
+    "evolutions": [
+      "EVA-02 (Beast)"
+    ],
+    "image": "EVA02.png",
+    "emoji": "1337847331424436264",
+    "movie": "Evangelion: 2.0 You Can (Not) Advance",
+    "year": 2009,
+    "unit": {
+      "hp": 1188,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.7,
+          "hitsPerAttack": 3,
+          "attack": 94,
+          "canHitFlyer": true
+        },
+        {
+          "name": "Attack (On Deployment)",
+          "attackSpeed": 1,
+          "hitsPerAttack": 1,
+          "attack": 200,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "EVA-02"
+  },
+  "EVA-02 (Beast)": {
+    "name": "EVA-02 (Beast)",
+    "rarity": 4,
+    "cost": 6,
+    "aliases": [
+      "Unit 02 Beast",
+      "I'm not calling it the beast"
+    ],
+    "evolutions": [
+      "EVA-02"
+    ],
+    "image": "EVA02Beast.png",
+    "emoji": "1337847332108238961",
+    "movie": "Evangelion: 2.0 You Can (Not) Advance",
+    "year": 2009,
+    "isFullyEvolved": true,
+    "unit": {
+      "hp": 1283,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.7,
+          "hitsPerAttack": 1,
+          "attack": 289,
+          "canHitFlyer": true
+        },
+        {
+          "name": "Attack (Against Aerial)",
+          "attackSpeed": 2.7,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack",
+          "multiplierValue": 30,
+          "multiplierType": "Percent"
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "EVA-02 (Beast)"
+  },
+  "EVA-08": {
+    "name": "EVA-08",
+    "rarity": 4,
+    "cost": 6,
+    "aliases": [],
+    "evolutions": [],
+    "image": "EVA08.png",
+    "emoji": "1337847333731176468",
+    "movie": "Evangelion: 3.0 You Can (Not) Redo",
+    "year": 2012,
+    "unit": {
+      "hp": 1137,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 3.8,
+          "hitsPerAttack": 3,
+          "attack": 129,
+          "canHitFlyer": true
+        },
+        {
+          "name": "Attack (Sniper)",
+          "attackSpeed": 2.6,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack",
+          "multiplierValue": 30,
+          "multiplierType": "Percent",
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "EVA-08"
+  },
+  "Fire Rodan": {
+    "name": "Fire Rodan",
+    "rarity": 4,
+    "cost": 5,
+    "aliases": [],
+    "evolutions": [
+      "Rodan 93"
+    ],
+    "image": "FireRodan.png",
+    "emoji": "1337847335090393172",
+    "movie": "Godzilla vs. Mechagodzilla II",
+    "year": 1993,
+    "isAerial": true,
+    "isFullyEvolved": true,
+    "unit": {
+      "hp": 1188,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.5,
+          "hitsPerAttack": 1,
+          "attack": 234,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "leader": {
+      "hp": 8390,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.5,
+          "hitsPerAttack": 1,
+          "attack": 612
+        }
+      ]
+    },
+    "memorySlotColors": [
+      "GREEN",
+      "GREEN",
+      "BLUE",
+      "BLUE"
+    ],
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Fire Rodan"
+  },
+  "Fire Rodan (Makuhari ver.)": {
+    "name": "Fire Rodan (Makuhari ver.)",
+    "rarity": 4,
+    "cost": 4,
+    "aliases": [],
+    "evolutions": [],
+    "image": "unit_icon_middle_101551-e1774932277368.png",
+    "movie": "Godzilla vs. Mechagodzilla II",
+    "year": 1993,
+    "isAerial": true,
+    "unit": {
+      "hp": 949,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.1,
+          "hitsPerAttack": 1,
+          "attack": 206
+        }
+      ]
+    },
+    "added": "2026-05-31T01:30:30.813Z",
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Fire_Rodan_Makuhari_ver",
+    "emoji": null
+  },
+  "Freezing Sonde": {
+    "name": "Freezing Sonde",
+    "rarity": 1,
+    "cost": 2,
+    "aliases": [],
+    "evolutions": [],
+    "image": "FreezingSonde.png",
+    "emoji": "1337847336478707803",
+    "movie": "Son of Godzilla",
+    "year": 1967,
+    "unit": {
+      "hp": 0,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 0,
+          "hitsPerAttack": 1,
+          "attack": 11
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Freezing Sonde"
+  },
+  "Gamera": {
+    "name": "Gamera",
+    "rarity": 4,
+    "cost": 5,
+    "aliases": [],
+    "evolutions": [],
+    "image": "Gamera.png",
+    "emoji": "1337847337996783677",
+    "movie": "Gamera, the Giant Monster",
+    "year": 1965,
+    "unit": {
+      "hp": 1703,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 1.9,
+          "hitsPerAttack": 2,
+          "attack": 152
+        }
+      ]
+    },
+    "leader": {
+      "hp": 5218,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.2,
+          "hitsPerAttack": 1,
+          "attack": 366
+        }
+      ]
+    },
+    "memorySlotColors": [
+      "RED",
+      "GREEN",
+      "BLUE",
+      "YELLOW"
+    ],
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Gamera"
+  },
+  "Gamera (1996)": {
+    "name": "Gamera (1996)",
+    "rarity": 4,
+    "cost": 6,
+    "aliases": [],
+    "evolutions": [],
+    "image": "Gamera1996.png",
+    "emoji": "1378760718634975273",
+    "movie": "Gamera: Guardian of the Universe",
+    "year": 1995,
+    "youtube": "Rm5n_UeCfuc",
+    "unit": {
+      "hp": 1796,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.6,
+          "hitsPerAttack": 1,
+          "attack": 433
+        },
+        {
+          "name": "On Deployment",
+          "attackSpeed": 1,
+          "hitsPerAttack": 1,
+          "attack": 260,
+          "notes": "Shoots 3 times"
+        },
+        {
+          "name": "On Death",
+          "attackSpeed": 1,
+          "hitsPerAttack": 1,
+          "attack": 433,
+          "notes": "Faces the enemy leader and deals ranged damage in a straight line."
+        }
+      ]
+    },
+    "leader": {
+      "hp": 6263,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.6,
+          "hitsPerAttack": 1,
+          "attack": 497
+        }
+      ]
+    },
+    "memorySlotColors": [
+      "RED",
+      "GREEN",
+      "BLUE",
+      "YELLOW"
+    ],
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Gamera (1996)"
+  },
+  "Gamera (Flying Form)": {
+    "name": "Gamera (Flying Form)",
+    "rarity": 4,
+    "cost": 6,
+    "aliases": [],
+    "evolutions": [],
+    "image": "GameraFlyingForm.png",
+    "emoji": "1337847472437067786",
+    "movie": "Gamera vs. Viras",
+    "year": 1968,
+    "isAerial": true,
+    "unit": {
+      "hp": 1655,
+      "attacks": [
+        {
+          "name": "Ranged Attack 1",
+          "attackSpeed": 3.2,
+          "hitsPerAttack": 1,
+          "attack": 347,
+          "canHitFlyer": true
+        },
+        {
+          "name": "Ranged Attack 2",
+          "attackSpeed": 3.2,
+          "hitsPerAttack": 5,
+          "inheritsFrom": "Ranged Attack 1",
+          "multiplierValue": 30,
+          "multiplierType": "PercentOf"
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Gamera (Flying Form)"
+  },
+  "Gamera 1967": {
+    "name": "Gamera 1967",
+    "rarity": 4,
+    "cost": 5,
+    "aliases": [],
+    "evolutions": [],
+    "image": "Gamera1967.png",
+    "emoji": "1337847496365314108",
+    "movie": "Gamera vs. Gyaos",
+    "year": 1967,
+    "unit": {
+      "hp": 1703,
+      "attacks": [
+        {
+          "name": "Ranged",
+          "attackSpeed": 2.9,
+          "hitsPerAttack": 1,
+          "attack": 418
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Gamera 1967"
+  },
+  "GENO BREAKER": {
+    "name": "GENO BREAKER",
+    "rarity": 4,
+    "cost": 5,
+    "aliases": [],
+    "evolutions": [],
+    "image": "GENOBREAKER.png",
+    "emoji": "1444507932103544923",
+    "movie": "ZOIDs",
+    "year": 2000,
+    "youtube": "SZwhQSzPgBU",
+    "isMechanical": true,
+    "unit": {
+      "hp": 1754,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 3.1,
+          "hitsPerAttack": 1,
+          "attack": 480,
+          "aoe": true,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "added": "2025-11-30T01:06:13.335Z",
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "GENO BREAKER"
+  },
+  "Ghidorah 2018": {
+    "name": "Ghidorah 2018",
+    "rarity": 4,
+    "cost": 3,
+    "aliases": [
+      "Void Ghidorah"
+    ],
+    "evolutions": [],
+    "image": "Ghidorah2018.png",
+    "emoji": "1337847503550152745",
+    "movie": "Godzilla: The Planet Eater",
+    "year": 2018,
+    "unit": {
+      "hp": 0,
+      "attacks": []
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Ghidorah 2018"
+  },
+  "Giant Octopus": {
+    "name": "Giant Octopus",
+    "rarity": 1,
+    "cost": 2,
+    "aliases": [
+      "Hentai"
+    ],
+    "evolutions": [],
+    "image": "GiantOctopus.png",
+    "emoji": "1337847339486023801",
+    "movie": "King Kong vs. Godzilla",
+    "year": "1962",
+    "unit": {
+      "hp": 250,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 1.8,
+          "hitsPerAttack": 1,
+          "attack": 23
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Giant Octopus"
+  },
+  "Gigan 04": {
+    "name": "Gigan 04",
+    "rarity": 4,
+    "cost": 4,
+    "aliases": [
+      "Gigan Final Wars",
+      "Gigan 2004"
+    ],
+    "evolutions": [],
+    "image": "Gigan04.png",
+    "emoji": "1337847341566132255",
+    "movie": "Godzilla: Final Wars",
+    "year": "2004",
+    "unit": {
+      "hp": 1044,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 1.6,
+          "hitsPerAttack": 2,
+          "attack": 140
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Gigan 04"
+  },
+  "Gigan 72": {
+    "name": "Gigan 72",
+    "rarity": 3,
+    "cost": 5,
+    "aliases": [],
+    "evolutions": [],
+    "image": "Gigan72.png",
+    "emoji": "1337847342946320405",
+    "movie": "Godzilla vs. Gigan",
+    "year": 1972,
+    "unit": {
+      "hp": 484,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 1.5,
+          "hitsPerAttack": 1,
+          "attack": 103
+        }
+      ]
+    },
+    "leader": {
+      "hp": 1770,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2,
+          "hitsPerAttack": 1,
+          "attack": 81
+        }
+      ]
+    },
+    "memorySlotColors": [
+      "RED",
+      "BLUE",
+      "BLUE",
+      "BLUE"
+    ],
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Gigan 72"
+  },
+  "Gigan Miles": {
+    "name": "Gigan Miles",
+    "rarity": 4,
+    "cost": 1,
+    "aliases": [],
+    "evolutions": [],
+    "image": "GiganMiles.png",
+    "emoji": "1337847490820571197",
+    "movie": "Godzilla: Final Wars",
+    "year": 2004,
+    "skipSearch": true,
+    "isAerial": true,
+    "isSwarm": true,
+    "unit": {
+      "hp": 528,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2,
+          "hitsPerAttack": 1,
+          "attack": 33
+        }
+      ]
+    },
+    "spawnedUnit": "Gigan Miles",
+    "added": "2025-11-30T19:31:26.532Z",
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Gigan Miles"
+  },
+  "Gigan Rex": {
+    "name": "Gigan Rex",
+    "rarity": 4,
+    "cost": 6,
+    "aliases": [],
+    "evolutions": [],
+    "image": "GiganRex.png",
+    "emoji": "1337847490820571197",
+    "movie": "Godzilla vs. Gigan Rex",
+    "year": 2022,
+    "isAerial": true,
+    "isSwarm": true,
+    "unit": {
+      "hp": 1188,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.8,
+          "hitsPerAttack": 2,
+          "attack": 168
+        }
+      ]
+    },
+    "spawnedUnit": "Gigan Miles",
+    "leader": {
+      "hp": 7357,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.8,
+          "hitsPerAttack": 1,
+          "attack": 345
+        }
+      ]
+    },
+    "memorySlotColors": [
+      "RED",
+      "RED",
+      "GREEN",
+      "GREEN"
+    ],
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Gigan Rex"
+  },
+  "Godzilla (1993)": {
+    "name": "Godzilla (1993)",
+    "rarity": 4,
+    "cost": 7,
+    "aliases": [],
+    "evolutions": [],
+    "image": "unit_icon_middle_101531-e1774932231811.png",
+    "movie": "Godzilla vs. Mechagodzilla II",
+    "year": 1993,
+    "unit": {
+      "hp": 2048,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.9,
+          "hitsPerAttack": 1,
+          "attack": 321,
+          "aoe": true,
+          "canHitFlyer": true
+        },
+        {
+          "name": "Attack 2",
+          "attackSpeed": 2.9,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack",
+          "multiplierValue": 20,
+          "multiplierType": "Percent",
+          "aoe": true,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "added": "2026-05-31T01:33:57.165Z",
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Godzilla_1993",
+    "emoji": "1523548455690047549"
+  },
+  "Godzilla (2014)": {
+    "name": "Godzilla (2014)",
+    "rarity": 4,
+    "cost": 5,
+    "aliases": [],
+    "evolutions": [],
+    "image": "unit_icon_middle_101621-e1782788885886",
+    "year": 2014,
+    "unit": {
+      "hp": 1766,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2,
+          "hitsPerAttack": 1,
+          "attack": 446
+        },
+        {
+          "name": "Heat Ray",
+          "attackSpeed": 2,
+          "hitsPerAttack": 4,
+          "inheritsFrom": "Attack",
+          "multiplierValue": 50,
+          "multiplierType": "PercentOf"
+        }
+      ]
+    },
+    "added": "2026-07-06T04:30:46.349Z",
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Godzilla_2014",
+    "emoji": "1523548456432435294"
+  },
+  "Godzilla (Godzilla Galaxy Odyssey)": {
+    "name": "Godzilla (Godzilla Galaxy Odyssey)",
+    "rarity": 4,
+    "cost": 6,
+    "aliases": [],
+    "evolutions": [],
+    "image": "GodzillaGodzillaGalaxyOdyssey.png",
+    "emoji": "1444507932925366425",
+    "movie": "Godzilla Galaxy Odyssey",
+    "year": 2025,
+    "youtube": "fvMA0PusFLw",
+    "unit": {
+      "hp": 1924,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.5,
+          "hitsPerAttack": 1,
+          "attack": 405,
+          "canHitFlyer": true
+        },
+        {
+          "name": "Attack (Compelled Unit)",
+          "attackSpeed": 2.5,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack",
+          "multiplierValue": 30,
+          "multiplierType": "Percent",
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "added": "2025-11-30T00:31:04.874Z",
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Godzilla (Godzilla Galaxy Odyssey)"
+  },
+  "Godzilla (Godzilla The Ride ver.)": {
+    "name": "Godzilla (Godzilla The Ride ver.)",
+    "rarity": 4,
+    "cost": 5,
+    "aliases": [],
+    "evolutions": [],
+    "image": "GodzillaGodzillaTheRidever.png",
+    "emoji": "1337847483530739823",
+    "movie": "Godzilla the Ride: Giant Monsters Ultimate Battle",
+    "year": 2021,
+    "unit": {
+      "hp": 1674,
+      "attacks": [
+        {
+          "name": "Attack 1",
+          "attackSpeed": 2.5,
+          "hitsPerAttack": 1,
+          "attack": 446
+        },
+        {
+          "name": "Stomp",
+          "attackSpeed": 2.5,
+          "hitsPerAttack": 1,
+          "attack": 553
+        }
+      ]
+    },
+    "leader": {
+      "hp": 7357,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.5,
+          "hitsPerAttack": 1,
+          "attack": 490
+        }
+      ]
+    },
+    "memorySlotColors": [
+      "GREEN",
+      "GREEN",
+      "YELLOW",
+      "YELLOW"
+    ],
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Godzilla (Godzilla The Ride ver.)"
+  },
+  "Godzilla (Godzilla vs. Megalon ver.)": {
+    "name": "Godzilla (Godzilla vs. Megalon ver.)",
+    "rarity": 4,
+    "cost": 6,
+    "aliases": [
+      "Godzilla (2023)",
+      "Gemstone Godzilla"
+    ],
+    "evolutions": [],
+    "image": "GodzillaGodzillavsMegalonver.png",
+    "emoji": "1401049781379534968",
+    "movie": "Godzilla vs. Megalon",
+    "year": 2023,
+    "youtube": "Fco8YQo6ZKo",
+    "unit": {
+      "hp": 1796,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.8,
+          "hitsPerAttack": 1,
+          "attack": 446
+        },
+        {
+          "name": "Pounce (Stun)",
+          "attackSpeed": 0.7,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack",
+          "multiplierValue": 30,
+          "multiplierType": "Percent",
+          "attack": 669
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Godzilla (Godzilla vs. Megalon ver.)"
+  },
+  "Godzilla (Shin Godzilla Orthochromatic ver.)": {
+    "name": "Godzilla (Shin Godzilla Orthochromatic ver.)",
+    "rarity": 4,
+    "cost": 6,
+    "aliases": [],
+    "evolutions": [],
+    "image": "GodzillaShinGodzillaOrthochromaticver.png",
+    "emoji": "1375650593938477207",
+    "movie": "Shin Godzilla",
+    "year": 2016,
+    "youtube": "yibNB2hkO8s",
+    "unit": {
+      "hp": 1831,
+      "attacks": [
+        {
+          "name": "Attack 1",
+          "attackSpeed": 2.9,
+          "hitsPerAttack": 1,
+          "attack": 332,
+          "canHitFlyer": true
+        },
+        {
+          "name": "Attack 2",
+          "attackSpeed": 3.1,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack 1",
+          "multiplierValue": 85,
+          "multiplierType": "PercentOf",
+          "canHitFlyer": true
+        },
+        {
+          "name": "Ranged",
+          "attackSpeed": 2.9,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack 1",
+          "multiplierValue": 100,
+          "multiplierType": "PercentOf",
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Godzilla (Shin Godzilla Orthochromatic ver.)"
+  },
+  "Godzilla (Tokyo Bay ver.)": {
+    "name": "Godzilla (Tokyo Bay ver.)",
+    "rarity": 4,
+    "cost": 6,
+    "aliases": [],
+    "evolutions": [],
+    "image": "unit_icon_middle_101661-e1782788871313",
+    "movie": "Godzilla, Mothra and King Ghidorah: Giant Monsters All-Out Attack",
+    "year": 2001,
+    "unit": {
+      "hp": 1814,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.7,
+          "hitsPerAttack": 1,
+          "attack": 368,
+          "aoe": true,
+          "canHitFlyer": true
+        },
+        {
+          "name": "Attack (Powered Up)",
+          "attackSpeed": 2.7,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack",
+          "multiplierValue": 30,
+          "multiplierType": "Percent",
+          "notes": "Additionally deals damage equal to total damage taken since deployment (up to 50% of max HP)",
+          "aoe": true,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "added": "2026-07-06T04:30:46.349Z",
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Godzilla_Tokyo_Bay_ver",
+    "emoji": "1523548457422422126"
+  },
+  "Godzilla (Tokyo Version)": {
+    "name": "Godzilla (Tokyo Version)",
+    "rarity": 4,
+    "cost": 6,
+    "aliases": [],
+    "evolutions": [],
+    "image": "GodzillaTokyoVersion.png",
+    "emoji": "1337847447342288987",
+    "movie": "Godzilla (1954 film)",
+    "year": 1954,
+    "youtube": "qxR0X_sScIM",
+    "unit": {
+      "hp": 2125,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.7,
+          "hitsPerAttack": 1,
+          "attack": 424
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Godzilla (Tokyo Version)"
+  },
+  "Godzilla (Wakasa Bay ver.)": {
+    "name": "Godzilla (Wakasa Bay ver.)",
+    "rarity": 4,
+    "cost": 7,
+    "aliases": [],
+    "evolutions": [],
+    "image": "GodzillaWakasaBayver.png",
+    "emoji": "1337847444377047061",
+    "movie": "Godzilla vs. Biollante",
+    "year": 1989,
+    "unit": {
+      "hp": 1796,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 5,
+          "hitsPerAttack": 3,
+          "attack": 338
+        }
+      ]
+    },
+    "leader": {
+      "hp": 8390,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 5,
+          "hitsPerAttack": 1,
+          "attack": 506
+        }
+      ]
+    },
+    "memorySlotColors": [
+      "RED",
+      "RED",
+      "GREEN",
+      "YELLOW"
+    ],
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Godzilla (Wakasa Bay ver.)"
+  },
+  "Godzilla 04": {
+    "name": "Godzilla 04",
+    "rarity": 4,
+    "cost": 7,
+    "aliases": [
+      "Godzilla Final Wars",
+      "Godzilla 2004"
+    ],
+    "evolutions": [],
+    "image": "Godzilla04.png",
+    "emoji": "1337847344472915979",
+    "movie": "Godzilla: Final Wars",
+    "year": 2004,
+    "unit": {
+      "hp": 1703,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.3,
+          "hitsPerAttack": 1,
+          "attack": 379
+        }
+      ]
+    },
+    "leader": {
+      "hp": 8390,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.6,
+          "hitsPerAttack": 1,
+          "attack": 755
+        }
+      ]
+    },
+    "memorySlotColors": [
+      "GREEN",
+      "GREEN",
+      "BLUE",
+      "YELLOW"
+    ],
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Godzilla 04"
+  },
+  "Godzilla 04 (Tokyo Final Battle ver.)": {
+    "name": "Godzilla 04 (Tokyo Final Battle ver.)",
+    "rarity": 4,
+    "cost": 7,
+    "aliases": [
+      "Godzilla Final Wars",
+      "Godzilla 2004"
+    ],
+    "evolutions": [],
+    "image": "Godzilla04TokyoFinalBattlever.png",
+    "emoji": "1337847346158899210",
+    "movie": "Godzilla: Final Wars",
+    "year": "2004",
+    "unit": {
+      "hp": 1888,
+      "attacks": [
+        {
+          "name": "Attack 1",
+          "attackSpeed": 2.5,
+          "hitsPerAttack": 2,
+          "attack": 196
+        },
+        {
+          "name": "Attack (Upgrade Level 2)",
+          "attackSpeed": 2.5,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack 1",
+          "multiplierValue": 200,
+          "multiplierType": "Percent"
+        },
+        {
+          "name": "Attack (Upgrade Level 3)",
+          "attackSpeed": 2.5,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack (Upgrade Level 2)",
+          "multiplierValue": 30,
+          "multiplierType": "Percent"
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Godzilla 04 (Tokyo Final Battle ver.)"
+  },
+  "Godzilla 1991": {
+    "name": "Godzilla 1991",
+    "rarity": 4,
+    "cost": 7,
+    "aliases": [],
+    "evolutions": [],
+    "image": "Godzilla1991.png",
+    "emoji": "1337854450114760765",
+    "movie": "Godzilla vs. King Ghidorah",
+    "year": "1991",
+    "unit": {
+      "hp": 2141,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.7,
+          "hitsPerAttack": 1,
+          "attack": 396
+        },
+        {
+          "name": "Attack (Effect/Event Piece Damage)",
+          "attackSpeed": 2.2,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack",
+          "multiplierValue": 30,
+          "multiplierType": "Percent"
+        }
+      ]
+    },
+    "leader": {
+      "attacks": [
+        {
+          "attackSpeed": 2.2,
+          "attack": 514.8
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Godzilla 1991"
+  },
+  "Godzilla 1999": {
+    "name": "Godzilla 1999",
+    "rarity": 4,
+    "cost": 5,
+    "aliases": [
+      "Godzilla 2000"
+    ],
+    "evolutions": [],
+    "image": "Godzilla1999.png",
+    "emoji": "1337847350349136055",
+    "movie": "Godzilla 2000: Millennium",
+    "year": 1999,
+    "unit": {
+      "hp": 1560,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.4,
+          "hitsPerAttack": 1,
+          "attack": 347
+        },
+        {
+          "name": "Explosion (Unit Defeat)",
+          "attackSpeed": 1,
+          "hitsPerAttack": 1,
+          "attack": 278
+        }
+      ]
+    },
+    "leader": {
+      "hp": 7357,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.5,
+          "hitsPerAttack": 1,
+          "attack": 593
+        }
+      ]
+    },
+    "memorySlotColors": [
+      "RED",
+      "RED",
+      "YELLOW",
+      "YELLOW"
+    ],
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Godzilla 1999"
+  },
+  "Godzilla 2001 (GMK)": {
+    "name": "Godzilla 2001 (GMK)",
+    "rarity": 4,
+    "cost": 6,
+    "aliases": [],
+    "evolutions": [],
+    "image": "Godzilla2001GMK.png",
+    "emoji": "1337847351867478186",
+    "movie": "Godzilla, Mothra and King Ghidorah: Giant Monsters All-Out Attack",
+    "year": 2001,
+    "unit": {
+      "hp": 1515,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.8,
+          "hitsPerAttack": 1,
+          "attack": 385
+        }
+      ]
+    },
+    "leader": {
+      "hp": 9190,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.8,
+          "hitsPerAttack": 1,
+          "attack": 899
+        }
+      ]
+    },
+    "memorySlotColors": [
+      "RED",
+      "GREEN",
+      "GREEN",
+      "BLUE"
+    ],
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Godzilla 2001 (GMK)"
+  },
+  "Godzilla 2002": {
+    "name": "Godzilla 2002",
+    "rarity": 4,
+    "cost": 5,
+    "aliases": [],
+    "evolutions": [
+      "Godzilla 2003"
+    ],
+    "image": "Godzilla2002.png",
+    "emoji": "1337847463012339863",
+    "movie": "Godzilla Against Mechagodzilla",
+    "year": 2002,
+    "unit": {
+      "hp": 1655,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.4,
+          "hitsPerAttack": 1,
+          "attack": 344
+        },
+        {
+          "name": "Rush",
+          "attackSpeed": 1,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack",
+          "multiplierValue": 300,
+          "multiplierType": "Percent"
+        },
+        {
+          "name": "Heat Ray",
+          "attackSpeed": 2.4,
+          "hitsPerAttack": 3,
+          "attack": 156
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Godzilla 2002"
+  },
+  "Godzilla 2003": {
+    "name": "Godzilla 2003",
+    "rarity": 4,
+    "cost": 4,
+    "aliases": [],
+    "evolutions": [
+      "Godzilla 2002"
+    ],
+    "image": "Godzilla2003.png",
+    "emoji": "1337847464392265829",
+    "movie": "Godzilla: Tokyo S.O.S.",
+    "year": 2003,
+    "isFullyEvolved": true,
+    "unit": {
+      "hp": 1796,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.4,
+          "hitsPerAttack": 1,
+          "attack": 380,
+          "canHitFlyer": true
+        },
+        {
+          "name": "Rush",
+          "attackSpeed": 1,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack",
+          "multiplierValue": 300,
+          "multiplierType": "Percent",
+          "canHitFlyer": true
+        },
+        {
+          "name": "Heat Ray",
+          "attackSpeed": 2.4,
+          "hitsPerAttack": 5,
+          "attack": 139,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "leader": {
+      "hp": 8390,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.4,
+          "hitsPerAttack": 1,
+          "attack": 539
+        }
+      ]
+    },
+    "memorySlotColors": [
+      "RED",
+      "RED",
+      "RED",
+      "YELLOW"
+    ],
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Godzilla 2003"
+  },
+  "Godzilla 2024 (Evolved Rio de Janeiro ver.)": {
+    "name": "Godzilla 2024 (Evolved Rio de Janeiro ver.)",
+    "rarity": 4,
+    "cost": 7,
+    "aliases": [],
+    "evolutions": [],
+    "image": "Godzilla2024EvolvedRiodeJaneirover.png",
+    "emoji": "1337854443252879412",
+    "movie": "Godzilla x Kong: The New Empire",
+    "year": 2024,
+    "youtube": "-qB_jKaEx5I",
+    "unit": {
+      "hp": 1650,
+      "attacks": [
+        {
+          "name": "Heat Ray",
+          "attackSpeed": 0.3,
+          "hitsPerAttack": 1,
+          "attack": 225,
+          "notes": "Targets the furthest enemy unit. Takes 7 seconds to reach full damage.",
+          "canHitFlyer": true
+        },
+        {
+          "name": "Tail Swipe",
+          "attackSpeed": 2.5,
+          "hitsPerAttack": 1,
+          "attack": 405
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Godzilla 2024 (Evolved Rio de Janeiro ver.)"
+  },
+  "Godzilla 21": {
+    "name": "Godzilla 21",
+    "rarity": 4,
+    "cost": 6,
+    "aliases": [],
+    "evolutions": [],
+    "image": "Godzilla21.png",
+    "emoji": "1337847352911728722",
+    "movie": "Godzilla vs. Kong",
+    "year": 2021,
+    "unit": {
+      "hp": 1844,
+      "attacks": [
+        {
+          "name": "Attack (Full Strength)",
+          "attackSpeed": 0.3,
+          "hitsPerAttack": 1,
+          "attack": 312,
+          "canHitFlyer": true
+        },
+        {
+          "name": "Attack (1.5 Seconds)",
+          "attackSpeed": 0.3,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack (Full Strength)",
+          "multiplierValue": 20,
+          "multiplierType": "PercentOf",
+          "canHitFlyer": true
+        },
+        {
+          "name": "Attack (3 Seconds)",
+          "attackSpeed": 0.3,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack (Full Strength)",
+          "multiplierValue": 25,
+          "multiplierType": "PercentOf",
+          "canHitFlyer": true
+        },
+        {
+          "name": "Attack (4.5 Seconds)",
+          "attackSpeed": 0.3,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack (Full Strength)",
+          "multiplierValue": 30,
+          "multiplierType": "PercentOf",
+          "canHitFlyer": true
+        },
+        {
+          "name": "Attack (6.5 Seconds)",
+          "attackSpeed": 0.3,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack (Full Strength)",
+          "multiplierValue": 60,
+          "multiplierType": "PercentOf",
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "leader": {
+      "hp": 6263,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 3.1,
+          "hitsPerAttack": 1,
+          "attack": 312
+        }
+      ]
+    },
+    "memorySlotColors": [
+      "RED",
+      "GREEN",
+      "GREEN",
+      "YELLOW"
+    ],
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Godzilla 21"
+  },
+  "Godzilla 23 (Ginza)": {
+    "name": "Godzilla 23 (Ginza)",
+    "rarity": 4,
+    "cost": 7,
+    "aliases": [
+      "Godzilla Minus One"
+    ],
+    "evolutions": [],
+    "image": "Godzilla23Ginza.png",
+    "emoji": "1337847451687718922",
+    "movie": "Godzilla Minus One",
+    "year": 2023,
+    "unit": {
+      "hp": 1137,
+      "attacks": [
+        {
+          "name": "Attack (Close Range)",
+          "attackSpeed": 3.2,
+          "hitsPerAttack": 1,
+          "attack": 248
+        },
+        {
+          "name": "Heat Ray (Leader)",
+          "attackSpeed": 1,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack (Close Range)",
+          "multiplierValue": 300,
+          "multiplierType": "Percent"
+        },
+        {
+          "name": "Heat Ray (Unit)",
+          "attackSpeed": 1,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack (Close Range)",
+          "multiplierValue": 250,
+          "multiplierType": "Percent",
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Godzilla 23 (Ginza)"
+  },
+  "Godzilla 23 (Minus One)": {
+    "name": "Godzilla 23 (Minus One)",
+    "rarity": 4,
+    "cost": 6,
+    "aliases": [
+      "Godzilla Minus One"
+    ],
+    "evolutions": [],
+    "image": "Godzilla23MinusOne.png",
+    "emoji": "1337847450135826485",
+    "movie": "Godzilla Minus One",
+    "year": 2023,
+    "unit": {
+      "hp": 1472,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.7,
+          "hitsPerAttack": 1,
+          "attack": 302,
+          "aoe": true,
+          "canHitFlyer": true
+        },
+        {
+          "name": "Explosion",
+          "attackSpeed": 1,
+          "hitsPerAttack": 1,
+          "attack": 665,
+          "aoe": true,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "leader": {
+      "hp": 5218,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.7,
+          "hitsPerAttack": 1,
+          "attack": 301
+        }
+      ]
+    },
+    "memorySlotColors": [
+      "RED",
+      "RED",
+      "GREEN",
+      "BLUE"
+    ],
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Godzilla 23 (Minus One)"
+  },
+  "Godzilla 54": {
+    "name": "Godzilla 54",
+    "rarity": 4,
+    "cost": 6,
+    "aliases": [],
+    "evolutions": [],
+    "image": "Godzilla54.png",
+    "emoji": "1337847355017527447",
+    "movie": "Godzilla (1954 film)",
+    "year": 1954,
+    "unit": {
+      "hp": 1418,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.6,
+          "hitsPerAttack": 1,
+          "attack": 372,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Godzilla 54"
+  },
+  "Godzilla 89": {
+    "name": "Godzilla 89",
+    "rarity": 3,
+    "cost": 7,
+    "aliases": [],
+    "evolutions": [],
+    "image": "Godzilla89.png",
+    "emoji": "1337847356548186285",
+    "movie": "Godzilla vs. Biollante",
+    "year": 1989,
+    "unit": {
+      "hp": 924,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.6,
+          "hitsPerAttack": 1,
+          "attack": 288
+        }
+      ]
+    },
+    "leader": {
+      "hp": 1770,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.5,
+          "hitsPerAttack": 1,
+          "attack": 156
+        }
+      ]
+    },
+    "memorySlotColors": [
+      "RED",
+      "RED",
+      "BLUE",
+      "YELLOW"
+    ],
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Godzilla 89"
+  },
+  "Godzilla and Gamera": {
+    "name": "Godzilla and Gamera",
+    "rarity": 4,
+    "cost": 7,
+    "aliases": [],
+    "evolutions": [],
+    "image": "unit_icon_middle_101481-e1772131853184.png",
+    "movie": "Godzilla 2000: Millennium",
+    "year": 1999,
+    "isSwarm": true,
+    "type": "Duo",
+    "units": [
+      {
+        "name": "Godzilla",
+        "hp": 1515,
+        "attacks": [
+          {
+            "name": "Attack",
+            "attack": 334,
+            "attackSpeed": 2.8,
+            "hitsPerAttack": 1
+          }
+        ]
+      },
+      {
+        "name": "Gamera",
+        "hp": 1674,
+        "attacks": [
+          {
+            "name": "Attack",
+            "attack": 301,
+            "attackSpeed": 2.6,
+            "hitsPerAttack": 1
+          }
+        ]
+      }
+    ],
+    "added": "2026-06-06T16:12:06.803Z",
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Godzilla_and_Gamera",
+    "emoji": "1523548458307551242"
+  },
+  "Godzilla and Mothra": {
+    "name": "Godzilla and Mothra",
+    "rarity": 4,
+    "cost": 7,
+    "aliases": [],
+    "evolutions": [],
+    "image": "GodzillaandMothra",
+    "emoji": "1453684859359727668",
+    "movie": "Godzilla: King of the Monsters",
+    "year": 2018,
+    "isSwarm": true,
+    "type": "Duo",
+    "units": [
+      {
+        "name": "Godzilla",
+        "hp": 1764,
+        "attacks": [
+          {
+            "name": "Attack",
+            "attack": 51,
+            "attackSpeed": 3.3,
+            "hitsPerAttack": 1,
+            "canHitFlyer": true
+          },
+          {
+            "name": "Attack (Actual)",
+            "attack": 51,
+            "attackSpeed": 0.3,
+            "hitsPerAttack": 1,
+            "notes": "Deals damage every 0.3 seconds for 4 seconds",
+            "canHitFlyer": true
+          }
+        ]
+      },
+      {
+        "name": "Mothra",
+        "hp": 1231,
+        "attacks": [
+          {
+            "name": "Attack",
+            "attack": 248,
+            "attackSpeed": 3.4,
+            "hitsPerAttack": 1,
+            "aoe": true,
+            "canHitFlyer": true
+          }
+        ],
+        "isAerial": true
+      }
+    ],
+    "added": "2025-12-25T09:31:18.584Z",
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Godzilla and Mothra"
+  },
+  "Godzilla Earth": {
+    "name": "Godzilla Earth",
+    "rarity": 4,
+    "cost": 9,
+    "aliases": [],
+    "evolutions": [],
+    "image": "GodzillaEarth.png",
+    "emoji": "1337847359182213183",
+    "movie": "Godzilla: Planet of the Monsters",
+    "year": "2017",
+    "unit": {
+      "hp": 2456,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 5,
+          "hitsPerAttack": 1,
+          "attack": 557
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Godzilla Earth"
+  },
+  "Godzilla Earth (Mechagodzilla city ver.)": {
+    "name": "Godzilla Earth (Mechagodzilla city ver.)",
+    "rarity": 4,
+    "cost": 8,
+    "aliases": [],
+    "evolutions": [],
+    "image": "GodzillaEarthMechagodzillacityver.png",
+    "emoji": "1444507934351429736",
+    "movie": "Godzilla: City on the Edge of Battle",
+    "year": 2018,
+    "unit": {
+      "hp": 2338,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 4,
+          "hitsPerAttack": 1,
+          "attack": 646,
+          "aoe": true,
+          "canHitFlyer": true
+        },
+        {
+          "name": "Burning",
+          "attackSpeed": 1,
+          "hitsPerAttack": 1,
+          "attack": 140
+        }
+      ]
+    },
+    "added": "2025-11-29T21:38:20.905Z",
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Godzilla Earth (Mechagodzilla city ver.)"
+  },
+  "Godzilla Evolved": {
+    "name": "Godzilla Evolved",
+    "rarity": 4,
+    "cost": 7,
+    "aliases": [
+      "Best Godzilla"
+    ],
+    "evolutions": [],
+    "image": "GodzillaEvolved.png",
+    "emoji": "1337847466011262996",
+    "movie": "Godzilla x Kong: The New Empire",
+    "year": 2024,
+    "youtube": "FSj1Jh_upr8",
+    "unit": {
+      "hp": 1731,
+      "attacks": [
+        {
+          "name": "Attack (1st Level)",
+          "attackSpeed": 3.1,
+          "hitsPerAttack": 1,
+          "attack": 556,
+          "canHitFlyer": true
+        },
+        {
+          "name": "Attack (2nd Level)",
+          "attackSpeed": 3.1,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack (1st Level)",
+          "multiplierValue": 15,
+          "multiplierType": "Percent",
+          "aoe": true,
+          "canHitFlyer": true
+        },
+        {
+          "name": "Attack (3rd Level)",
+          "attackSpeed": 3.1,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack (1st Level)",
+          "multiplierValue": 30,
+          "multiplierType": "Percent",
+          "aoe": true,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "leader": {
+      "hp": 6263,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 3.1,
+          "hitsPerAttack": 1,
+          "attack": 557,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "memorySlotColors": [
+      "RED",
+      "RED",
+      "BLUE",
+      "BLUE"
+    ],
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Godzilla Evolved"
+  },
+  "Godzilla Terrestris": {
+    "name": "Godzilla Terrestris",
+    "rarity": 4,
+    "cost": 5,
+    "aliases": [
+      "Kill it with fire"
+    ],
+    "evolutions": [
+      "Godzilla Ultima"
+    ],
+    "image": "GodzillaTerrestris.png",
+    "emoji": "1337847360713396257",
+    "movie": "Godzilla Singular Point",
+    "year": 2021,
+    "unit": {
+      "hp": 949,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.8,
+          "hitsPerAttack": 1,
+          "attack": 253,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Godzilla Terrestris"
+  },
+  "Godzilla Tower": {
+    "name": "Godzilla Tower",
+    "rarity": 3,
+    "cost": 3,
+    "aliases": [],
+    "evolutions": [],
+    "image": "GodzillaTower.png",
+    "emoji": "1337847488723419277",
+    "movie": "Godzilla vs. Gigan",
+    "year": 1972,
+    "isMechanical": true,
+    "unit": {
+      "hp": 770,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 0.3,
+          "hitsPerAttack": 1,
+          "attack": 72,
+          "notes": "This attack takes 4 seconds to do full damage."
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Godzilla Tower"
+  },
+  "Godzilla Ultima": {
+    "name": "Godzilla Ultima",
+    "rarity": 4,
+    "cost": 6,
+    "aliases": [],
+    "evolutions": [
+      "Godzilla Terrestris"
+    ],
+    "image": "GodzillaUltima.png",
+    "emoji": "1337847362122420268",
+    "movie": "Godzilla Singular Point",
+    "year": 2021,
+    "isFullyEvolved": true,
+    "unit": {
+      "hp": 1418,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 3.3,
+          "hitsPerAttack": 1,
+          "attack": 379,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "leader": {
+      "hp": 7357,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.9,
+          "hitsPerAttack": 1,
+          "attack": 334
+        }
+      ]
+    },
+    "memorySlotColors": [
+      "RED",
+      "RED",
+      "RED",
+      "GREEN"
+    ],
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Godzilla Ultima"
+  },
+  "Godzilla Ultima (Scarlet Dust ver.)": {
+    "name": "Godzilla Ultima (Scarlet Dust ver.)",
+    "rarity": 4,
+    "cost": 6,
+    "aliases": [],
+    "evolutions": [],
+    "image": "GodzillaUltimaScarletDustver.png",
+    "emoji": "1401049783908700249",
+    "movie": "Godzilla Singular Point",
+    "year": 2021,
+    "youtube": "EZNo6rqWn8w",
+    "unit": {
+      "hp": 1703,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.4,
+          "hitsPerAttack": 1,
+          "attack": 385,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Godzilla Ultima (Scarlet Dust ver.)"
+  },
+  "Gotengo 2004": {
+    "name": "Gotengo 2004",
+    "rarity": 3,
+    "cost": 6,
+    "aliases": [],
+    "evolutions": [],
+    "image": "Gotengo2004.png",
+    "emoji": "1337847501516177418",
+    "movie": "Godzilla: Final Wars",
+    "year": 2004,
+    "isAerial": true,
+    "isMechanical": true,
+    "unit": {
+      "hp": 924,
+      "attacks": [
+        {
+          "name": "Attack (On Leader)",
+          "attackSpeed": 5,
+          "hitsPerAttack": 10,
+          "attack": 33
+        },
+        {
+          "name": "Attack (When Attacked)",
+          "attackSpeed": 5,
+          "hitsPerAttack": 3,
+          "attack": 33,
+          "notes": "There is a 2.5 second cooldown"
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Gotengo 2004"
+  },
+  "Guiron": {
+    "name": "Guiron",
+    "rarity": 4,
+    "cost": 3,
+    "aliases": [],
+    "evolutions": [],
+    "image": "Guiron.png",
+    "emoji": "1337847470041993270",
+    "movie": "GAMERA Rebirth",
+    "year": 2023,
+    "unit": {
+      "hp": 949,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 1.9,
+          "hitsPerAttack": 1,
+          "attack": 212
+        },
+        {
+          "name": "Ranged Attack",
+          "attackSpeed": 1,
+          "hitsPerAttack": 1,
+          "attack": 424,
+          "notes": "This attack will only be used on units with 80% or higher HP, and removes any buffs on enemy units."
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Guiron"
+  },
+  "Gyaos (Adults)": {
+    "name": "Gyaos (Adults)",
+    "rarity": 4,
+    "cost": 4,
+    "aliases": [],
+    "evolutions": [
+      "Gyaos (Sub-Adults)"
+    ],
+    "image": "GyaosAdults.png",
+    "emoji": "1337847363225780335",
+    "movie": "GAMERA Rebirth",
+    "year": 2023,
+    "isAerial": true,
+    "isSwarm": true,
+    "isFullyEvolved": true,
+    "unit": {
+      "hp": 424,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.6,
+          "hitsPerAttack": 1,
+          "attack": 142,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Gyaos (Adults)"
+  },
+  "Gyaos (Sub-Adults)": {
+    "name": "Gyaos (Sub-Adults)",
+    "rarity": 4,
+    "cost": 4,
+    "aliases": [],
+    "evolutions": [
+      "Gyaos (Adults)"
+    ],
+    "image": "GyaosSubAdults.png",
+    "emoji": "1337847364248932435",
+    "movie": "GAMERA Rebirth",
+    "year": 2023,
+    "isAerial": true,
+    "isSwarm": true,
+    "unit": {
+      "hp": 318,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.6,
+          "hitsPerAttack": 1,
+          "attack": 107,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Gyaos (Sub-Adults)"
+  },
+  "Gyaos 1967": {
+    "name": "Gyaos 1967",
+    "rarity": 4,
+    "cost": 3,
+    "aliases": [],
+    "evolutions": [],
+    "image": "Gyaos1967.png",
+    "emoji": "1337847498248556576",
+    "movie": "Gamera vs. Gyaos",
+    "year": 1967,
+    "youtube": "cq-1CWHkgUk",
+    "isAerial": true,
+    "unit": {
+      "hp": 1231,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.6,
+          "hitsPerAttack": 1,
+          "attack": 347,
+          "canHitFlyer": true
+        },
+        {
+          "name": "Circular Attack",
+          "attackSpeed": 10,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack",
+          "multiplierValue": 70,
+          "multiplierType": "PercentOf",
+          "notes": "If the attacked target is an aerial unit, the target will enter a low-flying state for 10 seconds."
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Gyaos 1967"
+  },
+  "Hedorah 2004": {
+    "name": "Hedorah 2004",
+    "rarity": 4,
+    "cost": 5,
+    "aliases": [],
+    "evolutions": [],
+    "image": "Hedorah2004.png",
+    "emoji": "1337847494176145511",
+    "movie": "Godzilla: Final Wars",
+    "year": 2004,
+    "unit": {
+      "hp": 1674,
+      "attacks": [
+        {
+          "name": "Ranged",
+          "attackSpeed": 2.7,
+          "hitsPerAttack": 1,
+          "attack": 212,
+          "aoe": true,
+          "canHitFlyer": true,
+          "recoveryEffect": 5
+        },
+        {
+          "name": "Attack (Afflicted with Acid)",
+          "attackSpeed": 2.7,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Ranged",
+          "multiplierValue": 80,
+          "multiplierType": "Percent"
+        },
+        {
+          "name": "Acid",
+          "attackSpeed": 1,
+          "hitsPerAttack": 1,
+          "attack": 30
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Hedorah 2004"
+  },
+  "Hedorah Flying": {
+    "name": "Hedorah Flying",
+    "rarity": 3,
+    "cost": 2,
+    "aliases": [
+      "Smog Monster"
+    ],
+    "evolutions": [
+      "Hedorah Mature"
+    ],
+    "image": "HedorahFlying.png",
+    "emoji": "1337847365687709766",
+    "movie": "Godzilla vs. Hedorah",
+    "year": 1971,
+    "unit": {
+      "hp": 288,
+      "attacks": [
+        {
+          "name": "Acid",
+          "attackSpeed": 1,
+          "hitsPerAttack": 1,
+          "attack": 10,
+          "aoe": true,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Hedorah Flying"
+  },
+  "Hedorah Mature": {
+    "name": "Hedorah Mature",
+    "rarity": 3,
+    "cost": 4,
+    "aliases": [
+      "Cum Monster",
+      "Smog Monster"
+    ],
+    "evolutions": [
+      "Hedorah Flying"
+    ],
+    "image": "HedorahMature.png",
+    "emoji": "1337847367277350943",
+    "movie": "Godzilla vs. Hedorah",
+    "year": 1971,
+    "isFullyEvolved": true,
+    "unit": {
+      "hp": 552,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2,
+          "hitsPerAttack": 1,
+          "attack": 107,
+          "aoe": true,
+          "canHitFlyer": true
+        },
+        {
+          "name": "Acid",
+          "attackSpeed": 1,
+          "hitsPerAttack": 1,
+          "attack": 17
+        }
+      ]
+    },
+    "leader": {
+      "hp": 2197,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2,
+          "hitsPerAttack": 1,
+          "attack": 70
+        }
+      ]
+    },
+    "memorySlotColors": [
+      "GREEN",
+      "BLUE",
+      "YELLOW",
+      "YELLOW"
+    ],
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Hedorah Mature"
+  },
+  "Iris": {
+    "name": "Iris",
+    "rarity": 4,
+    "cost": 7,
+    "aliases": [],
+    "evolutions": [],
+    "image": "unit_icon_middle_101521-e1772131886948",
+    "movie": "Gamera 3: Revenge of Iris",
+    "year": 1999,
+    "unit": {
+      "hp": 2141,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.8,
+          "hitsPerAttack": 1,
+          "attack": 367,
+          "canHitFlyer": true
+        },
+        {
+          "name": "Tentacle Attack",
+          "attackSpeed": 2.8,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack",
+          "multiplierValue": 10,
+          "multiplierType": "PercentOf",
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "added": "2026-06-06T16:16:02.661Z",
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Iris",
+    "emoji": "1523548459418783847"
+  },
+  "Iris Flying Form": {
+    "name": "Iris Flying Form",
+    "rarity": 4,
+    "cost": 4,
+    "aliases": [],
+    "evolutions": [],
+    "image": "unit_icon_middle_101511-e1772131797618",
+    "movie": "Gamera 3: Revenge of Iris",
+    "year": 1999,
+    "isAerial": true,
+    "unit": {
+      "hp": 1418,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2,
+          "hitsPerAttack": 1,
+          "attack": 274,
+          "canHitFlyer": true
+        },
+        {
+          "name": "Tentacle Attack",
+          "attackSpeed": 2,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack",
+          "multiplierValue": 10,
+          "multiplierType": "PercentOf",
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "added": "2026-06-06T16:14:09.614Z",
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Iris_Flying_Form",
+    "emoji": "1523548460136009730"
+  },
+  "Jet Jaguar (Giant)": {
+    "name": "Jet Jaguar (Giant)",
+    "rarity": 4,
+    "cost": 4,
+    "aliases": [
+      "Jet Jaguar 1973"
+    ],
+    "evolutions": [
+      "Jet Jaguar 73"
+    ],
+    "image": "JetJaguarGiant.png",
+    "emoji": "1337847368967782520",
+    "movie": "Godzilla vs. Megalon",
+    "year": 1973,
+    "isMechanical": true,
+    "isFullyEvolved": true,
+    "unit": {
+      "hp": 1418,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.3,
+          "hitsPerAttack": 1,
+          "attack": 206
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Jet Jaguar (Giant)"
+  },
+  "Jet Jaguar 73": {
+    "name": "Jet Jaguar 73",
+    "rarity": 4,
+    "cost": 4,
+    "aliases": [],
+    "evolutions": [
+      "Jet Jaguar (Giant)"
+    ],
+    "image": "JetJaguar73.png",
+    "emoji": "1337847370246787157",
+    "movie": "Godzilla vs. Megalon",
+    "year": 1973,
+    "isMechanical": true,
+    "unit": {
+      "hp": 433,
+      "attacks": []
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Jet Jaguar 73"
+  },
+  "Jet Jaguar SP": {
+    "name": "Jet Jaguar SP",
+    "rarity": 4,
+    "cost": 4,
+    "aliases": [
+      "Jet Jaguar Singular Point",
+      "Jet Jaguar 21"
+    ],
+    "evolutions": [],
+    "image": "JetJaguarSP.png",
+    "emoji": "1337847371660529754",
+    "movie": "Godzilla Singular Point",
+    "year": 2021,
+    "isMechanical": true,
+    "unit": {
+      "hp": 1297,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 1.6,
+          "hitsPerAttack": 1,
+          "attack": 227,
+          "aoe": true
+        }
+      ]
+    },
+    "leader": {
+      "hp": 8390,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 1.7,
+          "hitsPerAttack": 1,
+          "attack": 497
+        }
+      ]
+    },
+    "memorySlotColors": [
+      "RED",
+      "BLUE",
+      "YELLOW",
+      "YELLOW"
+    ],
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Jet Jaguar SP"
+  },
+  "Kaizer Ghidorah": {
+    "name": "Kaizer Ghidorah",
+    "rarity": 4,
+    "cost": 5,
+    "aliases": [],
+    "evolutions": [
+      "Monster X"
+    ],
+    "image": "KaizerGhidorah.png",
+    "emoji": "1337847373048844380",
+    "movie": "Ghidorah, the Three-Headed Monster",
+    "year": "1964",
+    "unit": {
+      "hp": 1888,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 3,
+          "hitsPerAttack": 1,
+          "attack": 506
+        },
+        {
+          "name": "Attack (Against Ground Units)",
+          "attackSpeed": 0,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack",
+          "multiplierValue": 50,
+          "multiplierType": "Percent"
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Kaizer Ghidorah"
+  },
+  "Kaizer Ghidorah (Tokyo Final Battle ver.)": {
+    "name": "Kaizer Ghidorah (Tokyo Final Battle ver.)",
+    "rarity": 4,
+    "cost": 6,
+    "aliases": [],
+    "evolutions": [],
+    "image": "KaizerGhidorahTokyoFinalBattlever.png",
+    "emoji": "1472029376450269336",
+    "movie": "Godzilla: Final Wars",
+    "year": 2004,
+    "unit": {
+      "hp": 1844,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 4.1,
+          "hitsPerAttack": 1,
+          "attack": 495,
+          "aoe": true,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "added": "2026-02-14T00:14:54.833Z",
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Kaizer Ghidorah (Tokyo Final Battle ver.)"
+  },
+  "Kamacurus": {
+    "name": "Kamacurus",
+    "rarity": 1,
+    "cost": 2,
+    "aliases": [],
+    "evolutions": [],
+    "image": "Kamacurus.png",
+    "emoji": "1337847374290358426",
+    "movie": "Son of Godzilla",
+    "year": 1967,
+    "isSwarm": true,
+    "unit": {
+      "hp": 60,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 1.3,
+          "hitsPerAttack": 1,
+          "attack": 23
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Kamacurus"
+  },
+  "Kamacurus Swarm": {
+    "name": "Kamacurus Swarm",
+    "rarity": 2,
+    "cost": 5,
+    "aliases": [],
+    "evolutions": [],
+    "image": "KamacurusSwarm.png",
+    "emoji": "1337847375888122017",
+    "movie": "Son of Godzilla",
+    "year": 1967,
+    "isSwarm": true,
+    "unit": {
+      "hp": 80,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 1.3,
+          "hitsPerAttack": 1,
+          "attack": 27
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Kamacurus Swarm"
+  },
+  "Kids": {
+    "name": "Kids",
+    "rarity": 3,
+    "cost": 4,
+    "aliases": [],
+    "evolutions": [],
+    "image": "Kids.png",
+    "emoji": "1337847377499000972",
+    "movie": "All Monsters Attack",
+    "year": "1969",
+    "unit": {
+      "hp": 0,
+      "attacks": []
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Kids"
+  },
+  "KIJU type0 G Breaker": {
+    "name": "KIJU type0 G Breaker",
+    "rarity": 4,
+    "cost": 5,
+    "aliases": [],
+    "evolutions": [],
+    "image": "KIJUtype0GBreaker.png",
+    "emoji": "1444507935509188740",
+    "movie": "Godzilla the Ride: Great Clash",
+    "year": 2025,
+    "youtube": "AeyC0n1s6DQ",
+    "isMechanical": true,
+    "unit": {
+      "hp": 1735,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.6,
+          "hitsPerAttack": 1,
+          "attack": 248,
+          "aoe": true,
+          "canHitFlyer": true
+        },
+        {
+          "name": "Attack (5+ Cost Units)",
+          "attackSpeed": 2.6,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack",
+          "multiplierValue": 200,
+          "multiplierType": "Percent",
+          "aoe": true,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "added": "2025-11-30T01:02:56.964Z",
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "KIJU type0 G Breaker"
+  },
+  "King Caesar": {
+    "name": "King Caesar",
+    "rarity": 2,
+    "cost": 4,
+    "aliases": [],
+    "evolutions": [],
+    "image": "KingCaesar.png",
+    "emoji": "1337847378979459223",
+    "movie": "Godzilla vs. Mechagodzilla",
+    "year": "1974",
+    "unit": {
+      "hp": 225,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 1.2,
+          "hitsPerAttack": 1,
+          "attack": 83
+        },
+        {
+          "name": "Rush",
+          "attackSpeed": 1,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack",
+          "multiplierValue": 300,
+          "multiplierType": "Percent"
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "King Caesar"
+  },
+  "King Ghidorah": {
+    "name": "King Ghidorah",
+    "rarity": 4,
+    "cost": 6,
+    "aliases": [],
+    "evolutions": [
+      "Mecha King Ghidorah"
+    ],
+    "image": "KingGhidorah.png",
+    "emoji": "1337847381051576393",
+    "movie": "Godzilla vs. King Ghidorah",
+    "year": 1991,
+    "isAerial": true,
+    "unit": {
+      "hp": 1374,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.8,
+          "hitsPerAttack": 1,
+          "attack": 338,
+          "aoe": true,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "King Ghidorah"
+  },
+  "King Ghidorah (Abashiri ver.)": {
+    "name": "King Ghidorah (Abashiri ver.)",
+    "rarity": 4,
+    "cost": 6,
+    "aliases": [],
+    "evolutions": [],
+    "image": "KingGhidorahAbashiriver.png",
+    "emoji": "1444507936859881687",
+    "movie": "Rebirth of Mothra III",
+    "year": 1998,
+    "youtube": "sqYgwTaTjlE",
+    "isAerial": true,
+    "unit": {
+      "hp": 1778,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 3,
+          "hitsPerAttack": 1,
+          "attack": 367,
+          "aoe": true,
+          "canHitFlyer": true
+        },
+        {
+          "name": "Attack (With Positive Effect)",
+          "attackSpeed": 3,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack",
+          "multiplierValue": 25,
+          "multiplierType": "Percent",
+          "attack": 459
+        }
+      ]
+    },
+    "added": "2025-11-30T00:29:18.961Z",
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "King Ghidorah (Abashiri ver.)"
+  },
+  "King Ghidorah (Antarctic Awakening ver.)": {
+    "name": "King Ghidorah (Antarctic Awakening ver.)",
+    "rarity": 4,
+    "cost": 6,
+    "aliases": [],
+    "evolutions": [],
+    "image": "KingGhidorahAntarcticAwakeningver.png",
+    "emoji": "1337847511846490222",
+    "movie": "Godzilla: King of the Monsters",
+    "year": 2019,
+    "isAerial": true,
+    "unit": {
+      "hp": 1796,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 3,
+          "hitsPerAttack": 1,
+          "attack": 385
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "King Ghidorah (Antarctic Awakening ver.)"
+  },
+  "King Ghidorah (Godzilla The Ride ver.)": {
+    "name": "King Ghidorah (Godzilla The Ride ver.)",
+    "rarity": 4,
+    "cost": 7,
+    "aliases": [],
+    "evolutions": [],
+    "image": "KingGhidorahGodzillaTheRidever.png",
+    "emoji": "1337847486521544725",
+    "movie": "Godzilla the Ride: Giant Monsters Ultimate Battle",
+    "year": "2021",
+    "unit": {
+      "hp": 1778,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.2,
+          "hitsPerAttack": 2,
+          "attack": 196
+        },
+        {
+          "name": "Counterattack",
+          "attackSpeed": 1,
+          "hitsPerAttack": 1,
+          "attack": 353
+        },
+        {
+          "name": "Ranged damage on deployment",
+          "attackSpeed": 1,
+          "hitsPerAttack": 1,
+          "attack": 334
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "King Ghidorah (Godzilla The Ride ver.)"
+  },
+  "King Ghidorah 2019 (Monster Zero)": {
+    "name": "King Ghidorah 2019 (Monster Zero)",
+    "rarity": 4,
+    "cost": 7,
+    "aliases": [],
+    "evolutions": [],
+    "image": "KingGhidorah2019MonsterZero.png",
+    "emoji": "1337847382267793561",
+    "movie": "Godzilla: King of the Monsters",
+    "year": 2019,
+    "isAerial": true,
+    "unit": {
+      "hp": 1987,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.8,
+          "hitsPerAttack": 1,
+          "attack": 385
+        },
+        {
+          "name": "Deployment Damage",
+          "attackSpeed": 1,
+          "hitsPerAttack": 1,
+          "attack": 387
+        },
+        {
+          "name": "Attack (10 Second Boost)",
+          "attackSpeed": 2.8,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack",
+          "multiplierValue": 25,
+          "multiplierType": "Percent"
+        }
+      ]
+    },
+    "leader": {
+      "hp": 7357,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.8,
+          "hitsPerAttack": 1,
+          "attack": 612
+        }
+      ]
+    },
+    "memorySlotColors": [
+      "RED",
+      "RED",
+      "RED",
+      "BLUE"
+    ],
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "King Ghidorah 2019 (Monster Zero)"
+  },
+  "King Ghidorah 98": {
+    "name": "King Ghidorah 98",
+    "rarity": 4,
+    "cost": 7,
+    "aliases": [],
+    "evolutions": [],
+    "image": "KingGhidorah98.png",
+    "emoji": "1375650584174006312",
+    "movie": "Rebirth of Mothra III",
+    "year": 1998,
+    "isAerial": true,
+    "unit": {
+      "hp": 1987,
+      "attacks": [
+        {
+          "name": "Ranged 1",
+          "attackSpeed": 2.9,
+          "hitsPerAttack": 1,
+          "attack": 433
+        },
+        {
+          "name": "Ranged 2",
+          "attackSpeed": 2.9,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Ranged 1",
+          "multiplierValue": 45,
+          "multiplierType": "Percent"
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "King Ghidorah 98"
+  },
+  "Kiryu": {
+    "name": "Kiryu",
+    "rarity": 4,
+    "cost": 6,
+    "aliases": [],
+    "evolutions": [
+      "Kiryu Kai"
+    ],
+    "image": "Kiryu.png",
+    "emoji": "1337847385107206266",
+    "movie": "Godzilla Against Mechagodzilla",
+    "year": 2002,
+    "isMechanical": true,
+    "unit": {
+      "hp": 1137,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.7,
+          "hitsPerAttack": 1,
+          "attack": 225,
+          "aoe": true,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "leader": {
+      "hp": 8390,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.7,
+          "hitsPerAttack": 1,
+          "attack": 682
+        }
+      ]
+    },
+    "memorySlotColors": [
+      "RED",
+      "RED",
+      "BLUE",
+      "BLUE"
+    ],
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Kiryu"
+  },
+  "Kiryu Kai": {
+    "name": "Kiryu Kai",
+    "rarity": 4,
+    "cost": 6,
+    "aliases": [],
+    "evolutions": [
+      "Kiryu"
+    ],
+    "image": "KiryuKai.png",
+    "emoji": "1337847386843648001",
+    "movie": "Godzilla: Tokyo S.O.S.",
+    "year": 2003,
+    "isMechanical": true,
+    "isFullyEvolved": true,
+    "unit": {
+      "hp": 775,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.7,
+          "hitsPerAttack": 1,
+          "attack": 158
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Kiryu Kai"
+  },
+  "Kiryu Kai (Heavy Arms Type)": {
+    "name": "Kiryu Kai (Heavy Arms Type)",
+    "rarity": 4,
+    "cost": 6,
+    "aliases": [],
+    "evolutions": [],
+    "image": "KiryuKaiHeavyArmsType.png",
+    "emoji": "1337847456062373929",
+    "movie": "Godzilla: Tokyo S.O.S.",
+    "year": 2003,
+    "isMechanical": true,
+    "unit": {
+      "hp": 1608,
+      "attacks": [
+        {
+          "name": "Ranged Attack 1",
+          "attackSpeed": 2.1,
+          "hitsPerAttack": 3,
+          "attack": 104,
+          "aoe": true,
+          "canHitFlyer": true
+        },
+        {
+          "name": "Ranged Attack 2",
+          "attackSpeed": 2.1,
+          "hitsPerAttack": 1,
+          "attack": 354,
+          "aoe": true,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Kiryu Kai (Heavy Arms Type)"
+  },
+  "Kong (B.E.A.S.T. GLOVE ver.)": {
+    "name": "Kong (B.E.A.S.T. GLOVE ver.)",
+    "rarity": 4,
+    "cost": 6,
+    "aliases": [],
+    "evolutions": [],
+    "image": "KongBEASTGLOVEver.png",
+    "emoji": "1337847468553146388",
+    "movie": "Godzilla x Kong: The New Empire",
+    "year": "2024",
+    "unit": {
+      "hp": 1703,
+      "attacks": [
+        {
+          "name": "Attack 1",
+          "attackSpeed": 2.8,
+          "hitsPerAttack": 1,
+          "attack": 360
+        },
+        {
+          "name": "Attack (Without Axe)",
+          "attackSpeed": 2.8,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack 1",
+          "multiplierValue": 20,
+          "multiplierType": "Percent"
+        },
+        {
+          "name": "Pounce",
+          "attackSpeed": 1,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack 1",
+          "multiplierValue": 30,
+          "multiplierType": "Percent",
+          "notes": "Can only be executed once every 7 seconds."
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Kong (B.E.A.S.T. GLOVE ver.)"
+  },
+  "Kong 2021": {
+    "name": "Kong 2021",
+    "rarity": 4,
+    "cost": 5,
+    "aliases": [
+      "Monkey"
+    ],
+    "evolutions": [],
+    "image": "Kong2021.png",
+    "emoji": "1337847388693594132",
+    "movie": "Godzilla vs. Kong",
+    "year": 2021,
+    "unit": {
+      "hp": 1796,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.1,
+          "hitsPerAttack": 1,
+          "attack": 417
+        }
+      ]
+    },
+    "leader": {
+      "hp": 7357,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.4,
+          "hitsPerAttack": 1,
+          "attack": 556
+        }
+      ]
+    },
+    "memorySlotColors": [
+      "RED",
+      "GREEN",
+      "GREEN",
+      "YELLOW"
+    ],
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Kong 2021"
+  },
+  "KUMO AUGMENT (Man Spider)": {
+    "name": "KUMO AUGMENT (Man Spider)",
+    "rarity": 3,
+    "cost": 4,
+    "aliases": [
+      "Man Spider"
+    ],
+    "evolutions": [],
+    "image": "KUMOAUGMENTManSpider.png",
+    "emoji": "1337847390039838760",
+    "movie": "Shin Kamen Rider",
+    "year": "2023",
+    "unit": {
+      "hp": 420,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 4,
+          "hitsPerAttack": 3,
+          "attack": 21
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "KUMO AUGMENT (Man Spider)"
+  },
+  "Legion": {
+    "name": "Legion",
+    "rarity": 4,
+    "cost": 7,
+    "aliases": [],
+    "evolutions": [],
+    "image": "Legion.png",
+    "emoji": "1378760716038836285",
+    "movie": "Gamera 2: Attack of Legion",
+    "year": 1996,
+    "youtube": "2OQEWPdqpKE",
+    "unit": {
+      "hp": 1987,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.7,
+          "hitsPerAttack": 1,
+          "attack": 333
+        },
+        {
+          "name": "Attack 2 (<50%HP)",
+          "attackSpeed": 2.7,
+          "hitsPerAttack": 3,
+          "inheritsFrom": "Attack",
+          "multiplierValue": 50,
+          "multiplierType": "PercentOf",
+          "attack": 167
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Legion"
+  },
+  "M.O.G.U.E.R.A.": {
+    "name": "M.O.G.U.E.R.A.",
+    "rarity": 4,
+    "cost": 4,
+    "aliases": [
+      "Moguera"
+    ],
+    "evolutions": [],
+    "image": "MOGUERA.png",
+    "emoji": "1337847453361111151",
+    "movie": "Godzilla vs. SpaceGodzilla",
+    "year": 1994,
+    "isMechanical": true,
+    "unit": {
+      "hp": 1326,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 1.9,
+          "hitsPerAttack": 1,
+          "attack": 158
+        }
+      ]
+    },
+    "leader": {
+      "hp": 5218,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 1.9,
+          "hitsPerAttack": 1,
+          "attack": 258
+        }
+      ]
+    },
+    "memorySlotColors": [
+      "GREEN",
+      "BLUE",
+      "BLUE",
+      "YELLOW"
+    ],
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "M.O.G.U.E.R.A."
+  },
+  "Markalite Cannon": {
+    "name": "Markalite Cannon",
+    "rarity": 1,
+    "cost": 5,
+    "aliases": [],
+    "evolutions": [],
+    "image": "MarkaliteCannon.png",
+    "emoji": "1337847391440605276",
+    "movie": "The Mysterians",
+    "year": "1957",
+    "unit": {
+      "hp": 113,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 3.5,
+          "hitsPerAttack": 1,
+          "attack": 158
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Markalite Cannon"
+  },
+  "Masked Rider": {
+    "name": "Masked Rider",
+    "rarity": 4,
+    "cost": 4,
+    "aliases": [
+      "Kamen Rider"
+    ],
+    "evolutions": [],
+    "image": "MaskedRider.png",
+    "emoji": "1337847393261191220",
+    "movie": "Shin Kamen Rider",
+    "year": 2023,
+    "unit": {
+      "hp": 1326,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2,
+          "hitsPerAttack": 2,
+          "attack": 152
+        },
+        {
+          "name": "Deployment",
+          "attackSpeed": 1,
+          "hitsPerAttack": 1,
+          "attack": 100
+        }
+      ]
+    },
+    "leader": {
+      "hp": 6263,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2,
+          "hitsPerAttack": 1,
+          "attack": 187
+        }
+      ]
+    },
+    "memorySlotColors": [
+      "RED",
+      "GREEN",
+      "BLUE",
+      "BLUE"
+    ],
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Masked Rider"
+  },
+  "Mbaw Base": {
+    "name": "Mbaw Base",
+    "rarity": 2,
+    "cost": 4,
+    "aliases": [],
+    "evolutions": [],
+    "image": "MbawBase.png",
+    "emoji": "1337847395249033217",
+    "movie": "Godzilla vs. Mothra",
+    "year": "1992",
+    "type": "Building",
+    "unit": {
+      "hp": 600,
+      "attacks": []
+    },
+    "spawnedUnit": "Mbaw-93",
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Mbaw Base"
+  },
+  "Mbaw-93": {
+    "name": "Mbaw-93",
+    "rarity": 1,
+    "cost": 3,
+    "aliases": [],
+    "evolutions": [],
+    "image": "Mbaw93.png",
+    "emoji": "1337847396616503380",
+    "movie": "Godzilla vs. Mothra",
+    "year": "1992",
+    "unit": {
+      "hp": 68,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.8,
+          "hitsPerAttack": 1,
+          "attack": 15
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Mbaw-93"
+  },
+  "Mecha King Ghidorah": {
+    "name": "Mecha King Ghidorah",
+    "rarity": 4,
+    "cost": 7,
+    "aliases": [],
+    "evolutions": [
+      "King Ghidorah"
+    ],
+    "image": "MechaKingGhidorah.png",
+    "emoji": "1337847398302486588",
+    "movie": "Godzilla vs. King Ghidorah",
+    "year": 1991,
+    "isAerial": true,
+    "isMechanical": true,
+    "isFullyEvolved": true,
+    "unit": {
+      "hp": 1655,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.8,
+          "hitsPerAttack": 1,
+          "attack": 366,
+          "aoe": true,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "leader": {
+      "hp": 8390,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.7,
+          "hitsPerAttack": 1,
+          "attack": 682
+        }
+      ]
+    },
+    "memorySlotColors": [
+      "RED",
+      "RED",
+      "GREEN",
+      "YELLOW"
+    ],
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Mecha King Ghidorah"
+  },
+  "Mechagodzilla (counter-Godzilla Super Heavy Mass Nanometal Decisive Battle Weapon)": {
+    "name": "Mechagodzilla (counter-Godzilla Super Heavy Mass Nanometal Decisive Battle Weapon)",
+    "rarity": 4,
+    "cost": 8,
+    "aliases": [
+      "Mechagodzilla 2018",
+      "Long ass name"
+    ],
+    "evolutions": [],
+    "image": "MechagodzillaCounterGodzillaSuperHeavyMassNanometalDecisiveBattleWeapon.png",
+    "emoji": "1337847506985553941",
+    "movie": "Godzilla: City on the Edge of Battle",
+    "year": 2018,
+    "isMechanical": true,
+    "unit": {
+      "hp": 1987,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.8,
+          "hitsPerAttack": 1,
+          "attack": 115,
+          "canHitFlyer": true
+        },
+        {
+          "name": "Ranged Attack 1",
+          "attackSpeed": 2.8,
+          "hitsPerAttack": 1,
+          "attack": 288,
+          "canHitFlyer": true
+        },
+        {
+          "name": "Ranged Attack 2",
+          "attackSpeed": 2.8,
+          "hitsPerAttack": 1,
+          "attack": 35,
+          "aoe": true,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "leader": {
+      "hp": 9190,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.8,
+          "hitsPerAttack": 1,
+          "attack": 332,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "memorySlotColors": [
+      "RED",
+      "RED",
+      "GREEN",
+      "GREEN"
+    ],
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Mechagodzilla (counter-Godzilla Super Heavy Mass Nanometal Decisive Battle Weapon)"
+  },
+  "MechaGodzilla (Poster Art ver.)": {
+    "name": "MechaGodzilla (Poster Art ver.)",
+    "rarity": 4,
+    "cost": 5,
+    "aliases": [],
+    "evolutions": [],
+    "image": "MechaGodzillaPosterArtver.png",
+    "emoji": "1444507938587676703",
+    "movie": "Godzilla vs. Mechagodzilla II",
+    "year": 1993,
+    "youtube": "wi5w2qp1_N0",
+    "isAerial": true,
+    "isMechanical": true,
+    "unit": {
+      "hp": 1560,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.5,
+          "hitsPerAttack": 1,
+          "attack": 127,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "added": "2025-11-30T01:02:56.964Z",
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "MechaGodzilla (Poster Art ver.)"
+  },
+  "Mechagodzilla 21": {
+    "name": "Mechagodzilla 21",
+    "rarity": 4,
+    "cost": 6,
+    "aliases": [],
+    "evolutions": [],
+    "image": "Mechagodzilla21.png",
+    "emoji": "1337847399883997294",
+    "movie": "Godzilla vs. Kong",
+    "year": 2021,
+    "isMechanical": true,
+    "unit": {
+      "hp": 1844,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.6,
+          "hitsPerAttack": 1,
+          "attack": 480,
+          "canHitFlyer": true
+        },
+        {
+          "name": "Ranged Attack 1",
+          "attackSpeed": 2.6,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack",
+          "multiplierValue": 10,
+          "multiplierType": "Percent",
+          "canHitFlyer": true
+        },
+        {
+          "name": "Ranged Attack 2",
+          "attackSpeed": 2.6,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack",
+          "multiplierValue": 20,
+          "multiplierType": "Percent",
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "leader": {
+      "hp": 8390,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.6,
+          "hitsPerAttack": 1,
+          "attack": 312
+        }
+      ]
+    },
+    "memorySlotColors": [
+      "RED",
+      "RED",
+      "YELLOW",
+      "YELLOW"
+    ],
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Mechagodzilla 21"
+  },
+  "Mechagodzilla 74": {
+    "name": "Mechagodzilla 74",
+    "rarity": 4,
+    "cost": 5,
+    "aliases": [],
+    "evolutions": [],
+    "image": "Mechagodzilla74.png",
+    "emoji": "1337847401355935796",
+    "movie": "Godzilla vs. Mechagodzilla",
+    "year": 1974,
+    "isMechanical": true,
+    "unit": {
+      "hp": 1560,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.8,
+          "hitsPerAttack": 3,
+          "attack": 142,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "leader": {
+      "hp": 8390,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.8,
+          "hitsPerAttack": 1,
+          "attack": 140,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "memorySlotColors": [
+      "GREEN",
+      "GREEN",
+      "BLUE",
+      "YELLOW"
+    ],
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Mechagodzilla 74"
+  },
+  "Mechagodzilla 93": {
+    "name": "Mechagodzilla 93",
+    "rarity": 3,
+    "cost": 3,
+    "aliases": [],
+    "evolutions": [],
+    "image": "Mechagodzilla93.png",
+    "emoji": "1337847402366763172",
+    "movie": "Godzilla vs. Mechagodzilla II",
+    "year": 1993,
+    "isMechanical": true,
+    "unit": {
+      "hp": 587,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.5,
+          "hitsPerAttack": 1,
+          "attack": 132
+        }
+      ]
+    },
+    "leader": {
+      "hp": 1770,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.3,
+          "hitsPerAttack": 1,
+          "attack": 81
+        }
+      ]
+    },
+    "memorySlotColors": [
+      "RED",
+      "GREEN",
+      "BLUE",
+      "BLUE"
+    ],
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Mechagodzilla 93"
+  },
+  "Mefilas": {
+    "name": "Mefilas",
+    "rarity": 3,
+    "cost": 6,
+    "aliases": [],
+    "evolutions": [],
+    "image": "Mefilas.png",
+    "emoji": "1337847404120248331",
+    "movie": "Ghidorah, the Three-Headed Monster",
+    "year": "1964",
+    "unit": {
+      "hp": 572,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.2,
+          "hitsPerAttack": 1,
+          "attack": 103
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Mefilas"
+  },
+  "Megaguirus": {
+    "name": "Megaguirus",
+    "rarity": 3,
+    "cost": 4,
+    "aliases": [],
+    "evolutions": [],
+    "image": "Megaguirus.png",
+    "emoji": "1337847405617614960",
+    "movie": "Godzilla vs. Megaguirus",
+    "year": 2000,
+    "isAerial": true,
+    "unit": {
+      "hp": 528,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 1.7,
+          "hitsPerAttack": 1,
+          "attack": 107,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Megaguirus"
+  },
+  "Megaguirus (Odaiba ver.)": {
+    "name": "Megaguirus (Odaiba ver.)",
+    "rarity": 4,
+    "cost": 4,
+    "aliases": [],
+    "evolutions": [],
+    "image": "MegaguirusOdaibaver.png",
+    "emoji": "1401049786483998780",
+    "movie": "Godzilla vs. Megaguirus",
+    "year": 2000,
+    "youtube": "bgVFEzwFpCE",
+    "isAerial": true,
+    "unit": {
+      "hp": 1391,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 1.9,
+          "hitsPerAttack": 1,
+          "attack": 248,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Megaguirus (Odaiba ver.)"
+  },
+  "Megalon": {
+    "name": "Megalon",
+    "rarity": 4,
+    "cost": 3,
+    "aliases": [],
+    "evolutions": [],
+    "image": "Megalon.png",
+    "emoji": "1337847407106592939",
+    "movie": "Godzilla vs. Megalon",
+    "year": "1973",
+    "unit": {
+      "hp": 853,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.4,
+          "hitsPerAttack": 1,
+          "attack": 152
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Megalon"
+  },
+  "Megalon (Godzilla vs. Megalon ver.)": {
+    "name": "Megalon (Godzilla vs. Megalon ver.)",
+    "rarity": 4,
+    "cost": 4,
+    "aliases": [
+      "Megalon (2023)",
+      "Gemstone Megalon"
+    ],
+    "evolutions": [],
+    "image": "MegalonGodzillavsMegalonver.png",
+    "emoji": "1401049789113565184",
+    "movie": "Godzilla vs. Megalon",
+    "year": 2023,
+    "youtube": "ZqxbS9JzmcY",
+    "isAerial": true,
+    "unit": {
+      "hp": 1326,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2,
+          "hitsPerAttack": 1,
+          "attack": 279,
+          "aoe": true,
+          "canHitFlyer": true
+        },
+        {
+          "name": "Ranged",
+          "attackSpeed": 0.8,
+          "hitsPerAttack": 1,
+          "attack": 140
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Megalon (Godzilla vs. Megalon ver.)"
+  },
+  "Megalon and Gigan": {
+    "name": "Megalon and Gigan",
+    "rarity": 4,
+    "cost": 5,
+    "aliases": [],
+    "evolutions": [],
+    "image": "MegalonandGigan.png",
+    "emoji": "1444507939581853848",
+    "movie": "Godzilla vs. Megalon",
+    "year": "1973",
+    "type": "Duo",
+    "units": [
+      {
+        "name": "Megalon",
+        "hp": 1089,
+        "attacks": [
+          {
+            "name": "Attack",
+            "attack": 187,
+            "attackSpeed": 2.2,
+            "hitsPerAttack": 1,
+            "multiplierValue": 50
+          }
+        ]
+      },
+      {
+        "name": "Gigan",
+        "hp": 1374,
+        "attacks": [
+          {
+            "name": "Attack",
+            "attack": 196,
+            "attackSpeed": 1.6,
+            "hitsPerAttack": 1
+          }
+        ]
+      }
+    ],
+    "added": "2025-11-30T01:02:56.964Z",
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Megalon and Gigan"
+  },
+  "Minilla": {
+    "name": "Minilla",
+    "rarity": 1,
+    "cost": 2,
+    "aliases": [
+      "Sir Melee"
+    ],
+    "evolutions": [],
+    "image": "Minilla.png",
+    "emoji": "1337847408247443587",
+    "movie": "Son of Godzilla",
+    "year": 1967,
+    "unit": {
+      "hp": 150,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.8,
+          "hitsPerAttack": 1,
+          "attack": 18,
+          "notes": "Enemy units hit by this attack are inflicted with Stun for 0.6 seconds."
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Minilla"
+  },
+  "Missile Strike": {
+    "name": "Missile Strike",
+    "rarity": 1,
+    "cost": 5,
+    "aliases": [],
+    "evolutions": [],
+    "image": "MissileStrike.png",
+    "emoji": "1337847409778364476",
+    "movie": "Godzilla, Mothra and King Ghidorah: Giant Monsters All-Out Attack",
+    "year": 2001,
+    "unit": {
+      "hp": 0,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 0,
+          "hitsPerAttack": 3,
+          "attack": 30
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Missile Strike"
+  },
+  "Modified Gigan": {
+    "name": "Modified Gigan",
+    "rarity": 4,
+    "cost": 5,
+    "aliases": [],
+    "evolutions": [],
+    "image": "modifiedGigan.png",
+    "emoji": "1472029377134072085",
+    "movie": "Godzilla: Final Wars",
+    "year": 2004,
+    "isAerial": true,
+    "isMechanical": true,
+    "unit": {
+      "hp": 1342,
+      "attacks": [
+        {
+          "name": "Attack (Ground Units)",
+          "attackSpeed": 2,
+          "hitsPerAttack": 2,
+          "attack": 185,
+          "aoe": true,
+          "canHitFlyer": true
+        },
+        {
+          "name": "Ranged Attack (Aerial Units)",
+          "attackSpeed": 2,
+          "hitsPerAttack": 3,
+          "inheritsFrom": "Attack (Ground Units)",
+          "multiplierValue": 50,
+          "multiplierType": "PercentOf",
+          "aoe": true,
+          "canHitFlyer": true
+        },
+        {
+          "name": "Ranged Attack 2",
+          "attackSpeed": 2,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack (Ground Units)",
+          "multiplierValue": 100,
+          "multiplierType": "Percent",
+          "aoe": true,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "added": "2026-02-14T00:11:53.892Z",
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Modified Gigan"
+  },
+  "Moguera": {
+    "name": "Moguera",
+    "rarity": 2,
+    "cost": 5,
+    "aliases": [],
+    "evolutions": [],
+    "image": "Moguera.png",
+    "emoji": "1337847411506417685",
+    "movie": "The Mysterians",
+    "year": "1957",
+    "unit": {
+      "hp": 270,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 1.1,
+          "hitsPerAttack": 1,
+          "attack": 35
+        },
+        {
+          "name": "RangedAttack",
+          "attackSpeed": 1,
+          "hitsPerAttack": 1,
+          "attack": 13
+        }
+      ]
+    },
+    "leader": {
+      "hp": 6263,
+      "attacks": [
+        {
+          "attack": 312
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Moguera"
+  },
+  "Monster X": {
+    "name": "Monster X",
+    "rarity": 4,
+    "cost": 4,
+    "aliases": [],
+    "evolutions": [
+      "Keizer Ghidorah"
+    ],
+    "image": "MonsterX.png",
+    "emoji": "1337847412923957310",
+    "movie": "Godzilla: Final Wars",
+    "year": "2004",
+    "unit": {
+      "hp": 1283,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 3.2,
+          "hitsPerAttack": 1,
+          "attack": 321
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Monster X"
+  },
+  "Mothra (Giant Cocoon)": {
+    "name": "Mothra (Giant Cocoon)",
+    "rarity": 4,
+    "cost": 3,
+    "aliases": [],
+    "evolutions": [
+      "Mothra Imago 1961"
+    ],
+    "image": "MothraGiantCocoon.png",
+    "emoji": "1401049792439910542",
+    "movie": "Mothra",
+    "year": 1961,
+    "youtube": "su-kYmpDERQ",
+    "unit": {
+      "hp": 1515,
+      "attacks": []
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Mothra (Giant Cocoon)"
+  },
+  "Mothra (Imago)": {
+    "name": "Mothra (Imago)",
+    "rarity": 4,
+    "cost": 3,
+    "aliases": [
+      "Mothra 1992"
+    ],
+    "evolutions": [
+      "Mothra Larva"
+    ],
+    "image": "Mothra92.png",
+    "emoji": "1337847415931408405",
+    "movie": "Godzilla vs. Mothra",
+    "year": 1992,
+    "isAerial": true,
+    "isFullyEvolved": true,
+    "unit": {
+      "hp": 904,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2,
+          "hitsPerAttack": 10,
+          "attack": 33,
+          "aoe": true,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "leader": {
+      "hp": 8390,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.5,
+          "hitsPerAttack": 1,
+          "attack": 158
+        }
+      ]
+    },
+    "memorySlotColors": [
+      "GREEN",
+      "GREEN",
+      "GREEN",
+      "BLUE"
+    ],
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Mothra (Imago)"
+  },
+  "Mothra (Imago) (1961)": {
+    "name": "Mothra (Imago) (1961)",
+    "rarity": 4,
+    "cost": 3,
+    "aliases": [
+      "cocoon"
+    ],
+    "evolutions": [],
+    "image": "MothraImago1961.png",
+    "emoji": "1401049793056210975",
+    "movie": "Mothra",
+    "year": 1961,
+    "youtube": "su-kYmpDERQ",
+    "isAerial": true,
+    "unit": {
+      "hp": 931,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2,
+          "hitsPerAttack": 3,
+          "attack": 63,
+          "canHitFlyer": true
+        },
+        {
+          "name": "Deployment",
+          "attackSpeed": 1,
+          "hitsPerAttack": 1,
+          "attack": 252
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Mothra (Imago) (1961)"
+  },
+  "Mothra (Larva)": {
+    "name": "Mothra (Larva)",
+    "rarity": 4,
+    "cost": 2,
+    "aliases": [
+      "Mothra Imago Larva"
+    ],
+    "evolutions": [
+      "Mothra 92"
+    ],
+    "image": "MothraLarva.png",
+    "emoji": "1337847417277517895",
+    "movie": "Mothra vs. Godzilla",
+    "year": 1964,
+    "unit": {
+      "hp": 572,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2,
+          "hitsPerAttack": 1,
+          "attack": 72
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Mothra (Larva)"
+  },
+  "Mothra 2019": {
+    "name": "Mothra 2019",
+    "rarity": 4,
+    "cost": 5,
+    "aliases": [],
+    "evolutions": [],
+    "image": "Mothra2019.png",
+    "emoji": "1337847414614392893",
+    "movie": "Godzilla: King of the Monsters",
+    "year": 2019,
+    "isAerial": true,
+    "unit": {
+      "hp": 1283,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 3,
+          "hitsPerAttack": 1,
+          "attack": 196,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Mothra 2019"
+  },
+  "Mothra 2024": {
+    "name": "Mothra 2024",
+    "rarity": 4,
+    "cost": 4,
+    "aliases": [],
+    "evolutions": [],
+    "image": "Mothra2024.png",
+    "emoji": "1337854445509279834",
+    "movie": "Godzilla x Kong: The New Empire",
+    "year": 2024,
+    "youtube": "AwFbTR3QSj8",
+    "isAerial": true,
+    "unit": {
+      "hp": 1353,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2,
+          "hitsPerAttack": 1,
+          "attack": 107,
+          "aoe": true,
+          "canHitFlyer": true
+        },
+        {
+          "name": "Ranged Attack",
+          "attackSpeed": 2,
+          "hitsPerAttack": 1,
+          "attack": 214,
+          "aoe": true,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Mothra 2024"
+  },
+  "Mothra Leo": {
+    "name": "Mothra Leo",
+    "rarity": 4,
+    "cost": 5,
+    "aliases": [],
+    "evolutions": [],
+    "image": "MothraLeo.png",
+    "emoji": "1337847418590330935",
+    "movie": "Rebirth of Mothra",
+    "year": "1996",
+    "unit": {
+      "hp": 1326,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.5,
+          "hitsPerAttack": 1,
+          "attack": 289
+        },
+        {
+          "name": "Rush",
+          "attackSpeed": 1,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack",
+          "multiplierValue": 200,
+          "multiplierType": "Percent"
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Mothra Leo"
+  },
+  "Muto": {
+    "name": "Muto",
+    "rarity": 4,
+    "cost": 5,
+    "aliases": [],
+    "evolutions": [],
+    "image": "unit_icon_middle_101631-e1782788855721",
+    "movie": "Godzilla 2014",
+    "year": 2014,
+    "isSwarm": true,
+    "type": "Duo",
+    "units": [
+      {
+        "name": "Muto (Male)",
+        "hp": 949,
+        "attacks": [
+          {
+            "name": "Attack",
+            "attack": 212,
+            "attackSpeed": 2.1,
+            "hitsPerAttack": 1
+          },
+          {
+            "name": "Attack (Assualt Mode)",
+            "attack": 170,
+            "attackSpeed": 1,
+            "hitsPerAttack": 1,
+            "aoe": true
+          }
+        ],
+        "isAerial": true
+      },
+      {
+        "name": "Muto (Female)",
+        "hp": 1655,
+        "attacks": [
+          {
+            "name": "Attack",
+            "attack": 272,
+            "attackSpeed": 2.7,
+            "hitsPerAttack": 1
+          }
+        ]
+      }
+    ],
+    "added": "2026-07-06T04:30:46.349Z",
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Muto",
+    "emoji": "1523548461482643466"
+  },
+  "Neronga": {
+    "name": "Neronga",
+    "rarity": 3,
+    "cost": 4,
+    "aliases": [],
+    "evolutions": [],
+    "image": "Neronga.png",
+    "emoji": "1337847420096217302",
+    "movie": "Shin Ultraman",
+    "year": 2022,
+    "unit": {
+      "hp": 396,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.7,
+          "hitsPerAttack": 1,
+          "attack": 90
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Neronga"
+  },
+  "Operation Taba": {
+    "name": "Operation Taba",
+    "rarity": 4,
+    "cost": 4,
+    "aliases": [],
+    "evolutions": [],
+    "image": "OperationTaba.png",
+    "emoji": "1401049804846530560",
+    "movie": "Shin Godzilla",
+    "year": 2016,
+    "youtube": "pSTyO0nb10Q",
+    "unit": {
+      "hp": 0,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 1,
+          "hitsPerAttack": 10,
+          "attack": 72,
+          "notes": "This does not affect leaders"
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Operation Taba"
+  },
+  "Orga": {
+    "name": "Orga",
+    "rarity": 4,
+    "cost": 5,
+    "aliases": [],
+    "evolutions": [],
+    "image": "Orga.png",
+    "emoji": "1337847457840631919",
+    "movie": "Godzilla 2000: Millennium",
+    "year": 1999,
+    "unit": {
+      "hp": 1703,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.5,
+          "hitsPerAttack": 1,
+          "attack": 318
+        }
+      ]
+    },
+    "leader": {
+      "hp": 8390,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.5,
+          "hitsPerAttack": 1,
+          "attack": 403
+        }
+      ]
+    },
+    "memorySlotColors": [
+      "GREEN",
+      "GREEN",
+      "GREEN",
+      "YELLOW"
+    ],
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Orga"
+  },
+  "Psychic Chorus": {
+    "name": "Psychic Chorus",
+    "rarity": 1,
+    "cost": 3,
+    "aliases": [],
+    "evolutions": [],
+    "image": "PsychicChorus.png",
+    "emoji": "1337847421505503406",
+    "movie": "Godzilla vs. Mechagodzilla II",
+    "year": 1993,
+    "unit": {
+      "hp": 0,
+      "attacks": []
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Psychic Chorus"
+  },
+  "Rainbow Mothra": {
+    "name": "Rainbow Mothra",
+    "rarity": 4,
+    "cost": 4,
+    "aliases": [],
+    "evolutions": [],
+    "image": "RainbowMothra.png",
+    "emoji": "1337847443026481212",
+    "movie": "Rebirth of Mothra II",
+    "year": 1997,
+    "isAerial": true,
+    "unit": {
+      "hp": 1391,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2,
+          "hitsPerAttack": 1,
+          "attack": 152
+        }
+      ]
+    },
+    "leader": {
+      "hp": 8390,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2,
+          "hitsPerAttack": 1,
+          "attack": 506
+        }
+      ]
+    },
+    "memorySlotColors": [
+      "GREEN",
+      "BLUE",
+      "YELLOW",
+      "YELLOW"
+    ],
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Rainbow Mothra"
+  },
+  "Rainbow Mothra (Nilai-Kanai ver.)": {
+    "name": "Rainbow Mothra (Nilai-Kanai ver.)",
+    "rarity": 4,
+    "cost": 5,
+    "aliases": [],
+    "evolutions": [],
+    "image": "unit_icon_middle_101581-e1777516295884.png",
+    "movie": "Rebirth of Mothra II",
+    "year": 1997,
+    "isAerial": true,
+    "unit": {
+      "hp": 1297,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.6,
+          "hitsPerAttack": 5,
+          "attack": 63
+        },
+        {
+          "name": "Reflection",
+          "attackSpeed": 1,
+          "hitsPerAttack": 1,
+          "attack": 165
+        }
+      ]
+    },
+    "added": "2026-05-31T01:36:28.393Z",
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Rainbow_Mothra_NilaiKanai_ver",
+    "emoji": "1523548462497534042"
+  },
+  "Rodan (Washington, D.C. ver.)": {
+    "name": "Rodan (Washington, D.C. ver.)",
+    "rarity": 4,
+    "cost": 2,
+    "aliases": [],
+    "evolutions": [],
+    "image": "RodanDCver",
+    "emoji": "1453684860727066786",
+    "movie": "Godzilla: King of the Monsters",
+    "year": 2018,
+    "isAerial": true,
+    "unit": {
+      "hp": 1198,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.5,
+          "hitsPerAttack": 1,
+          "attack": 152
+        },
+        {
+          "name": "Ranged",
+          "attackSpeed": 2.2,
+          "hitsPerAttack": 1,
+          "attack": 168,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "spawnedUnit": "King Ghidorah 2019 (Monster Zero)",
+    "added": "2025-12-25T09:34:28.387Z",
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Rodan (Washington, D.C. ver.)"
+  },
+  "Rodan 2019": {
+    "name": "Rodan 2019",
+    "rarity": 4,
+    "cost": 4,
+    "aliases": [],
+    "evolutions": [],
+    "image": "Rodan2019.png",
+    "emoji": "1337847514212204555",
+    "movie": "Godzilla: King of the Monsters",
+    "year": 2019,
+    "isAerial": true,
+    "unit": {
+      "hp": 1231,
+      "attacks": [
+        {
+          "name": "Ranged Attack",
+          "attackSpeed": 2.8,
+          "hitsPerAttack": 1,
+          "attack": 225,
+          "notes": "Enemies hit by this attack are afflicted with burning for 4 seconds. Burning deals 120 damage per second."
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Rodan 2019"
+  },
+  "Rodan 64": {
+    "name": "Rodan 64",
+    "rarity": 3,
+    "cost": 4,
+    "aliases": [],
+    "evolutions": [],
+    "image": "Rodan64.png",
+    "emoji": "1337847423716032645",
+    "movie": "Rodan",
+    "year": 1956,
+    "isAerial": true,
+    "unit": {
+      "hp": 440,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 1.4,
+          "hitsPerAttack": 1,
+          "attack": 80
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Rodan 64"
+  },
+  "Rodan 93": {
+    "name": "Rodan 93",
+    "rarity": 4,
+    "cost": 3,
+    "aliases": [],
+    "evolutions": [
+      "Fire Rodan"
+    ],
+    "image": "Rodan93.png",
+    "emoji": "1337847425431507055",
+    "movie": "Godzilla vs. Mechagodzilla II",
+    "year": 1993,
+    "isAerial": true,
+    "unit": {
+      "hp": 853,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.1,
+          "hitsPerAttack": 1,
+          "attack": 173
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Rodan 93"
+  },
+  "Sachiel (4th Angel)": {
+    "name": "Sachiel (4th Angel)",
+    "rarity": 3,
+    "cost": 5,
+    "aliases": [],
+    "evolutions": [],
+    "image": "Sachiel4thAngel.png",
+    "emoji": "1337847427201499277",
+    "movie": "Neon Genesis Evangelion",
+    "year": "1995",
+    "unit": {
+      "hp": 572,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 3,
+          "hitsPerAttack": 1,
+          "attack": 173
+        },
+        {
+          "name": "Self-Destruct",
+          "attackSpeed": 1,
+          "hitsPerAttack": 1,
+          "attack": 224
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Sachiel (4th Angel)"
+  },
+  "Shimo": {
+    "name": "Shimo",
+    "rarity": 4,
+    "cost": 6,
+    "aliases": [],
+    "evolutions": [],
+    "image": "Shimo.png",
+    "emoji": "1337847474475503777",
+    "movie": "Godzilla x Kong: The New Empire",
+    "year": "2024",
+    "unit": {
+      "hp": 1703,
+      "attacks": [
+        {
+          "name": "Ranged Attack",
+          "attackSpeed": 2.7,
+          "hitsPerAttack": 1,
+          "attack": 253,
+          "notes": "Enemy units hit by this attack will be slow for 2 seconds and are inflicted with Freeze."
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Shimo"
+  },
+  "Shin Godzilla (Fourth Form)": {
+    "name": "Shin Godzilla (Fourth Form)",
+    "rarity": 4,
+    "cost": 6,
+    "aliases": [
+      "Godzilla 2016 (Stage 3)",
+      "Kamakura-san",
+      "Shin Godzilla Form 4"
+    ],
+    "evolutions": [
+      "Shin Godzilla (Second Form)",
+      "Shin Godzilla (Third Form)"
+    ],
+    "image": "ShinGodzillaFourthForm.png",
+    "emoji": "1444509478123733112",
+    "movie": "Shin Godzilla",
+    "year": 2016,
+    "isFullyEvolved": true,
+    "unit": {
+      "hp": 1888,
+      "attacks": [
+        {
+          "name": "Attack (Ground)",
+          "attackSpeed": 3.2,
+          "hitsPerAttack": 1,
+          "attack": 480,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "leader": {
+      "hp": 8390,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 3.2,
+          "hitsPerAttack": 1,
+          "attack": 556
+        }
+      ]
+    },
+    "memorySlotColors": [
+      "RED",
+      "BLUE",
+      "YELLOW",
+      "YELLOW"
+    ],
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Shin Godzilla (Fourth Form)"
+  },
+  "Shin Godzilla (Second Form)": {
+    "name": "Shin Godzilla (Second Form)",
+    "rarity": 4,
+    "cost": 2,
+    "aliases": [
+      "Godzilla 2016 (Stage 1)",
+      "Kamata-kun",
+      "Shin Godzilla Form 2"
+    ],
+    "evolutions": [
+      "Shin Godzilla (Third Form)",
+      "Shin Godzilla (Fourth Form)"
+    ],
+    "image": "ShinGodzillaSecondForm.png",
+    "emoji": "1444509477184471060",
+    "movie": "Shin Godzilla",
+    "year": "2016",
+    "unit": {
+      "hp": 693,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.6,
+          "hitsPerAttack": 1,
+          "attack": 51
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Shin Godzilla (Second Form)"
+  },
+  "Shin Godzilla (Third Form)": {
+    "name": "Shin Godzilla (Third Form)",
+    "rarity": 4,
+    "cost": 5,
+    "aliases": [
+      "Godzilla 2016 (Stage 2)",
+      "Shinagawa-kun",
+      "Shin Godzilla Form 3"
+    ],
+    "evolutions": [
+      "Shin Godzilla (Second Form)",
+      "Shin Godzilla (Fourth Form)"
+    ],
+    "image": "ShinGodzillaThirdForm.png",
+    "emoji": "1444509476362391572",
+    "movie": "Shin Godzilla",
+    "year": 2016,
+    "isFullyEvolved": true,
+    "unit": {
+      "hp": 656,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.5,
+          "hitsPerAttack": 1,
+          "attack": 212
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Shin Godzilla (Third Form)"
+  },
+  "Shinden": {
+    "name": "Shinden",
+    "rarity": 3,
+    "cost": 2,
+    "aliases": [],
+    "evolutions": [],
+    "image": "Shinden.png",
+    "emoji": "1337847448797974651",
+    "movie": "Shin Godzilla",
+    "year": 2016,
+    "isAerial": true,
+    "isMechanical": true,
+    "unit": {
+      "hp": 178,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 1.2,
+          "hitsPerAttack": 1,
+          "attack": 28
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Shinden"
+  },
+  "Shobijin": {
+    "name": "Shobijin",
+    "rarity": 4,
+    "cost": 3,
+    "aliases": [],
+    "evolutions": [],
+    "image": "Shobijin.png",
+    "emoji": "1375650586405507222",
+    "movie": "Chibi Godzilla Raids Again",
+    "year": 2023,
+    "youtube": "wCVuZKfcLJw",
+    "unit": {
+      "hp": 0,
+      "attacks": []
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Shobijin"
+  },
+  "Skar King": {
+    "name": "Skar King",
+    "rarity": 4,
+    "cost": 6,
+    "aliases": [],
+    "evolutions": [],
+    "image": "SkarKing.png",
+    "emoji": "1337847476715257947",
+    "movie": "Godzilla x Kong: The New Empire",
+    "year": "2024",
+    "unit": {
+      "hp": 1608,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.6,
+          "hitsPerAttack": 1,
+          "attack": 332
+        },
+        {
+          "name": "Draw In",
+          "attackSpeed": 1,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack",
+          "multiplierValue": 50,
+          "multiplierType": "PercentOf",
+          "notes": "Enemy units hit by this attack are drawn in and inflicted with Stun for 3 seconds."
+        },
+        {
+          "name": "Attack (<5-Cost Units)",
+          "attackSpeed": 2.6,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack",
+          "multiplierValue": 35,
+          "multiplierType": "Percent",
+          "notes": "Only affects units with a cost of 5 or less"
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Skar King"
+  },
+  "Skar King X Shimo": {
+    "name": "Skar King X Shimo",
+    "rarity": 4,
+    "cost": 6,
+    "aliases": [],
+    "evolutions": [],
+    "image": "SkarKingXShimo.png",
+    "emoji": "1337854127849603194",
+    "movie": "Godzilla x Kong: The New Empire",
+    "year": "2024",
+    "unit": {
+      "hp": 1608,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.8,
+          "hitsPerAttack": 1,
+          "attack": 196,
+          "notes": "Enemies hit by this attack take 30% more damage for 10 seconds."
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Skar King X Shimo"
+  },
+  "SpaceGodzilla": {
+    "name": "SpaceGodzilla",
+    "rarity": 4,
+    "cost": 6,
+    "aliases": [],
+    "evolutions": [],
+    "image": "SpaceGodzilla.png",
+    "emoji": "1337847432414892234",
+    "movie": "Godzilla vs. SpaceGodzilla",
+    "year": 1994,
+    "unit": {
+      "hp": 1326,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.6,
+          "hitsPerAttack": 1,
+          "attack": 205
+        }
+      ]
+    },
+    "leader": {
+      "hp": 7357,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.2,
+          "hitsPerAttack": 1,
+          "attack": 539
+        }
+      ]
+    },
+    "memorySlotColors": [
+      "GREEN",
+      "GREEN",
+      "BLUE",
+      "YELLOW"
+    ],
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "SpaceGodzilla"
+  },
+  "SpaceGodzilla (Fukuoka)": {
+    "name": "SpaceGodzilla (Fukuoka)",
+    "rarity": 4,
+    "cost": 6,
+    "aliases": [
+      "Spacegodzilla"
+    ],
+    "evolutions": [],
+    "image": "SpacegodzillaFukuoka.png",
+    "emoji": "1337847454602887249",
+    "movie": "Godzilla vs. SpaceGodzilla",
+    "year": 1994,
+    "unit": {
+      "hp": 1283,
+      "attacks": [
+        {
+          "name": "Attack 1",
+          "attackSpeed": 2.8,
+          "hitsPerAttack": 1,
+          "attack": 273,
+          "canHitFlyer": true
+        },
+        {
+          "name": "Attack 2",
+          "attackSpeed": 2.8,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack 1",
+          "multiplierValue": 50,
+          "multiplierType": "PercentOf"
+        },
+        {
+          "name": "Attack 3",
+          "attackSpeed": 2.8,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack 1",
+          "multiplierValue": 50,
+          "multiplierType": "PercentOf"
+        },
+        {
+          "name": "Homing Crystal",
+          "attackSpeed": 1,
+          "hitsPerAttack": 1,
+          "attack": 97
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "SpaceGodzilla (Fukuoka)"
+  },
+  "Sub-Vulture": {
+    "name": "Sub-Vulture",
+    "rarity": 4,
+    "cost": 1,
+    "aliases": [],
+    "evolutions": [],
+    "image": "SubVulture.png",
+    "emoji": "1444774882654290001",
+    "movie": "Godzilla: City on the Edge of Battle",
+    "year": 2018,
+    "skipSearch": true,
+    "isAerial": true,
+    "isMechanical": true,
+    "unit": {
+      "hp": 385,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2,
+          "hitsPerAttack": 1,
+          "attack": 33,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "added": "2025-11-30T19:26:59.507Z",
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Sub-Vulture"
+  },
+  "Super Godzilla": {
+    "name": "Super Godzilla",
+    "rarity": 4,
+    "cost": 8,
+    "aliases": [],
+    "evolutions": [],
+    "image": "SuperGodzilla.png",
+    "emoji": "1375650579459608648",
+    "movie": "Super Godzilla",
+    "year": 1993,
+    "unit": {
+      "hp": 2061,
+      "attacks": [
+        {
+          "name": "Attack 1",
+          "attackSpeed": 2.6,
+          "hitsPerAttack": 1,
+          "attack": 511
+        },
+        {
+          "name": "Attack 2",
+          "attackSpeed": 2.6,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack 1",
+          "multiplierValue": 25,
+          "multiplierType": "Percent"
+        },
+        {
+          "name": "Attack 3",
+          "attackSpeed": 2.6,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack 1",
+          "multiplierValue": 50,
+          "multiplierType": "Percent"
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Super Godzilla"
+  },
+  "Super Mechagodzilla": {
+    "name": "Super Mechagodzilla",
+    "rarity": 4,
+    "cost": 6,
+    "aliases": [],
+    "evolutions": [],
+    "image": "SuperMechagodzilla.png",
+    "emoji": "1337847445782270016",
+    "movie": "Godzilla vs. Mechagodzilla II",
+    "year": 1993,
+    "isAerial": true,
+    "isMechanical": true,
+    "unit": {
+      "hp": 1560,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 3,
+          "hitsPerAttack": 1,
+          "attack": 372,
+          "canHitFlyer": true
+        },
+        {
+          "name": "First Deployment",
+          "attackSpeed": 1,
+          "hitsPerAttack": 1,
+          "attack": 298,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "leader": {
+      "hp": 8390,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 3,
+          "hitsPerAttack": 1,
+          "attack": 612
+        }
+      ]
+    },
+    "memorySlotColors": [
+      "RED",
+      "GREEN",
+      "BLUE",
+      "BLUE"
+    ],
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Super Mechagodzilla"
+  },
+  "Super Mechagodzilla (Makuhari ver.)": {
+    "name": "Super Mechagodzilla (Makuhari ver.)",
+    "rarity": 4,
+    "cost": 5,
+    "aliases": [],
+    "evolutions": [],
+    "image": "unit_icon_middle_101541-e1774932253826.png",
+    "movie": "Godzilla vs. Mechagodzilla II",
+    "year": 1993,
+    "isMechanical": true,
+    "unit": {
+      "hp": 1418,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.7,
+          "hitsPerAttack": 1,
+          "attack": 418,
+          "aoe": true,
+          "canHitFlyer": true
+        },
+        {
+          "name": "Attack 2",
+          "attackSpeed": 0.5,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack",
+          "multiplierValue": 15,
+          "multiplierType": "PercentOf",
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "added": "2026-05-31T01:30:30.813Z",
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Super_Mechagodzilla_Makuhari_ver",
+    "emoji": "1523548463453966387"
+  },
+  "Super X": {
+    "name": "Super X",
+    "rarity": 3,
+    "cost": 4,
+    "aliases": [],
+    "evolutions": [],
+    "image": "SuperX.png",
+    "emoji": "1337847434751246457",
+    "movie": "Godzilla vs. Biollante",
+    "year": 1989,
+    "isAerial": true,
+    "isMechanical": true,
+    "unit": {
+      "hp": 264,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.9,
+          "hitsPerAttack": 3,
+          "attack": 31
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Super X"
+  },
+  "Thousand-Year Dragon King Ghidorah": {
+    "name": "Thousand-Year Dragon King Ghidorah",
+    "rarity": 4,
+    "cost": 7,
+    "aliases": [
+      "King Ghidorah 2002",
+      "King Ghidorah GMK"
+    ],
+    "evolutions": [],
+    "image": "ThousandYearDragonKingGhidorah.png",
+    "emoji": "1337847383933063343",
+    "movie": "Godzilla, Mothra and King Ghidorah: Giant Monsters All-Out Attack",
+    "year": 2001,
+    "isAerial": true,
+    "unit": {
+      "hp": 1735,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.8,
+          "hitsPerAttack": 1,
+          "attack": 187
+        }
+      ]
+    },
+    "leader": {
+      "hp": 9190,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.8,
+          "hitsPerAttack": 1,
+          "attack": 366
+        }
+      ]
+    },
+    "memorySlotColors": [
+      "RED",
+      "RED",
+      "BLUE",
+      "YELLOW"
+    ],
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Thousand-Year Dragon King Ghidorah"
+  },
+  "Ultraman": {
+    "name": "Ultraman",
+    "rarity": 4,
+    "cost": 5,
+    "aliases": [
+      "Shin Ultraman"
+    ],
+    "evolutions": [],
+    "image": "Ultraman.png",
+    "emoji": "1337847436567121940",
+    "movie": "Shin Ultraman",
+    "year": 2022,
+    "unit": {
+      "hp": 1089,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.8,
+          "hitsPerAttack": 1,
+          "attack": 186
+        }
+      ]
+    },
+    "leader": {
+      "hp": 6263,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.6,
+          "hitsPerAttack": 1,
+          "attack": 313
+        }
+      ]
+    },
+    "memorySlotColors": [
+      "BLUE",
+      "YELLOW",
+      "YELLOW",
+      "YELLOW"
+    ],
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Ultraman"
+  },
+  "Unmanned Train Bomb": {
+    "name": "Unmanned Train Bomb",
+    "rarity": 2,
+    "cost": 3,
+    "aliases": [],
+    "evolutions": [],
+    "image": "UnmannedTrainBomb.png",
+    "emoji": "1337847437775212640",
+    "movie": "Shin Godzilla",
+    "year": 2016,
+    "unit": {
+      "hp": 0,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 0,
+          "hitsPerAttack": 2,
+          "attack": 63
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Unmanned Train Bomb"
+  },
+  "Varan": {
+    "name": "Varan",
+    "rarity": 2,
+    "cost": 4,
+    "aliases": [],
+    "evolutions": [],
+    "image": "Varan.png",
+    "emoji": "1337854452157124609",
+    "movie": "Varan",
+    "year": 1958,
+    "youtube": "dTFPCTg2GBM",
+    "unit": {
+      "hp": 525,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2.4,
+          "hitsPerAttack": 1,
+          "attack": 75
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Varan"
+  },
+  "Vulture": {
+    "name": "Vulture",
+    "rarity": 4,
+    "cost": 3,
+    "aliases": [],
+    "evolutions": [],
+    "image": "Vulture.png",
+    "emoji": "1444774882654290001",
+    "movie": "Godzilla: City on the Edge of Battle",
+    "year": 2018,
+    "youtube": "OadXvgYfKiI",
+    "isAerial": true,
+    "isMechanical": true,
+    "unit": {
+      "hp": 572,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2,
+          "hitsPerAttack": 2,
+          "attack": 51,
+          "canHitFlyer": true
+        }
+      ]
+    },
+    "added": "2025-11-30T01:41:45.771Z",
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Vulture"
+  },
+  "Zeruel (10th Angel)": {
+    "name": "Zeruel (10th Angel)",
+    "rarity": 3,
+    "cost": 5,
+    "aliases": [],
+    "evolutions": [],
+    "image": "Zeruel10thAngel.png",
+    "emoji": "1337847439574568982",
+    "movie": "Evangelion: 2.0 You Can (Not) Advance",
+    "year": 2009,
+    "isAerial": true,
+    "unit": {
+      "hp": 440,
+      "attacks": [
+        {
+          "name": "Ranged Attack 1",
+          "attackSpeed": 3.5,
+          "hitsPerAttack": 1,
+          "attack": 90
+        },
+        {
+          "name": "Ranged Attack 2",
+          "attackSpeed": 3.5,
+          "hitsPerAttack": 1,
+          "attack": 99
+        },
+        {
+          "name": "Ranged Attack 3",
+          "attackSpeed": 3.5,
+          "hitsPerAttack": 1,
+          "attack": 108
+        },
+        {
+          "name": "Ranged Attack 4",
+          "attackSpeed": 3.5,
+          "hitsPerAttack": 1,
+          "attack": 117
+        },
+        {
+          "name": "Self-Destruct 1",
+          "attackSpeed": 1,
+          "hitsPerAttack": 1,
+          "attack": 135
+        },
+        {
+          "name": "Self-Destruct 2",
+          "attackSpeed": 1,
+          "hitsPerAttack": 1,
+          "attack": 144
+        },
+        {
+          "name": "Self-Destruct 3",
+          "attackSpeed": 1,
+          "hitsPerAttack": 1,
+          "attack": 162
+        },
+        {
+          "name": "Self-Destruct 4",
+          "attackSpeed": 0.8,
+          "hitsPerAttack": 1,
+          "attack": 180
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Zeruel (10th Angel)"
+  },
+  "Zetton": {
+    "name": "Zetton",
+    "rarity": 4,
+    "cost": 8,
+    "aliases": [],
+    "evolutions": [],
+    "image": "Zetton.png",
+    "emoji": "1337847441550213160",
+    "movie": "Ultraman",
+    "year": "1966",
+    "unit": {
+      "hp": 1655,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 1.2,
+          "hitsPerAttack": 1,
+          "attack": 33
+        },
+        {
+          "name": "Attack 2",
+          "attackSpeed": 1.2,
+          "hitsPerAttack": 1,
+          "attack": 37
+        },
+        {
+          "name": "Attack 3",
+          "attackSpeed": 1.2,
+          "hitsPerAttack": 1,
+          "attack": 43
+        },
+        {
+          "name": "Attack 4",
+          "attackSpeed": 1.2,
+          "hitsPerAttack": 1,
+          "attack": 50
+        }
+      ]
+    },
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Zetton"
+  },
+  "Zilla": {
+    "name": "Zilla",
+    "rarity": 4,
+    "cost": 3,
+    "aliases": [
+      "Godzilla 1998",
+      "Godzilla 98",
+      "98"
+    ],
+    "evolutions": [],
+    "image": "Zilla.png",
+    "emoji": "1472029378463404137",
+    "movie": "Godzilla: Final Wars",
+    "year": 2004,
+    "unit": {
+      "hp": 983,
+      "attacks": [
+        {
+          "name": "Attack",
+          "attackSpeed": 2,
+          "hitsPerAttack": 1,
+          "attack": 273
+        },
+        {
+          "name": "Attack (Assault Mode)",
+          "attackSpeed": 2,
+          "hitsPerAttack": 1,
+          "inheritsFrom": "Attack",
+          "multiplierValue": 50,
+          "multiplierType": "Percent"
+        }
+      ]
+    },
+    "added": "2026-02-14T00:05:57.615Z",
+    "lastUpdate": "2026-07-06T04:36:01.776Z",
+    "id": "Zilla"
+  }
+}

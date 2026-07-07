@@ -1,3 +1,4 @@
+// 27,943
 const {
     EmbedBuilder,
     ActionRowBuilder,
@@ -14,6 +15,7 @@ const path = require('path');
 const unitDataMap = new Map();
 const searchList = [];
 let unitDataFile = null;
+const upgradeCosts = require('../data/upgradeCosts.js');
 
 function loadUnitDataFile() {
     const unitDataPath = path.join(__dirname, '../data/unitData.json');
@@ -54,6 +56,17 @@ const levelRanges = {
     "20-25": [20, 24],
     "25-30": [25, 29],
     "31-40": [30, 40],
+    "41-50": [41, 50]
+};
+const leaderLevelRanges4Star = {
+    "1-2": [0, 1],
+    "3": [2, 2],
+    "4": [3, 3],
+    "5": [4, 4],
+    "6": [5, 9],
+    "10-20": [10, 19],
+    "20-30": [20, 29],
+    "30-40": [30, 40],
     "41-50": [41, 50]
 };
 
@@ -111,13 +124,14 @@ const leaderUpgradePercent = {
         "41-50": "0.50",
     },
     4: {
-        "1-5": "2",
-        "5-10": "3",
-        "10-15": "3",
-        "15-20": "3",
-        "20-25": "2",
-        "25-30": "2",
-        "31-40": "0.50",
+        "1-2": "15",
+        "3": "12",
+        "4": "10",
+        "5": "9",
+        "6": "1",
+        "10-20": "0.5",
+        "20-30": "2",
+        "30-40": "0.50",
     },
 };
 
@@ -171,10 +185,10 @@ function calculateStat(level, unitRarity, stat, isLeader = false) {
     let currentLevel = 1;
     let lastRange = null;
     let percent, leaderPercent;
-
+    let levelRangeSet = isLeader && unitRarity === 4 ? leaderLevelRanges4Star : levelRanges;
     while (currentLevel < level) {
-        const rangeKey = Object.keys(levelRanges).find(range => {
-            const [min, max] = levelRanges[range];
+        const rangeKey = Object.keys(levelRangeSet).find(range => {
+            const [min, max] = levelRangeSet[range];
             return currentLevel >= min && currentLevel <= max;
         });
 
@@ -197,22 +211,65 @@ function calculateDPS(attack, speed) {
     return parseInt(attacksPerSecond * attack);
 }
 
+function getUpgradeCostData(rarity, level) {
+    const rarityKey = `${rarity}Star`;
+    const costData = upgradeCosts[rarityKey];
+
+    if (!costData) return null;
+
+    // Find the cost data for this specific level
+    const levelData = costData.find(entry => parseInt(entry.level) === parseInt(level));
+
+    if (!levelData) return null;
+
+    return {
+        level: parseInt(level),
+        cost: parseInt(levelData.cost),
+        pieces: parseInt(levelData.pieces)
+    };
+}
+
+function calculateCumulativeCosts(rarity, toLevel) {
+    const rarityKey = `${rarity}Star`;
+    const costData = upgradeCosts[rarityKey];
+
+    if (!costData) return null;
+
+    let totalCost = 0;
+    let totalPieces = 0;
+
+    // Sum up costs from level 2 to toLevel (level 1 is free)
+    for (let level = 2; level <= toLevel; level++) {
+        const levelData = costData.find(entry => parseInt(entry.level) === level);
+        if (levelData) {
+            totalCost += parseInt(levelData.cost);
+            totalPieces += parseInt(levelData.pieces);
+        }
+    }
+
+    return {
+        totalCost,
+        totalPieces,
+        toLevel
+    };
+}
+
 function getAttacks(options) {
-    const { attacks, level, unitRarity, returnJSON = false } = options;
+    const { attacks, level, unitRarity, returnJSON = false, isLeader = false } = options;
 
     const attackMap = {};
     attacks.forEach(attack => {
         attackMap[attack.name] = attack;
     });
 
-    function calculateAttackValue(attack) {
+    function calculateAttackValue(attack, useLeaderStats = isLeader) {
         if (attack.inheritsFrom) {
             const parentAttack = attackMap[attack.inheritsFrom];
             if (!parentAttack) {
                 throw new Error(`Parent attack "${attack.inheritsFrom}" not found for attack "${attack.name}"`);
             }
 
-            const parentAttackValue = calculateAttackValue(parentAttack);
+            const parentAttackValue = calculateAttackValue(parentAttack, useLeaderStats);
 
             if (attack.multiplierType === "Percent") {
 
@@ -231,7 +288,7 @@ function getAttacks(options) {
                 return parentAttackValue + attack.multiplierValue;
             }
         } else {
-            return calculateStat(level, unitRarity, attack.attack);
+            return calculateStat(level, unitRarity, attack.attack, useLeaderStats);
         }
     }
 
@@ -311,6 +368,32 @@ function createSpawnedUnitFields(unitData, level, unitRarity) {
     return fields;
 }
 
+function createUpgradeCostField(level, unitRarity, maxLevel) {
+    const cumulative = calculateCumulativeCosts(unitRarity, level);
+
+    if (!cumulative) return null;
+
+    let value = ``;
+
+    if (level < maxLevel) {
+        const nextLevelCost = getUpgradeCostData(unitRarity, level + 1);
+        if (nextLevelCost) {
+            value += `\n\n**Next Level (${level} → ${level + 1})**\n`;
+            value += `<:gTokens:1451811345640067255> **G-Tokens** \`${nextLevelCost.cost.toLocaleString()}\`\n`;
+            value += `**Pieces** \`${nextLevelCost.pieces.toLocaleString()}\``;
+        }
+    }
+    value += `\n**Cumulative Cost (Level 1 → ${level})**\n`;
+    value += `<:gTokens:1451811345640067255> **G-Tokens** \`${cumulative.totalCost.toLocaleString()}\`\n`;
+    value += `**Pieces** \`${cumulative.totalPieces.toLocaleString()}\``;
+
+    return {
+        name: `__**Upgrade Costs**__`,
+        value: value,
+        inline: false
+    };
+}
+
 function createAllFields(unitData, level, unitRarity, emoji) {
     let fields = [];
 
@@ -321,21 +404,23 @@ function createAllFields(unitData, level, unitRarity, emoji) {
     }
 
     // Leader fields
-    // if (unitData.leader) {
-    //     const leaderHealth = calculateStat(level, unitRarity, unitData.leader.hp, true);
-    //     const leaderAttacks = getAttacks({
-    //         attacks: unitData.leader.attacks,
-    //         level,
-    //         unitRarity,
-    //         returnJSON: false
-    //     });
+    if (unitData.leader) {
+        const leaderHealth = calculateStat(level, unitRarity, unitData.leader.hp, true);
+        const leaderAttacks = getAttacks({
+            attacks: unitData.leader.attacks,
+            level,
+            unitRarity,
+            returnJSON: false,
+            isLeader: true
+        });
 
-    //     fields.push({
-    //         name: `${emoji} __**Leader Stats**__`,
-    //         value: `<:pelops_health:1258999655186960465> **HP** \`${leaderHealth.toLocaleString()}\`\n${leaderAttacks.join('\n')}`,
-    //         inline: false
-    //     });
-    // }
+        fields.push({
+            name: `${emoji} __**Leader Stats**__`,
+            value: `<:pelops_health:1258999655186960465> **HP** \`${leaderHealth.toLocaleString()}\`\n${leaderAttacks.join('\n')}`,
+            inline: false
+        });
+
+    }
 
     if (unitData.spawnedUnit) {
         fields = fields.concat(createSpawnedUnitFields(unitData, level, unitRarity));
@@ -457,7 +542,7 @@ function createEvolutionButtons(unitData, id) {
 function createComponents(unitData, level, maxLevel, id) {
     const components = [];
     components.push(createLevelButtons(level, maxLevel, id));
-    // components.push(createWebsiteLink(unitData));
+    components.push(createWebsiteLink(unitData));
 
     const evolutionBtns = createEvolutionButtons(unitData, id);
     if (evolutionBtns) {
@@ -489,6 +574,12 @@ exports.get = async function (data) {
 
     const fields = createAllFields(unitData, level, unitRarity, emoji);
 
+    // Add upgrade cost field
+    const upgradeCostField = createUpgradeCostField(level, unitRarity, maxLevel);
+    if (upgradeCostField) {
+        fields.push(upgradeCostField);
+    }
+
     const embed = createEmbed(unitData, fields, level);
 
     const components = createComponents(unitData, level, maxLevel, id);
@@ -506,6 +597,8 @@ exports.getAttacks = getAttacks;
 exports.findUnitData = findUnitData;
 exports.getMaxLevel = getMaxLevel;
 exports.reloadUnitData = reloadUnitData;
+exports.getUpgradeCostData = getUpgradeCostData;
+exports.calculateCumulativeCosts = calculateCumulativeCosts;
 
 function getUnitStatsAtLevel(unitData, level) {
     const unitRarity = unitData.rarity;
@@ -538,6 +631,19 @@ function getUnitStatsAtLevel(unitData, level) {
         };
     }
 
+    if (unitData.leader) {
+        result.leader = {
+            hp: calculateStat(level, unitRarity, unitData.leader.hp, true),
+            attacks: getAttacks({
+                attacks: unitData.leader.attacks,
+                level,
+                unitRarity,
+                returnJSON: true,
+                isLeader: true
+            })
+        };
+    }
+
     if (unitData.spawnedUnit) {
         const spawnedUnitData = unitDataMap.get(unitData.spawnedUnit);
         if (spawnedUnitData && spawnedUnitData.unit) {
@@ -553,6 +659,26 @@ function getUnitStatsAtLevel(unitData, level) {
                 }))
             };
         }
+    }
+
+    // Add upgrade cost data - cost to reach this level from previous level
+    if (level > 1) {
+        const upgradeCost = getUpgradeCostData(unitRarity, level);
+        if (upgradeCost) {
+            result.upgradeCost = {
+                gTokens: upgradeCost.cost,
+                pieces: upgradeCost.pieces
+            };
+        }
+    }
+
+    // Add cumulative costs - total cost from level 1 to current level
+    const cumulativeCosts = calculateCumulativeCosts(unitRarity, level);
+    if (cumulativeCosts) {
+        result.cumulativeCost = {
+            gTokens: cumulativeCosts.totalCost,
+            pieces: cumulativeCosts.totalPieces
+        };
     }
 
     return result;
@@ -634,6 +760,7 @@ exports.createStatsEmbed = async function (name, options = {}) {
 
     // Set thumbnail
     const imageLink = `http://api.pelops.app/images/units/${unitData.image}`;
+    console.log('Image link:', imageLink);
     if (imageLink) {
         embed.setThumbnail(imageLink);
     } else {
@@ -801,6 +928,8 @@ exports.getAll = async function (name) {
         allStats.push(getUnitStatsAtLevel(unitData, level));
     }
 
+    // Calculate total upgrade costs to max level
+    const maxLevelCosts = calculateCumulativeCosts(unitData.rarity, maxLevel);
     let unitReturnData = {
         unitName: unitData.name,
         aliases: unitData.aliases || [],
@@ -812,7 +941,13 @@ exports.getAll = async function (name) {
         type: unitData.type,
         evolutions: unitData.evolutions || [],
         youtube: unitData.youtube || null,
-        levelStats: allStats
+        maxLevel: maxLevel,
+        maxLevelUpgradeCosts: maxLevelCosts ? {
+            gTokens: maxLevelCosts.totalCost,
+            pieces: maxLevelCosts.totalPieces
+        } : null,
+        memorySlotColors: unitData?.memorySlotColors || null,
+        levelStats: allStats,
     }
 
     return unitReturnData;

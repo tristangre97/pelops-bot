@@ -4,20 +4,25 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "reverse": "node reverseLevel.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@discordjs/rest": "^1.1.0",
-    "better-sqlite3": "^8.0.1",
-    "discord.js": "^14.9.0",
+    "@discordjs/rest": "^2.5.0",
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "discord.js": "^14.19.3",
+    "express": "^5.1.0",
     "fuse.js": "^6.6.2",
     "humanize-duration": "^3.27.3",
     "ioredis": "^5.3.1",
     "node-cache": "^5.1.2",
-    "openai": "^4.52.3",
-    "quick.db": "^9.0.6",
-    "systeminformation": "^5.12.12"
+    "openai": "^6.10.0",
+    "recursive-routing": "^1.2.1",
+    "sharp": "^0.34.5",
+    "systeminformation": "^5.12.12",
+    "zod": "^4.1.13"
   }
 }
